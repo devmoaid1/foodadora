@@ -12,11 +12,14 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 import '../ui/home/home_view.dart';
+import '../ui/login/login_view.dart';
 
 class Routes {
-  static const String homeScreen = '/';
+  static const String homeScreen = '/home-screen';
+  static const String loginView = '/';
   static const all = <String>{
     homeScreen,
+    loginView,
   };
 }
 
@@ -25,6 +28,7 @@ class StackedRouter extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.homeScreen, page: HomeScreen),
+    RouteDef(Routes.loginView, page: LoginView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -35,6 +39,15 @@ class StackedRouter extends RouterBase {
       );
       return CupertinoPageRoute<dynamic>(
         builder: (context) => HomeScreen(key: args.key),
+        settings: data,
+      );
+    },
+    LoginView: (data) {
+      var args = data.getArgs<LoginViewArguments>(
+        orElse: () => LoginViewArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => LoginView(key: args.key),
         settings: data,
       );
     },
@@ -49,4 +62,10 @@ class StackedRouter extends RouterBase {
 class HomeScreenArguments {
   final Key? key;
   HomeScreenArguments({this.key});
+}
+
+/// LoginView arguments holder class
+class LoginViewArguments {
+  final Key? key;
+  LoginViewArguments({this.key});
 }

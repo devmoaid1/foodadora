@@ -1,6 +1,8 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:foodadora/app/app.router.dart';
+import 'package:foodadora/ui/widgets/style.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 import 'package:stacked_services/stacked_services.dart';
 
@@ -11,11 +13,13 @@ class FoodadoraApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       navigatorKey: StackedService.navigatorKey,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      title: 'Foodadora',
+      theme: mainTheme,
+      localizationsDelegates: const [
+        FormBuilderLocalizations.delegate,
+      ],
       builder: DevicePreview.appBuilder,
       onGenerateRoute: StackedRouter().onGenerateRoute,
     );
