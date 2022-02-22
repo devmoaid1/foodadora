@@ -76,10 +76,10 @@ class AuthService {
     }
   }
 
-  void saveCustomerToFirebase(
-      String id, String name, String email, String phone) {
+  Future<void> saveCustomerToFirebase(
+      String id, String name, String email, String phone) async {
     var options = SetOptions(merge: true);
-    _firestore
+    await _firestore
         .collection('customers')
         .doc(id)
         .set({'name': name, 'email': email, 'phone': phone}, options);

@@ -37,4 +37,19 @@ class SignUpViewModel extends BaseViewModel {
       dialogService.showDialog(title: "something went wrong");
     }
   }
+
+  void phoneForm(
+      {String? id, String? name, String? email, String? phone}) async {
+    setBusy(true);
+    try {
+      await authService.saveCustomerToFirebase(
+          id.toString(), name.toString(), email.toString(), phone.toString());
+      setBusy(false);
+
+      navigationService.replaceWith(Routes.homeScreen);
+    } catch (err) {
+      logger.e(err.toString());
+      dialogService.showDialog(title: "something went wrong");
+    }
+  }
 }

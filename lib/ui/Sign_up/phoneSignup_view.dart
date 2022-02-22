@@ -81,13 +81,17 @@ class PhoneSignUpScreen extends StatelessWidget {
                     FoodadoraButton(
                         label: 'Create account',
                         onPressed: () async {
-                          // var result = await viewmodel.submitPhoneForm(
-                          //     user.user.uid,
-                          //     user.user.displayName,
-                          //     user.user.email);
-                          // if (result == '') return;
-                          // if (result == 'success')
-                          //   Navigator.pushReplacementNamed(context, homeRoute);
+                          _phoneFormKey.currentState!.save();
+                          if (_phoneFormKey.currentState!.validate()) {
+                            final phone =
+                                _phoneFormKey.currentState!.value['phone'];
+
+                            model.phoneForm(
+                                email: user!.user!.email,
+                                id: user!.user!.uid,
+                                name: user!.user!.displayName,
+                                phone: phone);
+                          }
                         })
                   ],
                 ),
