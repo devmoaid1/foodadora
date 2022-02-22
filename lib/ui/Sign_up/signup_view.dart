@@ -144,20 +144,11 @@ class SignUpView extends StatelessWidget {
                             ),
                             padding: EdgeInsets.all(
                                 blockSizeHorizontal(context) * 3),
-                            shape: CircleBorder(),
+                            shape: const CircleBorder(),
                           ),
                           RawMaterialButton(
                             onPressed: () async {
-                              // var result = await viewmodel.googleSignin();
-                              // print('USER FROM SIGNUP $result');
-                              // if (result == null) return;
-                              // if (result.additionalUserInfo.isNewUser) {
-                              //   Navigator.pushNamed(context, phoneRoute,
-                              //       arguments: result);
-                              // } else {
-                              //   Navigator.pushReplacementNamed(
-                              //       context, homeRoute);
-                              // }
+                              model.googleSignUp();
                             },
                             elevation: 2.0,
                             fillColor: Colors.white,
@@ -167,7 +158,7 @@ class SignUpView extends StatelessWidget {
                             ),
                             padding: EdgeInsets.all(
                                 blockSizeHorizontal(context) * 3),
-                            shape: CircleBorder(),
+                            shape: const CircleBorder(),
                           ),
                         ],
                       )

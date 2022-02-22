@@ -1,3 +1,4 @@
+import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:stacked/stacked.dart';
 
@@ -17,6 +18,23 @@ class SignUpViewModel extends BaseViewModel {
     } catch (err) {
       logger.e(err.toString());
       dialogService.showDialog(title: "Something went wrong");
+    }
+  }
+
+  void googleSignUp() async {
+    setBusy(true);
+    try {
+      final result = await authService.signInWithGoogle();
+
+      if (result.additionalUserInfo!.isNewUser) {
+        navigationService.navigateTo(Routes.phoneSignUpScreen,
+            arguments: PhoneSignUpScreenArguments(user: result));
+      } else {
+        navigationService.replaceWith(Routes.homeScreen);
+      }
+    } catch (err) {
+      logger.e(err.toString());
+      dialogService.showDialog(title: "something went wrong");
     }
   }
 }

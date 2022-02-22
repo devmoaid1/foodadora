@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:foodadora/models/customer.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
@@ -22,24 +23,27 @@ class AuthService {
   }
 
   Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
     try {
+      // Trigger the authentication flow
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser!.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
 
       // Create a new credential
-      final OAuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
       );
 
       // Once signed in, return the UserCredential
       return await _instance.signInWithCredential(credential);
-    } on FirebaseAuthException catch (e) {
-      logger.e("error", e.message, e.stackTrace);
+    } on PlatformException catch (e) {
+      logger.e(
+        "error",
+        e.message,
+      );
       throw e.message.toString();
     }
   }
