@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:foodadora/models/customer.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 
@@ -43,15 +44,31 @@ class AuthService {
     }
   }
 
-  Future<UserCredential> signUp({String? email, String? password}) async {
+  Future<UserCredential> signUp(
+      {String? email, String? password, String? name, String? phone}) async {
     try {
       final newUser = await _instance.createUserWithEmailAndPassword(
           email: email.toString(), password: password.toString());
+
+      addCustomerToFirebase(
+          email: newUser.user!.email, name: name, phone: phone);
 
       return newUser;
     } on FirebaseAuthException catch (e) {
       logger.e("error", e.message, e.stackTrace);
       throw e.message.toString();
+    }
+  }
+
+  void addCustomerToFirebase({String? email, String? name, String? phone}) {
+    Customer newCustomer =
+        Customer(email: email, name: name, phoneNumber: phone);
+
+    try {
+      _firestore.collection('customers').add(newCustomer.toJson());
+    } on FirebaseException catch (err) {
+      logger.e(err.message.toString());
+      throw err.message.toString();
     }
   }
 

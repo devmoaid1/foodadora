@@ -3,6 +3,10 @@ import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginViewModel extends BaseViewModel {
+  void navigateToSignUpScreen() {
+    navigationService.navigateTo(Routes.signUpView);
+  }
+
   void emailLogin({String? email, String? password}) async {
     try {
       await authService.emailLogin(email: email, password: password);
