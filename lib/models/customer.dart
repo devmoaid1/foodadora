@@ -5,6 +5,7 @@ part 'customer.g.dart';
 @JsonSerializable()
 class Customer {
   final String? name;
+  final String? userId;
   final String? email;
   final String? phoneNumber;
   final String? photoUrl;
@@ -14,6 +15,7 @@ class Customer {
 
   Customer(
       {this.name,
+      this.userId,
       this.email,
       this.phoneNumber,
       this.cart,

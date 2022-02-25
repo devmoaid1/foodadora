@@ -37,8 +37,10 @@ class AuthService {
         idToken: googleAuth?.idToken,
       );
 
+      final userCrediential = await _instance.signInWithCredential(credential);
+
       // Once signed in, return the UserCredential
-      return await _instance.signInWithCredential(credential);
+      return userCrediential;
     } on PlatformException catch (e) {
       logger.e(
         "error",
@@ -55,7 +57,10 @@ class AuthService {
           email: email.toString(), password: password.toString());
 
       addCustomerToFirebase(
-          email: newUser.user!.email, name: name, phone: phone);
+          email: newUser.user!.email,
+          name: name,
+          phone: phone,
+          id: newUser.user!.uid);
 
       return newUser;
     } on FirebaseAuthException catch (e) {
@@ -64,26 +69,35 @@ class AuthService {
     }
   }
 
-  void addCustomerToFirebase({String? email, String? name, String? phone}) {
-    Customer newCustomer =
-        Customer(email: email, name: name, phoneNumber: phone);
+  Future<void> addCustomerToFirebase(
+      {String? id,
+      String? email,
+      String? name,
+      String? phone,
+      String? photoUrl}) async {
+    Customer newCustomer = Customer(
+        userId: id,
+        email: email,
+        name: name,
+        phoneNumber: phone,
+        photoUrl: photoUrl);
 
     try {
-      _firestore.collection('customers').add(newCustomer.toJson());
+      await _firestore.collection('customers').add(newCustomer.toJson());
     } on FirebaseException catch (err) {
       logger.e(err.message.toString());
       throw err.message.toString();
     }
   }
 
-  Future<void> saveCustomerToFirebase(
-      String id, String name, String email, String phone) async {
-    var options = SetOptions(merge: true);
-    await _firestore
-        .collection('customers')
-        .doc(id)
-        .set({'name': name, 'email': email, 'phone': phone}, options);
-  }
+  // Future<void> saveCustomerToFirebase(
+  //     String id, String name, String email, String phone) async {
+  //   var options = SetOptions(merge: true);
+  //   await _firestore
+  //       .collection('customers')
+  //       .doc(id)
+  //       .set({'name': name, 'email': email, 'phone': phone}, options);
+  // }
 
   Future<void> logout() async {
     try {

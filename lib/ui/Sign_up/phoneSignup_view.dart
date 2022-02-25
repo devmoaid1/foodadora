@@ -90,7 +90,8 @@ class PhoneSignUpScreen extends StatelessWidget {
                                 email: user!.user!.email,
                                 id: user!.user!.uid,
                                 name: user!.user!.displayName,
-                                phone: phone);
+                                phone: phone,
+                                url: user!.user!.photoURL);
                           }
                         })
                   ],

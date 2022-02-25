@@ -12,8 +12,8 @@ class LoginViewModel extends BaseViewModel {
       await authService.emailLogin(email: email, password: password);
 
       setBusy(false);
-
-      navigationService.navigateTo(Routes.homeScreen);
+      navigationService.replaceWith(Routes.profileScreen);
+      // navigationService.navigateTo(Routes.homeScreen);
     } catch (e) {
       dialogService.showDialog(title: e.toString());
     }
@@ -28,7 +28,7 @@ class LoginViewModel extends BaseViewModel {
         navigationService.navigateTo(Routes.phoneSignUpScreen,
             arguments: PhoneSignUpScreenArguments(user: result));
       } else {
-        navigationService.replaceWith(Routes.homeScreen);
+        navigationService.replaceWith(Routes.profileScreen);
       }
       setBusy(false);
     } catch (e) {

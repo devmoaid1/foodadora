@@ -30,7 +30,7 @@ class SignUpViewModel extends BaseViewModel {
         navigationService.navigateTo(Routes.phoneSignUpScreen,
             arguments: PhoneSignUpScreenArguments(user: result));
       } else {
-        navigationService.replaceWith(Routes.homeScreen);
+        navigationService.replaceWith(Routes.profileScreen);
       }
     } catch (err) {
       logger.e(err.toString());
@@ -39,12 +39,18 @@ class SignUpViewModel extends BaseViewModel {
   }
 
   void phoneForm(
-      {String? id, String? name, String? email, String? phone}) async {
+      {String? id,
+      String? name,
+      String? email,
+      String? phone,
+      String? url}) async {
     setBusy(true);
     try {
-      await authService.saveCustomerToFirebase(
-          id.toString(), name.toString(), email.toString(), phone.toString());
+      await authService.addCustomerToFirebase(
+          email: email, name: name, phone: phone, photoUrl: url);
       setBusy(false);
+
+      dialogService.showDialog(title: "success!");
 
       navigationService.replaceWith(Routes.homeScreen);
     } catch (err) {

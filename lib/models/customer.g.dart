@@ -8,6 +8,7 @@ part of 'customer.dart';
 
 Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
       name: json['name'] as String?,
+      userId: json['userId'] as String?,
       email: json['email'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
       cart: (json['cart'] as List<dynamic>?)
@@ -21,6 +22,7 @@ Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
 
 Map<String, dynamic> _$CustomerToJson(Customer instance) => <String, dynamic>{
       'name': instance.name,
+      'userId': instance.userId,
       'email': instance.email,
       'phoneNumber': instance.phoneNumber,
       'photoUrl': instance.photoUrl,
