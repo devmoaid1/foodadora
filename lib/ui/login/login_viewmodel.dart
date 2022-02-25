@@ -23,11 +23,12 @@ class LoginViewModel extends BaseViewModel {
     setBusy(true);
     try {
       final result = await authService.signInWithGoogle();
-      print(result.additionalUserInfo!.isNewUser);
-      if (result == null) return;
-      if (!result.additionalUserInfo!.isNewUser) {
+
+      if (result.additionalUserInfo!.isNewUser) {
         navigationService.navigateTo(Routes.phoneSignUpScreen,
             arguments: PhoneSignUpScreenArguments(user: result));
+      } else {
+        navigationService.replaceWith(Routes.homeScreen);
       }
       setBusy(false);
     } catch (e) {
