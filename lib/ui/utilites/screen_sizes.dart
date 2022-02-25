@@ -12,6 +12,12 @@ const Widget verticalSpaceRegular = SizedBox(height: 16.0);
 const Widget verticalSpaceMedium = SizedBox(height: 32.0);
 const Widget verticalSpaceLarge = SizedBox(height: 64.0);
 
+double blockSizeVertical(BuildContext context) =>
+    MediaQuery.of(context).size.height / 100;
+
+double blockSizeHorizontal(BuildContext context) =>
+    MediaQuery.of(context).size.width / 100;
+
 // Screen Size helpers
 
 double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;

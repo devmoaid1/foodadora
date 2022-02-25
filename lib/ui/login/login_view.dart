@@ -77,7 +77,9 @@ class LoginView extends StatelessWidget {
                             children: [
                               TextButton(
                                 child: const Text('New User?'),
-                                onPressed: () {},
+                                onPressed: () {
+                                  model.navigateToSignUpScreen();
+                                },
                               ),
                               TextButton(
                                   child: const Text('Forgot Password?'),
