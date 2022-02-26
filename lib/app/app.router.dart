@@ -16,17 +16,20 @@ import '../ui/Sign_up/phoneSignup_view.dart';
 import '../ui/Sign_up/signup_view.dart';
 import '../ui/home/home_view.dart';
 import '../ui/login/login_view.dart';
+import '../ui/profile/profile_view.dart';
 
 class Routes {
   static const String homeScreen = '/home-screen';
   static const String loginView = '/';
   static const String signUpView = '/sign-up-view';
   static const String phoneSignUpScreen = '/phone-sign-up-screen';
+  static const String profileScreen = '/profile-screen';
   static const all = <String>{
     homeScreen,
     loginView,
     signUpView,
     phoneSignUpScreen,
+    profileScreen,
   };
 }
 
@@ -38,6 +41,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.signUpView, page: SignUpView),
     RouteDef(Routes.phoneSignUpScreen, page: PhoneSignUpScreen),
+    RouteDef(Routes.profileScreen, page: ProfileScreen),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -78,6 +82,12 @@ class StackedRouter extends RouterBase {
           key: args.key,
           user: args.user,
         ),
+        settings: data,
+      );
+    },
+    ProfileScreen: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const ProfileScreen(),
         settings: data,
       );
     },

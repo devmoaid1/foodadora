@@ -6,7 +6,9 @@ import 'package:foodadora/ui/utilites/screen_sizes.dart';
 class FoodadoraTextField extends StatelessWidget {
   final String? label;
   final String? name;
+  final String? intialValue;
   final IconData? icon;
+  final bool? readOnly;
   final TextInputType? inputType;
   final bool isObsecure;
   final TextInputAction? textInputAction;
@@ -14,6 +16,8 @@ class FoodadoraTextField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   const FoodadoraTextField({
     Key? key,
+    this.readOnly = false,
+    this.intialValue,
     required this.name,
     @required this.label,
     @required this.icon,
@@ -29,6 +33,8 @@ class FoodadoraTextField extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: (screenWidth(context) / 100) * 2),
       child: FormBuilderTextField(
+        initialValue: intialValue,
+        readOnly: readOnly as bool,
         name: name.toString(),
         onSaved: onSaved,
         validator: validator,
