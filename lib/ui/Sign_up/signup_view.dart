@@ -5,8 +5,10 @@ import 'package:foodadora/ui/Sign_up/signup_viewModel.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:foodadora/ui/widgets/foodadora_textfield.dart';
+import 'package:foodadora/ui/widgets/regex.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:stacked/stacked.dart';
 
 class SignUpView extends StatelessWidget {
@@ -18,156 +20,166 @@ class SignUpView extends StatelessWidget {
       viewModelBuilder: () => signUpViewModel,
       disposeViewModel: false,
       builder: (context, model, child) {
-        return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            toolbarHeight: blockSizeVertical(context) * 10,
-            backgroundColor: Colors.white,
-            leading: IconButton(
-                icon: Icon(
-                  LineIcons.angleLeft,
-                  color: Theme.of(context).primaryColor,
-                  size: blockSizeHorizontal(context) * 8,
-                ),
-                onPressed: () => Navigator.pop(context)),
-            title: Padding(
-              padding: EdgeInsets.all(blockSizeHorizontal(context)),
-              child: Image.asset(
-                'assets/images/sublogo.png',
-                height: blockSizeVertical(context) * 8.5,
-              ),
-            ),
-            elevation: 0,
-          ),
-          body: SafeArea(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: blockSizeVertical(context) * 3,
-                    horizontal: blockSizeHorizontal(context) * 5),
-                child: Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        'SIGN UP',
-                        style: TextStyle(
-                            fontFamily: 'Raleway',
-                            fontWeight: FontWeight.w500,
-                            fontSize: blockSizeHorizontal(context) * 6),
-                      ),
-                      SizedBox(height: blockSizeVertical(context) * 2),
-                      FormBuilder(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              FoodadoraTextField(
-                                name: 'name',
-                                label: 'Name',
-                                icon: LineIcons.signature,
-                                inputType: TextInputType.text,
-                                validator: FormBuilderValidators.compose([
-                                  FormBuilderValidators.required(context,
-                                      errorText: "name is Required")
-                                ]),
-                              ),
-                              FoodadoraTextField(
-                                name: "email",
-                                label: 'Email',
-                                icon: LineIcons.envelope,
-                                inputType: TextInputType.emailAddress,
-                                validator: FormBuilderValidators.compose([
-                                  FormBuilderValidators.required(context,
-                                      errorText: "Email is Required"),
-                                  FormBuilderValidators.email(context)
-                                ]),
-                              ),
-                              FoodadoraTextField(
-                                name: 'password',
-                                label: 'Password',
-                                icon: LineIcons.key,
-                                inputType: TextInputType.text,
-                                isObsecure: true,
-                                validator: FormBuilderValidators.compose([
-                                  FormBuilderValidators.required(context,
-                                      errorText: "password is Required"),
-                                ]),
-                              ),
-                              FoodadoraTextField(
-                                name: 'phoneNumber',
-                                label: 'Phone Number',
-                                icon: LineIcons.mobilePhone,
-                                inputType: TextInputType.phone,
-                                textInputAction: TextInputAction.done,
-                                validator: FormBuilderValidators.compose([
-                                  FormBuilderValidators.required(context,
-                                      errorText: "phone is Required"),
-                                ]),
-                              ),
-                            ],
-                          )),
-                      SizedBox(height: blockSizeVertical(context) * 2),
-                      FoodadoraButton(
-                        label: 'Signup',
-                        onPressed: () {
-                          _formKey.currentState!.save();
-
-                          if (_formKey.currentState!.validate()) {
-                            final name = _formKey.currentState!.value['name'];
-
-                            final email = _formKey.currentState!.value['email'];
-                            final password =
-                                _formKey.currentState!.value['password'];
-                            final phoneNumber =
-                                _formKey.currentState!.value['phoneNumber'];
-
-                            model.signUpNewUser(
-                                email: email,
-                                name: name,
-                                password: password,
-                                phoneNumber: phoneNumber);
-                          }
-                        },
-                      ),
-                      SizedBox(height: blockSizeVertical(context) * 2),
-                      _buildOrRow(context),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RawMaterialButton(
-                            onPressed: () {},
-                            elevation: 2.0,
-                            fillColor: Color(0xff3b5998),
-                            child: Image.asset(
-                              'assets/icons/facebook.png',
-                              color: Colors.white,
-                              width: blockSizeHorizontal(context) * 9,
-                            ),
-                            padding: EdgeInsets.all(
-                                blockSizeHorizontal(context) * 3),
-                            shape: const CircleBorder(),
-                          ),
-                          RawMaterialButton(
-                            onPressed: () async {
-                              model.googleSignUp();
-                            },
-                            elevation: 2.0,
-                            fillColor: Colors.white,
-                            child: Image.asset(
-                              'assets/icons/google.png',
-                              width: blockSizeHorizontal(context) * 9,
-                            ),
-                            padding: EdgeInsets.all(
-                                blockSizeHorizontal(context) * 3),
-                            shape: const CircleBorder(),
-                          ),
-                        ],
-                      )
-                    ],
+        return ModalProgressHUD(
+          inAsyncCall: model.isLoading,
+          progressIndicator: const CircularProgressIndicator(),
+          child: Scaffold(
+              appBar: AppBar(
+                centerTitle: true,
+                toolbarHeight: blockSizeVertical(context) * 10,
+                backgroundColor: Colors.white,
+                leading: IconButton(
+                    icon: Icon(
+                      LineIcons.angleLeft,
+                      color: Theme.of(context).primaryColor,
+                      size: blockSizeHorizontal(context) * 8,
+                    ),
+                    onPressed: () => Navigator.pop(context)),
+                title: Padding(
+                  padding: EdgeInsets.all(blockSizeHorizontal(context)),
+                  child: Image.asset(
+                    'assets/images/sublogo.png',
+                    height: blockSizeVertical(context) * 8.5,
                   ),
                 ),
+                elevation: 0,
               ),
-            ),
-          ),
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: blockSizeVertical(context) * 3,
+                        horizontal: blockSizeHorizontal(context) * 5),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            'SIGN UP',
+                            style: TextStyle(
+                                fontFamily: 'Raleway',
+                                fontWeight: FontWeight.w500,
+                                fontSize: blockSizeHorizontal(context) * 6),
+                          ),
+                          SizedBox(height: blockSizeVertical(context) * 2),
+                          FormBuilder(
+                              key: _formKey,
+                              child: Column(
+                                children: [
+                                  FoodadoraTextField(
+                                    name: 'name',
+                                    label: 'Name',
+                                    icon: LineIcons.signature,
+                                    inputType: TextInputType.text,
+                                    validator: FormBuilderValidators.compose([
+                                      FormBuilderValidators.required(context,
+                                          errorText: "name is Required")
+                                    ]),
+                                  ),
+                                  FoodadoraTextField(
+                                    name: "email",
+                                    label: 'Email',
+                                    icon: LineIcons.envelope,
+                                    inputType: TextInputType.emailAddress,
+                                    validator: FormBuilderValidators.compose([
+                                      FormBuilderValidators.required(context,
+                                          errorText: "Email is Required"),
+                                      FormBuilderValidators.email(context)
+                                    ]),
+                                  ),
+                                  FoodadoraTextField(
+                                    name: 'password',
+                                    label: 'Password',
+                                    icon: LineIcons.key,
+                                    inputType: TextInputType.text,
+                                    isObsecure: true,
+                                    validator: FormBuilderValidators.compose([
+                                      FormBuilderValidators.required(context,
+                                          errorText: "password is Required"),
+                                      FormBuilderValidators.minLength(
+                                          context, 8,
+                                          errorText: "password is too short")
+                                    ]),
+                                  ),
+                                  FoodadoraTextField(
+                                    name: 'phoneNumber',
+                                    label: 'Phone Number',
+                                    icon: LineIcons.mobilePhone,
+                                    inputType: TextInputType.phone,
+                                    textInputAction: TextInputAction.done,
+                                    validator: FormBuilderValidators.compose([
+                                      FormBuilderValidators.required(context,
+                                          errorText: "phone is Required"),
+                                      FormBuilderValidators.match(context,
+                                          FoodadoraRegExp.phone.pattern)
+                                    ]),
+                                  ),
+                                ],
+                              )),
+                          SizedBox(height: blockSizeVertical(context) * 2),
+                          FoodadoraButton(
+                            label: 'Signup',
+                            onPressed: () {
+                              _formKey.currentState!.save();
+
+                              if (_formKey.currentState!.validate()) {
+                                final name =
+                                    _formKey.currentState!.value['name'];
+
+                                final email =
+                                    _formKey.currentState!.value['email'];
+                                final password =
+                                    _formKey.currentState!.value['password'];
+                                final phoneNumber =
+                                    _formKey.currentState!.value['phoneNumber'];
+
+                                model.signUpNewUser(
+                                    email: email,
+                                    name: name,
+                                    password: password,
+                                    phoneNumber: phoneNumber);
+                              }
+                            },
+                          ),
+                          SizedBox(height: blockSizeVertical(context) * 2),
+                          _buildOrRow(context),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RawMaterialButton(
+                                onPressed: () {},
+                                elevation: 2.0,
+                                fillColor: Color(0xff3b5998),
+                                child: Image.asset(
+                                  'assets/icons/facebook.png',
+                                  color: Colors.white,
+                                  width: blockSizeHorizontal(context) * 9,
+                                ),
+                                padding: EdgeInsets.all(
+                                    blockSizeHorizontal(context) * 3),
+                                shape: const CircleBorder(),
+                              ),
+                              RawMaterialButton(
+                                onPressed: () async {
+                                  model.googleSignUp();
+                                },
+                                elevation: 2.0,
+                                fillColor: Colors.white,
+                                child: Image.asset(
+                                  'assets/icons/google.png',
+                                  width: blockSizeHorizontal(context) * 9,
+                                ),
+                                padding: EdgeInsets.all(
+                                    blockSizeHorizontal(context) * 3),
+                                shape: const CircleBorder(),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )),
         );
       },
     );

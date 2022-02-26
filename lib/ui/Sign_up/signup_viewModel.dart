@@ -3,17 +3,31 @@ import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:stacked/stacked.dart';
 
 class SignUpViewModel extends BaseViewModel {
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+
+  void setLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
   void signUpNewUser(
       {String? email,
       String? password,
       String? name,
       String? phoneNumber}) async {
     setBusy(true);
+    setLoading(true);
     try {
       final result = await authService.signUp(
-          email: email, name: name, password: password, phone: phoneNumber);
+          email: email!.trim(),
+          name: name,
+          password: password!.trim(),
+          phone: phoneNumber);
 
       setBusy(false);
+      setLoading(false);
       dialogService.showDialog(title: "SignUp success ${result.user!.uid}");
     } catch (err) {
       logger.e(err.toString());
@@ -45,14 +59,14 @@ class SignUpViewModel extends BaseViewModel {
       String? phone,
       String? url}) async {
     setBusy(true);
+    setLoading(true);
     try {
       await authService.addCustomerToFirebase(
-          email: email, name: name, phone: phone, photoUrl: url);
+          id: id, email: email, name: name, phone: phone, photoUrl: url);
       setBusy(false);
-
-      dialogService.showDialog(title: "success!");
-
+      setLoading(true);
       navigationService.replaceWith(Routes.homeScreen);
+      dialogService.showDialog(title: "success!");
     } catch (err) {
       logger.e(err.toString());
       dialogService.showDialog(title: "something went wrong");
