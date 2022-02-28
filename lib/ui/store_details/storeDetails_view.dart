@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
 import 'package:foodadora/ui/widgets/product_item.dart';
@@ -67,145 +67,32 @@ class StoreDetailsScreen extends StatelessWidget {
               height: blockSizeVertical(context) * 2,
             ),
             GridView.builder(
-                physics: const ScrollPhysics(),
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisSpacing: 9,
-                  mainAxisExtent: 320,
-                  // childAspectRatio:
-                  //     screenWidthPercentage(context, percentage: 0.9) /
-                  //         screenHeightPercentage(context),
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 4,
-                ),
-                itemCount: 4,
-                itemBuilder: (context, index) => Stack(children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: blockSizeHorizontal(context) * 3,
-                            vertical: blockSizeVertical(context) * 3),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.grey[400] as Color, width: 1),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: screenWidth(context),
-                              height: screenHeightPercentage(context,
-                                  percentage: 0.16),
-                              child: Image(
-                                fit: BoxFit.fill,
-                                image: NetworkImage(
-                                    "https://i.guim.co.uk/img/media/0b456c985e97aefa34b2e90bd8d598b0c15e76c5/0_233_5200_3119/master/5200.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=66dd95318ebe033c904b3f07f784d9b7"),
-                              ),
-                            ),
-                            Container(
-                              height: blockSizeVertical(context) * 5,
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: const Color(0xffFBF4E0),
-                                borderRadius: BorderRadius.circular(
-                                  blockSizeHorizontal(context) * 2,
-                                ),
-                              ),
-                              child: Image.network(
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/AEON_logo.svg/1280px-AEON_logo.svg.png",
-                                width: screenWidth(context) / 7,
-                              ),
-                            ),
-                            Text(
-                              "Tuna Can",
-                              style: TextStyle(
-                                  fontSize: blockSizeHorizontal(context) * 5,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: Text("11.00 RM",
-                                      style: TextStyle(
-                                        fontSize:
-                                            blockSizeHorizontal(context) * 5,
-                                        color: const Color(0xffFF0000),
-                                      )),
-                                ),
-                                Expanded(
-                                    flex: 2,
-                                    child: Text(
-                                      "11.00 ",
-                                      style: TextStyle(
-                                        fontSize:
-                                            blockSizeHorizontal(context) * 4,
-                                        decoration: TextDecoration.lineThrough,
-                                        color: const Color(0xffAEAEAE),
-                                      ),
-                                    ))
-                              ],
-                            ),
-                            SizedBox(
-                              height: blockSizeVertical(context) * 2,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: const Color(0xffF46317),
-                                  borderRadius: BorderRadius.circular(
-                                    20,
-                                  )),
-                              child: Padding(
-                                padding: EdgeInsets.all(
-                                    blockSizeHorizontal(context) * 2),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(Assets.expiryicon),
-                                    SizedBox(
-                                        width: blockSizeHorizontal(context)),
-                                    Container(
-                                      width: screenWidth(context) / 3 -
-                                          blockSizeHorizontal(context) * 12.5,
-                                      child: const FittedBox(
-                                        fit: BoxFit.fitWidth,
-                                        child: Expanded(
-                                          child: Text(
-                                            'Expires in 3 weeks',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: RawMaterialButton(
-                          onPressed: () {},
-                          elevation: 0,
-                          fillColor: Color(0xff08A5D2),
-                          child: Padding(
-                            padding: EdgeInsets.all(
-                                blockSizeHorizontal(context) * 2),
-                            child: Icon(
-                              LineIcons.addToShoppingCart,
-                              color: Colors.white,
-                              size: blockSizeHorizontal(context) * 8,
-                            ),
-                          ),
-                          shape: CircleBorder(),
-                        ),
-                      )
-                    ]))
+              physics: const ScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisSpacing: 9,
+                mainAxisExtent:
+                    screenHeightPercentage(context, percentage: 0.47),
+                // childAspectRatio:
+                //     screenWidthPercentage(context, percentage: 0.9) /
+                //         screenHeightPercentage(context),
+                crossAxisCount: 2,
+                mainAxisSpacing: 4,
+              ),
+              itemCount: 4,
+              itemBuilder: (context, index) => ProductItem(
+                productImageUrl:
+                    'https://i.guim.co.uk/img/media/0b456c985e97aefa34b2e90bd8d598b0c15e76c5/0_233_5200_3119/master/5200.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=66dd95318ebe033c904b3f07f784d9b7',
+                storeImageUrl:
+                    'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/AEON_logo.svg/1280px-AEON_logo.svg.png',
+                productName: 'Tuna Can',
+                productPrice: 8.2020,
+                originalPrice: 11.909,
+                expiryWeeks: 3,
+                onButtonPressed: () {},
+                onTapped: () {},
+              ),
+            )
           ]),
     );
   }

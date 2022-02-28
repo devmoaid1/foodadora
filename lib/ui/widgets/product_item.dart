@@ -31,111 +31,107 @@ class ProductItem extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: onTapped,
-          child: Card(
-            child: Container(
-              width: blockSizeHorizontal(context) * 50,
-              child: Padding(
-                padding: EdgeInsets.all(blockSizeHorizontal(context) * 2),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          child: Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: blockSizeHorizontal(context) * 3,
+                vertical: blockSizeVertical(context) * 3),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey[300] as Color, width: 2),
+                borderRadius: BorderRadius.circular(12)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  width: screenWidth(context),
+                  height: screenHeightPercentage(context, percentage: 0.16),
+                  child: Image(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(productImageUrl.toString()),
+                  ),
+                ),
+                SizedBox(height: blockSizeVertical(context)),
+                Container(
+                  height: blockSizeVertical(context) * 4,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xffFBF4E0),
+                    borderRadius: BorderRadius.circular(
+                      blockSizeHorizontal(context) * 2,
+                    ),
+                  ),
+                  child: Image.network(
+                    storeImageUrl.toString(),
+                    width: screenWidth(context) / 7,
+                  ),
+                ),
+                SizedBox(height: blockSizeVertical(context)),
+                Text(
+                  productName.toString(),
+                  style: TextStyle(
+                      fontSize: blockSizeHorizontal(context) * 5,
+                      fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Center(
-                      child: Image.network(
-                        productImageUrl.toString(),
-                        height: blockSizeVertical(context) * 15,
-                      ),
+                    Expanded(
+                      flex: 4,
+                      child: Text('${productPrice!.toStringAsFixed(2)} RM',
+                          style: TextStyle(
+                              fontSize: blockSizeHorizontal(context) * 5,
+                              color: const Color(0xffFF0000),
+                              fontWeight: FontWeight.w600)),
                     ),
-                    SizedBox(height: blockSizeVertical(context)),
-                    Container(
-                      height: blockSizeVertical(context) * 4,
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: const Color(0xffFBF4E0),
-                        borderRadius: BorderRadius.circular(
-                          blockSizeHorizontal(context) * 2,
-                        ),
-                      ),
-                      child: Image.network(
-                        storeImageUrl.toString(),
-                        width: screenWidth(context) / 7,
-                      ),
-                    ),
-                    SizedBox(height: blockSizeVertical(context)),
-                    Text(
-                      productName.toString(),
-                      style: TextStyle(
-                        fontSize: blockSizeHorizontal(context) * 5,
-                      ),
-                    ),
-                    Container(
-                      width: screenWidth(context) / 2 -
-                          blockSizeHorizontal(context) * 5,
-                      child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'RM ${productPrice!.toStringAsFixed(2)}',
-                              style: TextStyle(
-                                fontSize: blockSizeHorizontal(context) * 7,
-                                color: const Color(0xffFF0000),
-                              ),
-                            ),
-                            SizedBox(width: blockSizeHorizontal(context) * 5),
-                            Text(
-                              'RM ${originalPrice!.toStringAsFixed(2)}',
-                              style: TextStyle(
-                                fontSize: blockSizeHorizontal(context) * 4,
-                                decoration: TextDecoration.lineThrough,
-                                color: Color(0xffAEAEAE),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: blockSizeVertical(context)),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: const Color(0xffF46317),
-                          borderRadius: BorderRadius.circular(
-                            20,
-                          )),
-                      child: Padding(
-                        padding:
-                            EdgeInsets.all(blockSizeHorizontal(context) * 2),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(Assets.expiryicon),
-                            SizedBox(width: blockSizeHorizontal(context)),
-                            Container(
-                              width: screenWidth(context) / 3 -
-                                  blockSizeHorizontal(context) * 5,
-                              child: FittedBox(
-                                fit: BoxFit.fitWidth,
-                                child: Text(
-                                  'Expires in $expiryWeeks weeks',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
+                    Expanded(
+                        flex: 2,
+                        child: Text(
+                          '${originalPrice!.toStringAsFixed(2)}',
+                          style: TextStyle(
+                            fontSize: blockSizeHorizontal(context) * 4,
+                            decoration: TextDecoration.lineThrough,
+                            color: const Color(0xffAEAEAE),
+                          ),
+                        ))
                   ],
                 ),
-              ),
+                SizedBox(height: blockSizeVertical(context) * 2),
+                Container(
+                  decoration: BoxDecoration(
+                      color: const Color(0xffF46317),
+                      borderRadius: BorderRadius.circular(
+                        20,
+                      )),
+                  child: Padding(
+                    padding: EdgeInsets.all(blockSizeHorizontal(context) * 2),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(Assets.expiryicon),
+                        SizedBox(width: blockSizeHorizontal(context)),
+                        Container(
+                          width: screenWidth(context) / 3 -
+                              blockSizeHorizontal(context) * 13,
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              'Expires in $expiryWeeks weeks',
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
         ),
-        Positioned(
-          right: -blockSizeHorizontal(context) * 8,
-          top: -blockSizeVertical(context) * 2,
+        Align(
+          alignment: Alignment.topRight,
           child: RawMaterialButton(
             onPressed: onButtonPressed,
             elevation: 0,
