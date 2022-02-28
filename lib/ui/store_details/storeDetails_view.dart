@@ -97,18 +97,3 @@ class StoreDetailsScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-// ProductItem(
-//               productImageUrl:
-//                   'https://i.guim.co.uk/img/media/0b456c985e97aefa34b2e90bd8d598b0c15e76c5/0_233_5200_3119/master/5200.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=66dd95318ebe033c904b3f07f784d9b7',
-//               storeImageUrl:
-//                   'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/AEON_logo.svg/1280px-AEON_logo.svg.png',
-//               productName: 'Tuna Can',
-//               productPrice: 8.2020,
-//               originalPrice: 11.909,
-//               expiryWeeks: 3,
-//               onButtonPressed: () {},
-//               onTapped: () {},
-//             ),
