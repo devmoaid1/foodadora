@@ -14,7 +14,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      child: Container(
+      child: SizedBox(
         height: 70,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -42,7 +42,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           iconPath,
           height: 35,
           color: widget.selectedItemIndex == index
-              ? Color(0xff08A8DB)
+              ? const Color(0xff08A8DB)
               : Colors.black,
         ),
       ),

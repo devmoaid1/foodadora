@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
 
+import '../utilites/size_config.dart';
+
 class StoreCircle extends StatelessWidget {
-  final String? imageUrl;
-  final Function()? onPressed;
-  const StoreCircle({
-    @required this.imageUrl,
-    @required this.onPressed,
-  });
+  final String imageUrl;
+  final void Function() onPressed;
+
+  const StoreCircle({Key? key, required this.imageUrl, required this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class StoreCircle extends StatelessWidget {
           ),
         ),
         elevation: 2,
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
         clipBehavior: Clip.antiAlias,
       ),
     );
