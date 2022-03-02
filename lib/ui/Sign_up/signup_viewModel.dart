@@ -30,6 +30,7 @@ class SignUpViewModel extends BaseViewModel {
       setLoading(false);
       dialogService.showDialog(title: "SignUp success ${result.user!.uid}");
     } catch (err) {
+      setLoading(false);
       logger.e(err.toString());
       dialogService.showDialog(title: "Something went wrong");
     }
@@ -68,6 +69,7 @@ class SignUpViewModel extends BaseViewModel {
       navigationService.replaceWith(Routes.homeScreen);
       dialogService.showDialog(title: "success!");
     } catch (err) {
+      setLoading(false);
       logger.e(err.toString());
       dialogService.showDialog(title: "something went wrong");
     }

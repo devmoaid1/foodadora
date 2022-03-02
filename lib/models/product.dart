@@ -6,6 +6,7 @@ part 'product.g.dart';
 class Product {
   final int? storeId;
   final String? productName;
+  final String? description;
   final double? productPrice;
   final DateTime? expiryDate;
   final int? quantity;
@@ -15,6 +16,7 @@ class Product {
 
   Product(
       {this.productName,
+      this.description,
       this.originalPrice,
       this.expiryDate,
       this.isAvailable,

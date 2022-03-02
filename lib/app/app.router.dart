@@ -12,16 +12,19 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import '../models/product.dart';
 import '../ui/Sign_up/phoneSignup_view.dart';
 import '../ui/Sign_up/signup_view.dart';
 import '../ui/home/home_view.dart';
 import '../ui/login/login_view.dart';
+import '../ui/product_details/product_details_view.dart';
 import '../ui/profile/profile_view.dart';
 import '../ui/store_details/storeDetails_view.dart';
 import '../ui/widgets/authentication_wrapper/authentication_wrapper.dart';
 
 class Routes {
   static const String homeScreen = '/home-screen';
+  static const String productDetailsView = '/product-details-view';
   static const String authenticationWrapper = '/';
   static const String loginView = '/login-view';
   static const String signUpView = '/sign-up-view';
@@ -30,6 +33,7 @@ class Routes {
   static const String storeDetailsScreen = '/store-details-screen';
   static const all = <String>{
     homeScreen,
+    productDetailsView,
     authenticationWrapper,
     loginView,
     signUpView,
@@ -44,6 +48,7 @@ class StackedRouter extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.homeScreen, page: HomeScreen),
+    RouteDef(Routes.productDetailsView, page: ProductDetailsView),
     RouteDef(Routes.authenticationWrapper, page: AuthenticationWrapper),
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.signUpView, page: SignUpView),
@@ -60,6 +65,16 @@ class StackedRouter extends RouterBase {
       );
       return CupertinoPageRoute<dynamic>(
         builder: (context) => HomeScreen(key: args.key),
+        settings: data,
+      );
+    },
+    ProductDetailsView: (data) {
+      var args = data.getArgs<ProductDetailsViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => ProductDetailsView(
+          key: args.key,
+          product: args.product,
+        ),
         settings: data,
       );
     },
@@ -122,6 +137,13 @@ class StackedRouter extends RouterBase {
 class HomeScreenArguments {
   final Key? key;
   HomeScreenArguments({this.key});
+}
+
+/// ProductDetailsView arguments holder class
+class ProductDetailsViewArguments {
+  final Key? key;
+  final Product product;
+  ProductDetailsViewArguments({this.key, required this.product});
 }
 
 /// LoginView arguments holder class

@@ -28,6 +28,7 @@ class LoginViewModel extends BaseViewModel {
       // navigationService.navigateTo(Routes.homeScreen);
     } catch (e) {
       setBusy(false);
+      setLoading(false);
       dialogService.showDialog(title: e.toString());
     }
   }
@@ -46,6 +47,7 @@ class LoginViewModel extends BaseViewModel {
       }
     } catch (e) {
       setBusy(false);
+      setLoading(false);
       logger.e(e.toString(), e.toString());
       dialogService.showDialog(title: "something went wrong");
     }
