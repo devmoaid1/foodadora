@@ -39,7 +39,7 @@ class ProductDetailsView extends StatelessWidget {
                             fontSize: blockSizeHorizontal(context) * 5),
                       ),
                       Text(
-                        "${product.originalPrice} RM",
+                        "${product.originalPrice!.toStringAsFixed(2)} RM",
                         style: GoogleFonts.poppins(
                             fontSize: blockSizeHorizontal(context) * 6,
                             color: Color(0xffFF0000)),
