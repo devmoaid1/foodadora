@@ -18,16 +18,19 @@ import '../ui/home/home_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/profile/profile_view.dart';
 import '../ui/store_details/storeDetails_view.dart';
+import '../ui/widgets/authentication_wrapper/authentication_wrapper.dart';
 
 class Routes {
   static const String homeScreen = '/home-screen';
-  static const String loginView = '/';
+  static const String authenticationWrapper = '/';
+  static const String loginView = '/login-view';
   static const String signUpView = '/sign-up-view';
   static const String phoneSignUpScreen = '/phone-sign-up-screen';
   static const String profileScreen = '/profile-screen';
   static const String storeDetailsScreen = '/store-details-screen';
   static const all = <String>{
     homeScreen,
+    authenticationWrapper,
     loginView,
     signUpView,
     phoneSignUpScreen,
@@ -41,6 +44,7 @@ class StackedRouter extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.homeScreen, page: HomeScreen),
+    RouteDef(Routes.authenticationWrapper, page: AuthenticationWrapper),
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.signUpView, page: SignUpView),
     RouteDef(Routes.phoneSignUpScreen, page: PhoneSignUpScreen),
@@ -56,6 +60,12 @@ class StackedRouter extends RouterBase {
       );
       return CupertinoPageRoute<dynamic>(
         builder: (context) => HomeScreen(key: args.key),
+        settings: data,
+      );
+    },
+    AuthenticationWrapper: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const AuthenticationWrapper(),
         settings: data,
       );
     },

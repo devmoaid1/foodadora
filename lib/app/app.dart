@@ -2,7 +2,8 @@
   CupertinoRoute(
     page: HomeScreen,
   ),
-  CupertinoRoute(page: LoginView, initial: true),
+  CupertinoRoute(page: AuthenticationWrapper, initial: true),
+  CupertinoRoute(page: LoginView),
   CupertinoRoute(
     page: SignUpView,
   ),
@@ -29,5 +30,6 @@ import 'package:foodadora/ui/home/home_view.dart';
 import 'package:foodadora/ui/login/login_view.dart';
 import 'package:foodadora/ui/profile/profile_view.dart';
 import 'package:foodadora/ui/store_details/storeDetails_view.dart';
+import 'package:foodadora/ui/widgets/authentication_wrapper/authentication_wrapper.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
