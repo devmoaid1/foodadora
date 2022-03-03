@@ -24,7 +24,7 @@ class LoginViewModel extends BaseViewModel {
       setBusy(false);
       setLoading(false);
 
-      navigationService.replaceWith(Routes.storeDetailsScreen);
+      navigationService.replaceWith(Routes.ordersScreen);
       // navigationService.navigateTo(Routes.homeScreen);
     } catch (e) {
       setBusy(false);

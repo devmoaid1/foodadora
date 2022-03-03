@@ -17,6 +17,7 @@ import '../ui/Sign_up/phoneSignup_view.dart';
 import '../ui/Sign_up/signup_view.dart';
 import '../ui/home/home_view.dart';
 import '../ui/login/login_view.dart';
+import '../ui/orders/orders_view.dart';
 import '../ui/product_details/product_details_view.dart';
 import '../ui/profile/profile_view.dart';
 import '../ui/store_details/storeDetails_view.dart';
@@ -25,6 +26,7 @@ import '../ui/widgets/authentication_wrapper/authentication_wrapper.dart';
 class Routes {
   static const String homeScreen = '/home-screen';
   static const String productDetailsView = '/product-details-view';
+  static const String ordersScreen = '/orders-screen';
   static const String authenticationWrapper = '/';
   static const String loginView = '/login-view';
   static const String signUpView = '/sign-up-view';
@@ -34,6 +36,7 @@ class Routes {
   static const all = <String>{
     homeScreen,
     productDetailsView,
+    ordersScreen,
     authenticationWrapper,
     loginView,
     signUpView,
@@ -49,6 +52,7 @@ class StackedRouter extends RouterBase {
   final _routes = <RouteDef>[
     RouteDef(Routes.homeScreen, page: HomeScreen),
     RouteDef(Routes.productDetailsView, page: ProductDetailsView),
+    RouteDef(Routes.ordersScreen, page: OrdersScreen),
     RouteDef(Routes.authenticationWrapper, page: AuthenticationWrapper),
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.signUpView, page: SignUpView),
@@ -75,6 +79,12 @@ class StackedRouter extends RouterBase {
           key: args.key,
           product: args.product,
         ),
+        settings: data,
+      );
+    },
+    OrdersScreen: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const OrdersScreen(),
         settings: data,
       );
     },

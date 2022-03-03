@@ -5,6 +5,9 @@
   CupertinoRoute(
     page: ProductDetailsView,
   ),
+  CupertinoRoute(
+    page: OrdersScreen,
+  ),
   CupertinoRoute(page: AuthenticationWrapper, initial: true),
   CupertinoRoute(page: LoginView),
   CupertinoRoute(
@@ -31,6 +34,7 @@ import 'package:foodadora/ui/Sign_up/phoneSignup_view.dart';
 import 'package:foodadora/ui/Sign_up/signup_view.dart';
 import 'package:foodadora/ui/home/home_view.dart';
 import 'package:foodadora/ui/login/login_view.dart';
+import 'package:foodadora/ui/orders/orders_view.dart';
 import 'package:foodadora/ui/product_details/product_details_view.dart';
 import 'package:foodadora/ui/profile/profile_view.dart';
 import 'package:foodadora/ui/store_details/storeDetails_view.dart';
