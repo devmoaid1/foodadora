@@ -20,7 +20,7 @@ class StoreCircle extends StatelessWidget {
           height: screenWidthPercentage(context, percentage: 0.22),
           padding: EdgeInsets.all(blockSizeHorizontal(context) * 5),
           child: Image.asset(
-            imageUrl.toString(),
+            imageUrl,
             fit: BoxFit.contain,
             errorBuilder: (context, error, stackTrace) => Image.asset(
               'assets/images/foodadora_seller.png',

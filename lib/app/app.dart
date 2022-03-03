@@ -28,11 +28,13 @@
   LazySingleton(classType: DialogService),
   LazySingleton(classType: AuthService),
   LazySingleton(classType: ProfileService),
+  LazySingleton(classType: StoreService),
 ], logger: StackedLogger())
 
 // flutter pub run build_runner build --delete-conflicting-outputs   this command for generator
 import 'package:foodadora/services/auth_Service.dart';
 import 'package:foodadora/services/profile_service.dart';
+import 'package:foodadora/services/store_service.dart';
 import 'package:foodadora/ui/Sign_up/phoneSignup_view.dart';
 import 'package:foodadora/ui/Sign_up/signup_view.dart';
 import 'package:foodadora/ui/cart/cart_view.dart';
