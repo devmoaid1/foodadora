@@ -114,7 +114,7 @@ class LoginView extends StatelessWidget {
                                 RawMaterialButton(
                                   onPressed: () {},
                                   elevation: 2.0,
-                                  fillColor: Color(0xff3b5998),
+                                  fillColor: const Color(0xff3b5998),
                                   child: Image.asset(
                                     'assets/icons/facebook.png',
                                     color: Colors.white,
@@ -122,7 +122,7 @@ class LoginView extends StatelessWidget {
                                   ),
                                   padding: EdgeInsets.all(
                                       (screenWidth(context) / 100) * 3),
-                                  shape: CircleBorder(),
+                                  shape: const CircleBorder(),
                                 ),
                                 RawMaterialButton(
                                   onPressed: () {
@@ -136,7 +136,7 @@ class LoginView extends StatelessWidget {
                                   ),
                                   padding: EdgeInsets.all(
                                       (screenWidth(context) / 100) * 3),
-                                  shape: CircleBorder(),
+                                  shape: const CircleBorder(),
                                 ),
                               ],
                             )

@@ -15,6 +15,7 @@ import 'package:stacked/stacked_annotations.dart';
 import '../models/product.dart';
 import '../ui/Sign_up/phoneSignup_view.dart';
 import '../ui/Sign_up/signup_view.dart';
+import '../ui/cart/cart_view.dart';
 import '../ui/home/home_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/orders/orders_view.dart';
@@ -27,6 +28,7 @@ class Routes {
   static const String homeScreen = '/home-screen';
   static const String productDetailsView = '/product-details-view';
   static const String ordersScreen = '/orders-screen';
+  static const String cartScreen = '/cart-screen';
   static const String authenticationWrapper = '/';
   static const String loginView = '/login-view';
   static const String signUpView = '/sign-up-view';
@@ -37,6 +39,7 @@ class Routes {
     homeScreen,
     productDetailsView,
     ordersScreen,
+    cartScreen,
     authenticationWrapper,
     loginView,
     signUpView,
@@ -53,6 +56,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.homeScreen, page: HomeScreen),
     RouteDef(Routes.productDetailsView, page: ProductDetailsView),
     RouteDef(Routes.ordersScreen, page: OrdersScreen),
+    RouteDef(Routes.cartScreen, page: CartScreen),
     RouteDef(Routes.authenticationWrapper, page: AuthenticationWrapper),
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.signUpView, page: SignUpView),
@@ -85,6 +89,12 @@ class StackedRouter extends RouterBase {
     OrdersScreen: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const OrdersScreen(),
+        settings: data,
+      );
+    },
+    CartScreen: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => CartScreen(),
         settings: data,
       );
     },
