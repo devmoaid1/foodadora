@@ -19,7 +19,7 @@ class StoreCircle extends StatelessWidget {
           width: screenWidthPercentage(context, percentage: 0.22),
           height: screenWidthPercentage(context, percentage: 0.22),
           padding: EdgeInsets.all(blockSizeHorizontal(context) * 5),
-          child: Image.asset(
+          child: Image.network(
             imageUrl,
             fit: BoxFit.contain,
             errorBuilder: (context, error, stackTrace) => Image.asset(

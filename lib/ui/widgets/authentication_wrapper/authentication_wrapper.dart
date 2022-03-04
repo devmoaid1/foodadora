@@ -4,6 +4,7 @@ import 'package:foodadora/ui/home/home_view.dart';
 import 'package:foodadora/ui/login/login_view.dart';
 import 'package:foodadora/ui/profile/profile_view.dart';
 import 'package:foodadora/ui/store_details/storeDetails_view.dart';
+import 'package:foodadora/ui/stores/stores_view.dart';
 import 'package:foodadora/ui/widgets/authentication_wrapper/authintication_wrapper_viewModel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -19,7 +20,7 @@ class AuthenticationWrapper extends StatelessWidget {
             stream: model.currentUser,
             builder: (context, AsyncSnapshot<User?> snapShot) {
               if (snapShot.hasData) {
-                return HomeScreen();
+                return const StoresScreen();
               }
 
               return LoginView();

@@ -22,6 +22,7 @@ import '../ui/orders/orders_view.dart';
 import '../ui/product_details/product_details_view.dart';
 import '../ui/profile/profile_view.dart';
 import '../ui/store_details/storeDetails_view.dart';
+import '../ui/stores/stores_view.dart';
 import '../ui/widgets/authentication_wrapper/authentication_wrapper.dart';
 
 class Routes {
@@ -34,6 +35,7 @@ class Routes {
   static const String signUpView = '/sign-up-view';
   static const String phoneSignUpScreen = '/phone-sign-up-screen';
   static const String profileScreen = '/profile-screen';
+  static const String storesScreen = '/stores-screen';
   static const String storeDetailsScreen = '/store-details-screen';
   static const all = <String>{
     homeScreen,
@@ -45,6 +47,7 @@ class Routes {
     signUpView,
     phoneSignUpScreen,
     profileScreen,
+    storesScreen,
     storeDetailsScreen,
   };
 }
@@ -62,6 +65,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.signUpView, page: SignUpView),
     RouteDef(Routes.phoneSignUpScreen, page: PhoneSignUpScreen),
     RouteDef(Routes.profileScreen, page: ProfileScreen),
+    RouteDef(Routes.storesScreen, page: StoresScreen),
     RouteDef(Routes.storeDetailsScreen, page: StoreDetailsScreen),
   ];
   @override
@@ -137,6 +141,12 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    StoresScreen: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const StoresScreen(),
+        settings: data,
+      );
+    },
     StoreDetailsScreen: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const StoreDetailsScreen(),
@@ -149,12 +159,6 @@ class StackedRouter extends RouterBase {
 /// ************************************************************************
 /// Arguments holder classes
 /// *************************************************************************
-
-/// HomeScreen arguments holder class
-class HomeScreenArguments {
-  final Key? key;
-  HomeScreenArguments({this.key});
-}
 
 /// ProductDetailsView arguments holder class
 class ProductDetailsViewArguments {

@@ -4,7 +4,7 @@ import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/ui/store_details/storeDetails_viewModel.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
-import 'package:foodadora/ui/widgets/product_item.dart';
+import 'package:foodadora/ui/widgets/product_card.dart';
 import 'package:foodadora/ui/widgets/store_circle.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
@@ -85,7 +85,7 @@ class StoreDetailsScreen extends StatelessWidget {
                   mainAxisSpacing: 4,
                 ),
                 itemCount: 4,
-                itemBuilder: (context, index) => ProductItem(
+                itemBuilder: (context, index) => ProductCard(
                   productImageUrl:
                       'https://i.guim.co.uk/img/media/0b456c985e97aefa34b2e90bd8d598b0c15e76c5/0_233_5200_3119/master/5200.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=66dd95318ebe033c904b3f07f784d9b7',
                   storeImageUrl:

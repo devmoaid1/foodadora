@@ -6,7 +6,7 @@ import 'package:foodadora/ui/utilites/screen_sizes.dart';
 
 import 'package:line_icons/line_icons.dart';
 
-class ProductItem extends StatelessWidget {
+class ProductCard extends StatelessWidget {
   final String? productImageUrl;
   final String? storeImageUrl;
   final String? productName;
@@ -15,7 +15,7 @@ class ProductItem extends StatelessWidget {
   final int? expiryWeeks;
   final Function()? onTapped;
   final Function()? onButtonPressed;
-  const ProductItem(
+  const ProductCard(
       {@required this.productImageUrl,
       @required this.storeImageUrl,
       @required this.productName,

@@ -1,7 +1,9 @@
 import 'package:foodadora/app/app.locator.dart';
 import 'package:foodadora/services/auth_Service.dart';
 import 'package:foodadora/services/profile_service.dart';
+import 'package:foodadora/services/store_service.dart';
 import 'package:foodadora/ui/Sign_up/signup_viewModel.dart';
+import 'package:foodadora/ui/stores/stores_viewModel.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -12,10 +14,12 @@ final navigationService = locator<NavigationService>();
 final dialogService = locator<DialogService>();
 final authService = locator<AuthService>();
 final profileService = locator<ProfileService>();
+final storeService = locator<StoreService>();
 
 //viewModels
 
 final SignUpViewModel signUpViewModel = SignUpViewModel();
+final StoresViewModel storesViewModel = StoresViewModel();
 
 //logger
 
