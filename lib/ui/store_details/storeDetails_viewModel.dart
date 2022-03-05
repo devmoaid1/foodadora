@@ -4,6 +4,31 @@ import 'package:foodadora/models/product.dart';
 import 'package:stacked/stacked.dart';
 
 class StoreDetailsViewModel extends BaseViewModel {
+  List<Product> _storeProducts = [];
+  bool _isLoading = false;
+
+  bool get loading => _isLoading;
+  List<Product> get storeProducts => _storeProducts;
+
+  void setLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
+  void getStoreProducts({required String storeId}) async {
+    setBusy(true);
+    setLoading(true);
+    try {
+      _storeProducts = await storeService.getStoreProducts(storeId);
+      setBusy(false);
+      setLoading(false);
+    } catch (err) {
+      setBusy(false);
+      setLoading(false);
+      logger.e(err.toString());
+    }
+  }
+
   void navigateToProductDetails({Product? product}) {
     navigationService.navigateTo(Routes.productDetailsView,
         arguments: ProductDetailsViewArguments(product: product as Product));

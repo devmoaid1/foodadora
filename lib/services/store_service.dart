@@ -22,10 +22,8 @@ class StoreService extends BaseService {
   Future<Store?> getStoreById(String id) async {
     Store store = Store();
     try {
-      var fetchedStore = await firestore
-          .collection('stores')
-          .where('storeId', isEqualTo: id)
-          .get();
+      var fetchedStore =
+          await firestore.collection('stores').where('id', isEqualTo: id).get();
 
       for (var element in fetchedStore.docs) {
         store = Store.fromJson(element.data());

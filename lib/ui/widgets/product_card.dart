@@ -66,34 +66,47 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: blockSizeVertical(context)),
-                Text(
-                  productName.toString(),
-                  style: TextStyle(
-                      fontSize: blockSizeHorizontal(context) * 5,
-                      fontWeight: FontWeight.bold),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 4,
-                      child: Text('${productPrice!.toStringAsFixed(2)} RM',
-                          style: TextStyle(
-                              fontSize: blockSizeHorizontal(context) * 5,
-                              color: const Color(0xffFF0000),
-                              fontWeight: FontWeight.w600)),
+                Container(
+                  width: screenWidth(context),
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      productName.toString(),
+                      style: TextStyle(
+                          fontSize: blockSizeHorizontal(context) * 5,
+                          fontWeight: FontWeight.bold),
                     ),
-                    Expanded(
-                        flex: 2,
-                        child: Text(
-                          '${originalPrice!.toStringAsFixed(2)}',
+                  ),
+                ),
+                SizedBox(
+                  height: blockSizeVertical(context),
+                ),
+                SizedBox(
+                  width: screenWidth(context),
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'RM ${productPrice!.toStringAsFixed(2)}',
+                          style: TextStyle(
+                            fontSize: blockSizeHorizontal(context) * 7,
+                            color: const Color(0xffFF0000),
+                          ),
+                        ),
+                        SizedBox(width: blockSizeHorizontal(context) * 5),
+                        Text(
+                          'RM ${originalPrice!.toStringAsFixed(2)}',
                           style: TextStyle(
                             fontSize: blockSizeHorizontal(context) * 4,
                             decoration: TextDecoration.lineThrough,
                             color: const Color(0xffAEAEAE),
                           ),
-                        ))
-                  ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 SizedBox(height: blockSizeVertical(context) * 2),
                 Container(

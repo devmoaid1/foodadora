@@ -10,16 +10,16 @@ class ProductImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: blockSizeHorizontal(context),
+          horizontal: blockSizeHorizontal(context) * 3,
           vertical: blockSizeVertical(context) * 5),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             width: screenWidth(context),
             height: screenHeightPercentage(context, percentage: 0.25),
             child: Image(
-              image: AssetImage(productimage.toString()),
+              image: NetworkImage(productimage.toString()),
               fit: BoxFit.fill,
             ),
           ),

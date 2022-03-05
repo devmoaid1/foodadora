@@ -10,16 +10,15 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       productName: json['productName'] as String?,
       description: json['description'] as String?,
       originalPrice: (json['originalPrice'] as num?)?.toDouble(),
-      expiryDate: json['expiryDate'] == null
-          ? null
-          : DateTime.parse(json['expiryDate'] as String),
+      expiryDate:
+          Product._dateTimeFromTimestamp(json['expiryDate'] as Timestamp),
       isAvailable: json['isAvailable'] as bool?,
       productPrice: (json['productPrice'] as num?)?.toDouble(),
       productImages: (json['productImages'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      quantity: json['quantity'] as int?,
-      storeId: json['storeId'] as int?,
+      quantity: int.parse(json['quantity'].toString()),
+      storeId: json['storeId'] as String?,
     );
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
@@ -27,7 +26,7 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'productName': instance.productName,
       'description': instance.description,
       'productPrice': instance.productPrice,
-      'expiryDate': instance.expiryDate?.toIso8601String(),
+      'expiryDate': Product._dateTimeAsIs(instance.expiryDate),
       'quantity': instance.quantity,
       'productImages': instance.productImages,
       'isAvailable': instance.isAvailable,

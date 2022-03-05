@@ -1,3 +1,4 @@
+import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/store.dart';
 import 'package:stacked/stacked.dart';
@@ -12,6 +13,11 @@ class StoresViewModel extends BaseViewModel {
   void setLoading(bool value) {
     _isLoading = value;
     notifyListeners();
+  }
+
+  void navigateToStoreDetails({required Store store}) {
+    navigationService.navigateTo(Routes.storeDetailsScreen,
+        arguments: StoreDetailsScreenArguments(store: store));
   }
 
   void getStoresList() async {

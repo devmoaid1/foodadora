@@ -13,6 +13,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 import '../models/product.dart';
+import '../models/store.dart';
 import '../ui/Sign_up/phoneSignup_view.dart';
 import '../ui/Sign_up/signup_view.dart';
 import '../ui/cart/cart_view.dart';
@@ -148,8 +149,12 @@ class StackedRouter extends RouterBase {
       );
     },
     StoreDetailsScreen: (data) {
+      var args = data.getArgs<StoreDetailsScreenArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const StoreDetailsScreen(),
+        builder: (context) => StoreDetailsScreen(
+          key: args.key,
+          store: args.store,
+        ),
         settings: data,
       );
     },
@@ -184,4 +189,11 @@ class PhoneSignUpScreenArguments {
   final Key? key;
   final UserCredential? user;
   PhoneSignUpScreenArguments({this.key, this.user});
+}
+
+/// StoreDetailsScreen arguments holder class
+class StoreDetailsScreenArguments {
+  final Key? key;
+  final Store store;
+  StoreDetailsScreenArguments({this.key, required this.store});
 }

@@ -83,7 +83,10 @@ class StoresScreen extends StatelessWidget {
             Expanded(
               child: StoreCircle(
                 imageUrl: viewmodel.stores[index].logoUrl.toString(),
-                onPressed: () {},
+                onPressed: () {
+                  viewmodel.navigateToStoreDetails(
+                      store: viewmodel.stores[index]);
+                },
               ),
             ),
             SizedBox(height: blockSizeVertical(context)),
