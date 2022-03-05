@@ -86,7 +86,7 @@ class StoresScreen extends StatelessWidget {
                 onPressed: () {},
               ),
             ),
-            SizedBox(height: blockSizeVertical(context) * 2),
+            SizedBox(height: blockSizeVertical(context)),
             Text(
               viewmodel.stores[index].storeName.toString(),
               style: TextStyle(fontSize: blockSizeHorizontal(context) * 5),

@@ -16,6 +16,7 @@ class StoreCircle extends StatelessWidget {
       onTap: onPressed,
       child: Material(
         child: Container(
+          color: Colors.white,
           width: screenWidthPercentage(context, percentage: 0.22),
           height: screenWidthPercentage(context, percentage: 0.22),
           padding: EdgeInsets.all(blockSizeHorizontal(context) * 5),
