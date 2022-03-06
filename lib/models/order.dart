@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:foodadora/models/product.dart';
+import 'package:foodadora/models/utilities/dateTime_converters.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'order.g.dart';
 
@@ -10,7 +12,12 @@ class Order {
   List<Product>? products;
 
   double? totalPrice;
+
+  @JsonKey(
+      fromJson: DateTimeConverters.dateTimeFromTimestamp,
+      toJson: DateTimeConverters.dateTimeAsIs)
   DateTime? orderDate;
+
   String? status;
 
   Order(

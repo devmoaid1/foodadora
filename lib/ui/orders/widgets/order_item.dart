@@ -43,7 +43,7 @@ class OrderItem extends StatelessWidget {
               SizedBox(height: blockSizeVertical(context)),
               OrderTextRow(
                 title: 'Order Total:',
-                value: 'RM ${orderTotal.toStringAsFixed(2)}',
+                value: 'RM ${orderTotal.toStringAsFixed(1)}',
               ),
               SizedBox(height: blockSizeVertical(context) * 2),
               OrderTextRow(

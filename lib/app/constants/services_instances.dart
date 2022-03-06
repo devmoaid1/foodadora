@@ -1,5 +1,6 @@
 import 'package:foodadora/app/app.locator.dart';
 import 'package:foodadora/services/auth_Service.dart';
+import 'package:foodadora/services/orders_services.dart';
 import 'package:foodadora/services/profile_service.dart';
 import 'package:foodadora/services/store_service.dart';
 import 'package:foodadora/ui/Sign_up/signup_viewModel.dart';
@@ -15,6 +16,7 @@ final dialogService = locator<DialogService>();
 final authService = locator<AuthService>();
 final profileService = locator<ProfileService>();
 final storeService = locator<StoreService>();
+final ordersService = locator<OrderService>();
 
 //viewModels
 

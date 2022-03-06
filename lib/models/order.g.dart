@@ -14,9 +14,8 @@ Order _$OrderFromJson(Map<String, dynamic> json) => Order(
           ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
           .toList(),
       totalPrice: (json['totalPrice'] as num?)?.toDouble(),
-      orderDate: json['orderDate'] == null
-          ? null
-          : DateTime.parse(json['orderDate'] as String),
+      orderDate: DateTimeConverters.dateTimeFromTimestamp(
+          json['orderDate'] as Timestamp),
       status: json['status'] as String?,
     );
 
@@ -26,6 +25,6 @@ Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{
       'storeId': instance.storeId,
       'products': instance.products?.map((e) => e.toJson()).toList(),
       'totalPrice': instance.totalPrice,
-      'orderDate': instance.orderDate?.toIso8601String(),
+      'orderDate': DateTimeConverters.dateTimeAsIs(instance.orderDate),
       'status': instance.status,
     };
