@@ -25,8 +25,8 @@ dependencies:
   cloud_firestore: ^3.1.7
   cupertino_icons: ^1.0.2
   device_preview: ^1.0.0
-  dotted_line: ^3.1.0
   dots_indicator: ^2.1.0
+  dotted_line: ^3.1.0
   firebase_auth: ^3.3.6
   firebase_core: ^1.12.0
   flutter:
@@ -41,6 +41,7 @@ dependencies:
   line_icons: ^2.0.1
   logger: ^1.1.0
   modal_progress_hud_nsn: ^0.1.0-nullsafety-1
+  shared_preferences: ^2.0.13
   stacked: ^2.2.8
   stacked_services: ^0.8.16
 
