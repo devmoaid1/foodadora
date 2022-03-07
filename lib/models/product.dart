@@ -17,7 +17,7 @@ class Product {
       toJson: DateTimeConverters.dateTimeAsIs)
   final DateTime? expiryDate;
 
-  final int? quantity;
+  int? quantity;
 
   final List<String>? productImages;
   final bool? isAvailable;

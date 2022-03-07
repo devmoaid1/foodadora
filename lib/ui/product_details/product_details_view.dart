@@ -130,7 +130,11 @@ class ProductDetailsView extends StatelessWidget {
                               ),
                               Center(
                                   child: FoodadoraButton(
-                                      label: "Add to cart", onPressed: () {}))
+                                      label: "Add to cart",
+                                      onPressed: () {
+                                        product.quantity = 1;
+                                        model.addToCart(product: product);
+                                      }))
                             ],
                           ))
                     ]),
