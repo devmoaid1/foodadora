@@ -12,6 +12,18 @@ class CartViewModel extends BaseViewModel {
 
   double get total => _total;
 
+  void fetchCartItems() async {
+    var fetchedItems = await cartService.fetchCartItems();
+
+    cartService.setStream(product: fetchedItems);
+    print(await cartService.cartItems.first);
+
+    notifyListeners();
+    // notifyListeners();
+    // for (var item in fetchedItems) {
+    // }
+  }
+
   void setIsEmpty(bool value) {
     _isEmpty = value;
     notifyListeners();

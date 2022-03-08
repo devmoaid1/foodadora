@@ -6,11 +6,36 @@ import 'package:stacked/stacked.dart';
 class ProductDetailsViewModel extends BaseViewModel {
   Stream<List<Product>> get cart => cartService.cartItems;
   String _storeImage = "";
+  bool _isLoading = false;
+  bool _isAddToCart = false;
+
+  int _quantity = 1;
+
+  bool get isAddToCart => _isAddToCart;
+  int get quantity => _quantity;
 
   String get storeImage => _storeImage;
-  bool _isLoading = false;
 
   bool get loading => _isLoading;
+
+  void setIsAddToCart(bool value) {
+    _isAddToCart = value;
+    notifyListeners();
+  }
+
+  void incrementQunatity({required int productQuantity}) {
+    if (_quantity < productQuantity) {
+      _quantity++;
+      notifyListeners();
+    }
+  }
+
+  void decrementQuantity() {
+    if (_quantity > 1) {
+      _quantity--;
+      notifyListeners();
+    }
+  }
 
   void addToCart({required Product product}) {
     cartService.cartItems.listen((products) {

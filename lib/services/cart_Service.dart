@@ -1,13 +1,51 @@
+import 'package:foodadora/app/constants/services_instances.dart';
+import 'package:foodadora/models/customer.dart';
 import 'package:foodadora/models/product.dart';
+import 'package:foodadora/services/base_service.dart';
 import 'package:rxdart/rxdart.dart';
 
-class CartService {
+class CartService extends BaseService {
   BehaviorSubject<List<Product>> _cartItems = BehaviorSubject();
   List<Product> products = [];
   Stream<List<Product>> get cartItems => _cartItems.stream;
 
+  Customer _currentCustomer = Customer();
+
   CartService() {
     _cartItems.sink.add(products);
+  }
+
+  void getCurrentCustomer() async {
+    _currentCustomer = await profileService.getCustomer();
+  }
+
+  Future<List<Product>> fetchCartItems() async {
+    _currentCustomer = await profileService.getCustomer();
+    var cart = _currentCustomer.cart;
+    var cartItems = cart!.cartItems;
+    List<Product> products = [];
+    if (cartItems != null) {
+      for (var item in cartItems) {
+        var fetchedDocs = await firestore
+            .collection('products')
+            .where('productId', isEqualTo: item.productId)
+            .get();
+
+        for (var doc in fetchedDocs.docs) {
+          products.add(Product.fromJson(doc.data()));
+        }
+      }
+    }
+
+    return products;
+  }
+
+  void setStream({required List<Product> product}) {
+    _cartItems.stream.listen((products) {
+      products.forEach((element) {
+        products.add(element);
+      });
+    });
   }
 
   void addItem(Product product) {

@@ -1,5 +1,6 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/ui/cart/cart_viewmodel.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
@@ -35,8 +36,8 @@ class CartScreen extends StatelessWidget {
           elevation: 0,
         ),
         body: ViewModelBuilder<CartViewModel>.reactive(
-            onModelReady: (model) => model.intit(),
-            viewModelBuilder: () => CartViewModel(),
+            onModelReady: (model) => model.fetchCartItems(),
+            viewModelBuilder: () => cartViewModel,
             builder: (context, model, _) {
               if (model.isEmpty) {
                 return Center(
@@ -68,7 +69,7 @@ class CartScreen extends StatelessWidget {
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               var products = snapshot.data;
-                              print(products!.length);
+                              print(products![0]);
                               if (products.isEmpty) {
                                 model.setIsEmpty(true);
                               } else {
@@ -79,10 +80,6 @@ class CartScreen extends StatelessWidget {
                             }
                             return Container();
                           }),
-                      // const CartItem(),
-                      // const CartItem(),
-                      // const CartItem(),
-                      // const CartItem(),
                       SizedBox(height: blockSizeVertical(context)),
                       Card(
                         color: const Color(0xffF4F4F4),
@@ -236,4 +233,24 @@ class CartItem extends ViewModelWidget<CartViewModel> {
           ),
         ));
   }
+}
+
+Widget buildCartItems({required CartViewModel viewModel}) {
+  List<Widget> cartCards = [];
+  Widget? cartCard;
+  viewModel.items.listen((event) {
+    event.forEach((product) {
+      cartCards.add(CartItem(product: product));
+    });
+  });
+
+  if (cartCards.isEmpty) {
+    viewModel.setIsEmpty(true);
+  }
+
+  for (var cartItem in cartCards) {
+    cartCard = cartItem;
+  }
+
+  return cartCard as Widget;
 }

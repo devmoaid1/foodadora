@@ -6,6 +6,7 @@ import 'package:foodadora/ui/utilites/expiryWeeks.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:stacked/stacked.dart';
 
 import 'widgets/Product_image.dart';
@@ -128,17 +129,95 @@ class ProductDetailsView extends StatelessWidget {
                               SizedBox(
                                 height: blockSizeVertical(context) * 3,
                               ),
-                              Center(
-                                  child: FoodadoraButton(
-                                      label: "Add to cart",
-                                      onPressed: () {
-                                        product.quantity = 1;
-                                        model.addToCart(product: product);
-                                      }))
+                              model.isAddToCart
+                                  ? QuantityRow(
+                                      productQuantity: product.quantity as int,
+                                    )
+                                  : Center(
+                                      child: FoodadoraButton(
+                                          label: "Add to cart",
+                                          onPressed: () {
+                                            model.setIsAddToCart(true);
+                                          }))
                             ],
                           ))
                     ]),
               );
             }));
+  }
+}
+
+class QuantityRow extends ViewModelWidget<ProductDetailsViewModel> {
+  final int productQuantity;
+  const QuantityRow({Key? key, required this.productQuantity})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context, ProductDetailsViewModel viewModel) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        GestureDetector(
+          onTap: () {
+            viewModel.setIsAddToCart(false);
+          },
+          child: CircleAvatar(
+            radius: blockSizeHorizontal(context) * 7,
+            backgroundColor: Colors.deepOrange,
+            child: Icon(
+              Icons.cancel_rounded,
+              size: blockSizeHorizontal(context) * 9,
+            ),
+          ),
+        ),
+        RawMaterialButton(
+          onPressed: () {
+            viewModel.decrementQuantity();
+          },
+          elevation: 0,
+          fillColor: const Color(0xfff9f9f9),
+          child: Padding(
+            padding: EdgeInsets.all(blockSizeHorizontal(context)),
+            child: Icon(
+              LineIcons.minus,
+              color: const Color(0xffa6a6a6),
+              size: blockSizeHorizontal(context) * 9,
+            ),
+          ),
+          shape: const CircleBorder(),
+        ),
+        Text(
+          viewModel.quantity.toString(),
+          style:
+              GoogleFonts.poppins(fontSize: blockSizeHorizontal(context) * 9),
+        ),
+        RawMaterialButton(
+          onPressed: () {
+            viewModel.incrementQunatity(productQuantity: productQuantity);
+          },
+          elevation: 0,
+          fillColor: const Color(0xfff9f9f9),
+          child: Padding(
+            padding: EdgeInsets.all(blockSizeHorizontal(context)),
+            child: Icon(
+              LineIcons.plus,
+              color: const Color(0xffa6a6a6),
+              size: blockSizeHorizontal(context) * 9,
+            ),
+          ),
+          shape: const CircleBorder(),
+        ),
+        GestureDetector(
+          child: CircleAvatar(
+            radius: blockSizeHorizontal(context) * 7,
+            backgroundColor: Colors.blue,
+            child: Icon(
+              LineIcons.check,
+              size: blockSizeHorizontal(context) * 9,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

@@ -11,9 +11,9 @@ Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
       userId: json['userId'] as String?,
       email: json['email'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
-      cart: (json['cart'] as List<dynamic>?)
-          ?.map((e) => e as Map<String, dynamic>)
-          .toList(),
+      cart: json['cart'] == null
+          ? null
+          : Cart.fromJson(json['cart'] as Map<String, dynamic>),
       isVerfied: json['isVerfied'] as bool? ?? true,
       orders:
           (json['orders'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -27,6 +27,6 @@ Map<String, dynamic> _$CustomerToJson(Customer instance) => <String, dynamic>{
       'phoneNumber': instance.phoneNumber,
       'photoUrl': instance.photoUrl,
       'isVerfied': instance.isVerfied,
-      'cart': instance.cart,
+      'cart': instance.cart?.toJson(),
       'orders': instance.orders,
     };

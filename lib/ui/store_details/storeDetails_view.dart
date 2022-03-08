@@ -112,6 +112,7 @@ class StoreDetailsScreen extends StatelessWidget {
                             productImages:
                                 model.storeProducts[index].productImages,
                             storeId: model.storeProducts[index].storeId,
+                            quantity: model.storeProducts[index].quantity,
                             originalPrice:
                                 model.storeProducts[index].originalPrice,
                             expiryDate: model.storeProducts[index].expiryDate,
