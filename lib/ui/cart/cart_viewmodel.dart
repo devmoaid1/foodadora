@@ -38,8 +38,8 @@ class CartViewModel extends BaseViewModel {
       }
     });
 
-    setBusy(false);
     setLoading(false);
+    setBusy(false);
   }
 
   void setIsEmpty(bool value) {

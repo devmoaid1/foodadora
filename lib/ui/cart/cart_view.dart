@@ -70,32 +70,22 @@ class CartScreen extends StatelessWidget {
                             fontSize: blockSizeHorizontal(context) * 8),
                       ),
                       SizedBox(height: blockSizeVertical(context) * 2),
-                      // Builder(builder: (context) {
-                      //   print(model.products.length);
-                      //   if (model.products.isNotEmpty) {
-                      //     for (var item in model.products) {
-                      //       return CartItem(product: item);
-                      //     }
-                      //   }
-                      //   return Container();
-                      // }),
                       StreamBuilder<List<Product>>(
                           stream: model.items,
                           builder: (context, snapshot) {
-                            List<Widget> containers = [];
                             if (snapshot.hasData) {
                               var products = snapshot.data;
-                              print(products![1].productName);
-                              if (products.isEmpty) {
+
+                              if (products!.isEmpty) {
                                 model.setIsEmpty(true);
                               } else {
-                                for (var product in products) {
-                                  containers.add(CartItem(product: product));
-                                }
-
-                                for (var container in containers) {
-                                  return container;
-                                }
+                                return Column(
+                                  children: products
+                                      .map((e) => CartItem(
+                                            product: e,
+                                          ))
+                                      .toList(),
+                                );
                               }
                             }
                             return Container();
@@ -162,10 +152,11 @@ class CartItem extends ViewModelWidget<CartViewModel> {
         child: Padding(
           padding: EdgeInsets.all(blockSizeHorizontal(context) * 3),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                height: blockSizeVertical(context) * 15,
-                width: blockSizeHorizontal(context) * 25,
+                height: blockSizeVertical(context) * 18,
+                width: blockSizeHorizontal(context) * 20,
                 child: Image.network(
                   product.productImages![0],
                   fit: BoxFit.contain,
@@ -185,49 +176,78 @@ class CartItem extends ViewModelWidget<CartViewModel> {
                               fontSize: blockSizeHorizontal(context) * 7)),
                     ),
                   ),
+                  SizedBox(
+                    height: blockSizeVertical(context),
+                  ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      RawMaterialButton(
-                        onPressed: () {
-                          viewModel.decrementQuantity(product: product);
-                          viewModel.getTotal();
-                        },
-                        elevation: 0,
-                        fillColor: const Color(0xfff9f9f9),
-                        child: Padding(
-                          padding: EdgeInsets.all(blockSizeHorizontal(context)),
-                          child: Icon(
-                            LineIcons.minus,
-                            color: const Color(0xffa6a6a6),
-                            size: blockSizeHorizontal(context) * 6,
+                      Container(
+                        height: blockSizeVertical(context) * 5,
+                        width: blockSizeHorizontal(context) * 12,
+                        child: RawMaterialButton(
+                          onPressed: () {
+                            viewModel.decrementQuantity(product: product);
+                            viewModel.getTotal();
+                          },
+                          elevation: 0,
+                          fillColor: const Color(0xfff9f9f9),
+                          child: Padding(
+                            padding:
+                                EdgeInsets.all(blockSizeHorizontal(context)),
+                            child: Icon(
+                              LineIcons.minus,
+                              color: const Color(0xffa6a6a6),
+                              size: blockSizeHorizontal(context) * 4,
+                            ),
                           ),
+                          shape: const CircleBorder(),
                         ),
-                        shape: const CircleBorder(),
                       ),
                       Text(
                         product.quantity.toString(),
                         style: GoogleFonts.poppins(
                             fontSize: blockSizeHorizontal(context) * 5),
                       ),
-                      RawMaterialButton(
-                        onPressed: () {
-                          viewModel.incrementQuantity(product: product);
-                          viewModel.getTotal();
-                          print(viewModel.total);
-                        },
-                        elevation: 0,
-                        fillColor: const Color(0xfff9f9f9),
-                        child: Padding(
-                          padding: EdgeInsets.all(blockSizeHorizontal(context)),
-                          child: Icon(
-                            LineIcons.plus,
-                            color: const Color(0xffa6a6a6),
-                            size: blockSizeHorizontal(context) * 6,
+                      Container(
+                        height: blockSizeVertical(context) * 5,
+                        width: blockSizeHorizontal(context) * 13,
+                        child: RawMaterialButton(
+                          onPressed: () {
+                            viewModel.decrementQuantity(product: product);
+                            viewModel.getTotal();
+                          },
+                          elevation: 0,
+                          fillColor: const Color(0xfff9f9f9),
+                          child: Padding(
+                            padding:
+                                EdgeInsets.all(blockSizeHorizontal(context)),
+                            child: Icon(
+                              LineIcons.plus,
+                              color: const Color(0xffa6a6a6),
+                              size: blockSizeHorizontal(context) * 4,
+                            ),
                           ),
+                          shape: const CircleBorder(),
                         ),
-                        shape: const CircleBorder(),
                       ),
+                      SizedBox(
+                        width: blockSizeHorizontal(context) * 1,
+                      ),
+                      Container(
+                          width: blockSizeHorizontal(context) * 18,
+                          child: FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                "${product.quantity} items left",
+                                style: GoogleFonts.poppins(
+                                    fontSize:
+                                        blockSizeHorizontal(context) * 14),
+                              )))
                     ],
+                  ),
+                  SizedBox(
+                    height: blockSizeVertical(context),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
