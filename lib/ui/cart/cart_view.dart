@@ -39,6 +39,12 @@ class CartScreen extends StatelessWidget {
             onModelReady: (model) => model.fetchCartItems(),
             viewModelBuilder: () => cartViewModel,
             builder: (context, model, _) {
+              if (model.loading) {
+                return const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                );
+              }
+
               if (model.isEmpty) {
                 return Center(
                   child: Text(
@@ -64,17 +70,31 @@ class CartScreen extends StatelessWidget {
                             fontSize: blockSizeHorizontal(context) * 8),
                       ),
                       SizedBox(height: blockSizeVertical(context) * 2),
+                      // Builder(builder: (context) {
+                      //   print(model.products.length);
+                      //   if (model.products.isNotEmpty) {
+                      //     for (var item in model.products) {
+                      //       return CartItem(product: item);
+                      //     }
+                      //   }
+                      //   return Container();
+                      // }),
                       StreamBuilder<List<Product>>(
                           stream: model.items,
                           builder: (context, snapshot) {
+                            List<Widget> containers = [];
                             if (snapshot.hasData) {
                               var products = snapshot.data;
-                              print(products![0]);
+                              print(products![1].productName);
                               if (products.isEmpty) {
                                 model.setIsEmpty(true);
                               } else {
                                 for (var product in products) {
-                                  return CartItem(product: product);
+                                  containers.add(CartItem(product: product));
+                                }
+
+                                for (var container in containers) {
+                                  return container;
                                 }
                               }
                             }
@@ -205,7 +225,7 @@ class CartItem extends ViewModelWidget<CartViewModel> {
                             size: blockSizeHorizontal(context) * 6,
                           ),
                         ),
-                        shape: CircleBorder(),
+                        shape: const CircleBorder(),
                       ),
                     ],
                   ),

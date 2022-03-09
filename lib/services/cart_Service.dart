@@ -2,13 +2,14 @@ import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/customer.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/services/base_service.dart';
+import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CartService extends BaseService {
   BehaviorSubject<List<Product>> _cartItems = BehaviorSubject();
-  List<Product> products = [];
-  Stream<List<Product>> get cartItems => _cartItems.stream;
 
+  Stream<List<Product>> get cartItems => _cartItems.stream;
+  List<Product> products = [];
   Customer _currentCustomer = Customer();
 
   CartService() {
@@ -19,7 +20,7 @@ class CartService extends BaseService {
     _currentCustomer = await profileService.getCustomer();
   }
 
-  Future<List<Product>> fetchCartItems() async {
+  void fetchCartItems() async {
     _currentCustomer = await profileService.getCustomer();
     var cart = _currentCustomer.cart;
     var cartItems = cart!.cartItems;
@@ -37,7 +38,7 @@ class CartService extends BaseService {
       }
     }
 
-    return products;
+    _cartItems.sink.add(products);
   }
 
   void setStream({required List<Product> product}) {
