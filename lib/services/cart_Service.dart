@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
+import 'package:foodadora/models/cart.dart';
 import 'package:foodadora/models/customer.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/services/base_service.dart';
@@ -8,24 +10,31 @@ import 'package:rxdart/rxdart.dart';
 class CartService extends BaseService {
   BehaviorSubject<List<Product>> _cartItems = BehaviorSubject();
 
-  Stream<List<Product>> get cartItems => _cartItems.stream;
+  List<Product> _originalProducts = [];
+
   List<Product> products = [];
   Customer _currentCustomer = Customer();
+
+  Customer get currentCustomer => _currentCustomer;
+  List<Product> get originalProducts => _originalProducts;
+  Stream<List<Product>> get cartItems => _cartItems.stream;
 
   CartService() {
     _cartItems.sink.add(products);
   }
 
-  void getCurrentCustomer() async {
+  Future<Cart> getCustomerCart() async {
     _currentCustomer = await profileService.getCustomer();
+    return _currentCustomer.cart as Cart;
   }
 
   void fetchCartItems() async {
-    _currentCustomer = await profileService.getCustomer();
-    var cart = _currentCustomer.cart;
-    var cartItems = cart!.cartItems;
     List<Product> products = [];
+
+    var cart = await getCustomerCart(); // get current customer cart
+    var cartItems = cart.cartItems;
     if (cartItems != null) {
+      // for each cartitem get the full product of it
       for (var item in cartItems) {
         var fetchedDocs = await firestore
             .collection('products')
@@ -33,20 +42,34 @@ class CartService extends BaseService {
             .get();
 
         for (var doc in fetchedDocs.docs) {
-          products.add(Product.fromJson(doc.data()));
+          var product = Product.fromJson(doc.data());
+
+          _originalProducts.add(product);
+
+          products.add(Product(
+              productId: product.productId,
+              description: product.description,
+              expiryDate: product.expiryDate,
+              isAvailable: product.isAvailable,
+              originalPrice: product.originalPrice,
+              productImages: product.productImages,
+              productName: product.productName,
+              productPrice: product.productPrice,
+              quantity: item.quantity,
+              storeId: product.storeId));
         }
       }
     }
-
+    logger.i(_originalProducts[0].quantity);
+    // add list of full products to the stream to be reactive
     _cartItems.sink.add(products);
   }
 
-  void setStream({required List<Product> product}) {
-    _cartItems.stream.listen((products) {
-      products.forEach((element) {
-        products.add(element);
-      });
-    });
+  void updateCartItems({required Cart cart}) async {
+    await firestore
+        .collection('customers')
+        .doc('YijGT5zPyNrdGlpat2mZ')
+        .set({'cart': cart.toJson()}, SetOptions(merge: true));
   }
 
   void addItem(Product product) {
@@ -61,37 +84,55 @@ class CartService extends BaseService {
     });
   }
 
-  void incrementQuantity(Product product) {
-    _cartItems.stream.listen((productsList) {
-      productsList.forEach((element) {
-        if (element.productName == product.productName) {
-          product.quantity = product.quantity! + 1;
-        }
-      });
-    });
-  }
+  void incrementQuantity(Product product, int stock) {
+    var cart = _currentCustomer.cart;
+    var cartItems = cart!.cartItems;
 
-  void decrementQuantity(Product product) {
     _cartItems.stream.listen((productsList) {
-      productsList.forEach((element) {
+      productsList.forEach((element) async {
         if (element.productName == product.productName) {
-          if (product.quantity! > 1) {
-            product.quantity = product.quantity! - 1;
+          if (element.quantity! < stock) {
+            // update in ui
+            product.quantity = product.quantity! + 1;
+
+            // update in database to be synced
+            if (cartItems != null) {
+              for (var cartItem in cartItems) {
+                if (cartItem.productId == product.productId) {
+                  cartItem.quantity = product.quantity;
+                  updateCartItems(cart: cart);
+                }
+              }
+            }
           }
         }
       });
     });
   }
 
-  void getTotalPrice(double price) {
-    double total = 0;
-    double totalPrice = 0;
-    _cartItems.stream.listen((products) {
-      for (var item in products) {
-        total += item.quantity! * item.originalPrice!.toDouble();
-      }
+  void decrementQuantity(Product product) {
+    var cart = _currentCustomer.cart;
+    var cartItems = cart!.cartItems;
 
-      price = total;
+    _cartItems.stream.listen((productsList) {
+      productsList.forEach((element) async {
+        if (element.productName == product.productName) {
+          if (product.quantity! > 1) {
+            // update in ui
+            product.quantity = product.quantity! - 1;
+
+            // update in database to be synced
+            if (cartItems != null) {
+              for (var cartItem in cartItems) {
+                if (cartItem.productId == product.productId) {
+                  cartItem.quantity = product.quantity;
+                  updateCartItems(cart: cart);
+                }
+              }
+            }
+          }
+        }
+      });
     });
   }
 }

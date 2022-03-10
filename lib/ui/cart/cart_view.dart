@@ -80,12 +80,8 @@ class CartScreen extends StatelessWidget {
                                 model.setIsEmpty(true);
                               } else {
                                 return Column(
-                                  children: products
-                                      .map((e) => CartItem(
-                                            product: e,
-                                          ))
-                                      .toList(),
-                                );
+                                    children: buildCartItems(
+                                        products: products, viewModel: model));
                               }
                             }
                             return Container();
@@ -142,7 +138,9 @@ class CartScreen extends StatelessWidget {
 
 class CartItem extends ViewModelWidget<CartViewModel> {
   final Product product;
-  const CartItem({Key? key, required this.product}) : super(key: key);
+  final int productStock;
+  const CartItem({Key? key, required this.product, this.productStock = 1})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, CartViewModel viewModel) {
@@ -214,7 +212,8 @@ class CartItem extends ViewModelWidget<CartViewModel> {
                         width: blockSizeHorizontal(context) * 13,
                         child: RawMaterialButton(
                           onPressed: () {
-                            viewModel.decrementQuantity(product: product);
+                            viewModel.incrementQuantity(
+                                product: product, stock: productStock);
                             viewModel.getTotal();
                           },
                           elevation: 0,
@@ -239,7 +238,7 @@ class CartItem extends ViewModelWidget<CartViewModel> {
                           child: FittedBox(
                               fit: BoxFit.fitWidth,
                               child: Text(
-                                "${product.quantity} items left",
+                                "$productStock items left",
                                 style: GoogleFonts.poppins(
                                     fontSize:
                                         blockSizeHorizontal(context) * 14),
@@ -275,22 +274,20 @@ class CartItem extends ViewModelWidget<CartViewModel> {
   }
 }
 
-Widget buildCartItems({required CartViewModel viewModel}) {
+List<Widget> buildCartItems(
+    {required List<Product> products, required CartViewModel viewModel}) {
   List<Widget> cartCards = [];
-  Widget? cartCard;
-  viewModel.items.listen((event) {
-    event.forEach((product) {
-      cartCards.add(CartItem(product: product));
-    });
-  });
 
-  if (cartCards.isEmpty) {
-    viewModel.setIsEmpty(true);
+  for (var originalProduct in viewModel.originalProducts) {
+    for (var product in products) {
+      if (product.productId == originalProduct.productId) {
+        cartCards.add(CartItem(
+          product: product,
+          productStock: originalProduct.quantity as int,
+        ));
+      }
+    }
   }
 
-  for (var cartItem in cartCards) {
-    cartCard = cartItem;
-  }
-
-  return cartCard as Widget;
+  return cartCards;
 }

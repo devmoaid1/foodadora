@@ -2,6 +2,7 @@ import 'package:foodadora/app/app.locator.dart';
 import 'package:foodadora/services/auth_Service.dart';
 import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/services/orders_services.dart';
+import 'package:foodadora/services/product_service.dart';
 import 'package:foodadora/services/profile_service.dart';
 import 'package:foodadora/services/store_service.dart';
 import 'package:foodadora/ui/Sign_up/signup_viewModel.dart';
@@ -20,6 +21,7 @@ final profileService = locator<ProfileService>();
 final storeService = locator<StoreService>();
 final ordersService = locator<OrderService>();
 final cartService = locator<CartService>();
+final productService = locator<ProductService>();
 
 //viewModels
 

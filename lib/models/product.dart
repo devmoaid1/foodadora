@@ -7,6 +7,7 @@ part 'product.g.dart';
 
 @JsonSerializable()
 class Product {
+  final String? productId;
   final String? storeId;
   final String? productName;
   final String? description;
@@ -24,7 +25,8 @@ class Product {
   final double? originalPrice;
 
   Product(
-      {this.productName,
+      {this.productId,
+      this.productName,
       this.description,
       this.originalPrice,
       this.expiryDate,

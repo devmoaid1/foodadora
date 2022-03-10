@@ -34,12 +34,14 @@
   LazySingleton(classType: StoreService),
   LazySingleton(classType: OrderService),
   LazySingleton(classType: CartService),
+  LazySingleton(classType: ProductService),
 ], logger: StackedLogger())
 
 // flutter pub run build_runner build --delete-conflicting-outputs   this command for generator
 import 'package:foodadora/services/auth_Service.dart';
 import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/services/orders_services.dart';
+import 'package:foodadora/services/product_service.dart';
 import 'package:foodadora/services/profile_service.dart';
 import 'package:foodadora/services/store_service.dart';
 import 'package:foodadora/ui/Sign_up/phoneSignup_view.dart';
