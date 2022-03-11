@@ -7,6 +7,7 @@ import 'package:foodadora/services/profile_service.dart';
 import 'package:foodadora/services/store_service.dart';
 import 'package:foodadora/ui/Sign_up/signup_viewModel.dart';
 import 'package:foodadora/ui/cart/cart_viewmodel.dart';
+import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
 import 'package:foodadora/ui/stores/stores_viewModel.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -28,6 +29,8 @@ final productService = locator<ProductService>();
 final SignUpViewModel signUpViewModel = SignUpViewModel();
 final StoresViewModel storesViewModel = StoresViewModel();
 final CartViewModel cartViewModel = CartViewModel();
+final ProductDetailsViewModel productDetailsViewModel =
+    ProductDetailsViewModel();
 
 //logger
 

@@ -5,15 +5,25 @@ import 'package:foodadora/ui/utilites/screen_sizes.dart';
 class FoodadoraButton extends StatelessWidget {
   const FoodadoraButton({
     this.color,
+    this.borderColor,
+    this.labelColor,
     @required this.label,
     @required this.onPressed,
   });
   final Color? color;
   final String? label;
   final void Function()? onPressed;
+  final Color? borderColor;
+  final Color? labelColor;
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(7),
+          border: Border.all(
+            color: borderColor ?? Colors.white,
+            width: 2,
+          )),
       height: (screenHeight(context) / 100) * 8,
       width: (screenWidth(context) / 100) * 90,
       child: ElevatedButton(
@@ -25,7 +35,8 @@ class FoodadoraButton extends StatelessWidget {
         child: Text(
           label.toString(),
           style: TextStyle(
-              color: Colors.white, fontSize: (screenWidth(context) / 100) * 5),
+              color: labelColor ?? Colors.white,
+              fontSize: (screenWidth(context) / 100) * 5),
         ),
       ),
     );
