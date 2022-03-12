@@ -17,7 +17,7 @@ class CartService extends BaseService {
 
   List<Product> _originalProducts = [];
 
-  List<Product> products = [];
+  List<Product> _products = [];
   Customer _currentCustomer = Customer();
 
   Customer get currentCustomer => _currentCustomer;
@@ -25,7 +25,7 @@ class CartService extends BaseService {
   Stream<List<Product>> get cartItems => _cartItems.stream;
 
   CartService() {
-    _cartItems.sink.add(products);
+    _cartItems.sink.add(_products);
   }
 
   Future<Cart> getCustomerCart() async {
@@ -35,7 +35,6 @@ class CartService extends BaseService {
 
   void fetchCartItems() async {
     List<Product> products = [];
-
     var cart = await getCustomerCart(); // get current customer cart
     var cartItems = cart.cartItems;
 
@@ -68,6 +67,7 @@ class CartService extends BaseService {
       }
     }
 
+    _products = [...products];
     // add list of full products to the stream to be reactive
     _cartItems.sink.add(products);
   }
@@ -142,10 +142,40 @@ class CartService extends BaseService {
     }
   }
 
-  void deleteItem(Product product) {
-    _cartItems.stream.listen((productList) {
-      productList.remove(product);
-    });
+  void deleteItem({required Product product}) async {
+    var cart = _currentCustomer.cart;
+    var cartItems = _currentCustomer.cart!.cartItems;
+    List<CartItem> list = [];
+    if (cartItems != null) {
+      var toRemove = [...cartItems];
+      list = toRemove;
+    }
+
+    var response = await dialogService.showCustomDialog(
+        variant: DialogType.addToCart,
+        title: "Are you sure you want remove item?",
+        mainButtonTitle: "Remove");
+
+    if (response!.confirmed) {
+      cartItems!.forEach((element) {
+        if (element.productId == product.productId) {
+          list.remove(element);
+          _products.removeWhere((item) => item.productId == element.productId);
+          _cartItems.sink.add(_products);
+
+          if (list.length == 1) {
+            updateCartItems(cart: Cart(storeId: "", cartItems: []));
+          } else {
+            updateCartItems(
+                cart: Cart(storeId: cart!.storeId, cartItems: list));
+          }
+        }
+      });
+    }
+
+    // _cartItems.stream.listen((productList) {
+    //   productList.remove(product);
+    // });
   }
 
   void incrementQuantity(Product product, int stock) {

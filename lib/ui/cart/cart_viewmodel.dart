@@ -34,24 +34,9 @@ class CartViewModel extends BaseViewModel {
   double get total => _total;
 
   void fetchCartItems() {
-    // setBusy(true);
-    // setLoading(true);
     cartService.fetchCartItems(); // get cartitems and set it to stream
 
-    // cartService.cartItems.listen((element) {
-    //   if (element.isNotEmpty) {
-    //     _isEmpty = false;
-    //     notifyListeners();
-    //   }
-    // });
-
     getTotal(); //get subtotal after fetching all cartitems
-  }
-
-  void getProduct({required String productId}) async {
-    setBusy(true);
-    _currentProduct = await productService.getProductById(productId: productId);
-    setBusy(false);
   }
 
   void setIsEmpty(bool value) {
@@ -59,10 +44,15 @@ class CartViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  void resetTotal() {
+    _total = 0;
+    notifyListeners();
+  }
+
   void getTotal() {
-    setLoading(true);
     _total = 0;
     cartService.cartItems.listen((products) {
+      print(" length ${products.length}");
       if (products.isNotEmpty) {
         for (var item in products) {
           _total += item.quantity! * item.originalPrice!.toDouble();
@@ -73,8 +63,6 @@ class CartViewModel extends BaseViewModel {
 
       notifyListeners();
     });
-
-    setLoading(false);
   }
 
   void incrementQuantity({required Product product, required int stock}) {
@@ -85,5 +73,14 @@ class CartViewModel extends BaseViewModel {
   void decrementQuantity({required Product product}) {
     cartService.decrementQuantity(product);
     notifyListeners();
+  }
+
+  void deleteCartItem({required Product product}) {
+    cartService.deleteItem(product: product);
+    cartService.cartItems.listen((items) {
+      if (items.isEmpty) {
+        _isEmpty = true;
+      }
+    });
   }
 }

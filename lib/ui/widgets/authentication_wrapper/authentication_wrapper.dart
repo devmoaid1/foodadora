@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodadora/ui/cart/cart_view.dart';
 import 'package:foodadora/ui/login/login_view.dart';
 import 'package:foodadora/ui/stores/stores_view.dart';
 import 'package:foodadora/ui/widgets/authentication_wrapper/authintication_wrapper_viewModel.dart';
@@ -17,7 +18,7 @@ class AuthenticationWrapper extends StatelessWidget {
             stream: model.currentUser,
             builder: (context, AsyncSnapshot<User?> snapShot) {
               if (snapShot.hasData) {
-                return const StoresScreen();
+                return CartScreen();
               }
 
               return LoginView();

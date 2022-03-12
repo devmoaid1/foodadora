@@ -80,13 +80,9 @@ class CartScreen extends StatelessWidget {
                             if (snapshot.hasData) {
                               var products = snapshot.data as List<Product>;
 
-                              if (products.isEmpty) {
-                                model.setIsEmpty(true);
-                              } else {
-                                return Column(
-                                    children: buildCartItems(
-                                        products: products, viewModel: model));
-                              }
+                              return Column(
+                                  children: buildCartItems(
+                                      products: products, viewModel: model));
                             }
                             return Container();
                           }),
@@ -148,133 +144,150 @@ class CartItem extends ViewModelWidget<CartViewModel> {
 
   @override
   Widget build(BuildContext context, CartViewModel viewModel) {
-    return Card(
-        elevation: 4,
-        margin: EdgeInsets.symmetric(vertical: blockSizeVertical(context)),
-        child: Padding(
-          padding: EdgeInsets.all(blockSizeHorizontal(context) * 3),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                height: blockSizeVertical(context) * 18,
-                width: blockSizeHorizontal(context) * 20,
-                child: Image.network(
-                  product.productImages![0],
-                  fit: BoxFit.contain,
+    return Dismissible(
+      key: UniqueKey(),
+      background: Container(
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.only(right: 20.0),
+        color: Colors.red,
+        child: const Icon(
+          Icons.delete,
+          color: Colors.white,
+        ),
+      ),
+      onDismissed: (direction) {
+        viewModel.deleteCartItem(product: product);
+        viewModel.resetTotal();
+        viewModel.getTotal();
+      },
+      child: Card(
+          elevation: 4,
+          margin: EdgeInsets.symmetric(vertical: blockSizeVertical(context)),
+          child: Padding(
+            padding: EdgeInsets.all(blockSizeHorizontal(context) * 3),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  height: blockSizeVertical(context) * 18,
+                  width: blockSizeHorizontal(context) * 20,
+                  child: Image.network(
+                    product.productImages![0],
+                    fit: BoxFit.contain,
+                  ),
                 ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    constraints: BoxConstraints(
-                        maxWidth: blockSizeHorizontal(context) * 45),
-                    child: FittedBox(
-                      fit: BoxFit.fitWidth,
-                      child: Text(product.productName.toString(),
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: blockSizeHorizontal(context) * 7)),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      constraints: BoxConstraints(
+                          maxWidth: blockSizeHorizontal(context) * 45),
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text(product.productName.toString(),
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                fontSize: blockSizeHorizontal(context) * 7)),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: blockSizeVertical(context),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: blockSizeVertical(context) * 5,
-                        width: blockSizeHorizontal(context) * 12,
-                        child: RawMaterialButton(
-                          onPressed: () {
-                            viewModel.decrementQuantity(product: product);
-                            viewModel.getTotal();
-                          },
-                          elevation: 0,
-                          fillColor: const Color(0xfff9f9f9),
-                          child: Padding(
-                            padding:
-                                EdgeInsets.all(blockSizeHorizontal(context)),
-                            child: Icon(
-                              LineIcons.minus,
-                              color: const Color(0xffa6a6a6),
-                              size: blockSizeHorizontal(context) * 4,
+                    SizedBox(
+                      height: blockSizeVertical(context),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: blockSizeVertical(context) * 5,
+                          width: blockSizeHorizontal(context) * 12,
+                          child: RawMaterialButton(
+                            onPressed: () {
+                              viewModel.decrementQuantity(product: product);
+                              viewModel.getTotal();
+                            },
+                            elevation: 0,
+                            fillColor: const Color(0xfff9f9f9),
+                            child: Padding(
+                              padding:
+                                  EdgeInsets.all(blockSizeHorizontal(context)),
+                              child: Icon(
+                                LineIcons.minus,
+                                color: const Color(0xffa6a6a6),
+                                size: blockSizeHorizontal(context) * 4,
+                              ),
                             ),
+                            shape: const CircleBorder(),
                           ),
-                          shape: const CircleBorder(),
                         ),
-                      ),
-                      Text(
-                        product.quantity.toString(),
-                        style: GoogleFonts.poppins(
-                            fontSize: blockSizeHorizontal(context) * 5),
-                      ),
-                      Container(
-                        height: blockSizeVertical(context) * 5,
-                        width: blockSizeHorizontal(context) * 13,
-                        child: RawMaterialButton(
-                          onPressed: () {
-                            viewModel.incrementQuantity(
-                                product: product, stock: productStock);
-                            viewModel.getTotal();
-                          },
-                          elevation: 0,
-                          fillColor: const Color(0xfff9f9f9),
-                          child: Padding(
-                            padding:
-                                EdgeInsets.all(blockSizeHorizontal(context)),
-                            child: Icon(
-                              LineIcons.plus,
-                              color: const Color(0xffa6a6a6),
-                              size: blockSizeHorizontal(context) * 4,
+                        Text(
+                          product.quantity.toString(),
+                          style: GoogleFonts.poppins(
+                              fontSize: blockSizeHorizontal(context) * 5),
+                        ),
+                        Container(
+                          height: blockSizeVertical(context) * 5,
+                          width: blockSizeHorizontal(context) * 13,
+                          child: RawMaterialButton(
+                            onPressed: () {
+                              viewModel.incrementQuantity(
+                                  product: product, stock: productStock);
+                              viewModel.getTotal();
+                            },
+                            elevation: 0,
+                            fillColor: const Color(0xfff9f9f9),
+                            child: Padding(
+                              padding:
+                                  EdgeInsets.all(blockSizeHorizontal(context)),
+                              child: Icon(
+                                LineIcons.plus,
+                                color: const Color(0xffa6a6a6),
+                                size: blockSizeHorizontal(context) * 4,
+                              ),
                             ),
+                            shape: const CircleBorder(),
                           ),
-                          shape: const CircleBorder(),
                         ),
-                      ),
-                      SizedBox(
-                        width: blockSizeHorizontal(context) * 1,
-                      ),
-                      Container(
-                          width: blockSizeHorizontal(context) * 18,
-                          child: FittedBox(
-                              fit: BoxFit.fitWidth,
-                              child: Text(
-                                "$productStock items left",
-                                style: GoogleFonts.poppins(
-                                    fontSize:
-                                        blockSizeHorizontal(context) * 14),
-                              )))
-                    ],
-                  ),
-                  SizedBox(
-                    height: blockSizeVertical(context),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.network(
-                        'https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/Tesco_Logo.svg/800px-Tesco_Logo.svg.png',
-                        width: blockSizeHorizontal(context) * 20,
-                      ),
-                      SizedBox(
-                        width: blockSizeHorizontal(context) * 5,
-                      ),
-                      Text(
-                        'RM ${product.originalPrice!.toStringAsFixed(2)}',
-                        style: GoogleFonts.poppins(
-                          fontSize: blockSizeHorizontal(context) * 5,
+                        SizedBox(
+                          width: blockSizeHorizontal(context) * 1,
                         ),
-                      ),
-                    ],
-                  )
-                ],
-              )
-            ],
-          ),
-        ));
+                        Container(
+                            width: blockSizeHorizontal(context) * 18,
+                            child: FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Text(
+                                  "$productStock items left",
+                                  style: GoogleFonts.poppins(
+                                      fontSize:
+                                          blockSizeHorizontal(context) * 14),
+                                )))
+                      ],
+                    ),
+                    SizedBox(
+                      height: blockSizeVertical(context),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Image.network(
+                          'https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/Tesco_Logo.svg/800px-Tesco_Logo.svg.png',
+                          width: blockSizeHorizontal(context) * 20,
+                        ),
+                        SizedBox(
+                          width: blockSizeHorizontal(context) * 5,
+                        ),
+                        Text(
+                          'RM ${product.originalPrice!.toStringAsFixed(2)}',
+                          style: GoogleFonts.poppins(
+                            fontSize: blockSizeHorizontal(context) * 5,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+          )),
+    );
   }
 }
 
