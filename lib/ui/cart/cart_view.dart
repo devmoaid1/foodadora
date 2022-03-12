@@ -36,6 +36,8 @@ class CartScreen extends StatelessWidget {
           elevation: 0,
         ),
         body: ViewModelBuilder<CartViewModel>.reactive(
+            disposeViewModel: false,
+            fireOnModelReadyOnce: false,
             onModelReady: (model) => model.fetchCartItems(),
             viewModelBuilder: () => cartViewModel,
             builder: (context, model, _) {
@@ -74,15 +76,14 @@ class CartScreen extends StatelessWidget {
                           stream: model.items,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              var products = snapshot.data;
+                              var products = snapshot.data as List<Product>;
 
-                              if (products!.isEmpty) {
-                                model.setIsEmpty(true);
-                              } else {
-                                return Column(
-                                    children: buildCartItems(
-                                        products: products, viewModel: model));
-                              }
+                              // if (products!.isEmpty) {
+                              //   model.setIsEmpty(true);
+                              // } else {
+                              return Column(
+                                  children: buildCartItems(
+                                      products: products, viewModel: model));
                             }
                             return Container();
                           }),
@@ -278,16 +279,31 @@ List<Widget> buildCartItems(
     {required List<Product> products, required CartViewModel viewModel}) {
   List<Widget> cartCards = [];
 
-  for (var originalProduct in viewModel.originalProducts) {
-    for (var product in products) {
-      if (product.productId == originalProduct.productId) {
+  cartCards.clear();
+  viewModel.originalProducts.forEach((originalProduct) {
+    products.forEach((element) {
+      if (originalProduct.productId == element.productId) {
         cartCards.add(CartItem(
-          product: product,
+          product: element,
           productStock: originalProduct.quantity as int,
         ));
       }
-    }
-  }
+    });
+  });
 
+  // for (var originalProduct in viewModel.originalProducts) {
+  //   for (var product in products) {
+  //     if (product.productId == originalProduct.productId) {
+  //       cartCards.add(CartItem(
+  //         product: product,
+  //         productStock: originalProduct.quantity as int,
+  //       ));
+  //     }
+  //   }
+  // }
+
+  print("products length is ${products.length}");
+  print(" original products lenght is :${viewModel.originalProducts.length}");
+  print("cartCards length is :${cartCards.length}");
   return cartCards;
 }

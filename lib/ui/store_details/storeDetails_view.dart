@@ -108,6 +108,7 @@ class StoreDetailsScreen extends StatelessWidget {
                       onButtonPressed: () {},
                       onTapped: () {
                         Product product = Product(
+                            productId: model.storeProducts[index].productId,
                             productName: model.storeProducts[index].productName,
                             productImages:
                                 model.storeProducts[index].productImages,

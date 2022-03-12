@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/product.dart';
+import 'package:foodadora/services/cart_Service.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:stacked/stacked.dart';
 
@@ -12,7 +14,7 @@ class CartViewModel extends BaseViewModel {
   Product _currentProduct = Product();
 
   Product get currentProduct => _currentProduct;
-  bool _isLoading = true;
+  bool _isLoading = false;
   bool get loading => _isLoading;
 
   void setLoading(bool value) {
@@ -31,22 +33,19 @@ class CartViewModel extends BaseViewModel {
 
   double get total => _total;
 
-  void fetchCartItems() async {
-    setBusy(true);
-    setLoading(true);
-
+  void fetchCartItems() {
+    // setBusy(true);
+    // setLoading(true);
     cartService.fetchCartItems(); // get cartitems and set it to stream
 
-    cartService.cartItems.forEach((element) {
-      if (element.isNotEmpty) {
-        _isEmpty = false;
-        notifyListeners();
-      }
-    });
-    getTotal(); //get subtotal after fetching all cartitems
+    // cartService.cartItems.listen((element) {
+    //   if (element.isNotEmpty) {
+    //     _isEmpty = false;
+    //     notifyListeners();
+    //   }
+    // });
 
-    setLoading(false);
-    setBusy(false);
+    getTotal(); //get subtotal after fetching all cartitems
   }
 
   void getProduct({required String productId}) async {
@@ -61,14 +60,21 @@ class CartViewModel extends BaseViewModel {
   }
 
   void getTotal() {
+    setLoading(true);
     _total = 0;
     cartService.cartItems.listen((products) {
-      for (var item in products) {
-        _total += item.quantity! * item.originalPrice!.toDouble();
+      if (products.isNotEmpty) {
+        for (var item in products) {
+          _total += item.quantity! * item.originalPrice!.toDouble();
+        }
+
+        _isEmpty = false;
       }
 
       notifyListeners();
     });
+
+    setLoading(false);
   }
 
   void incrementQuantity({required Product product, required int stock}) {

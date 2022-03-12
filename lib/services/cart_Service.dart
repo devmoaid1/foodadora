@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/cart.dart';
+import 'package:foodadora/models/cartItem.dart';
 import 'package:foodadora/models/customer.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/services/base_service.dart';
+import 'package:foodadora/ui/utilites/custom_modals.dart';
 import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -33,6 +36,8 @@ class CartService extends BaseService {
 
     var cart = await getCustomerCart(); // get current customer cart
     var cartItems = cart.cartItems;
+
+    _cartItems.sink.add([]);
     if (cartItems != null) {
       // for each cartitem get the full product of it
       for (var item in cartItems) {
@@ -47,7 +52,7 @@ class CartService extends BaseService {
           _originalProducts.add(product);
 
           products.add(Product(
-              productId: product.productId,
+              productId: doc.id,
               description: product.description,
               expiryDate: product.expiryDate,
               isAvailable: product.isAvailable,
@@ -60,7 +65,7 @@ class CartService extends BaseService {
         }
       }
     }
-    logger.i(_originalProducts[0].quantity);
+
     // add list of full products to the stream to be reactive
     _cartItems.sink.add(products);
   }
@@ -68,14 +73,71 @@ class CartService extends BaseService {
   void updateCartItems({required Cart cart}) async {
     await firestore
         .collection('customers')
-        .doc('YijGT5zPyNrdGlpat2mZ')
+        .doc('6kvkrYD5BSqvQ4frXiEN')
         .set({'cart': cart.toJson()}, SetOptions(merge: true));
   }
 
-  void addItem(Product product) {
-    _cartItems.stream.listen((productList) {
-      productList.add(product);
-    });
+  void addItem({required Product product, required int quantity}) async {
+    var cart = await getCustomerCart();
+    var items = cart.cartItems;
+    List<CartItem> list = items as List<CartItem>;
+
+    bool isAddedQuantity = false;
+
+    // condition for adding to empty cart
+    if (items.isEmpty) {
+      items.add(CartItem(productId: product.productId, quantity: quantity));
+      updateCartItems(cart: Cart(storeId: product.storeId, cartItems: items));
+      dialogService.showDialog(title: "item is added to cart");
+    }
+
+    // if cart has items
+    if (items.isNotEmpty) {
+      // condition for adding from different store
+      if (product.storeId != cart.storeId) {
+        var response = await dialogService.showCustomDialog(
+            variant: DialogType.addToCart,
+            title: "Are you sure you want to remove cart?",
+            description:
+                "it seems like you want to add an item from different store",
+            mainButtonTitle: "Remove");
+
+        if (response!.confirmed) {
+          updateCartItems(cart: Cart(storeId: "", cartItems: []));
+
+          items.add(CartItem(productId: product.productId, quantity: quantity));
+
+          updateCartItems(
+              cart: Cart(storeId: product.storeId, cartItems: items));
+        }
+      }
+
+      //condition for adding product for same store
+
+      else {
+        // if item is in cart already update quantity
+        items.forEach((item) {
+          if (product.productId == item.productId) {
+            item.quantity = item.quantity! + quantity;
+
+            updateCartItems(
+                cart: Cart(storeId: product.storeId, cartItems: items));
+            isAddedQuantity = true;
+          } else {
+            isAddedQuantity = false;
+          }
+        });
+
+        if (!isAddedQuantity) {
+          list.add(CartItem(productId: product.productId, quantity: quantity));
+
+          updateCartItems(
+              cart: Cart(storeId: product.storeId, cartItems: list));
+
+          dialogService.showDialog(title: "item is added to cart");
+        }
+      }
+    }
   }
 
   void deleteItem(Product product) {

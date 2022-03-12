@@ -1,6 +1,7 @@
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/product.dart';
+import 'package:foodadora/ui/utilites/custom_modals.dart';
 import 'package:stacked/stacked.dart';
 
 class ProductDetailsViewModel extends BaseViewModel {
@@ -23,6 +24,15 @@ class ProductDetailsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  void testModal() {
+    dialogService.showCustomDialog(
+        variant: DialogType.addToCart,
+        title: "Are you sure you want to remove cart?",
+        description:
+            "it seems like you want to add an item from different store",
+        mainButtonTitle: "Remove");
+  }
+
   void incrementQunatity({required int productQuantity}) {
     if (_quantity < productQuantity) {
       _quantity++;
@@ -37,18 +47,19 @@ class ProductDetailsViewModel extends BaseViewModel {
     }
   }
 
-  void addToCart({required Product product}) {
-    cartService.cartItems.listen((products) {
-      if (products.contains(product)) {
-        dialogService.showDialog(title: "item is already on cart");
-      } else {
-        cartService.addItem(product);
-        dialogService.showDialog(title: "item is added to cart ");
-        notifyListeners();
-      }
-    }).onError((err) => logger.e(err));
+  void addToCart({required Product product, required int quatity}) {
+    cartService.addItem(product: product, quantity: quatity);
+    // cartService.cartItems.listen((products) {
+    //   if (products.contains(product)) {
+    //     dialogService.showDialog(title: "item is already on cart");
+    //   } else {
+    //     cartService.addItem(product);
+    //     dialogService.showDialog(title: "item is added to cart ");
+    //     notifyListeners();
+    //   }
+    // }).onError((err) => logger.e(err));
 
-    navigationService.navigateTo(Routes.cartScreen);
+    // navigationService.navigateTo(Routes.cartScreen);
   }
 
   void setLoading(bool value) {

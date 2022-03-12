@@ -130,11 +130,6 @@ class ProductDetailsView extends StatelessWidget {
                               SizedBox(
                                 height: blockSizeVertical(context) * 3,
                               ),
-                              // model.isAddToCart
-                              //     ? QuantityRow(
-                              //         productQuantity: product.quantity as int,
-                              //       )
-                              //     :
                               Center(
                                   child: FoodadoraButton(
                                       label: "Add to cart",
@@ -267,7 +262,11 @@ class UpdateQuantityBottomSheet
                 width: screenWidthPercentage(context, percentage: 0.4),
                 child: FoodadoraButton(
                   label: "Done",
-                  onPressed: () {},
+                  onPressed: () {
+                    print(product.productName);
+                    viewModel.addToCart(
+                        product: product, quatity: viewModel.quantity);
+                  },
                   color: const Color(0xFF08A5D2),
                 ),
               ),
