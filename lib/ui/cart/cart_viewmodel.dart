@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
-import 'package:foodadora/app/app.router.dart';
+// ignore_for_file: prefer_final_fields, unused_field
+
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/product.dart';
-import 'package:foodadora/services/cart_Service.dart';
+
 import 'package:rxdart/rxdart.dart';
 import 'package:stacked/stacked.dart';
 

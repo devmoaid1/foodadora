@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
 
-import '../utilites/size_config.dart';
-
 class StoreCircle extends StatelessWidget {
   final String imageUrl;
   final void Function() onPressed;

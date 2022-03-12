@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace, use_key_in_widget_constructors, avoid_function_literals_in_foreach_calls
+
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
@@ -78,12 +80,13 @@ class CartScreen extends StatelessWidget {
                             if (snapshot.hasData) {
                               var products = snapshot.data as List<Product>;
 
-                              // if (products!.isEmpty) {
-                              //   model.setIsEmpty(true);
-                              // } else {
-                              return Column(
-                                  children: buildCartItems(
-                                      products: products, viewModel: model));
+                              if (products.isEmpty) {
+                                model.setIsEmpty(true);
+                              } else {
+                                return Column(
+                                    children: buildCartItems(
+                                        products: products, viewModel: model));
+                              }
                             }
                             return Container();
                           }),
@@ -291,19 +294,5 @@ List<Widget> buildCartItems(
     });
   });
 
-  // for (var originalProduct in viewModel.originalProducts) {
-  //   for (var product in products) {
-  //     if (product.productId == originalProduct.productId) {
-  //       cartCards.add(CartItem(
-  //         product: product,
-  //         productStock: originalProduct.quantity as int,
-  //       ));
-  //     }
-  //   }
-  // }
-
-  print("products length is ${products.length}");
-  print(" original products lenght is :${viewModel.originalProducts.length}");
-  print("cartCards length is :${cartCards.length}");
   return cartCards;
 }

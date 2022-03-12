@@ -1,5 +1,7 @@
+// ignore_for_file: file_names, prefer_final_fields, avoid_function_literals_in_foreach_calls
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:foodadora/app/app.router.dart';
+
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/cart.dart';
 import 'package:foodadora/models/cartItem.dart';
@@ -7,7 +9,7 @@ import 'package:foodadora/models/customer.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/services/base_service.dart';
 import 'package:foodadora/ui/utilites/custom_modals.dart';
-import 'package:http/http.dart';
+
 import 'package:rxdart/rxdart.dart';
 
 class CartService extends BaseService {

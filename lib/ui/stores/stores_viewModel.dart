@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/store.dart';

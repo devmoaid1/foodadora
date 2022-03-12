@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
@@ -103,12 +105,10 @@ class ProductDetailsView extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                child: Text("Description",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600)),
-                              ),
+                              Text("Description",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600)),
                               SizedBox(
                                 height: blockSizeVertical(context),
                               ),
@@ -263,7 +263,6 @@ class UpdateQuantityBottomSheet
                 child: FoodadoraButton(
                   label: "Done",
                   onPressed: () {
-                    print(product.productName);
                     viewModel.addToCart(
                         product: product, quatity: viewModel.quantity);
                   },

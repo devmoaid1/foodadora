@@ -63,7 +63,7 @@ class _BasicDialog extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
+                  SizedBox(
                     width: screenWidthPercentage(context, percentage: 0.28),
                     child: FoodadoraButton(
                       label: request.mainButtonTitle,
@@ -76,7 +76,7 @@ class _BasicDialog extends StatelessWidget {
                   SizedBox(
                     width: blockSizeHorizontal(context),
                   ),
-                  Container(
+                  SizedBox(
                     width: screenWidthPercentage(context, percentage: 0.28),
                     child: FoodadoraButton(
                       label: "Cancel",

@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:foodadora/ui/profile/profile_viewModel.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
@@ -103,7 +105,7 @@ class ProfileScreen extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: blockSizeHorizontal(context) * 8,
                                     fontFamily: 'Poppins',
-                                    color: Color(0xffC4C4C4),
+                                    color: const Color(0xffC4C4C4),
                                   ),
                                 ),
                                 SizedBox(
@@ -112,7 +114,7 @@ class ProfileScreen extends StatelessWidget {
                                 Icon(
                                   LineIcons.envelope,
                                   size: blockSizeHorizontal(context) * 15,
-                                  color: Color(0xffA5A5A5),
+                                  color: const Color(0xffA5A5A5),
                                 ),
                               ],
                             ),

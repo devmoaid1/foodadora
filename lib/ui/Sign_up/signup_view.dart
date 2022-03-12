@@ -148,7 +148,7 @@ class SignUpView extends StatelessWidget {
                               RawMaterialButton(
                                 onPressed: () {},
                                 elevation: 2.0,
-                                fillColor: Color(0xff3b5998),
+                                fillColor: const Color(0xff3b5998),
                                 child: Image.asset(
                                   'assets/icons/facebook.png',
                                   color: Colors.white,
@@ -192,7 +192,7 @@ Padding _buildOrRow(BuildContext context) {
         horizontal: blockSizeHorizontal(context) * 10,
         vertical: blockSizeVertical(context) * 2),
     child: Row(children: <Widget>[
-      Expanded(child: Divider(color: Colors.black)),
+      const Expanded(child: Divider(color: Colors.black)),
       Text(
         "  OR  ",
         style: TextStyle(
@@ -200,7 +200,7 @@ Padding _buildOrRow(BuildContext context) {
           fontSize: blockSizeHorizontal(context) * 4,
         ),
       ),
-      Expanded(
+      const Expanded(
           child: Divider(
         color: Colors.black,
       )),

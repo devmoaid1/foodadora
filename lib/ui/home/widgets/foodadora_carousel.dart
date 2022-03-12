@@ -1,3 +1,5 @@
+// ignore_for_file: library_prefixes, use_key_in_widget_constructors
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart' as dotsIndicator;
 import 'package:flutter/material.dart';

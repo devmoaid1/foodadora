@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
@@ -42,7 +44,7 @@ class ProductCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   width: screenWidth(context),
                   height: screenHeightPercentage(context, percentage: 0.16),
                   child: Image(
@@ -66,7 +68,7 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: blockSizeVertical(context)),
-                Container(
+                SizedBox(
                   width: screenWidth(context),
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
@@ -122,7 +124,7 @@ class ProductCard extends StatelessWidget {
                       children: [
                         SvgPicture.asset(Assets.expiryicon),
                         SizedBox(width: blockSizeHorizontal(context)),
-                        Container(
+                        SizedBox(
                           width: screenWidth(context) / 3 -
                               blockSizeHorizontal(context) * 13,
                           child: FittedBox(
@@ -148,7 +150,7 @@ class ProductCard extends StatelessWidget {
           child: RawMaterialButton(
             onPressed: onButtonPressed,
             elevation: 0,
-            fillColor: Color(0xff08A5D2),
+            fillColor: const Color(0xff08A5D2),
             child: Padding(
               padding: EdgeInsets.all(blockSizeHorizontal(context) * 2),
               child: Icon(
@@ -157,7 +159,7 @@ class ProductCard extends StatelessWidget {
                 size: blockSizeHorizontal(context) * 8,
               ),
             ),
-            shape: CircleBorder(),
+            shape: const CircleBorder(),
           ),
         ),
       ],

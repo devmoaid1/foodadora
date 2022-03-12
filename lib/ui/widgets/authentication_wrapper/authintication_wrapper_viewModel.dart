@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, file_names
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:stacked/stacked.dart';
