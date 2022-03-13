@@ -83,13 +83,6 @@ class CartService extends BaseService {
     _cartItems.sink.add(products);
   }
 
-  void updateCartItems({required Cart cart}) async {
-    await firestore
-        .collection('customers')
-        .doc('6kvkrYD5BSqvQ4frXiEN')
-        .set({'cart': cart.toJson()}, SetOptions(merge: true));
-  }
-
   void addItem({required Product product, required int quantity}) async {
     var cart = await getCartFromLocalStorage();
     var items = cart.cartItems;
