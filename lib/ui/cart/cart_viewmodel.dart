@@ -49,12 +49,16 @@ class CartViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  void getSubTotal() async {
+    _total = await cartService.getSubTotal();
+    notifyListeners();
+  }
+
   void getTotal() {
-    _total = 0;
     cartService.cartItems.listen((products) {
-      print(" length ${products.length}");
       if (products.isNotEmpty) {
         for (var item in products) {
+          _total = 0;
           _total += item.quantity! * item.originalPrice!.toDouble();
         }
 
@@ -62,16 +66,19 @@ class CartViewModel extends BaseViewModel {
       }
 
       notifyListeners();
+      print(total);
     });
   }
 
   void incrementQuantity({required Product product, required int stock}) {
     cartService.incrementQuantity(product, stock);
+    _total += product.quantity! * product.originalPrice!.toDouble();
     notifyListeners();
   }
 
   void decrementQuantity({required Product product}) {
     cartService.decrementQuantity(product);
+    _total -= product.quantity! * product.originalPrice!.toDouble();
     notifyListeners();
   }
 

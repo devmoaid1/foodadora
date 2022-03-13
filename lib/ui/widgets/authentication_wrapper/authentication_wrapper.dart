@@ -18,7 +18,7 @@ class AuthenticationWrapper extends StatelessWidget {
             stream: model.currentUser,
             builder: (context, AsyncSnapshot<User?> snapShot) {
               if (snapShot.hasData) {
-                return const StoresScreen();
+                return CartScreen();
               }
 
               return LoginView();

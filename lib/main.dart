@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:foodadora/app/app.locator.dart';
 
 import 'package:foodadora/foodadora.dart';
-import 'package:foodadora/ui/utilites/custom_modals.dart';
 
-import 'services/base_service.dart';
+import 'package:foodadora/ui/utilites/custom_modals.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -47,8 +47,7 @@ class ProductDetailsViewModel extends BaseViewModel {
   }
 
   void addToCart({required Product product, required int quatity}) {
-    // cartService.addItem(product: product, quantity: quatity);
-    cartService.testSharedPrefrences();
+    cartService.addItem(product: product, quantity: quatity);
   }
 
   void setLoading(bool value) {

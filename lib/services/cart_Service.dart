@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, prefer_final_fields, avoid_function_literals_in_foreach_calls
+// ignore_for_file: file_names, prefer_final_fields, avoid_function_literals_in_foreach_calls, avoid_print
 
 import 'dart:convert';
 
@@ -29,10 +29,6 @@ class CartService extends BaseService {
 
   SharedPreferences? _sharedPreferences;
 
-  void initializeSharedPrefrences() async {
-    _sharedPreferences = await SharedPreferences.getInstance();
-  }
-
   CartService() {
     _cartItems.sink.add(_products);
   }
@@ -48,28 +44,9 @@ class CartService extends BaseService {
     return Cart(storeId: "", cartItems: []);
   }
 
-  Future<Cart> getCustomerCart() async {
-    _currentCustomer = await profileService.getCustomer();
-    return _currentCustomer.cart as Cart;
-  }
-
-  void testSharedPrefrences() async {
-    // sharedPreferences!.clear();
-    // print("clrared");
-    // var cart = Cart(storeId: "", cartItems: []);
-
-    // String sh = jsonEncode(cart.toJson());
-    // sharedPreferences!.setString("cart", sh);
-    // print("cart: ${sh}");
-
-    var cartLocalStorage = await getCartFromLocalStorage();
-
-    print("cart from local storage:${cartLocalStorage.storeId}");
-  }
-
   void fetchCartItems() async {
     List<Product> products = [];
-    var cart = await getCartFromLocalStorage(); // get current customer cart
+    var cart = await getCartFromLocalStorage(); // get cart from local storage
     var cartItems = cart.cartItems;
 
     _cartItems.sink.add([]);
@@ -121,13 +98,13 @@ class CartService extends BaseService {
     bool isAddedQuantity = false;
 
     // condition for adding to empty cart
-    if (items.length == 0) {
+    if (items.isEmpty) {
       items.add(CartItem(productId: product.productId, quantity: quantity));
       _sharedPreferences!.setString(
           "cart",
           jsonEncode(
               Cart(storeId: product.storeId, cartItems: items).toJson()));
-      // updateCartItems(cart: Cart(storeId: product.storeId, cartItems: items));
+
       dialogService.showDialog(title: "item is added to cart first");
     }
 
@@ -153,8 +130,6 @@ class CartService extends BaseService {
                   Cart(storeId: product.storeId, cartItems: items).toJson()));
 
           print("added from different store");
-          // updateCartItems(
-          //     cart: Cart(storeId: product.storeId, cartItems: items));
         }
       }
 
@@ -169,8 +144,7 @@ class CartService extends BaseService {
                 "cart",
                 jsonEncode(
                     Cart(storeId: product.storeId, cartItems: items).toJson()));
-            // updateCartItems(
-            //     cart: Cart(storeId: product.storeId, cartItems: items));
+
             print("updated quantity");
             isAddedQuantity = true;
           } else {
@@ -184,8 +158,6 @@ class CartService extends BaseService {
               "cart",
               jsonEncode(
                   Cart(storeId: product.storeId, cartItems: list).toJson()));
-          // updateCartItems(
-          //     cart: Cart(storeId: product.storeId, cartItems: list));
 
           dialogService.showDialog(title: "item is added to cart");
         }
@@ -194,8 +166,8 @@ class CartService extends BaseService {
   }
 
   void deleteItem({required Product product}) async {
-    var cart = _currentCustomer.cart;
-    var cartItems = _currentCustomer.cart!.cartItems;
+    var cart = await getCartFromLocalStorage();
+    var cartItems = cart.cartItems;
     List<CartItem> list = [];
     if (cartItems != null) {
       var toRemove = [...cartItems];
@@ -214,24 +186,24 @@ class CartService extends BaseService {
           _products.removeWhere((item) => item.productId == element.productId);
           _cartItems.sink.add(_products);
 
-          if (list.length == 1) {
-            updateCartItems(cart: Cart(storeId: "", cartItems: []));
-          } else {
-            updateCartItems(
-                cart: Cart(storeId: cart!.storeId, cartItems: list));
+          _sharedPreferences!.setString(
+              "cart",
+              jsonEncode(
+                  Cart(storeId: cart.storeId, cartItems: list).toJson()));
+
+          if (list.isEmpty) {
+            _sharedPreferences!.setString(
+                "cart", jsonEncode(Cart(storeId: "", cartItems: []).toJson()));
           }
         }
       });
     }
-
-    // _cartItems.stream.listen((productList) {
-    //   productList.remove(product);
-    // });
+    print(list.length);
   }
 
-  void incrementQuantity(Product product, int stock) {
-    var cart = _currentCustomer.cart;
-    var cartItems = cart!.cartItems;
+  void incrementQuantity(Product product, int stock) async {
+    var cart = await getCartFromLocalStorage();
+    var cartItems = cart.cartItems;
 
     _cartItems.stream.listen((productsList) {
       productsList.forEach((element) async {
@@ -240,12 +212,13 @@ class CartService extends BaseService {
             // update in ui
             product.quantity = product.quantity! + 1;
 
-            // update in database to be synced
+            // update in local storage to be synced
             if (cartItems != null) {
               for (var cartItem in cartItems) {
                 if (cartItem.productId == product.productId) {
                   cartItem.quantity = product.quantity;
-                  updateCartItems(cart: cart);
+                  _sharedPreferences!
+                      .setString('cart', jsonEncode(cart.toJson()));
                 }
               }
             }
@@ -255,9 +228,9 @@ class CartService extends BaseService {
     });
   }
 
-  void decrementQuantity(Product product) {
-    var cart = _currentCustomer.cart;
-    var cartItems = cart!.cartItems;
+  void decrementQuantity(Product product) async {
+    var cart = await getCartFromLocalStorage();
+    var cartItems = cart.cartItems;
 
     _cartItems.stream.listen((productsList) {
       productsList.forEach((element) async {
@@ -266,12 +239,13 @@ class CartService extends BaseService {
             // update in ui
             product.quantity = product.quantity! - 1;
 
-            // update in database to be synced
+            // update in local storage to be synced
             if (cartItems != null) {
               for (var cartItem in cartItems) {
                 if (cartItem.productId == product.productId) {
                   cartItem.quantity = product.quantity;
-                  updateCartItems(cart: cart);
+                  _sharedPreferences!
+                      .setString('cart', jsonEncode(cart.toJson()));
                 }
               }
             }
@@ -279,5 +253,17 @@ class CartService extends BaseService {
         }
       });
     });
+  }
+
+  Future<double> getSubTotal() async {
+    double total = 0;
+
+    if (_products.isNotEmpty) {
+      for (var item in _products) {
+        total += item.quantity! * item.originalPrice!.toDouble();
+      }
+    }
+
+    return total;
   }
 }

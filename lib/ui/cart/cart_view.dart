@@ -157,8 +157,6 @@ class CartItem extends ViewModelWidget<CartViewModel> {
       ),
       onDismissed: (direction) {
         viewModel.deleteCartItem(product: product);
-        viewModel.resetTotal();
-        viewModel.getTotal();
       },
       child: Card(
           elevation: 4,
@@ -202,7 +200,6 @@ class CartItem extends ViewModelWidget<CartViewModel> {
                           child: RawMaterialButton(
                             onPressed: () {
                               viewModel.decrementQuantity(product: product);
-                              viewModel.getTotal();
                             },
                             elevation: 0,
                             fillColor: const Color(0xfff9f9f9),
@@ -230,7 +227,6 @@ class CartItem extends ViewModelWidget<CartViewModel> {
                             onPressed: () {
                               viewModel.incrementQuantity(
                                   product: product, stock: productStock);
-                              viewModel.getTotal();
                             },
                             elevation: 0,
                             fillColor: const Color(0xfff9f9f9),
