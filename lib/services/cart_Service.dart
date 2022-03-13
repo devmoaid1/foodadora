@@ -1,5 +1,7 @@
 // ignore_for_file: file_names, prefer_final_fields, avoid_function_literals_in_foreach_calls
 
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:foodadora/app/constants/services_instances.dart';
@@ -11,6 +13,7 @@ import 'package:foodadora/services/base_service.dart';
 import 'package:foodadora/ui/utilites/custom_modals.dart';
 
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CartService extends BaseService {
   BehaviorSubject<List<Product>> _cartItems = BehaviorSubject();
@@ -24,8 +27,25 @@ class CartService extends BaseService {
   List<Product> get originalProducts => _originalProducts;
   Stream<List<Product>> get cartItems => _cartItems.stream;
 
+  SharedPreferences? _sharedPreferences;
+
+  void initializeSharedPrefrences() async {
+    _sharedPreferences = await SharedPreferences.getInstance();
+  }
+
   CartService() {
     _cartItems.sink.add(_products);
+  }
+
+  Future<Cart> getCartFromLocalStorage() async {
+    _sharedPreferences = await SharedPreferences.getInstance();
+
+    var cartLocalStorage = _sharedPreferences!.getString('cart');
+    if (cartLocalStorage != null) {
+      return Cart.fromJson(jsonDecode(cartLocalStorage.toString()));
+    }
+
+    return Cart(storeId: "", cartItems: []);
   }
 
   Future<Cart> getCustomerCart() async {
@@ -33,9 +53,23 @@ class CartService extends BaseService {
     return _currentCustomer.cart as Cart;
   }
 
+  void testSharedPrefrences() async {
+    // sharedPreferences!.clear();
+    // print("clrared");
+    // var cart = Cart(storeId: "", cartItems: []);
+
+    // String sh = jsonEncode(cart.toJson());
+    // sharedPreferences!.setString("cart", sh);
+    // print("cart: ${sh}");
+
+    var cartLocalStorage = await getCartFromLocalStorage();
+
+    print("cart from local storage:${cartLocalStorage.storeId}");
+  }
+
   void fetchCartItems() async {
     List<Product> products = [];
-    var cart = await getCustomerCart(); // get current customer cart
+    var cart = await getCartFromLocalStorage(); // get current customer cart
     var cartItems = cart.cartItems;
 
     _cartItems.sink.add([]);
@@ -45,6 +79,7 @@ class CartService extends BaseService {
         var fetchedDocs = await firestore
             .collection('products')
             .where('productId', isEqualTo: item.productId)
+            .where('isAvailable', isEqualTo: true)
             .get();
 
         for (var doc in fetchedDocs.docs) {
@@ -66,7 +101,6 @@ class CartService extends BaseService {
         }
       }
     }
-
     _products = [...products];
     // add list of full products to the stream to be reactive
     _cartItems.sink.add(products);
@@ -80,21 +114,25 @@ class CartService extends BaseService {
   }
 
   void addItem({required Product product, required int quantity}) async {
-    var cart = await getCustomerCart();
+    var cart = await getCartFromLocalStorage();
     var items = cart.cartItems;
     List<CartItem> list = items as List<CartItem>;
 
     bool isAddedQuantity = false;
 
     // condition for adding to empty cart
-    if (items.isEmpty) {
+    if (items.length == 0) {
       items.add(CartItem(productId: product.productId, quantity: quantity));
-      updateCartItems(cart: Cart(storeId: product.storeId, cartItems: items));
-      dialogService.showDialog(title: "item is added to cart");
+      _sharedPreferences!.setString(
+          "cart",
+          jsonEncode(
+              Cart(storeId: product.storeId, cartItems: items).toJson()));
+      // updateCartItems(cart: Cart(storeId: product.storeId, cartItems: items));
+      dialogService.showDialog(title: "item is added to cart first");
     }
 
     // if cart has items
-    if (items.isNotEmpty) {
+    else if (items.isNotEmpty) {
       // condition for adding from different store
       if (product.storeId != cart.storeId) {
         var response = await dialogService.showCustomDialog(
@@ -105,12 +143,18 @@ class CartService extends BaseService {
             mainButtonTitle: "Remove");
 
         if (response!.confirmed) {
-          updateCartItems(cart: Cart(storeId: "", cartItems: []));
-
+          _sharedPreferences!.setString(
+              "cart", jsonEncode(Cart(storeId: "", cartItems: []).toJson()));
+          items.clear();
           items.add(CartItem(productId: product.productId, quantity: quantity));
+          _sharedPreferences!.setString(
+              "cart",
+              jsonEncode(
+                  Cart(storeId: product.storeId, cartItems: items).toJson()));
 
-          updateCartItems(
-              cart: Cart(storeId: product.storeId, cartItems: items));
+          print("added from different store");
+          // updateCartItems(
+          //     cart: Cart(storeId: product.storeId, cartItems: items));
         }
       }
 
@@ -121,9 +165,13 @@ class CartService extends BaseService {
         items.forEach((item) {
           if (product.productId == item.productId) {
             item.quantity = item.quantity! + quantity;
-
-            updateCartItems(
-                cart: Cart(storeId: product.storeId, cartItems: items));
+            _sharedPreferences!.setString(
+                "cart",
+                jsonEncode(
+                    Cart(storeId: product.storeId, cartItems: items).toJson()));
+            // updateCartItems(
+            //     cart: Cart(storeId: product.storeId, cartItems: items));
+            print("updated quantity");
             isAddedQuantity = true;
           } else {
             isAddedQuantity = false;
@@ -132,9 +180,12 @@ class CartService extends BaseService {
 
         if (!isAddedQuantity) {
           list.add(CartItem(productId: product.productId, quantity: quantity));
-
-          updateCartItems(
-              cart: Cart(storeId: product.storeId, cartItems: list));
+          _sharedPreferences!.setString(
+              "cart",
+              jsonEncode(
+                  Cart(storeId: product.storeId, cartItems: list).toJson()));
+          // updateCartItems(
+          //     cart: Cart(storeId: product.storeId, cartItems: list));
 
           dialogService.showDialog(title: "item is added to cart");
         }

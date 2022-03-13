@@ -47,18 +47,8 @@ class ProductDetailsViewModel extends BaseViewModel {
   }
 
   void addToCart({required Product product, required int quatity}) {
-    cartService.addItem(product: product, quantity: quatity);
-    // cartService.cartItems.listen((products) {
-    //   if (products.contains(product)) {
-    //     dialogService.showDialog(title: "item is already on cart");
-    //   } else {
-    //     cartService.addItem(product);
-    //     dialogService.showDialog(title: "item is added to cart ");
-    //     notifyListeners();
-    //   }
-    // }).onError((err) => logger.e(err));
-
-    // navigationService.navigateTo(Routes.cartScreen);
+    // cartService.addItem(product: product, quantity: quatity);
+    cartService.testSharedPrefrences();
   }
 
   void setLoading(bool value) {
