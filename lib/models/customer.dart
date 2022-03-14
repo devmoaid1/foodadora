@@ -1,8 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
+
+import 'cart.dart';
+
 part 'customer.g.dart';
 
 // after each change in the models run this command =>   flutter pub run build_runner build --delete-conflicting-outputs
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Customer {
   final String? name;
   final String? userId;
@@ -10,7 +13,7 @@ class Customer {
   final String? phoneNumber;
   final String? photoUrl;
   final bool isVerfied;
-  final List<Map<String, dynamic>>? cart;
+  final Cart? cart;
   List<String>? orders;
 
   Customer(

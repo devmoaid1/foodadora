@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/order.dart';
 import 'package:stacked/stacked.dart';
@@ -25,7 +27,7 @@ class OrdersViewModel extends BaseViewModel {
     setLoading(true);
     try {
       var customerId = await getCustomerId();
-      print(customerId);
+
       _orders =
           await ordersService.getOrdersForCustomer(customerId: customerId);
       setBusy(false);

@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/ui/stores/stores_viewModel.dart';

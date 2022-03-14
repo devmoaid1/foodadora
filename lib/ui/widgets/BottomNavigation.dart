@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
@@ -5,7 +7,7 @@ import 'package:foodadora/app/constants/assets.dart';
 class BottomNavigation extends StatefulWidget {
   final Function changeIndex;
   final int selectedItemIndex;
-  BottomNavigation(this.changeIndex, this.selectedItemIndex);
+  const BottomNavigation(this.changeIndex, this.selectedItemIndex);
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
 }
@@ -36,7 +38,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   buildNavBarItem(String iconPath, int index) {
     return GestureDetector(
       onTap: () => widget.changeIndex(index),
-      child: Container(
+      child: SizedBox(
         width: 25,
         child: SvgPicture.asset(
           iconPath,

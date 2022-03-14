@@ -1,10 +1,10 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
-import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/models/store.dart';
 import 'package:foodadora/ui/store_details/storeDetails_viewModel.dart';
-import 'package:foodadora/ui/stores/stores_view.dart';
 import 'package:foodadora/ui/utilites/expiryWeeks.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
 import 'package:foodadora/ui/widgets/product_card.dart';
@@ -108,10 +108,12 @@ class StoreDetailsScreen extends StatelessWidget {
                       onButtonPressed: () {},
                       onTapped: () {
                         Product product = Product(
+                            productId: model.storeProducts[index].productId,
                             productName: model.storeProducts[index].productName,
                             productImages:
                                 model.storeProducts[index].productImages,
                             storeId: model.storeProducts[index].storeId,
+                            quantity: model.storeProducts[index].quantity,
                             originalPrice:
                                 model.storeProducts[index].originalPrice,
                             expiryDate: model.storeProducts[index].expiryDate,

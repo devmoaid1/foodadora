@@ -1,10 +1,12 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors, sized_box_for_whitespace, avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
 
 class ProductImage extends StatelessWidget {
   final String? productimage;
   final int? expiry;
-  ProductImage({this.productimage, this.expiry});
+  const ProductImage({this.productimage, this.expiry});
 
   @override
   Widget build(BuildContext context) {
