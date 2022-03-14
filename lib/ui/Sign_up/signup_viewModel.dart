@@ -68,7 +68,7 @@ class SignUpViewModel extends BaseViewModel {
           id: id, email: email, name: name, phone: phone, photoUrl: url);
       setBusy(false);
       setLoading(true);
-      navigationService.replaceWith(Routes.homeScreen);
+      navigationService.replaceWith(Routes.homeNavigationView);
       dialogService.showDialog(title: "success!");
     } catch (err) {
       setLoading(false);

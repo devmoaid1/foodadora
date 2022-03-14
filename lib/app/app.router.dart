@@ -17,7 +17,7 @@ import '../models/store.dart';
 import '../ui/Sign_up/phoneSignup_view.dart';
 import '../ui/Sign_up/signup_view.dart';
 import '../ui/cart/cart_view.dart';
-import '../ui/home/home_view.dart';
+import '../ui/home_navigation/home_navigation_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/orders/orders_view.dart';
 import '../ui/product_details/product_details_view.dart';
@@ -27,11 +27,11 @@ import '../ui/stores/stores_view.dart';
 import '../ui/widgets/authentication_wrapper/authentication_wrapper.dart';
 
 class Routes {
-  static const String homeScreen = '/home-screen';
+  static const String homeNavigationView = '/';
   static const String productDetailsView = '/product-details-view';
   static const String ordersScreen = '/orders-screen';
   static const String cartScreen = '/cart-screen';
-  static const String authenticationWrapper = '/';
+  static const String authenticationWrapper = '/authentication-wrapper';
   static const String loginView = '/login-view';
   static const String signUpView = '/sign-up-view';
   static const String phoneSignUpScreen = '/phone-sign-up-screen';
@@ -39,7 +39,7 @@ class Routes {
   static const String storesScreen = '/stores-screen';
   static const String storeDetailsScreen = '/store-details-screen';
   static const all = <String>{
-    homeScreen,
+    homeNavigationView,
     productDetailsView,
     ordersScreen,
     cartScreen,
@@ -57,7 +57,7 @@ class StackedRouter extends RouterBase {
   @override
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
-    RouteDef(Routes.homeScreen, page: HomeScreen),
+    RouteDef(Routes.homeNavigationView, page: HomeNavigationView),
     RouteDef(Routes.productDetailsView, page: ProductDetailsView),
     RouteDef(Routes.ordersScreen, page: OrdersScreen),
     RouteDef(Routes.cartScreen, page: CartScreen),
@@ -72,9 +72,9 @@ class StackedRouter extends RouterBase {
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, StackedRouteFactory>{
-    HomeScreen: (data) {
+    HomeNavigationView: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const HomeScreen(),
+        builder: (context) => const HomeNavigationView(),
         settings: data,
       );
     },

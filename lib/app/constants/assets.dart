@@ -1,5 +1,10 @@
 class Assets {
   Assets._();
+// Bottom Nav Icons
+  static const homeIcon = "assets/icons/stores.svg";
+  static const cartIcon = "assets/icons/cart.svg";
+  static const ordersIcon = "assets/icons/orders.svg";
+  static const settingsIcon = "assets/icons/settings.svg";
 
   static const riceimage = "assets/images/rice.png";
   static const tunaimage = "assets/images/tuna.png";
@@ -25,4 +30,6 @@ class Assets {
 
   static const ringicon = "assets/icons/ring.svg";
   static const appLogo = "assets/logos/appLogoIcon.svg";
+
+  static const homeGraphic = "assets/images/home_graphic.png";
 }
