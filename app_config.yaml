@@ -1,0 +1,17 @@
+# Specifics for app icon and splash screen
+
+# Run after any change in app icon
+# flutter pub run flutter_launcher_icons:main -f app_config.yaml
+flutter_icons:
+  image_path: "assets/logos/app_icon.png"
+  adaptive_icon_foreground: "assets/logos/app_icon_foreground.png"
+  android: true
+  ios: true
+
+# Run after any change in splash screen
+# flutter pub run flutter_native_splash:create --path=app_config.yaml
+flutter_native_splash:
+  color: "#F4F4F4"
+  image: "assets/logos/splash.png"
+  android: true
+  ios: true
