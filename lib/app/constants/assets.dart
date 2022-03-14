@@ -17,10 +17,16 @@ class Assets {
   static const locationicon = "assets/images/location_pin.svg";
   static const riceimagesvg = "assets/images/ricesvg.svg";
   static const tunaimagesvg = "assets/images/tunasvg.svg";
-  static const plusicon = "assets/images/+.svg";
-  static const minusicon = "assets/images/-.svg";
+  static const plusicon = "assets/icons/plus.svg";
+  static const minusicon = "assets/icons/minus.svg";
 
-  static const storeicon = "assets/icons/store.svg";
+  static const trashIcon = "assets/icons/trash.svg";
+  static const clockIcon = "assets/icons/clock.svg";
+  static const priceIcon = "assets/icons/price.svg";
+  static const pinLocationIcon = "assets/icons/pin_location.svg";
+
+  static const storeicon = "assets/icons/store1.svg";
+  static const wareHouseicon = "assets/icons/warehouse.svg";
 
   static const homeicon = "assets/icons/home.svg";
   static const usericon = "assets/icons/user.svg";

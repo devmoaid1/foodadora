@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/models/store.dart';
 import 'package:foodadora/ui/store_details/storeDetails_viewModel.dart';
+import 'package:foodadora/ui/utilites/app_colors.dart';
 import 'package:foodadora/ui/utilites/expiryWeeks.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
 import 'package:foodadora/ui/widgets/product_card.dart';
@@ -23,7 +24,7 @@ class StoreDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         toolbarHeight: blockSizeVertical(context) * 10,
-        backgroundColor: Colors.white,
+        backgroundColor: scaffoldColor,
         leading: IconButton(
             icon: Icon(
               LineIcons.angleLeft,
@@ -116,6 +117,8 @@ class StoreDetailsScreen extends StatelessWidget {
                             quantity: model.storeProducts[index].quantity,
                             originalPrice:
                                 model.storeProducts[index].originalPrice,
+                            productPrice:
+                                model.storeProducts[index].productPrice,
                             expiryDate: model.storeProducts[index].expiryDate,
                             description:
                                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry");

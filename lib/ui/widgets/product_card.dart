@@ -48,7 +48,7 @@ class ProductCard extends StatelessWidget {
                   width: screenWidth(context),
                   height: screenHeightPercentage(context, percentage: 0.16),
                   child: Image(
-                    fit: BoxFit.fill,
+                    fit: BoxFit.contain,
                     image: NetworkImage(productImageUrl.toString()),
                   ),
                 ),

@@ -2,6 +2,8 @@
 
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/ui/cart/cart_viewmodel.dart';
@@ -43,15 +45,31 @@ class CartScreen extends StatelessWidget {
               return SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: blockSizeHorizontal(context) * 5,
-                      vertical: blockSizeVertical(context) * 3),
+                      horizontal: blockSizeHorizontal(context) * 1,
+                      vertical: blockSizeVertical(context) * 2),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Shopping Cart',
-                        style: TextStyle(
-                            fontSize: blockSizeHorizontal(context) * 8),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: blockSizeHorizontal(context) * 4),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Shopping Cart',
+                              style: GoogleFonts.poppins(
+                                  fontSize: blockSizeHorizontal(context) * 7),
+                            ),
+                            Text(
+                              'Tesco Store',
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF0054A4),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: blockSizeHorizontal(context) * 4),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(height: blockSizeVertical(context) * 2),
                       StreamBuilder<List<Product>>(
@@ -66,9 +84,12 @@ class CartScreen extends StatelessWidget {
                             }
                             return Container();
                           }),
-                      SizedBox(height: blockSizeVertical(context)),
+                      SizedBox(height: blockSizeVertical(context) * 5),
                       Card(
-                        color: const Color(0xffF4F4F4),
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        color: Colors.white,
                         child: Padding(
                           padding:
                               EdgeInsets.all(blockSizeHorizontal(context) * 4),
@@ -102,7 +123,7 @@ class CartScreen extends StatelessWidget {
                               bottom: blockSizeVertical(context) * 2),
                           width: screenWidth(context),
                           child: FoodadoraButton(
-                            label: 'Confirm Order',
+                            label: 'Confirm',
                             onPressed: () {},
                             color: const Color(0xff08A8DB),
                           ),
@@ -124,147 +145,105 @@ class CartItem extends ViewModelWidget<CartViewModel> {
 
   @override
   Widget build(BuildContext context, CartViewModel viewModel) {
-    return Dismissible(
-      key: UniqueKey(),
-      background: Container(
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.only(right: 20.0),
-        color: Colors.red,
-        child: const Icon(
-          Icons.delete,
-          color: Colors.white,
-        ),
-      ),
-      onDismissed: (direction) {
-        viewModel.deleteCartItem(product: product);
-      },
-      child: Card(
-          elevation: 4,
-          margin: EdgeInsets.symmetric(vertical: blockSizeVertical(context)),
-          child: Padding(
-            padding: EdgeInsets.all(blockSizeHorizontal(context) * 3),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  height: blockSizeVertical(context) * 18,
-                  width: blockSizeHorizontal(context) * 20,
+    return Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        elevation: 3,
+        margin: EdgeInsets.symmetric(vertical: blockSizeVertical(context)),
+        child: Padding(
+          padding: EdgeInsets.all(blockSizeHorizontal(context) * 3),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: blockSizeVertical(context) * 15,
+                width: blockSizeHorizontal(context) * 28,
+                child: Center(
                   child: Image.network(
                     product.productImages![0],
                     fit: BoxFit.contain,
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      constraints: BoxConstraints(
-                          maxWidth: blockSizeHorizontal(context) * 45),
-                      child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text(product.productName.toString(),
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-                                fontSize: blockSizeHorizontal(context) * 7)),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    constraints: BoxConstraints(
+                        maxWidth: blockSizeHorizontal(context) * 45),
+                    child: FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(product.productName.toString(),
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w400,
+                              fontSize: blockSizeHorizontal(context) * 5)),
+                    ),
+                  ),
+                  Text(
+                    '${product.originalPrice!.toStringAsFixed(2)} RM',
+                    style: GoogleFonts.poppins(
+                      fontSize: blockSizeHorizontal(context) * 5,
+                    ),
+                  ),
+                  SizedBox(
+                    height: blockSizeVertical(context) * 2,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: screenWidthPercentage(context, percentage: 0.2),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            product.quantity == 0
+                                ? GestureDetector(
+                                    onTap: () {
+                                      viewModel.deleteCartItem(
+                                          product: product);
+                                    },
+                                    child: SvgPicture.asset(Assets.trashIcon))
+                                : GestureDetector(
+                                    onTap: () {
+                                      viewModel.decrementQuantity(
+                                          product: product);
+                                      viewModel.getTotal();
+                                    },
+                                    child: SvgPicture.asset(Assets.minusicon)),
+                            Text(
+                              product.quantity.toString(),
+                              style: GoogleFonts.poppins(
+                                  fontSize: blockSizeHorizontal(context) * 5),
+                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  viewModel.incrementQuantity(
+                                      product: product, stock: productStock);
+                                  viewModel.getTotal();
+                                },
+                                child: SvgPicture.asset(Assets.plusicon)),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: blockSizeVertical(context),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: blockSizeVertical(context) * 5,
-                          width: blockSizeHorizontal(context) * 12,
-                          child: RawMaterialButton(
-                            onPressed: () {
-                              viewModel.decrementQuantity(product: product);
-                              viewModel.getTotal();
-                            },
-                            elevation: 0,
-                            fillColor: const Color(0xfff9f9f9),
-                            child: Padding(
-                              padding:
-                                  EdgeInsets.all(blockSizeHorizontal(context)),
-                              child: Icon(
-                                LineIcons.minus,
-                                color: const Color(0xffa6a6a6),
-                                size: blockSizeHorizontal(context) * 4,
-                              ),
-                            ),
-                            shape: const CircleBorder(),
-                          ),
-                        ),
-                        Text(
-                          product.quantity.toString(),
-                          style: GoogleFonts.poppins(
-                              fontSize: blockSizeHorizontal(context) * 5),
-                        ),
-                        Container(
-                          height: blockSizeVertical(context) * 5,
-                          width: blockSizeHorizontal(context) * 13,
-                          child: RawMaterialButton(
-                            onPressed: () {
-                              viewModel.incrementQuantity(
-                                  product: product, stock: productStock);
-                            },
-                            elevation: 0,
-                            fillColor: const Color(0xfff9f9f9),
-                            child: Padding(
-                              padding:
-                                  EdgeInsets.all(blockSizeHorizontal(context)),
-                              child: Icon(
-                                LineIcons.plus,
-                                color: const Color(0xffa6a6a6),
-                                size: blockSizeHorizontal(context) * 4,
-                              ),
-                            ),
-                            shape: const CircleBorder(),
-                          ),
-                        ),
-                        SizedBox(
-                          width: blockSizeHorizontal(context) * 1,
-                        ),
-                        Container(
-                            width: blockSizeHorizontal(context) * 18,
-                            child: FittedBox(
-                                fit: BoxFit.fitWidth,
-                                child: Text(
-                                  "$productStock items left",
-                                  style: GoogleFonts.poppins(
-                                      fontSize:
-                                          blockSizeHorizontal(context) * 14),
-                                )))
-                      ],
-                    ),
-                    SizedBox(
-                      height: blockSizeVertical(context),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.network(
-                          'https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/Tesco_Logo.svg/800px-Tesco_Logo.svg.png',
+                      SizedBox(
+                        width: blockSizeHorizontal(context) * 5,
+                      ),
+                      Container(
                           width: blockSizeHorizontal(context) * 20,
-                        ),
-                        SizedBox(
-                          width: blockSizeHorizontal(context) * 5,
-                        ),
-                        Text(
-                          'RM ${product.originalPrice!.toStringAsFixed(2)}',
-                          style: GoogleFonts.poppins(
-                            fontSize: blockSizeHorizontal(context) * 5,
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
-          )),
-    );
+                          child: FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                "$productStock items left",
+                                style: GoogleFonts.poppins(
+                                    fontSize:
+                                        blockSizeHorizontal(context) * 18),
+                              )))
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
+        ));
   }
 }
 

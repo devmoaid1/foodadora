@@ -1,6 +1,8 @@
 // ignore_for_file: file_names, use_key_in_widget_constructors, sized_box_for_whitespace, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
 
 class ProductImage extends StatelessWidget {
@@ -12,8 +14,8 @@ class ProductImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: blockSizeHorizontal(context) * 3,
-          vertical: blockSizeVertical(context) * 5),
+          horizontal: blockSizeHorizontal(context) * 4,
+          vertical: blockSizeVertical(context) * 2),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -22,7 +24,7 @@ class ProductImage extends StatelessWidget {
             height: screenHeightPercentage(context, percentage: 0.25),
             child: Image(
               image: NetworkImage(productimage.toString()),
-              fit: BoxFit.fill,
+              fit: BoxFit.contain,
             ),
           ),
           SizedBox(
@@ -37,15 +39,12 @@ class ProductImage extends StatelessWidget {
                   decoration: const BoxDecoration(
                       color: Color(0xffF46317),
                       borderRadius: BorderRadius.horizontal(
-                          left: Radius.circular(12.0),
-                          right: Radius.circular(12.0))),
+                          left: Radius.circular(17.0),
+                          right: Radius.circular(17.0))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(
-                        Icons.access_alarm_outlined,
-                        color: Colors.white,
-                      ),
+                      SvgPicture.asset(Assets.clockIcon),
                       SizedBox(
                         width: blockSizeHorizontal(context) * 1,
                       ),
@@ -54,7 +53,7 @@ class ProductImage extends StatelessWidget {
                         style: TextStyle(
                             fontFamily: "Poppins",
                             fontSize: blockSizeHorizontal(context) * 3,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w400,
                             color: Colors.white),
                       )
                     ],

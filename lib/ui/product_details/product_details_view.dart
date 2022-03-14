@@ -1,10 +1,13 @@
 // ignore_for_file: unused_import, sized_box_for_whitespace
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
+import 'package:foodadora/ui/utilites/app_colors.dart';
 import 'package:foodadora/ui/utilites/expiryWeeks.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
@@ -22,7 +25,28 @@ class ProductDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          toolbarHeight: blockSizeVertical(context) * 10,
+          backgroundColor: scaffoldColor,
+          leading: IconButton(
+              icon: Icon(
+                LineIcons.angleLeft,
+                color: Theme.of(context).primaryColor,
+                size: blockSizeHorizontal(context) * 8,
+              ),
+              onPressed: () => Navigator.pop(context)),
+          title: Padding(
+            padding: EdgeInsets.all(blockSizeHorizontal(context)),
+            child: Image.asset(
+              'assets/images/sublogo.png',
+              height: blockSizeVertical(context) * 8.5,
+            ),
+          ),
+          elevation: 0,
+        ),
         body: ViewModelBuilder<ProductDetailsViewModel>.reactive(
+            disposeViewModel: false,
             onModelReady: (model) =>
                 model.getStoreImage(id: product.storeId.toString()),
             viewModelBuilder: () => productDetailsViewModel,
@@ -46,58 +70,97 @@ class ProductDetailsView extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: blockSizeHorizontal(context) * 4),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  product.productName.toString(),
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize:
-                                          blockSizeHorizontal(context) * 5),
-                                ),
-                                Text(
-                                  "${product.originalPrice!.toStringAsFixed(2)} RM",
-                                  style: GoogleFonts.poppins(
-                                      fontSize:
-                                          blockSizeHorizontal(context) * 6,
-                                      color: const Color(0xffFF0000)),
-                                ),
-                              ],
+                            Text(
+                              product.productName.toString(),
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: blockSizeHorizontal(context) * 4),
                             ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                      blurRadius: 10,
-                                      color: Colors.grey.withOpacity(0.2),
-                                      spreadRadius: 3)
-                                ],
-                              ),
-                              child: GestureDetector(
-                                onTap: null,
-                                child: CircleAvatar(
-                                  radius: 40.0,
-                                  backgroundColor: Colors.white,
-                                  child: Image(
-                                    image: NetworkImage(model.storeImage),
-                                    fit: BoxFit.contain,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            Image.asset(
-                                      'assets/images/foodadora_seller.png',
-                                      fit: BoxFit.contain,
-                                    ),
+                            SizedBox(
+                              width: blockSizeHorizontal(context) * 2,
+                            ),
+                            SvgPicture.asset(
+                              Assets.storeicon,
+                              height: 20,
+                            ),
+                            SizedBox(
+                              width: blockSizeHorizontal(context) * 2,
+                            ),
+                            Text(
+                              "Tesco store",
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w500,
+                                  color: const Color(0xff0054A4),
+                                  fontSize: blockSizeHorizontal(context) * 4),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: blockSizeVertical(context) * 2,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: blockSizeHorizontal(context) * 4),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              Assets.priceIcon,
+                              height: 20,
+                            ),
+                            SizedBox(
+                              width: blockSizeHorizontal(context) * 2,
+                            ),
+                            Text(
+                              "${product.productPrice!.toStringAsFixed(2)} RM",
+                              style: GoogleFonts.poppins(
+                                  fontSize: blockSizeHorizontal(context) * 4,
+                                  color: const Color(0xffFF0000)),
+                            ),
+                            SizedBox(
+                              width: blockSizeHorizontal(context),
+                            ),
+                            Text(
+                              "${product.originalPrice!.toStringAsFixed(2)} RM",
+                              style: GoogleFonts.poppins(
+                                  fontSize: blockSizeHorizontal(context) * 4,
+                                  decoration: TextDecoration.lineThrough,
+                                  color: const Color(0xff5C5C5F)),
+                            ),
+                            SizedBox(
+                              width: blockSizeHorizontal(context) * 12,
+                            ),
+                            SvgPicture.asset(
+                              Assets.pinLocationIcon,
+                              height: 20,
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "2.6",
+                                    style: GoogleFonts.poppins(
+                                        fontSize:
+                                            blockSizeHorizontal(context) * 4,
+                                        color: const Color(0xff5C5C5F)),
                                   ),
-                                ),
+                                  Text(
+                                    "KM away",
+                                    style: GoogleFonts.poppins(
+                                        fontSize:
+                                            blockSizeHorizontal(context) * 4,
+                                        color: const Color(0xff5C5C5F)),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
+                      ),
+                      SizedBox(
+                        height: blockSizeVertical(context) * 4,
                       ),
                       Container(
                           padding: EdgeInsets.symmetric(
@@ -108,7 +171,8 @@ class ProductDetailsView extends StatelessWidget {
                               Text("Description",
                                   style: GoogleFonts.poppins(
                                       fontSize: 18,
-                                      fontWeight: FontWeight.w600)),
+                                      color: const Color(0xff5C5C5F),
+                                      fontWeight: FontWeight.w500)),
                               SizedBox(
                                 height: blockSizeVertical(context),
                               ),
@@ -119,10 +183,9 @@ class ProductDetailsView extends StatelessWidget {
                                 alignment: Alignment.topLeft,
                                 child: Text(
                                   product.description.toString(),
-                                  style: TextStyle(
-                                    fontFamily: "Poppins",
+                                  style: GoogleFonts.poppins(
                                     fontSize: blockSizeHorizontal(context) * 3,
-                                    color: const Color(0xffB6B6B6),
+                                    color: const Color(0xff5C5C5F),
                                   ),
                                   textAlign: TextAlign.justify,
                                 ),
@@ -130,35 +193,77 @@ class ProductDetailsView extends StatelessWidget {
                               SizedBox(
                                 height: blockSizeVertical(context) * 3,
                               ),
-                              Center(
-                                  child: FoodadoraButton(
-                                      label: "Add to cart",
-                                      onPressed: () {
-                                        showModalBottomSheet(
-                                            context: context,
-                                            elevation: 2,
-                                            constraints: BoxConstraints(
-                                                maxHeight:
-                                                    screenHeightPercentage(
-                                                        context,
-                                                        percentage: 0.4)),
-                                            enableDrag: true,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
+
+                              model.isAddToCart
+                                  ?
+
+                                  // quantity container
+                                  UpdateQuantityCard(product: product)
+                                  : GestureDetector(
+                                      onTap: () => model.setIsAddToCart(true),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: const Color(0xff0095DA),
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
+                                        height: screenHeightPercentage(context,
+                                            percentage: 0.08),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "Add To Cart",
+                                              style: GoogleFonts.poppins(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: blockSizeHorizontal(
+                                                          context) *
+                                                      5),
                                             ),
-                                            builder: (context) {
-                                              return ViewModelBuilder<
-                                                  ProductDetailsViewModel>.nonReactive(
-                                                viewModelBuilder: () =>
-                                                    productDetailsViewModel,
-                                                disposeViewModel: false,
-                                                builder: (context, model, _) =>
-                                                    UpdateQuantityBottomSheet(
-                                                        product: product),
-                                              );
-                                            });
-                                      }))
+                                            SizedBox(
+                                              width:
+                                                  blockSizeHorizontal(context) *
+                                                      2,
+                                            ),
+                                            SvgPicture.asset(
+                                              Assets.shoppingicon,
+                                              color: Colors.white,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+
+                              // Center(
+                              //     child: FoodadoraButton(
+                              //         label: "Add to cart",
+                              //         onPressed: () {
+                              //           showModalBottomSheet(
+                              //               context: context,
+                              //               elevation: 2,
+                              //               constraints: BoxConstraints(
+                              //                   maxHeight:
+                              //                       screenHeightPercentage(
+                              //                           context,
+                              //                           percentage: 0.4)),
+                              //               enableDrag: true,
+                              //               shape: RoundedRectangleBorder(
+                              //                 borderRadius:
+                              //                     BorderRadius.circular(10.0),
+                              //               ),
+                              //               builder: (context) {
+                              //                 return ViewModelBuilder<
+                              //                     ProductDetailsViewModel>.nonReactive(
+                              //                   viewModelBuilder: () =>
+                              //                       productDetailsViewModel,
+                              //                   disposeViewModel: false,
+                              //                   builder: (context, model, _) =>
+                              //                       UpdateQuantityBottomSheet(
+                              //                           product: product),
+                              //                 );
+                              //               });
+                              //         }))
                             ],
                           ))
                     ]),
@@ -167,112 +272,104 @@ class ProductDetailsView extends StatelessWidget {
   }
 }
 
-class UpdateQuantityBottomSheet
-    extends ViewModelWidget<ProductDetailsViewModel> {
-  const UpdateQuantityBottomSheet({Key? key, required this.product})
-      : super(key: key);
+class UpdateQuantityCard extends ViewModelWidget<ProductDetailsViewModel> {
+  const UpdateQuantityCard({Key? key, required this.product}) : super(key: key);
   final Product product;
   @override
   Widget build(BuildContext context, ProductDetailsViewModel viewModel) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return Padding(
+      padding:
+          EdgeInsets.symmetric(horizontal: blockSizeHorizontal(context) * 2),
+      child: Container(
+        color: const Color(0xffEEEEEE),
+        padding: EdgeInsets.symmetric(
+            horizontal: blockSizeHorizontal(context) * 2,
+            vertical: blockSizeVertical(context) * 2),
+        child: Column(
           children: [
-            Container(
-              height: blockSizeVertical(context) * 10,
-              width: blockSizeHorizontal(context) * 15,
-              child: RawMaterialButton(
-                onPressed: () {
-                  viewModel.decrementQuantity();
-                },
-                elevation: 0,
-                fillColor: const Color(0xfff9f9f9),
-                child: Padding(
-                  padding: EdgeInsets.all(blockSizeHorizontal(context)),
-                  child: Icon(
-                    LineIcons.minus,
-                    color: const Color(0xffa6a6a6),
-                    size: blockSizeHorizontal(context) * 4,
-                  ),
+            GestureDetector(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8)),
+                height: screenHeightPercentage(context, percentage: 0.08),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    viewModel.quantity == 1
+                        ? GestureDetector(
+                            onTap: () {
+                              viewModel.setIsAddToCart(false);
+                            },
+                            child: SvgPicture.asset(
+                              Assets.trashIcon,
+                              height: 30,
+                            ))
+                        : GestureDetector(
+                            onTap: () {
+                              viewModel.decrementQuantity();
+                            },
+                            child: SvgPicture.asset(
+                              Assets.minusicon,
+                              height: 30,
+                            )),
+                    SizedBox(
+                      width: blockSizeHorizontal(context) * 4,
+                    ),
+                    Text(
+                      viewModel.quantity.toString(),
+                      style: GoogleFonts.poppins(
+                          fontSize: blockSizeHorizontal(context) * 6),
+                    ),
+                    SizedBox(
+                      width: blockSizeHorizontal(context) * 4,
+                    ),
+                    GestureDetector(
+                        onTap: () {
+                          viewModel.incrementQunatity(
+                              productQuantity: product.quantity as int);
+                        },
+                        child: SvgPicture.asset(
+                          Assets.plusicon,
+                          height: 30,
+                        )),
+                  ],
                 ),
-                shape: const CircleBorder(),
-              ),
-            ),
-            Text(
-              viewModel.quantity.toString(),
-              style: GoogleFonts.poppins(
-                  fontSize: blockSizeHorizontal(context) * 7),
-            ),
-            Container(
-              height: blockSizeVertical(context) * 10,
-              width: blockSizeHorizontal(context) * 15,
-              child: RawMaterialButton(
-                onPressed: () {
-                  viewModel.incrementQunatity(
-                      productQuantity: product.quantity as int);
-                },
-                elevation: 0,
-                fillColor: const Color(0xfff9f9f9),
-                child: Padding(
-                  padding: EdgeInsets.all(blockSizeHorizontal(context)),
-                  child: Icon(
-                    LineIcons.plus,
-                    color: const Color(0xffa6a6a6),
-                    size: blockSizeHorizontal(context) * 6,
-                  ),
-                ),
-                shape: const CircleBorder(),
               ),
             ),
             SizedBox(
-              width: blockSizeHorizontal(context) * 1,
+              height: blockSizeVertical(context) * 2,
             ),
-            Container(
-                width: blockSizeHorizontal(context) * 24,
-                child: FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Text(
-                      "${product.quantity} items left",
+            GestureDetector(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: const Color(0xff0095DA),
+                    borderRadius: BorderRadius.circular(8)),
+                height: screenHeightPercentage(context, percentage: 0.08),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Continue Shopping",
                       style: GoogleFonts.poppins(
-                          fontSize: blockSizeHorizontal(context) * 18),
-                    )))
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: blockSizeHorizontal(context) * 5),
+                    ),
+                    SizedBox(
+                      width: blockSizeHorizontal(context) * 2,
+                    ),
+                    SvgPicture.asset(
+                      Assets.wareHouseicon,
+                      color: Colors.white,
+                    )
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: blockSizeHorizontal(context) * 2),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                width: screenWidthPercentage(context, percentage: 0.4),
-                child: FoodadoraButton(
-                  label: "Cancel",
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  color: Colors.white,
-                  borderColor: Colors.black,
-                  labelColor: Colors.black,
-                ),
-              ),
-              Container(
-                width: screenWidthPercentage(context, percentage: 0.4),
-                child: FoodadoraButton(
-                  label: "Done",
-                  onPressed: () {
-                    viewModel.addToCart(
-                        product: product, quatity: viewModel.quantity);
-                  },
-                  color: const Color(0xFF08A5D2),
-                ),
-              ),
-            ],
-          ),
-        )
-      ],
+      ),
     );
   }
 }

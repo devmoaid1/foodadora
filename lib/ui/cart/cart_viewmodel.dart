@@ -56,12 +56,15 @@ class CartViewModel extends BaseViewModel {
 
   void getTotal() {
     cartService.cartItems.listen((products) {
+      print(products.length);
+
       if (products.isNotEmpty) {
         _total = 0;
         for (var item in products) {
-          _total += item.quantity! * item.originalPrice!.toDouble();
+          print(item.quantity);
+          _total += (item.quantity!) * item.originalPrice!.toDouble();
         }
-
+        print(total);
         _isEmpty = false;
       }
 
@@ -72,7 +75,7 @@ class CartViewModel extends BaseViewModel {
 
   void incrementQuantity({required Product product, required int stock}) {
     cartService.incrementQuantity(product, stock);
-    _total += product.quantity! * product.originalPrice!.toDouble();
+
     notifyListeners();
   }
 
