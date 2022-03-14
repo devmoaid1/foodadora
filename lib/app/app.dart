@@ -1,7 +1,5 @@
 @StackedApp(routes: [
-  CupertinoRoute(
-    page: HomeScreen,
-  ),
+  CupertinoRoute(page: HomeNavigationView, initial: true),
   CupertinoRoute(
     page: ProductDetailsView,
   ),
@@ -11,7 +9,7 @@
   CupertinoRoute(
     page: CartScreen,
   ),
-  CupertinoRoute(page: AuthenticationWrapper, initial: true),
+  CupertinoRoute(page: AuthenticationWrapper),
   CupertinoRoute(page: LoginView),
   CupertinoRoute(
     page: SignUpView,
@@ -47,7 +45,7 @@ import 'package:foodadora/services/store_service.dart';
 import 'package:foodadora/ui/Sign_up/phoneSignup_view.dart';
 import 'package:foodadora/ui/Sign_up/signup_view.dart';
 import 'package:foodadora/ui/cart/cart_view.dart';
-import 'package:foodadora/ui/home/home_view.dart';
+import 'package:foodadora/ui/home_navigation/home_navigation_view.dart';
 import 'package:foodadora/ui/login/login_view.dart';
 import 'package:foodadora/ui/orders/orders_view.dart';
 import 'package:foodadora/ui/product_details/product_details_view.dart';
