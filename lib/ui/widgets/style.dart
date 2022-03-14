@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:foodadora/ui/utilites/app_colors.dart';
 
 final ThemeData mainTheme = ThemeData(
   brightness: Brightness.light,
@@ -8,17 +9,16 @@ final ThemeData mainTheme = ThemeData(
   primaryColorLight: const Color(0xfff7ecd4),
   primaryColorDark: const Color(0xffc79634),
   accentColorBrightness: Brightness.light,
-  canvasColor: const Color(0xfffafafa),
-  scaffoldBackgroundColor: const Color(0xffffffff),
+  canvasColor: scaffoldColor,
+  scaffoldBackgroundColor: scaffoldColor,
   bottomAppBarColor: const Color(0xffffffff),
   cardColor: const Color(0xffffffff),
-  dividerColor: const Color(0x1f000000),
+  dividerColor: const Color(0x1FDE9393),
   highlightColor: const Color(0x66bcbcbc),
   splashColor: const Color(0x66c8c8c8),
   selectedRowColor: const Color(0xfff5f5f5),
   unselectedWidgetColor: const Color(0x8a000000),
   disabledColor: const Color(0x61000000),
-  buttonColor: const Color(0xffe0e0e0),
   toggleableActiveColor: const Color(0xffae7e1e),
   secondaryHeaderColor: const Color(0xfffbf5e9),
   backgroundColor: const Color(0xfff0d8a8),
