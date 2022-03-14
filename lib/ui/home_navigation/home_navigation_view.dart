@@ -2,13 +2,14 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
-import 'package:foodadora/ui/home/home_view.dart';
+import 'package:foodadora/ui/cart/cart_view.dart';
+
 import 'package:foodadora/ui/home_navigation/home_navigation_viewmodel.dart';
-import 'package:foodadora/ui/home_navigation/home_views/cart_view.dart';
-import 'package:foodadora/ui/home_navigation/home_views/orders_view.dart';
-import 'package:foodadora/ui/home_navigation/home_views/settings_view.dart';
+
 import 'package:foodadora/ui/home_navigation/home_views/stores_view.dart';
 import 'package:foodadora/ui/home_navigation/widgets/bottom_navigation.dart';
+import 'package:foodadora/ui/orders/orders_view.dart';
+import 'package:foodadora/ui/profile/profile_view.dart';
 import 'package:foodadora/ui/utilites/app_colors.dart';
 import 'package:stacked/stacked.dart';
 
@@ -55,11 +56,11 @@ class HomeNavigationView extends StatelessWidget {
       case 0:
         return const StoresView();
       case 1:
-        return const CartView();
+        return CartScreen();
       case 2:
-        return const OrdersView();
+        return const OrdersScreen();
       case 3:
-        return const SettingsView();
+        return const ProfileScreen();
       default:
         return const StoresView();
     }

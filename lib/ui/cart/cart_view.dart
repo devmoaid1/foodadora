@@ -17,26 +17,6 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          toolbarHeight: blockSizeVertical(context) * 10,
-          backgroundColor: Colors.white,
-          leading: IconButton(
-              icon: Icon(
-                LineIcons.angleLeft,
-                color: Theme.of(context).primaryColor,
-                size: blockSizeHorizontal(context) * 8,
-              ),
-              onPressed: () => Navigator.pop(context)),
-          title: Padding(
-            padding: EdgeInsets.all(blockSizeHorizontal(context)),
-            child: Image.asset(
-              'assets/images/sublogo.png',
-              height: blockSizeVertical(context) * 8.5,
-            ),
-          ),
-          elevation: 0,
-        ),
         body: ViewModelBuilder<CartViewModel>.reactive(
             disposeViewModel: false,
             fireOnModelReadyOnce: false,
@@ -200,6 +180,7 @@ class CartItem extends ViewModelWidget<CartViewModel> {
                           child: RawMaterialButton(
                             onPressed: () {
                               viewModel.decrementQuantity(product: product);
+                              viewModel.getTotal();
                             },
                             elevation: 0,
                             fillColor: const Color(0xfff9f9f9),

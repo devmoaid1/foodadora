@@ -14,36 +14,14 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        toolbarHeight: blockSizeVertical(context) * 10,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-            icon: Icon(
-              LineIcons.angleLeft,
-              color: Theme.of(context).primaryColor,
-              size: blockSizeHorizontal(context) * 8,
-            ),
-            onPressed: () => Navigator.pop(context)),
-        title: Padding(
-          padding: EdgeInsets.all(blockSizeHorizontal(context)),
-          child: Image.asset(
-            'assets/images/sublogo.png',
-            height: blockSizeVertical(context) * 8.5,
-          ),
-        ),
-        elevation: 0,
-      ),
       body: ViewModelBuilder<ProfileViewModel>.reactive(
         fireOnModelReadyOnce: true,
         onModelReady: (model) => model.getCurrentCustomer(),
         viewModelBuilder: () => ProfileViewModel(),
         builder: (context, model, child) {
           if (model.loading) {
-            return Center(
-              child: CircularProgressIndicator(
-                color: Theme.of(context).primaryColor,
-              ),
+            return const Center(
+              child: CircularProgressIndicator.adaptive(),
             );
           }
 

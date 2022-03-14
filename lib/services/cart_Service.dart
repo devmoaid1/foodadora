@@ -2,12 +2,10 @@
 
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/cart.dart';
 import 'package:foodadora/models/cartItem.dart';
-import 'package:foodadora/models/customer.dart';
+
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/services/base_service.dart';
 import 'package:foodadora/ui/utilites/custom_modals.dart';
@@ -16,14 +14,13 @@ import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartService extends BaseService {
-  BehaviorSubject<List<Product>> _cartItems = BehaviorSubject();
+  BehaviorSubject<List<Product>> _cartItems =
+      BehaviorSubject(); //cartItems stream
 
-  List<Product> _originalProducts = [];
+  List<Product> _originalProducts = []; // list of original products with stock
+  List<Product> _products =
+      []; // list of cart items products with cart quantity
 
-  List<Product> _products = [];
-  Customer _currentCustomer = Customer();
-
-  Customer get currentCustomer => _currentCustomer;
   List<Product> get originalProducts => _originalProducts;
   Stream<List<Product>> get cartItems => _cartItems.stream;
 
@@ -37,6 +34,7 @@ class CartService extends BaseService {
     _sharedPreferences = await SharedPreferences.getInstance();
 
     var cartLocalStorage = _sharedPreferences!.getString('cart');
+    // return if there is data in local storage otherwise empty cart
     if (cartLocalStorage != null) {
       return Cart.fromJson(jsonDecode(cartLocalStorage.toString()));
     }
@@ -45,9 +43,10 @@ class CartService extends BaseService {
   }
 
   void fetchCartItems() async {
-    List<Product> products = [];
     var cart = await getCartFromLocalStorage(); // get cart from local storage
     var cartItems = cart.cartItems;
+    List<Product> products = [];
+    _originalProducts.clear(); //clear each time fetching
 
     _cartItems.sink.add([]);
     if (cartItems != null) {
@@ -62,7 +61,7 @@ class CartService extends BaseService {
         for (var doc in fetchedDocs.docs) {
           var product = Product.fromJson(doc.data());
 
-          _originalProducts.add(product);
+          _originalProducts.add(Product.fromJson(doc.data()));
 
           products.add(Product(
               productId: doc.id,
@@ -79,6 +78,7 @@ class CartService extends BaseService {
       }
     }
     _products = [...products];
+
     // add list of full products to the stream to be reactive
     _cartItems.sink.add(products);
   }
@@ -248,7 +248,7 @@ class CartService extends BaseService {
     });
   }
 
-  Future<double> getSubTotal() async {
+  double getSubTotal() {
     double total = 0;
 
     if (_products.isNotEmpty) {

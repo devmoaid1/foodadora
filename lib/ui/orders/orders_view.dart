@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodadora/ui/orders/orders_viewmodel.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:line_icons/line_icons.dart';
+
 import 'package:stacked/stacked.dart';
 
 import 'widgets/order_item.dart';
@@ -13,26 +13,6 @@ class OrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        toolbarHeight: blockSizeVertical(context) * 10,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-            icon: Icon(
-              LineIcons.angleLeft,
-              color: Theme.of(context).primaryColor,
-              size: blockSizeHorizontal(context) * 8,
-            ),
-            onPressed: () => Navigator.pop(context)),
-        title: Padding(
-          padding: EdgeInsets.all(blockSizeHorizontal(context)),
-          child: Image.asset(
-            'assets/images/sublogo.png',
-            height: blockSizeVertical(context) * 8.5,
-          ),
-        ),
-        elevation: 0,
-      ),
       body: ViewModelBuilder<OrdersViewModel>.reactive(
           viewModelBuilder: () => OrdersViewModel(),
           onModelReady: (model) => model.getOrders(),

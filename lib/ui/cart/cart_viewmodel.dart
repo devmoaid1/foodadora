@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields, unused_field
+// ignore_for_file: prefer_final_fields, unused_field, avoid_print
 
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/product.dart';
@@ -50,15 +50,15 @@ class CartViewModel extends BaseViewModel {
   }
 
   void getSubTotal() async {
-    _total = await cartService.getSubTotal();
+    _total = cartService.getSubTotal();
     notifyListeners();
   }
 
   void getTotal() {
     cartService.cartItems.listen((products) {
       if (products.isNotEmpty) {
+        _total = 0;
         for (var item in products) {
-          _total = 0;
           _total += item.quantity! * item.originalPrice!.toDouble();
         }
 
@@ -78,7 +78,8 @@ class CartViewModel extends BaseViewModel {
 
   void decrementQuantity({required Product product}) {
     cartService.decrementQuantity(product);
-    _total -= product.quantity! * product.originalPrice!.toDouble();
+    _total = cartService.getSubTotal();
+
     notifyListeners();
   }
 
