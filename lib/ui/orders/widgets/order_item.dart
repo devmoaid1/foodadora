@@ -2,16 +2,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodadora/ui/order_details/order_details_viewModel.dart';
 import 'package:foodadora/ui/utilites/date_formmater.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stacked/stacked.dart';
 
 import '../../../app/constants/assets.dart';
 import '../../../models/order.dart';
 import '../../../models/store.dart';
 import '../../utilites/app_colors.dart';
+import '../orders_viewmodel.dart';
 
-class OrderItem extends StatelessWidget {
+class OrderItem extends ViewModelWidget<OrdersViewModel> {
   final Store store;
   final Order order;
 
@@ -20,7 +23,7 @@ class OrderItem extends StatelessWidget {
     required this.order,
   });
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, OrdersViewModel viewModel) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 3,
@@ -96,23 +99,29 @@ class OrderItem extends StatelessWidget {
                     SizedBox(
                       width: blockSizeHorizontal(context),
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          width:
-                              screenWidthPercentage(context, percentage: 0.18),
-                          child: FittedBox(
-                            fit: BoxFit.fitWidth,
-                            child: Text(
-                              "View Details ",
-                              style: GoogleFonts.poppins(
-                                  color: const Color(0xff0095DA),
-                                  fontSize: blockSizeHorizontal(context) * 3),
+                    GestureDetector(
+                      onTap: () {
+                        viewModel.navigateToOrderDetails(
+                            store: store, order: order);
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            width: screenWidthPercentage(context,
+                                percentage: 0.18),
+                            child: FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                "View Details ",
+                                style: GoogleFonts.poppins(
+                                    color: const Color(0xff0095DA),
+                                    fontSize: blockSizeHorizontal(context) * 3),
+                              ),
                             ),
                           ),
-                        ),
-                        SvgPicture.asset(Assets.arrowRightIcon)
-                      ],
+                          SvgPicture.asset(Assets.arrowRightIcon)
+                        ],
+                      ),
                     ),
                   ],
                 ),

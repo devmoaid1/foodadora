@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import '../models/order.dart';
 import '../models/product.dart';
 import '../models/store.dart';
 import '../ui/Sign_up/phoneSignup_view.dart';
@@ -19,6 +20,7 @@ import '../ui/Sign_up/signup_view.dart';
 import '../ui/cart/cart_view.dart';
 import '../ui/home_navigation/home_navigation_view.dart';
 import '../ui/login/login_view.dart';
+import '../ui/order_details/order_details_view.dart';
 import '../ui/orders/orders_view.dart';
 import '../ui/product_details/product_details_view.dart';
 import '../ui/profile/profile_view.dart';
@@ -38,6 +40,7 @@ class Routes {
   static const String profileScreen = '/profile-screen';
   static const String storesScreen = '/stores-screen';
   static const String storeDetailsScreen = '/store-details-screen';
+  static const String orderDetailsScreen = '/order-details-screen';
   static const all = <String>{
     homeNavigationView,
     productDetailsView,
@@ -50,6 +53,7 @@ class Routes {
     profileScreen,
     storesScreen,
     storeDetailsScreen,
+    orderDetailsScreen,
   };
 }
 
@@ -68,6 +72,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.profileScreen, page: ProfileScreen),
     RouteDef(Routes.storesScreen, page: StoresScreen),
     RouteDef(Routes.storeDetailsScreen, page: StoreDetailsScreen),
+    RouteDef(Routes.orderDetailsScreen, page: OrderDetailsScreen),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -159,6 +164,17 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    OrderDetailsScreen: (data) {
+      var args = data.getArgs<OrderDetailsScreenArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => OrderDetailsScreen(
+          key: args.key,
+          order: args.order,
+          store: args.store,
+        ),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -199,4 +215,13 @@ class StoreDetailsScreenArguments {
   final Key? key;
   final Store store;
   StoreDetailsScreenArguments({this.key, required this.store});
+}
+
+/// OrderDetailsScreen arguments holder class
+class OrderDetailsScreenArguments {
+  final Key? key;
+  final Order order;
+  final Store store;
+  OrderDetailsScreenArguments(
+      {this.key, required this.order, required this.store});
 }

@@ -24,6 +24,7 @@
     page: StoresScreen,
   ),
   CupertinoRoute(page: StoreDetailsScreen),
+  CupertinoRoute(page: OrderDetailsScreen),
 ], dependencies: [
   LazySingleton(classType: NavigationService),
   LazySingleton(classType: DialogService),
@@ -47,6 +48,7 @@ import 'package:foodadora/ui/Sign_up/signup_view.dart';
 import 'package:foodadora/ui/cart/cart_view.dart';
 import 'package:foodadora/ui/home_navigation/home_navigation_view.dart';
 import 'package:foodadora/ui/login/login_view.dart';
+import 'package:foodadora/ui/order_details/order_details_view.dart';
 import 'package:foodadora/ui/orders/orders_view.dart';
 import 'package:foodadora/ui/product_details/product_details_view.dart';
 import 'package:foodadora/ui/profile/profile_view.dart';
