@@ -1,15 +1,19 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls
 
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/order.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../models/store.dart';
+
 class OrdersViewModel extends BaseViewModel {
   List<Order> _orders = [];
   bool _isLoading = false;
 
-  bool get loading => _isLoading;
+  List<Store> _stores = [];
 
+  bool get loading => _isLoading;
+  List<Store> get stores => _stores;
   List<Order> get orders => _orders;
 
   void setLoading(bool value) {
@@ -27,9 +31,19 @@ class OrdersViewModel extends BaseViewModel {
     setLoading(true);
     try {
       var customerId = await getCustomerId();
+      print(customerId);
 
       _orders =
           await ordersService.getOrdersForCustomer(customerId: customerId);
+
+      _orders.forEach(
+        (element) async {
+          var store = await storeService
+              .getStoreById(element.products![0].storeId.toString());
+          _stores.add(store as Store);
+          notifyListeners();
+        },
+      );
       setBusy(false);
       setLoading(false);
     } catch (err) {

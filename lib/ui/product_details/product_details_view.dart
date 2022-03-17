@@ -15,12 +15,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../models/store.dart';
 import 'widgets/Product_image.dart';
 
 class ProductDetailsView extends StatelessWidget {
   final Product product;
+  final Store store;
 
-  const ProductDetailsView({Key? key, required this.product}) : super(key: key);
+  const ProductDetailsView(
+      {Key? key, required this.product, required this.store})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +93,7 @@ class ProductDetailsView extends StatelessWidget {
                               width: blockSizeHorizontal(context) * 2,
                             ),
                             Text(
-                              "Tesco store",
+                              "${store.storeName} store",
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w500,
                                   color: const Color(0xff0054A4),
@@ -193,7 +197,6 @@ class ProductDetailsView extends StatelessWidget {
                               SizedBox(
                                 height: blockSizeVertical(context) * 3,
                               ),
-
                               model.isAddToCart
                                   ?
 
@@ -234,36 +237,6 @@ class ProductDetailsView extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-
-                              // Center(
-                              //     child: FoodadoraButton(
-                              //         label: "Add to cart",
-                              //         onPressed: () {
-                              //           showModalBottomSheet(
-                              //               context: context,
-                              //               elevation: 2,
-                              //               constraints: BoxConstraints(
-                              //                   maxHeight:
-                              //                       screenHeightPercentage(
-                              //                           context,
-                              //                           percentage: 0.4)),
-                              //               enableDrag: true,
-                              //               shape: RoundedRectangleBorder(
-                              //                 borderRadius:
-                              //                     BorderRadius.circular(10.0),
-                              //               ),
-                              //               builder: (context) {
-                              //                 return ViewModelBuilder<
-                              //                     ProductDetailsViewModel>.nonReactive(
-                              //                   viewModelBuilder: () =>
-                              //                       productDetailsViewModel,
-                              //                   disposeViewModel: false,
-                              //                   builder: (context, model, _) =>
-                              //                       UpdateQuantityBottomSheet(
-                              //                           product: product),
-                              //                 );
-                              //               });
-                              //         }))
                             ],
                           ))
                     ]),

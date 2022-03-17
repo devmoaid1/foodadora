@@ -11,7 +11,6 @@ import 'package:foodadora/ui/utilites/screen_sizes.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:line_icons/line_icons.dart';
 import 'package:stacked/stacked.dart';
 import 'widgets/cart_text_row.dart';
 

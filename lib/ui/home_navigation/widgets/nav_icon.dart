@@ -1,10 +1,6 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:foodadora/app/constants/assets.dart';
-import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/ui/utilites/app_colors.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class NavIcon extends StatelessWidget {
   final String iconPath;

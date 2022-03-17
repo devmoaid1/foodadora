@@ -18,7 +18,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       productImages: (json['productImages'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      quantity: int.parse(json['quantity'].toString()),
+      quantity: json['quantity'] as int?,
       storeId: json['storeId'] as String?,
     );
 

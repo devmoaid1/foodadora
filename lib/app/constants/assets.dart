@@ -27,7 +27,8 @@ class Assets {
 
   static const storeicon = "assets/icons/store1.svg";
   static const wareHouseicon = "assets/icons/warehouse.svg";
-
+  static const orderIcon = "assets/icons/order.svg";
+  static const arrowRightIcon = "assets/icons/arrow_right.svg";
   static const homeicon = "assets/icons/home.svg";
   static const usericon = "assets/icons/user.svg";
   static const shoppingicon = "assets/icons/shopping.svg";

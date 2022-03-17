@@ -10,7 +10,7 @@ import 'package:foodadora/ui/home_navigation/home_views/stores_view.dart';
 import 'package:foodadora/ui/home_navigation/widgets/bottom_navigation.dart';
 import 'package:foodadora/ui/orders/orders_view.dart';
 import 'package:foodadora/ui/profile/profile_view.dart';
-import 'package:foodadora/ui/stores/stores_view.dart';
+
 import 'package:foodadora/ui/utilites/app_colors.dart';
 import 'package:stacked/stacked.dart';
 
@@ -55,7 +55,7 @@ class HomeNavigationView extends StatelessWidget {
   Widget getView(int index) {
     switch (index) {
       case 0:
-        return const StoresScreen();
+        return const StoresView();
       case 1:
         return CartScreen();
       case 2:

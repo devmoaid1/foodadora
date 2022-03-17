@@ -4,7 +4,7 @@
 // StackedRouterGenerator
 // **************************************************************************
 
-// ignore_for_file: public_member_api_docs, unnecessary_import
+// ignore_for_file: public_member_api_docs
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -84,6 +84,7 @@ class StackedRouter extends RouterBase {
         builder: (context) => ProductDetailsView(
           key: args.key,
           product: args.product,
+          store: args.store,
         ),
         settings: data,
       );
@@ -169,7 +170,9 @@ class StackedRouter extends RouterBase {
 class ProductDetailsViewArguments {
   final Key? key;
   final Product product;
-  ProductDetailsViewArguments({this.key, required this.product});
+  final Store store;
+  ProductDetailsViewArguments(
+      {this.key, required this.product, required this.store});
 }
 
 /// LoginView arguments holder class

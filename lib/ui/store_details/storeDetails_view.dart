@@ -123,7 +123,8 @@ class StoreDetailsScreen extends StatelessWidget {
                             description:
                                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry");
 
-                        model.navigateToProductDetails(product: product);
+                        model.navigateToProductDetails(
+                            product: product, store: store);
                       },
                     ),
                   )

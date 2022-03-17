@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'package:flutter/material.dart';
 import 'package:foodadora/ui/orders/orders_viewmodel.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
@@ -36,30 +38,40 @@ class OrdersScreen extends StatelessWidget {
 
             return Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: blockSizeHorizontal(context) * 5,
+                  horizontal: blockSizeHorizontal(context) * 1,
                   vertical: blockSizeVertical(context) * 2),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'My Orders',
-                      style: GoogleFonts.poppins(
-                          fontSize: blockSizeHorizontal(context) * 8),
-                    ),
-                    SizedBox(height: blockSizeVertical(context) * 3),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: model.orders.length,
-                        itemBuilder: (context, index) => OrderItem(
-                          orderId: "27138222",
-                          orderTotal: model.orders[index].totalPrice as double,
-                          orderStatus: model.orders[index].status.toString(),
-                        ),
+              child: SingleChildScrollView(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'My Orders',
+                        style: GoogleFonts.poppins(
+                            color: const Color(0xff5C5C5F),
+                            fontSize: blockSizeHorizontal(context) * 8),
                       ),
-                    )
-                  ]),
+                      SizedBox(height: blockSizeVertical(context) * 3),
+                      Column(
+                        children: buildOrdersCards(viewModel: model),
+                      )
+                    ]),
+              ),
             );
           }),
     );
   }
+}
+
+List<Widget> buildOrdersCards({required OrdersViewModel viewModel}) {
+  List<Widget> orderCards = [];
+
+  viewModel.orders.forEach((order) {
+    viewModel.stores.forEach((store) {
+      if (order.products![0].storeId == store.id) {
+        orderCards.add(OrderItem(store: store, order: order));
+      }
+    });
+  });
+
+  return orderCards;
 }

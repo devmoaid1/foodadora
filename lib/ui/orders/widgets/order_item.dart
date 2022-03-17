@@ -1,59 +1,124 @@
 // ignore_for_file: use_key_in_widget_constructors, sized_box_for_whitespace
 
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodadora/ui/utilites/date_formmater.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import 'order_text_row.dart';
+import '../../../app/constants/assets.dart';
+import '../../../models/order.dart';
+import '../../../models/store.dart';
+import '../../utilites/app_colors.dart';
 
 class OrderItem extends StatelessWidget {
-  final String orderId;
-  final double orderTotal;
-  final String orderStatus;
+  final Store store;
+  final Order order;
 
   const OrderItem({
-    required this.orderId,
-    required this.orderStatus,
-    required this.orderTotal,
+    required this.store,
+    required this.order,
   });
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(top: 10, bottom: 10),
-      elevation: 1,
-      color: const Color(0xffF4F4F4),
-      child: Padding(
-        padding: EdgeInsets.all(blockSizeHorizontal(context) * 4),
-        child: Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-          child: Column(
-            children: [
-              Container(
-                width: blockSizeHorizontal(context) * 60,
-                child: FittedBox(
-                    child: Text('#$orderId',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: blockSizeHorizontal(context) * 5,
-                          color: const Color(0xffA6A6A6),
-                        ))),
-              ),
-              SizedBox(height: blockSizeVertical(context)),
-              const DottedLine(
-                dashColor: Color(0xffCFCFCF),
-              ),
-              SizedBox(height: blockSizeVertical(context)),
-              OrderTextRow(
-                title: 'Order Total:',
-                value: 'RM ${orderTotal.toStringAsFixed(1)}',
-              ),
-              SizedBox(height: blockSizeVertical(context) * 2),
-              OrderTextRow(
-                title: 'Status:',
-                value: orderStatus,
-              ),
-            ],
-          ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      elevation: 3,
+      child: Container(
+        padding: EdgeInsets.symmetric(
+            horizontal: blockSizeHorizontal(context) * 4,
+            vertical: blockSizeVertical(context) * 2),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SvgPicture.asset(Assets.orderIcon),
+            SizedBox(
+              width: blockSizeHorizontal(context) * 3,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${store.storeName} Store",
+                  style: GoogleFonts.poppins(
+                      color: const Color(0xffDDA73A),
+                      fontSize: blockSizeHorizontal(context) * 5),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      formattedDate(date: order.orderDate as DateTime),
+                      style: GoogleFonts.poppins(
+                          color: const Color(0xff5C5C5F),
+                          fontSize: blockSizeHorizontal(context) * 4),
+                    ),
+                    SizedBox(
+                      width: blockSizeHorizontal(context),
+                    ),
+                    Container(
+                      width: screenWidthPercentage(context, percentage: 0.18),
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text(
+                          "${order.totalPrice} RM ",
+                          style: GoogleFonts.poppins(
+                              color: const Color(0xff5C5C5F),
+                              fontSize: blockSizeHorizontal(context) * 3),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: blockSizeVertical(context) * 2,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: blockSizeHorizontal(context) * 3,
+                          vertical: blockSizeVertical(context) * 1),
+                      decoration: BoxDecoration(
+                          color: scaffoldColor,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Center(
+                        child: Text(
+                          order.status.toString(),
+                          style: GoogleFonts.poppins(
+                              color: const Color(0xff5C5C5F),
+                              fontSize: blockSizeHorizontal(context) * 4),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: blockSizeHorizontal(context),
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          width:
+                              screenWidthPercentage(context, percentage: 0.18),
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              "View Details ",
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xff0095DA),
+                                  fontSize: blockSizeHorizontal(context) * 3),
+                            ),
+                          ),
+                        ),
+                        SvgPicture.asset(Assets.arrowRightIcon)
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );
