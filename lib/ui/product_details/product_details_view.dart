@@ -51,8 +51,7 @@ class ProductDetailsView extends StatelessWidget {
         ),
         body: ViewModelBuilder<ProductDetailsViewModel>.reactive(
             disposeViewModel: false,
-            onModelReady: (model) =>
-                model.getStoreImage(id: product.storeId.toString()),
+            onModelReady: (model) => model.init(),
             viewModelBuilder: () => productDetailsViewModel,
             builder: (context, model, _) {
               if (model.loading) {

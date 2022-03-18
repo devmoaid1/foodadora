@@ -183,11 +183,6 @@ class CartService extends BaseService {
               "cart",
               jsonEncode(
                   Cart(storeId: cart.storeId, cartItems: list).toJson()));
-
-          if (list.isEmpty) {
-            _sharedPreferences!.setString(
-                "cart", jsonEncode(Cart(storeId: "", cartItems: []).toJson()));
-          }
         }
       });
     }

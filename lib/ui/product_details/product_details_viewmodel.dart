@@ -23,13 +23,10 @@ class ProductDetailsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void testModal() {
-    dialogService.showCustomDialog(
-        variant: DialogType.addToCart,
-        title: "Are you sure you want to remove cart?",
-        description:
-            "it seems like you want to add an item from different store",
-        mainButtonTitle: "Remove");
+  void init() {
+    _quantity = 1;
+    _isAddToCart = false;
+    notifyListeners();
   }
 
   void incrementQunatity({required int productQuantity}) {
@@ -53,21 +50,5 @@ class ProductDetailsViewModel extends BaseViewModel {
   void setLoading(bool value) {
     _isLoading = value;
     notifyListeners();
-  }
-
-  void getStoreImage({required String id}) async {
-    setLoading(true);
-    setBusy(true);
-    try {
-      var store = await storeService.getStoreById(id);
-
-      _storeImage = store!.logoUrl.toString();
-      setBusy(false);
-      setLoading(false);
-    } catch (err) {
-      setBusy(false);
-      setLoading(false);
-      logger.e(err.toString());
-    }
   }
 }
