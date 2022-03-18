@@ -228,7 +228,7 @@ class CartService extends BaseService {
     _cartItems.stream.listen((productsList) {
       productsList.forEach((element) async {
         if (element.productName == product.productName) {
-          if (product.quantity! > 0) {
+          if (product.quantity! > 1) {
             // update in ui
             product.quantity = product.quantity! - 1;
 

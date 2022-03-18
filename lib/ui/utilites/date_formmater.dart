@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 String formattedDate({required DateTime date}) {
-  var formatDate = DateFormat.yMMMMd();
+  var formatDate = DateFormat('dd MMM yyyy');
 
   String formattedDate = formatDate.format(date);
 

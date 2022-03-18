@@ -178,7 +178,7 @@ class CartItem extends ViewModelWidget<CartViewModel> {
                     ),
                   ),
                   Text(
-                    '${product.originalPrice!.toStringAsFixed(2)} RM',
+                    '${product.productPrice!.toStringAsFixed(2)} RM',
                     style: GoogleFonts.poppins(
                       fontSize: blockSizeHorizontal(context) * 5,
                     ),
@@ -194,7 +194,7 @@ class CartItem extends ViewModelWidget<CartViewModel> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            product.quantity == 0
+                            product.quantity == 1
                                 ? GestureDetector(
                                     onTap: () {
                                       viewModel.deleteCartItem(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:foodadora/app/app.locator.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
@@ -42,8 +43,9 @@ class _BasicDialog extends StatelessWidget {
               Text(
                 request.title.toString(),
                 style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.bold,
-                    fontSize: blockSizeHorizontal(context) * 5),
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xff5C5C5F),
+                    fontSize: blockSizeHorizontal(context) * 4),
               ),
               SizedBox(
                 height: blockSizeVertical(context) * 4,
@@ -52,7 +54,8 @@ class _BasicDialog extends StatelessWidget {
                   ? Text(
                       request.description.toString(),
                       style: GoogleFonts.poppins(
-                          fontSize: blockSizeHorizontal(context) * 4,
+                          color: const Color(0xff5C5C5F),
+                          fontSize: blockSizeHorizontal(context) * 3,
                           fontWeight: FontWeight.w500),
                       textAlign: TextAlign.start,
                     )
@@ -61,31 +64,53 @@ class _BasicDialog extends StatelessWidget {
                 height: blockSizeVertical(context) * 4,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: screenWidthPercentage(context, percentage: 0.28),
-                    child: FoodadoraButton(
-                      label: request.mainButtonTitle,
-                      onPressed: () {
-                        completer(DialogResponse(confirmed: true));
-                      },
-                      color: const Color(0xFF08A5D2),
+                  GestureDetector(
+                    onTap: () {
+                      completer(DialogResponse(confirmed: true));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: blockSizeHorizontal(context) * 6),
+                      decoration: BoxDecoration(
+                          color: const Color(0xff0095DA),
+                          borderRadius: BorderRadius.circular(8)),
+                      height: screenHeightPercentage(context, percentage: 0.08),
+                      child: Center(
+                        child: Text(
+                          "Remove",
+                          style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: blockSizeHorizontal(context) * 4),
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(
                     width: blockSizeHorizontal(context),
                   ),
-                  SizedBox(
-                    width: screenWidthPercentage(context, percentage: 0.28),
-                    child: FoodadoraButton(
-                      label: "Cancel",
-                      onPressed: () {
-                        completer(DialogResponse(confirmed: false));
-                      },
-                      color: Colors.white,
-                      borderColor: Colors.black,
-                      labelColor: Colors.black,
+                  GestureDetector(
+                    onTap: () {
+                      completer(DialogResponse(confirmed: false));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: blockSizeHorizontal(context) * 6),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8)),
+                      height: screenHeightPercentage(context, percentage: 0.08),
+                      child: Center(
+                        child: Text(
+                          "Cancel",
+                          style: GoogleFonts.poppins(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              fontSize: blockSizeHorizontal(context) * 4),
+                        ),
+                      ),
                     ),
                   ),
                 ],

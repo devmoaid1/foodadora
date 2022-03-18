@@ -314,6 +314,8 @@ class UpdateQuantityCard extends ViewModelWidget<ProductDetailsViewModel> {
               height: blockSizeVertical(context) * 2,
             ),
             GestureDetector(
+              onTap: () => viewModel.addToCart(
+                  product: product, quatity: viewModel.quantity),
               child: Container(
                 decoration: BoxDecoration(
                     color: const Color(0xff0095DA),
