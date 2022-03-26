@@ -98,7 +98,10 @@ class CartService extends BaseService {
           jsonEncode(
               Cart(storeId: product.storeId, cartItems: items).toJson()));
 
-      dialogService.showDialog(title: "item is added to cart first");
+      dialogService.showCustomDialog(
+          variant: DialogType.basic,
+          title: "item is added to cart",
+          mainButtonTitle: "ok");
     }
 
     // if cart has items
@@ -138,8 +141,11 @@ class CartService extends BaseService {
                 jsonEncode(
                     Cart(storeId: product.storeId, cartItems: items).toJson()));
 
-            print("updated quantity");
             isAddedQuantity = true;
+            dialogService.showCustomDialog(
+                variant: DialogType.basic,
+                title: "Updated Quantity ",
+                mainButtonTitle: "ok");
           } else {
             isAddedQuantity = false;
           }
@@ -152,7 +158,10 @@ class CartService extends BaseService {
               jsonEncode(
                   Cart(storeId: product.storeId, cartItems: list).toJson()));
 
-          dialogService.showDialog(title: "item is added to cart");
+          dialogService.showCustomDialog(
+              variant: DialogType.basic,
+              title: "item is added to cart",
+              mainButtonTitle: "ok");
         }
       }
     }

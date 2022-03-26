@@ -1,6 +1,5 @@
 // ignore_for_file: unused_import, sized_box_for_whitespace
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodadora/app/constants/assets.dart';

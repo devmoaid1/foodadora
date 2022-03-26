@@ -1,21 +1,47 @@
-// ignore_for_file: avoid_function_literals_in_foreach_calls, avoid_print
+// ignore_for_file: avoid_function_literals_in_foreach_calls, avoid_print, unnecessary_null_comparison
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:foodadora/models/customer.dart';
-import 'package:logger/logger.dart';
 
-class ProfileService {
-  final Logger logger = Logger();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _instance = FirebaseAuth.instance;
+import 'base_service.dart';
+
+class ProfileService extends BaseService {
+  Customer _currentCustomer = Customer();
+  bool _isLoggedOn = false;
+
+  Customer get currentCustomer => _currentCustomer;
+  bool get isLoggedOn => _isLoggedOn;
+
+  void setIsLoggedOn(bool value) {
+    _isLoggedOn = value;
+  }
+
+  void getCurrentCustomer() async {
+    String? id = auth.currentUser!.uid;
+
+    try {
+      if (id != null) {
+        await firestore
+            .collection('customers')
+            .where('userId', isEqualTo: id)
+            .get()
+            .then((value) => value.docs.forEach((element) {
+                  _currentCustomer = Customer.fromJson(element.data());
+                  _isLoggedOn = true;
+                }));
+      } else {
+        _isLoggedOn = false;
+      }
+    } catch (err) {
+      logger.e(err.toString());
+    }
+  }
 
   Future<Customer> getCustomer() async {
-    String? id = _instance.currentUser!.uid;
+    String? id = auth.currentUser!.uid;
 
     Customer customer = Customer();
     try {
-      await _firestore
+      await firestore
           .collection('customers')
           .where('userId', isEqualTo: id)
           .get()

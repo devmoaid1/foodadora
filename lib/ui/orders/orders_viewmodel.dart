@@ -1,10 +1,11 @@
-// ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls
+// ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls, prefer_final_fields
 
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/order.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../models/customer.dart';
 import '../../models/store.dart';
 
 class OrdersViewModel extends BaseViewModel {
@@ -13,6 +14,9 @@ class OrdersViewModel extends BaseViewModel {
 
   List<Store> _stores = [];
 
+  Customer get customerProfile => profileService.currentCustomer;
+  bool get isLoggedOn => profileService.isLoggedOn;
+
   bool get loading => _isLoading;
   List<Store> get stores => _stores;
   List<Order> get orders => _orders;
@@ -20,11 +24,6 @@ class OrdersViewModel extends BaseViewModel {
   void setLoading(bool value) {
     _isLoading = value;
     notifyListeners();
-  }
-
-  Future<String> getCustomerId() async {
-    var customer = await profileService.getCustomer();
-    return customer.userId.toString();
   }
 
   void navigateToOrderDetails({required Store store, required Order order}) {
@@ -36,21 +35,26 @@ class OrdersViewModel extends BaseViewModel {
     setBusy(true);
     setLoading(true);
     try {
-      var customerId = await getCustomerId();
-      print(customerId);
+      final customerId =
+          profileService.currentCustomer.userId; // get customer id
 
-      _orders =
-          await ordersService.getOrdersForCustomer(customerId: customerId);
+      if (customerId != null) {
+        print(customerId);
 
-      _orders.forEach(
-        (element) async {
-          var store = await storeService
-              .getStoreById(element.products![0].storeId.toString());
-          _stores.add(store as Store);
-          notifyListeners();
-        },
-      );
-      setBusy(false);
+        _orders = await ordersService.getOrdersForCustomer(
+            customerId: customerId.toString());
+
+        _orders.forEach(
+          (element) async {
+            var store = await storeService
+                .getStoreById(element.products![0].storeId.toString());
+            _stores.add(store as Store);
+            notifyListeners();
+          },
+        );
+        setBusy(false);
+      }
+
       setLoading(false);
     } catch (err) {
       logger.e(err.toString());

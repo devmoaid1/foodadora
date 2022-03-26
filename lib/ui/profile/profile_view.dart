@@ -5,6 +5,7 @@ import 'package:foodadora/ui/profile/profile_viewModel.dart';
 import 'package:foodadora/ui/utilites/screen_sizes.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:foodadora/ui/widgets/foodadora_textfield.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:stacked/stacked.dart';
 
@@ -16,9 +17,20 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       body: ViewModelBuilder<ProfileViewModel>.reactive(
         fireOnModelReadyOnce: true,
-        onModelReady: (model) => model.getCurrentCustomer(),
         viewModelBuilder: () => ProfileViewModel(),
         builder: (context, model, child) {
+          if (!model.isLoggedOn) {
+            return Center(
+              child: Text(
+                "you are not logged on",
+                style: GoogleFonts.poppins(
+                  fontSize: blockSizeHorizontal(context) * 3,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            );
+          }
+
           if (model.loading) {
             return const Center(
               child: CircularProgressIndicator.adaptive(),

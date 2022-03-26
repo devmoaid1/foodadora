@@ -19,6 +19,17 @@ class OrdersScreen extends StatelessWidget {
           viewModelBuilder: () => OrdersViewModel(),
           onModelReady: (model) => model.getOrders(),
           builder: (context, model, _) {
+            if (!model.isLoggedOn) {
+              return Center(
+                child: Text(
+                  "you are not logged on",
+                  style: GoogleFonts.poppins(
+                    fontSize: blockSizeHorizontal(context) * 3,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              );
+            }
             if (model.loading) {
               return const Center(
                 child: CircularProgressIndicator.adaptive(),

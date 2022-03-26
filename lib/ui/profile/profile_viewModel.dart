@@ -8,9 +8,11 @@ import 'package:stacked/stacked.dart';
 class ProfileViewModel extends BaseViewModel {
   Customer _customer = Customer();
 
-  Customer get customerProfile => _customer;
+  Customer get customerProfile => profileService.currentCustomer;
 
-  bool _loading = true;
+  bool get isLoggedOn => profileService.isLoggedOn;
+
+  bool _loading = false;
   bool get loading => _loading;
 
   void setLoading(bool value) {
@@ -18,14 +20,14 @@ class ProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void getCurrentCustomer() async {
+  void getCurrentCustomer() {
     setBusy(true);
     try {
-      _customer = await profileService.getCustomer();
+      profileService.getCurrentCustomer();
       setBusy(false);
       setLoading(false);
       notifyListeners();
-      logger.i(_customer.phoneNumber);
+      logger.i(profileService.currentCustomer.phoneNumber);
     } catch (err) {
       logger.e(err);
     }
@@ -35,7 +37,8 @@ class ProfileViewModel extends BaseViewModel {
     setBusy(true);
     try {
       await authService.logout();
-      navigationService.replaceWith(Routes.loginView);
+      profileService.setIsLoggedOn(false);
+      navigationService.replaceWith(Routes.homeNavigationView);
     } catch (err) {
       logger.e(err);
     }
