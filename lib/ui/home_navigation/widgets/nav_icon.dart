@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:foodadora/ui/utilites/app_colors.dart';
+
+import '../../../app/utilites/app_colors.dart';
 
 class NavIcon extends StatelessWidget {
   final String iconPath;

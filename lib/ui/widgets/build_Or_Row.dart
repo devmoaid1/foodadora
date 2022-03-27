@@ -1,7 +1,8 @@
 // ignore_for_file: file_names, unused_element
 
 import 'package:flutter/material.dart';
-import 'package:foodadora/ui/utilites/screen_sizes.dart';
+
+import '../../app/utilites/screen_sizes.dart';
 
 Padding _buildOrRow(BuildContext context) {
   return Padding(

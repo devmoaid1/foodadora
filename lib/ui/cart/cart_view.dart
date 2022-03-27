@@ -7,11 +7,16 @@ import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/ui/cart/cart_viewmodel.dart';
-import 'package:foodadora/ui/utilites/screen_sizes.dart';
+
+import 'package:foodadora/ui/widgets/empty_indicator.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:stacked/stacked.dart';
+
+import '../../app/utilites/app_colors.dart';
+import '../../app/utilites/enums.dart';
+import '../../app/utilites/screen_sizes.dart';
 import 'widgets/cart_text_row.dart';
 
 class CartScreen extends StatelessWidget {
@@ -31,14 +36,7 @@ class CartScreen extends StatelessWidget {
               }
 
               if (model.isEmpty) {
-                return Center(
-                  child: Text(
-                    "Your Cart is empty",
-                    style: GoogleFonts.poppins(
-                        fontSize: blockSizeHorizontal(context) * 5,
-                        fontWeight: FontWeight.w600),
-                  ),
-                );
+                return const EmptyIndicator(widgetType: WidgetType.cart);
               }
 
               return SingleChildScrollView(
@@ -63,7 +61,7 @@ class CartScreen extends StatelessWidget {
                             Text(
                               'Tesco Store',
                               style: GoogleFonts.poppins(
-                                  color: const Color(0xFF0054A4),
+                                  color: lightBlueColor,
                                   fontWeight: FontWeight.w500,
                                   fontSize: blockSizeHorizontal(context) * 4),
                             ),
@@ -124,7 +122,7 @@ class CartScreen extends StatelessWidget {
                           child: FoodadoraButton(
                             label: 'Confirm',
                             onPressed: () {},
-                            color: const Color(0xff08A8DB),
+                            color: lightBlueColor,
                           ),
                         ),
                       )

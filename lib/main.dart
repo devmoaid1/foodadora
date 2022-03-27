@@ -6,7 +6,7 @@ import 'package:foodadora/app/constants/services_instances.dart';
 
 import 'package:foodadora/foodadora.dart';
 
-import 'package:foodadora/ui/utilites/custom_modals.dart';
+import 'app/utilites/custom_modals.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

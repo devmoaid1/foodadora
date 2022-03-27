@@ -3,7 +3,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart' as dotsIndicator;
 import 'package:flutter/material.dart';
-import 'package:foodadora/ui/utilites/size_config.dart';
+
+import '../../../app/utilites/size_config.dart';
 
 class FoodadoraCarousel extends StatefulWidget {
   final List<String> imagePaths;

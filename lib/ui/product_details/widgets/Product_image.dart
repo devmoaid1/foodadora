@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
-import 'package:foodadora/ui/utilites/screen_sizes.dart';
+
+import '../../../app/utilites/screen_sizes.dart';
 
 class ProductImage extends StatelessWidget {
   final String? productimage;

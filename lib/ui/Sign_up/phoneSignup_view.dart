@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/ui/Sign_up/signup_viewModel.dart';
-import 'package:foodadora/ui/utilites/screen_sizes.dart';
+
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:foodadora/ui/widgets/foodadora_textfield.dart';
 import 'package:foodadora/ui/widgets/regex.dart';
@@ -13,6 +13,8 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:stacked/stacked.dart';
+
+import '../../app/utilites/screen_sizes.dart';
 
 class PhoneSignUpScreen extends StatelessWidget {
   final UserCredential? user;

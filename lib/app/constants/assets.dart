@@ -37,6 +37,8 @@ class Assets {
 
   static const ringicon = "assets/icons/ring.svg";
   static const appLogo = "assets/logos/appLogoIcon.svg";
+  static const emptyIcon = "assets/icons/empty.svg";
+  static const emptyOrderIcon = "assets/icons/empty_order.svg";
 
   static const homeGraphic = "assets/images/home_graphic.png";
 }

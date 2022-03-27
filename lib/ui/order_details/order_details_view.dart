@@ -5,15 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodadora/ui/cart/widgets/cart_text_row.dart';
 import 'package:foodadora/ui/order_details/widgets/order_product_card.dart';
-import 'package:foodadora/ui/utilites/screen_sizes.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../../app/constants/assets.dart';
+import '../../app/utilites/app_colors.dart';
+import '../../app/utilites/date_formmater.dart';
+import '../../app/utilites/screen_sizes.dart';
 import '../../models/order.dart';
 import '../../models/store.dart';
-import '../utilites/app_colors.dart';
-import '../utilites/date_formmater.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
   final Order order;
@@ -55,11 +56,10 @@ class OrderDetailsScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Container(
-                        child: SvgPicture.asset(
+                    SvgPicture.asset(
                       Assets.storeicon,
                       height: blockSizeVertical(context) * 6,
-                    )),
+                    ),
                     SizedBox(
                       width: blockSizeHorizontal(context),
                     ),
@@ -84,7 +84,7 @@ class OrderDetailsScreen extends StatelessWidget {
                         formattedDate(date: order.orderDate as DateTime),
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w400,
-                            color: const Color(0xff5C5C5F),
+                            color: textColor,
                             fontSize: blockSizeHorizontal(context) * 4),
                       ),
                     ],
@@ -100,7 +100,7 @@ class OrderDetailsScreen extends StatelessWidget {
                         "Invoice # ${order.id!.substring(0, 8)}",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w400,
-                            color: const Color(0xff5C5C5F),
+                            color: textColor,
                             fontSize: blockSizeHorizontal(context) * 4),
                       ),
                       SizedBox(
@@ -117,7 +117,7 @@ class OrderDetailsScreen extends StatelessWidget {
                           child: Text(
                             order.status.toString(),
                             style: GoogleFonts.poppins(
-                                color: const Color(0xff5C5C5F),
+                                color: textColor,
                                 fontSize: blockSizeHorizontal(context) * 3),
                           ),
                         ),

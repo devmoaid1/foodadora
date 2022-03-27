@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_final_fields, unused_field, avoid_print
 
+import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/product.dart';
 
@@ -32,6 +33,10 @@ class CartViewModel extends BaseViewModel {
   double _total = 0;
 
   double get total => _total;
+
+  void navigateToHome() {
+    navigationService.replaceWith(Routes.homeNavigationView);
+  }
 
   void fetchCartItems() {
     cartService.fetchCartItems(); // get cartitems and set it to stream

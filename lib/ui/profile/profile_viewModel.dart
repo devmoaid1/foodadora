@@ -6,8 +6,6 @@ import 'package:foodadora/models/customer.dart';
 import 'package:stacked/stacked.dart';
 
 class ProfileViewModel extends BaseViewModel {
-  Customer _customer = Customer();
-
   Customer get customerProfile => profileService.currentCustomer;
 
   bool get isLoggedOn => profileService.isLoggedOn;

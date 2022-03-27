@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'package:foodadora/ui/utilites/screen_sizes.dart';
+import '../../app/utilites/screen_sizes.dart';
 
 class FoodadoraTextField extends StatelessWidget {
   final String? label;

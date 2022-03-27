@@ -4,7 +4,7 @@ import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:stacked/stacked.dart';
 
-import '../utilites/custom_modals.dart';
+import '../../app/utilites/custom_modals.dart';
 
 class SignUpViewModel extends BaseViewModel {
   bool _isLoading = false;

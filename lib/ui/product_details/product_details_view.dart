@@ -6,14 +6,15 @@ import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
-import 'package:foodadora/ui/utilites/app_colors.dart';
-import 'package:foodadora/ui/utilites/expiryWeeks.dart';
-import 'package:foodadora/ui/utilites/screen_sizes.dart';
+
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../app/utilites/app_colors.dart';
+import '../../app/utilites/expiryWeeks.dart';
+import '../../app/utilites/screen_sizes.dart';
 import '../../models/store.dart';
 import 'widgets/Product_image.dart';
 
@@ -94,7 +95,7 @@ class ProductDetailsView extends StatelessWidget {
                               "${store.storeName} store",
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w500,
-                                  color: const Color(0xff0054A4),
+                                  color: lightBlueColor,
                                   fontSize: blockSizeHorizontal(context) * 4),
                             ),
                           ],
@@ -129,7 +130,7 @@ class ProductDetailsView extends StatelessWidget {
                               style: GoogleFonts.poppins(
                                   fontSize: blockSizeHorizontal(context) * 4,
                                   decoration: TextDecoration.lineThrough,
-                                  color: const Color(0xff5C5C5F)),
+                                  color: textColor),
                             ),
                             SizedBox(
                               width: blockSizeHorizontal(context) * 12,
@@ -146,14 +147,14 @@ class ProductDetailsView extends StatelessWidget {
                                     style: GoogleFonts.poppins(
                                         fontSize:
                                             blockSizeHorizontal(context) * 4,
-                                        color: const Color(0xff5C5C5F)),
+                                        color: textColor),
                                   ),
                                   Text(
                                     "KM away",
                                     style: GoogleFonts.poppins(
                                         fontSize:
                                             blockSizeHorizontal(context) * 4,
-                                        color: const Color(0xff5C5C5F)),
+                                        color: textColor),
                                   ),
                                 ],
                               ),
@@ -173,7 +174,7 @@ class ProductDetailsView extends StatelessWidget {
                               Text("Description",
                                   style: GoogleFonts.poppins(
                                       fontSize: 18,
-                                      color: const Color(0xff5C5C5F),
+                                      color: textColor,
                                       fontWeight: FontWeight.w500)),
                               SizedBox(
                                 height: blockSizeVertical(context),
@@ -187,7 +188,7 @@ class ProductDetailsView extends StatelessWidget {
                                   product.description.toString(),
                                   style: GoogleFonts.poppins(
                                     fontSize: blockSizeHorizontal(context) * 3,
-                                    color: const Color(0xff5C5C5F),
+                                    color: textColor,
                                   ),
                                   textAlign: TextAlign.justify,
                                 ),
@@ -204,7 +205,7 @@ class ProductDetailsView extends StatelessWidget {
                                       onTap: () => model.setIsAddToCart(true),
                                       child: Container(
                                         decoration: BoxDecoration(
-                                            color: const Color(0xff0095DA),
+                                            color: lightBlueColor,
                                             borderRadius:
                                                 BorderRadius.circular(8)),
                                         height: screenHeightPercentage(context,
@@ -316,7 +317,7 @@ class UpdateQuantityCard extends ViewModelWidget<ProductDetailsViewModel> {
                   product: product, quatity: viewModel.quantity),
               child: Container(
                 decoration: BoxDecoration(
-                    color: const Color(0xff0095DA),
+                    color: lightBlueColor,
                     borderRadius: BorderRadius.circular(8)),
                 height: screenHeightPercentage(context, percentage: 0.08),
                 child: Row(

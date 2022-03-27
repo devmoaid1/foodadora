@@ -3,9 +3,11 @@ import 'package:foodadora/ui/home/home_viewModel.dart';
 import 'package:foodadora/ui/home/widgets/foodadora_carousel.dart';
 import 'package:foodadora/ui/home/widgets/home_row.dart';
 import 'package:foodadora/ui/home/widgets/product_item.dart';
-import 'package:foodadora/ui/utilites/size_config.dart';
+
 import 'package:foodadora/ui/widgets/store_circle.dart';
 import 'package:stacked/stacked.dart';
+
+import '../../app/utilites/size_config.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

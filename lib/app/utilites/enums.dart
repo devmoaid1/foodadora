@@ -1,0 +1,1 @@
+enum WidgetType { cart, orders }

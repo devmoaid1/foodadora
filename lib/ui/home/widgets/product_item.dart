@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
-import 'package:foodadora/ui/utilites/size_config.dart';
+
 import 'package:line_icons/line_icons.dart';
+
+import '../../../app/utilites/size_config.dart';
 
 class ProductItem extends StatelessWidget {
   final String productImageUrl;

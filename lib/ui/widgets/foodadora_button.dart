@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:foodadora/ui/utilites/screen_sizes.dart';
+import '../../app/utilites/screen_sizes.dart';
 
 class FoodadoraButton extends StatelessWidget {
   const FoodadoraButton({

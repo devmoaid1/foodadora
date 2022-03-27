@@ -8,10 +8,11 @@ import 'package:foodadora/models/cartItem.dart';
 
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/services/base_service.dart';
-import 'package:foodadora/ui/utilites/custom_modals.dart';
 
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../app/utilites/custom_modals.dart';
 
 class CartService extends BaseService {
   BehaviorSubject<List<Product>> _cartItems =

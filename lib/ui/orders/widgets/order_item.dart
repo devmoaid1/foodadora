@@ -2,16 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:foodadora/ui/order_details/order_details_viewModel.dart';
-import 'package:foodadora/ui/utilites/date_formmater.dart';
-import 'package:foodadora/ui/utilites/screen_sizes.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../app/constants/assets.dart';
+import '../../../app/utilites/app_colors.dart';
+import '../../../app/utilites/date_formmater.dart';
+import '../../../app/utilites/screen_sizes.dart';
 import '../../../models/order.dart';
 import '../../../models/store.dart';
-import '../../utilites/app_colors.dart';
+
 import '../orders_viewmodel.dart';
 
 class OrderItem extends ViewModelWidget<OrdersViewModel> {

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
 
-import 'package:foodadora/ui/utilites/screen_sizes.dart';
-
 import 'package:line_icons/line_icons.dart';
+
+import '../../app/utilites/screen_sizes.dart';
 
 class ProductCard extends StatelessWidget {
   final String? productImageUrl;

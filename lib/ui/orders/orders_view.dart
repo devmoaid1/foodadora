@@ -2,11 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:foodadora/ui/orders/orders_viewmodel.dart';
-import 'package:foodadora/ui/utilites/screen_sizes.dart';
+
+import 'package:foodadora/ui/widgets/empty_indicator.dart';
+import 'package:foodadora/ui/widgets/orders_notLogged.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:stacked/stacked.dart';
 
+import '../../app/utilites/enums.dart';
+import '../../app/utilites/screen_sizes.dart';
 import 'widgets/order_item.dart';
 
 class OrdersScreen extends StatelessWidget {
@@ -20,15 +24,7 @@ class OrdersScreen extends StatelessWidget {
           onModelReady: (model) => model.getOrders(),
           builder: (context, model, _) {
             if (!model.isLoggedOn) {
-              return Center(
-                child: Text(
-                  "you are not logged on",
-                  style: GoogleFonts.poppins(
-                    fontSize: blockSizeHorizontal(context) * 3,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              );
+              return const OrdersNotLoggedIndicator();
             }
             if (model.loading) {
               return const Center(
@@ -37,14 +33,7 @@ class OrdersScreen extends StatelessWidget {
             }
 
             if (model.orders.isEmpty) {
-              return Center(
-                child: Text(
-                  "There is no orders",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w600,
-                      fontSize: blockSizeHorizontal(context) * 5),
-                ),
-              );
+              return const EmptyIndicator(widgetType: WidgetType.orders);
             }
 
             return Padding(

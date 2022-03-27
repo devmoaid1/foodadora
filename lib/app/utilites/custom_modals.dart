@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:foodadora/app/app.locator.dart';
-import 'package:foodadora/ui/utilites/screen_sizes.dart';
-import 'package:foodadora/ui/widgets/foodadora_button.dart';
+import 'package:foodadora/app/utilites/app_colors.dart';
+import 'package:foodadora/app/utilites/screen_sizes.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -47,7 +47,7 @@ class _AddToCartDialog extends StatelessWidget {
                 request.title.toString(),
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w500,
-                    color: const Color(0xff5C5C5F),
+                    color: textColor,
                     fontSize: blockSizeHorizontal(context) * 4),
               ),
               SizedBox(
@@ -57,7 +57,7 @@ class _AddToCartDialog extends StatelessWidget {
                   ? Text(
                       request.description.toString(),
                       style: GoogleFonts.poppins(
-                          color: const Color(0xff5C5C5F),
+                          color: textColor,
                           fontSize: blockSizeHorizontal(context) * 3,
                           fontWeight: FontWeight.w500),
                       textAlign: TextAlign.start,
@@ -77,7 +77,7 @@ class _AddToCartDialog extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           horizontal: blockSizeHorizontal(context) * 6),
                       decoration: BoxDecoration(
-                          color: const Color(0xff0095DA),
+                          color: lightBlueColor,
                           borderRadius: BorderRadius.circular(8)),
                       height: screenHeightPercentage(context, percentage: 0.08),
                       child: Center(
@@ -150,7 +150,7 @@ class _BasicDialog extends StatelessWidget {
                 request.title.toString(),
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w500,
-                    color: const Color(0xff5C5C5F),
+                    color: textColor,
                     fontSize: blockSizeHorizontal(context) * 4),
               ),
               SizedBox(
@@ -160,7 +160,7 @@ class _BasicDialog extends StatelessWidget {
                   ? Text(
                       request.description.toString(),
                       style: GoogleFonts.poppins(
-                          color: const Color(0xff5C5C5F),
+                          color: textColor,
                           fontSize: blockSizeHorizontal(context) * 3,
                           fontWeight: FontWeight.w500),
                       textAlign: TextAlign.start,
@@ -178,7 +178,7 @@ class _BasicDialog extends StatelessWidget {
                       horizontal: blockSizeHorizontal(context) * 6,
                       vertical: blockSizeVertical(context) * 1.5),
                   decoration: BoxDecoration(
-                      color: const Color(0xff0095DA),
+                      color: lightBlueColor,
                       borderRadius: BorderRadius.circular(8)),
                   child: Center(
                     child: Text(

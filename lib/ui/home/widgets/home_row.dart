@@ -1,7 +1,8 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
-import 'package:foodadora/ui/utilites/size_config.dart';
+
+import '../../../app/utilites/size_config.dart';
 
 class HomeRow extends StatelessWidget {
   final String titleLabel;

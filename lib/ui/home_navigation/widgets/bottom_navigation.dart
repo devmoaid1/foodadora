@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/ui/home_navigation/widgets/nav_icon.dart';
-import 'package:foodadora/ui/utilites/app_colors.dart';
+
+import '../../../app/utilites/app_colors.dart';
 
 const bottomNavigationBorderRadius = BorderRadius.only(
     topLeft: Radius.circular(12), topRight: Radius.circular(12));

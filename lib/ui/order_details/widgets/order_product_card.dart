@@ -5,8 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../app/constants/assets.dart';
+import '../../../app/utilites/screen_sizes.dart';
 import '../../../models/product.dart';
-import '../../utilites/screen_sizes.dart';
 
 class OrderProductCard extends StatelessWidget {
   final Product product;
@@ -26,7 +26,7 @@ class OrderProductCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   height: screenHeightPercentage(context, percentage: 0.10),
                   width: screenWidthPercentage(context, percentage: 0.25),
                   child: Image(

@@ -1,7 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:foodadora/ui/utilites/app_colors.dart';
+
+import '../../app/utilites/app_colors.dart';
 
 final ThemeData mainTheme = ThemeData(
   brightness: Brightness.light,

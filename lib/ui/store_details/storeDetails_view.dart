@@ -5,14 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/models/store.dart';
 import 'package:foodadora/ui/store_details/storeDetails_viewModel.dart';
-import 'package:foodadora/ui/utilites/app_colors.dart';
-import 'package:foodadora/ui/utilites/expiryWeeks.dart';
-import 'package:foodadora/ui/utilites/screen_sizes.dart';
+
 import 'package:foodadora/ui/widgets/product_card.dart';
 import 'package:foodadora/ui/widgets/store_circle.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:stacked/stacked.dart';
+
+import '../../app/utilites/app_colors.dart';
+import '../../app/utilites/expiryWeeks.dart';
+import '../../app/utilites/screen_sizes.dart';
 
 class StoreDetailsScreen extends StatelessWidget {
   final Store store;
