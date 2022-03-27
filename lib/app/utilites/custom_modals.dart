@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodadora/app/app.locator.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
+import 'package:foodadora/ui/widgets/foodadora_button.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -169,28 +170,11 @@ class _BasicDialog extends StatelessWidget {
               SizedBox(
                 height: blockSizeVertical(context) * 4,
               ),
-              GestureDetector(
-                onTap: () {
-                  completer(DialogResponse(confirmed: true));
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: blockSizeHorizontal(context) * 6,
-                      vertical: blockSizeVertical(context) * 1.5),
-                  decoration: BoxDecoration(
-                      color: lightBlueColor,
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Center(
-                    child: Text(
-                      request.mainButtonTitle.toString(),
-                      style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: blockSizeHorizontal(context) * 4),
-                    ),
-                  ),
-                ),
-              )
+              FoodadoraButton(
+                  label: request.mainButtonTitle,
+                  onPressed: () {
+                    completer(DialogResponse(confirmed: true));
+                  })
             ],
           ),
         ));

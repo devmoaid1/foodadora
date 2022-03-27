@@ -122,7 +122,6 @@ class CartScreen extends StatelessWidget {
                           child: FoodadoraButton(
                             label: 'Confirm',
                             onPressed: () {},
-                            color: lightBlueColor,
                           ),
                         ),
                       )

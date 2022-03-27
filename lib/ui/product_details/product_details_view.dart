@@ -201,41 +201,12 @@ class ProductDetailsView extends StatelessWidget {
 
                                   // quantity container
                                   UpdateQuantityCard(product: product)
-                                  : GestureDetector(
-                                      onTap: () => model.setIsAddToCart(true),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: lightBlueColor,
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        height: screenHeightPercentage(context,
-                                            percentage: 0.08),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "Add To Cart",
-                                              style: GoogleFonts.poppins(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: blockSizeHorizontal(
-                                                          context) *
-                                                      5),
-                                            ),
-                                            SizedBox(
-                                              width:
-                                                  blockSizeHorizontal(context) *
-                                                      2,
-                                            ),
-                                            SvgPicture.asset(
-                                              Assets.shoppingicon,
-                                              color: Colors.white,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                  : FoodadoraButton(
+                                      label: 'Add to Cart',
+                                      onPressed: () =>
+                                          model.setIsAddToCart(true),
+                                      iconPath: Assets.shoppingicon,
+                                    )
                             ],
                           ))
                     ]),
@@ -312,35 +283,12 @@ class UpdateQuantityCard extends ViewModelWidget<ProductDetailsViewModel> {
             SizedBox(
               height: blockSizeVertical(context) * 2,
             ),
-            GestureDetector(
-              onTap: () => viewModel.addToCart(
+            FoodadoraButton(
+              label: 'Continue Shopping',
+              onPressed: () => viewModel.addToCart(
                   product: product, quatity: viewModel.quantity),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: lightBlueColor,
-                    borderRadius: BorderRadius.circular(8)),
-                height: screenHeightPercentage(context, percentage: 0.08),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Continue Shopping",
-                      style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: blockSizeHorizontal(context) * 5),
-                    ),
-                    SizedBox(
-                      width: blockSizeHorizontal(context) * 2,
-                    ),
-                    SvgPicture.asset(
-                      Assets.wareHouseicon,
-                      color: Colors.white,
-                    )
-                  ],
-                ),
-              ),
-            ),
+              iconPath: Assets.wareHouseicon,
+            )
           ],
         ),
       ),

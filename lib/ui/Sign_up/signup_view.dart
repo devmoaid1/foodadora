@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
+import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/ui/Sign_up/signup_viewModel.dart';
 
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
@@ -120,6 +121,7 @@ class SignUpView extends StatelessWidget {
                           SizedBox(height: blockSizeVertical(context) * 2),
                           FoodadoraButton(
                             label: 'Signup',
+                            color: activeColor,
                             onPressed: () {
                               _formKey.currentState!.save();
 

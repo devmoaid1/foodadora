@@ -16,13 +16,11 @@ class ProfileService extends BaseService {
   }
 
   void getCurrentCustomer() async {
-    String? id = auth.currentUser!.uid;
-
     try {
-      if (id != null) {
+      if (auth.currentUser != null) {
         await firestore
             .collection('customers')
-            .where('userId', isEqualTo: id)
+            .where('userId', isEqualTo: auth.currentUser!.uid)
             .get()
             .then((value) => value.docs.forEach((element) {
                   _currentCustomer = Customer.fromJson(element.data());

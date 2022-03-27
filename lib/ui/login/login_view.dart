@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/ui/login/login_viewmodel.dart';
 
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
@@ -95,6 +96,7 @@ class LoginView extends StatelessWidget {
                             SizedBox(height: (screenHeight(context) / 100) * 2),
                             FoodadoraButton(
                               label: 'Signin',
+                              color: activeColor,
                               onPressed: () async {
                                 _formKey.currentState!.save();
                                 if (_formKey.currentState!.validate()) {
