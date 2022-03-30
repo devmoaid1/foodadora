@@ -20,6 +20,7 @@ import '../../app/utilites/screen_sizes.dart';
 import 'widgets/cart_text_row.dart';
 
 class CartScreen extends StatelessWidget {
+  List<Product> orderProducts = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +76,8 @@ class CartScreen extends StatelessWidget {
                             if (snapshot.hasData) {
                               var products = snapshot.data as List<Product>;
 
+                              orderProducts = List.from(products);
+
                               return Column(
                                   children: buildCartItems(
                                       products: products, viewModel: model));
@@ -121,7 +124,9 @@ class CartScreen extends StatelessWidget {
                           width: screenWidth(context),
                           child: FoodadoraButton(
                             label: 'Confirm',
-                            onPressed: () {},
+                            onPressed: () {
+                              model.placeOrder(orderProducts: orderProducts);
+                            },
                           ),
                         ),
                       )

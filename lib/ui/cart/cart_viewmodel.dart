@@ -2,19 +2,23 @@
 
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
+import 'package:foodadora/app/utilites/custom_modals.dart';
 import 'package:foodadora/models/product.dart';
 
 import 'package:rxdart/rxdart.dart';
 import 'package:stacked/stacked.dart';
+
+import '../../models/customer.dart';
+import '../../models/order.dart';
 
 class CartViewModel extends BaseViewModel {
   BehaviorSubject<List<Product>> _cartProducts = BehaviorSubject();
   Stream<List<Product>> get items => cartService.cartItems;
   List<Product> get originalProducts => cartService.originalProducts;
 
-  Product _currentProduct = Product();
+  Customer get customerProfile => profileService.currentCustomer;
+  bool get isLoggedOn => profileService.isLoggedOn;
 
-  Product get currentProduct => _currentProduct;
   bool _isLoading = false;
   bool get loading => _isLoading;
 
@@ -98,5 +102,54 @@ class CartViewModel extends BaseViewModel {
         _isEmpty = true;
       }
     });
+  }
+
+  void placeOrder({required List<Product> orderProducts}) async {
+    List<Product> orderItems = [];
+    String storeId = '';
+
+    try {
+      if (!profileService.isLoggedOn) {
+        final response = await dialogService.showCustomDialog(
+            variant: DialogType.basic,
+            title: "You are not Logged on",
+            mainButtonTitle: "login/SignUp");
+
+        if (response!.confirmed) {
+          navigationService.replaceWith(Routes.loginView);
+        }
+      } else {
+        // add items in cart to order list products
+        for (var product in cartService.originalProducts) {
+          for (var orderProduct in orderProducts) {
+            storeId = product.storeId.toString();
+            orderItems.add(orderProduct); // add item
+            if (orderProduct.quantity == product.quantity) {
+              // set product availability to false
+              productService.setProductAvalability(
+                  isAvailiable: false, productId: product.productId.toString());
+            }
+          }
+        }
+
+        Order order = Order(
+          customerId: profileService.currentCustomer.userId,
+          orderDate: DateTime.now(),
+          products: orderItems,
+          status: 'Pending',
+          storeId: storeId,
+          totalPrice: _total,
+        );
+
+        ordersService.createOrder(order: order);
+
+        dialogService.showCustomDialog(
+            variant: DialogType.basic,
+            title: "Order created successfully",
+            mainButtonTitle: "Ok");
+      }
+    } catch (err) {
+      logger.e(err);
+    }
   }
 }

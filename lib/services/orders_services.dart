@@ -17,4 +17,8 @@ class OrderService extends BaseService {
       return [];
     }
   }
+
+  void createOrder({required Order order}) {
+    firestore.collection('orders').add(order.toJson());
+  }
 }
