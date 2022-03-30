@@ -46,6 +46,7 @@ class CartService extends BaseService {
   void fetchCartItems() async {
     var cart = await getCartFromLocalStorage(); // get cart from local storage
     var cartItems = cart.cartItems;
+    print('cartItems from ${cartItems![0].quantity}');
     List<Product> products = [];
     _originalProducts.clear(); //clear each time fetching
 
@@ -202,55 +203,55 @@ class CartService extends BaseService {
   void incrementQuantity(Product product, int stock) async {
     var cart = await getCartFromLocalStorage();
     var cartItems = cart.cartItems;
+    print('called increment');
+    for (var item in _products) {
+      if (item.productName == product.productName) {
+        if (item.quantity! < stock) {
+          // update in ui
+          product.quantity = product.quantity! + 1;
 
-    _cartItems.stream.listen((productsList) {
-      productsList.forEach((element) async {
-        if (element.productName == product.productName) {
-          if (element.quantity! < stock) {
-            // update in ui
-            product.quantity = product.quantity! + 1;
-
-            // update in local storage to be synced
-            if (cartItems != null) {
-              for (var cartItem in cartItems) {
-                if (cartItem.productId == product.productId) {
-                  cartItem.quantity = product.quantity;
-                  _sharedPreferences!
-                      .setString('cart', jsonEncode(cart.toJson()));
-                }
+          // update in local storage to be synced
+          if (cartItems != null) {
+            for (var cartItem in cartItems) {
+              if (cartItem.productId == product.productId) {
+                cartItem.quantity = product.quantity;
+                _sharedPreferences!
+                    .setString('cart', jsonEncode(cart.toJson()));
               }
             }
           }
         }
-      });
-    });
+      }
+    }
+
+    _cartItems.sink.add(_products);
   }
 
   void decrementQuantity(Product product) async {
     var cart = await getCartFromLocalStorage();
     var cartItems = cart.cartItems;
+    print('called increment');
+    for (var item in _products) {
+      if (item.productName == product.productName) {
+        if (product.quantity! > 1) {
+          // update in ui
+          product.quantity = product.quantity! - 1;
 
-    _cartItems.stream.listen((productsList) {
-      productsList.forEach((element) async {
-        if (element.productName == product.productName) {
-          if (product.quantity! > 1) {
-            // update in ui
-            product.quantity = product.quantity! - 1;
-
-            // update in local storage to be synced
-            if (cartItems != null) {
-              for (var cartItem in cartItems) {
-                if (cartItem.productId == product.productId) {
-                  cartItem.quantity = product.quantity;
-                  _sharedPreferences!
-                      .setString('cart', jsonEncode(cart.toJson()));
-                }
+          // update in local storage to be synced
+          if (cartItems != null) {
+            for (var cartItem in cartItems) {
+              if (cartItem.productId == product.productId) {
+                cartItem.quantity = product.quantity;
+                _sharedPreferences!
+                    .setString('cart', jsonEncode(cart.toJson()));
               }
             }
           }
         }
-      });
-    });
+      }
+    }
+
+    _cartItems.sink.add(_products);
   }
 
   double getSubTotal() {

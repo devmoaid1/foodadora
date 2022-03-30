@@ -69,7 +69,7 @@ class CartViewModel extends BaseViewModel {
           print(item.quantity);
           _total += (item.quantity!) * item.originalPrice!.toDouble();
         }
-        print(total);
+
         _isEmpty = false;
       }
 
