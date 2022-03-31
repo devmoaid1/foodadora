@@ -21,6 +21,8 @@ import 'widgets/cart_text_row.dart';
 
 class CartScreen extends StatelessWidget {
   List<Product> orderProducts = [];
+
+  double total = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,27 +95,39 @@ class CartScreen extends StatelessWidget {
                         child: Padding(
                           padding:
                               EdgeInsets.all(blockSizeHorizontal(context) * 4),
-                          child: Column(
-                            children: [
-                              CartTextRow(
-                                title: 'Subtotal:',
-                                price: model.total,
-                              ),
-                              SizedBox(height: blockSizeVertical(context) * 2),
-                              const CartTextRow(
-                                title: 'Taxes:',
-                              ),
-                              SizedBox(height: blockSizeVertical(context)),
-                              const DottedLine(
-                                dashColor: Color(0xffCFCFCF),
-                              ),
-                              SizedBox(height: blockSizeVertical(context)),
-                              CartTextRow(
-                                title: 'Total:',
-                                price: model.total,
-                              ),
-                            ],
-                          ),
+                          child: StreamBuilder<double>(
+                              stream: model.subtotalController,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  total = snapshot.data!.toDouble();
+                                  return Column(
+                                    children: [
+                                      CartTextRow(
+                                        title: 'Subtotal:',
+                                        price: snapshot.data!.toDouble(),
+                                      ),
+                                      SizedBox(
+                                          height:
+                                              blockSizeVertical(context) * 2),
+                                      const CartTextRow(
+                                        title: 'Taxes:',
+                                      ),
+                                      SizedBox(
+                                          height: blockSizeVertical(context)),
+                                      const DottedLine(
+                                        dashColor: Color(0xffCFCFCF),
+                                      ),
+                                      SizedBox(
+                                          height: blockSizeVertical(context)),
+                                      CartTextRow(
+                                        title: 'Total:',
+                                        price: snapshot.data!.toDouble(),
+                                      ),
+                                    ],
+                                  );
+                                }
+                                return Container();
+                              }),
                         ),
                       ),
                       SizedBox(height: blockSizeVertical(context) * 2),
@@ -125,7 +139,8 @@ class CartScreen extends StatelessWidget {
                           child: FoodadoraButton(
                             label: 'Confirm',
                             onPressed: () {
-                              model.placeOrder(orderProducts: orderProducts);
+                              model.placeOrder(
+                                  orderProducts: orderProducts, total: total);
                             },
                           ),
                         ),

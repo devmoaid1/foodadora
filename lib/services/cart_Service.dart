@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, prefer_final_fields, avoid_function_literals_in_foreach_calls, avoid_print
+// ignore_for_file: file_names, prefer_final_fields, avoid_function_literals_in_foreach_calls, avoid_print, unnecessary_null_comparison
 
 import 'dart:convert';
 
@@ -8,15 +8,19 @@ import 'package:foodadora/models/cartItem.dart';
 
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/services/base_service.dart';
+import 'package:foodadora/services/local_storage_service.dart';
 
 import 'package:rxdart/rxdart.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../app/utilites/custom_modals.dart';
 
 class CartService extends BaseService {
+  LocalStorageService localStorage = LocalStorageService();
+
   BehaviorSubject<List<Product>> _cartItems =
       BehaviorSubject(); //cartItems stream
+
+  BehaviorSubject<double> _totalController = BehaviorSubject.seeded(0);
 
   List<Product> _originalProducts = []; // list of original products with stock
   List<Product> _products =
@@ -24,17 +28,14 @@ class CartService extends BaseService {
 
   List<Product> get originalProducts => _originalProducts;
   Stream<List<Product>> get cartItems => _cartItems.stream;
-
-  SharedPreferences? _sharedPreferences;
+  Stream<double> get totalController => _totalController.stream;
 
   CartService() {
     _cartItems.sink.add(_products);
   }
 
   Future<Cart> getCartFromLocalStorage() async {
-    _sharedPreferences = await SharedPreferences.getInstance();
-
-    var cartLocalStorage = _sharedPreferences!.getString('cart');
+    final cartLocalStorage = await localStorage.getData(key: 'cart');
     // return if there is data in local storage otherwise empty cart
     if (cartLocalStorage != null) {
       return Cart.fromJson(jsonDecode(cartLocalStorage.toString()));
@@ -46,11 +47,10 @@ class CartService extends BaseService {
   void fetchCartItems() async {
     var cart = await getCartFromLocalStorage(); // get cart from local storage
     var cartItems = cart.cartItems;
-    print('cartItems from ${cartItems![0].quantity}');
+
     List<Product> products = [];
     _originalProducts.clear(); //clear each time fetching
 
-    _cartItems.sink.add([]);
     if (cartItems != null) {
       // for each cartitem get the full product of it
       for (var item in cartItems) {
@@ -83,6 +83,7 @@ class CartService extends BaseService {
 
     // add list of full products to the stream to be reactive
     _cartItems.sink.add(products);
+    getOrderTotal(cartItems: cartItems as List<CartItem>);
   }
 
   void addItem({required Product product, required int quantity}) async {
@@ -95,10 +96,9 @@ class CartService extends BaseService {
     // condition for adding to empty cart
     if (items.isEmpty) {
       items.add(CartItem(productId: product.productId, quantity: quantity));
-      _sharedPreferences!.setString(
-          "cart",
-          jsonEncode(
-              Cart(storeId: product.storeId, cartItems: items).toJson()));
+      localStorage.setData(
+          key: 'cart',
+          data: Cart(storeId: product.storeId, cartItems: items).toJson());
 
       dialogService.showCustomDialog(
           variant: DialogType.basic,
@@ -118,14 +118,14 @@ class CartService extends BaseService {
             mainButtonTitle: "Remove");
 
         if (response!.confirmed) {
-          _sharedPreferences!.setString(
-              "cart", jsonEncode(Cart(storeId: "", cartItems: []).toJson()));
+          localStorage.setData(
+              key: 'cart', data: Cart(storeId: "", cartItems: []).toJson());
+
           items.clear();
           items.add(CartItem(productId: product.productId, quantity: quantity));
-          _sharedPreferences!.setString(
-              "cart",
-              jsonEncode(
-                  Cart(storeId: product.storeId, cartItems: items).toJson()));
+          localStorage.setData(
+              key: 'cart',
+              data: Cart(storeId: product.storeId, cartItems: items).toJson());
 
           print("added from different store");
         }
@@ -138,10 +138,10 @@ class CartService extends BaseService {
         items.forEach((item) {
           if (product.productId == item.productId) {
             item.quantity = item.quantity! + quantity;
-            _sharedPreferences!.setString(
-                "cart",
-                jsonEncode(
-                    Cart(storeId: product.storeId, cartItems: items).toJson()));
+            localStorage.setData(
+                key: 'cart',
+                data:
+                    Cart(storeId: product.storeId, cartItems: items).toJson());
 
             isAddedQuantity = true;
             dialogService.showCustomDialog(
@@ -155,10 +155,9 @@ class CartService extends BaseService {
 
         if (!isAddedQuantity) {
           list.add(CartItem(productId: product.productId, quantity: quantity));
-          _sharedPreferences!.setString(
-              "cart",
-              jsonEncode(
-                  Cart(storeId: product.storeId, cartItems: list).toJson()));
+          localStorage.setData(
+              key: 'cart',
+              data: Cart(storeId: product.storeId, cartItems: list).toJson());
 
           dialogService.showCustomDialog(
               variant: DialogType.basic,
@@ -174,8 +173,7 @@ class CartService extends BaseService {
     var cartItems = cart.cartItems;
     List<CartItem> list = [];
     if (cartItems != null) {
-      var toRemove = [...cartItems];
-      list = toRemove;
+      list = List.from(cartItems);
     }
 
     var response = await dialogService.showCustomDialog(
@@ -190,14 +188,12 @@ class CartService extends BaseService {
           _products.removeWhere((item) => item.productId == element.productId);
           _cartItems.sink.add(_products);
 
-          _sharedPreferences!.setString(
-              "cart",
-              jsonEncode(
-                  Cart(storeId: cart.storeId, cartItems: list).toJson()));
+          localStorage.setData(
+              key: 'cart',
+              data: Cart(storeId: cart.storeId, cartItems: list).toJson());
         }
       });
     }
-    print(list.length);
   }
 
   void incrementQuantity(Product product, int stock) async {
@@ -215,16 +211,16 @@ class CartService extends BaseService {
             for (var cartItem in cartItems) {
               if (cartItem.productId == product.productId) {
                 cartItem.quantity = product.quantity;
-                _sharedPreferences!
-                    .setString('cart', jsonEncode(cart.toJson()));
+                localStorage.setData(key: 'cart', data: cart.toJson());
               }
             }
           }
         }
       }
     }
-
     _cartItems.sink.add(_products);
+
+    getOrderTotal(cartItems: cartItems as List<CartItem>);
   }
 
   void decrementQuantity(Product product) async {
@@ -242,8 +238,7 @@ class CartService extends BaseService {
             for (var cartItem in cartItems) {
               if (cartItem.productId == product.productId) {
                 cartItem.quantity = product.quantity;
-                _sharedPreferences!
-                    .setString('cart', jsonEncode(cart.toJson()));
+                localStorage.setData(key: 'cart', data: cart.toJson());
               }
             }
           }
@@ -252,19 +247,24 @@ class CartService extends BaseService {
     }
 
     _cartItems.sink.add(_products);
+    getOrderTotal(cartItems: cartItems as List<CartItem>);
   }
 
-  double getSubTotal() {
+  void getOrderTotal({required List<CartItem> cartItems}) async {
     double total = 0;
 
-    if (_products.isNotEmpty) {
-      for (var item in _products) {
-        total += item.quantity! * item.originalPrice!.toDouble();
+    if (cartItems != null) {
+      for (var cartItem in cartItems) {
+        for (var product in _originalProducts) {
+          if (cartItem.productId == product.productId) {
+            total += cartItem.quantity! * product.productPrice!.toDouble();
+          }
+        }
       }
-    } else {
-      total = 0;
     }
 
-    return total;
+    _totalController.sink.add(total);
+
+    logger.i(total);
   }
 }

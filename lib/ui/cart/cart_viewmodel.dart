@@ -12,31 +12,28 @@ import '../../models/customer.dart';
 import '../../models/order.dart';
 
 class CartViewModel extends BaseViewModel {
-  BehaviorSubject<List<Product>> _cartProducts = BehaviorSubject();
+  bool _isLoading = false;
+  bool _isEmpty = true;
+  double _total = 0;
+
   Stream<List<Product>> get items => cartService.cartItems;
+  Stream<double> get subtotalController =>
+      cartService.totalController; // subtotal controller
   List<Product> get originalProducts => cartService.originalProducts;
 
   Customer get customerProfile => profileService.currentCustomer;
   bool get isLoggedOn => profileService.isLoggedOn;
 
-  bool _isLoading = false;
   bool get loading => _isLoading;
+
+  bool get isEmpty => _isEmpty;
+
+  double get total => _total;
 
   void setLoading(bool value) {
     _isLoading = value;
     notifyListeners();
   }
-
-  List<Product> _products = [];
-
-  List<Product> get products => _products;
-
-  bool _isEmpty = true;
-  bool get isEmpty => _isEmpty;
-
-  double _total = 0;
-
-  double get total => _total;
 
   void navigateToHome() {
     navigationService.replaceWith(Routes.homeNavigationView);
@@ -53,20 +50,8 @@ class CartViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void resetTotal() {
-    _total = 0;
-    notifyListeners();
-  }
-
-  void getSubTotal() async {
-    _total = cartService.getSubTotal();
-    notifyListeners();
-  }
-
   void getTotal() {
     cartService.cartItems.listen((products) {
-      print(products.length);
-
       if (products.isNotEmpty) {
         _total = 0;
         for (var item in products) {
@@ -78,7 +63,6 @@ class CartViewModel extends BaseViewModel {
       }
 
       notifyListeners();
-      print(total);
     });
   }
 
@@ -90,7 +74,6 @@ class CartViewModel extends BaseViewModel {
 
   void decrementQuantity({required Product product}) {
     cartService.decrementQuantity(product);
-    _total = cartService.getSubTotal();
 
     notifyListeners();
   }
@@ -104,7 +87,8 @@ class CartViewModel extends BaseViewModel {
     });
   }
 
-  void placeOrder({required List<Product> orderProducts}) async {
+  void placeOrder(
+      {required List<Product> orderProducts, required double total}) async {
     List<Product> orderItems = [];
     String storeId = '';
 
@@ -138,7 +122,7 @@ class CartViewModel extends BaseViewModel {
           products: orderItems,
           status: 'Pending',
           storeId: storeId,
-          totalPrice: _total,
+          totalPrice: total,
         );
 
         ordersService.createOrder(order: order);
