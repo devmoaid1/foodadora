@@ -34,6 +34,7 @@ class OrdersViewModel extends BaseViewModel {
   void getOrders() async {
     setBusy(true);
     setLoading(true);
+
     try {
       final customerId =
           profileService.currentCustomer.userId; // get customer id
@@ -52,6 +53,7 @@ class OrdersViewModel extends BaseViewModel {
             notifyListeners();
           },
         );
+
         setBusy(false);
       }
 

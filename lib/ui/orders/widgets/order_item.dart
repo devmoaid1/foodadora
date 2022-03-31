@@ -62,17 +62,11 @@ class OrderItem extends ViewModelWidget<OrdersViewModel> {
                       SizedBox(
                         width: blockSizeHorizontal(context),
                       ),
-                      Container(
-                        width: screenWidthPercentage(context, percentage: 0.18),
-                        child: FittedBox(
-                          fit: BoxFit.fitWidth,
-                          child: Text(
-                            "${order.totalPrice} RM ",
-                            style: GoogleFonts.poppins(
-                                color: const Color(0xff5C5C5F),
-                                fontSize: blockSizeHorizontal(context) * 3),
-                          ),
-                        ),
+                      Text(
+                        "${order.totalPrice} RM ",
+                        style: GoogleFonts.poppins(
+                            color: const Color(0xff5C5C5F),
+                            fontSize: blockSizeHorizontal(context) * 4),
                       ),
                     ],
                   ),

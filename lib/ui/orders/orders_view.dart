@@ -11,6 +11,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../app/utilites/enums.dart';
 import '../../app/utilites/screen_sizes.dart';
+import '../../models/store.dart';
 import 'widgets/order_item.dart';
 
 class OrdersScreen extends StatelessWidget {
@@ -65,13 +66,18 @@ class OrdersScreen extends StatelessWidget {
 List<Widget> buildOrdersCards({required OrdersViewModel viewModel}) {
   List<Widget> orderCards = [];
 
-  viewModel.orders.forEach((order) {
-    viewModel.stores.forEach((store) {
-      if (order.products![0].storeId == store.id) {
-        orderCards.add(OrderItem(store: store, order: order));
+  var seen = <String>{};
+  List<Store> uniqueStores = viewModel.stores
+      .where((store) => seen.add(store.id.toString()))
+      .toList(); // remove duplicate stores
+
+  for (var order in viewModel.orders) {
+    for (var uniquestore in uniqueStores) {
+      if (order.storeId == uniquestore.id) {
+        orderCards.add(OrderItem(store: uniquestore, order: order));
       }
-    });
-  });
+    }
+  }
 
   return orderCards;
 }
