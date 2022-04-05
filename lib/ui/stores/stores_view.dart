@@ -37,6 +37,7 @@ class StoresScreen extends StatelessWidget {
       ),
       body: ViewModelBuilder<StoresViewModel>.reactive(
           viewModelBuilder: () => storesViewModel,
+          fireOnModelReadyOnce: true,
           disposeViewModel: false,
           onModelReady: (model) => model.getStoresList(),
           builder: (context, viewModel, _) {

@@ -23,6 +23,8 @@ class OrdersScreen extends StatelessWidget {
       body: ViewModelBuilder<OrdersViewModel>.reactive(
           viewModelBuilder: () => OrdersViewModel(),
           onModelReady: (model) => model.getOrders(),
+          fireOnModelReadyOnce: true,
+          disposeViewModel: false,
           builder: (context, model, _) {
             if (!model.isLoggedOn) {
               return const OrdersNotLoggedIndicator();

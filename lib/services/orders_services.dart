@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:foodadora/models/order.dart';
+import 'package:foodadora/models/product.dart';
 import 'package:foodadora/services/base_service.dart';
+
+import '../models/utilities/dateTime_converters.dart';
 
 class OrderService extends BaseService {
   Future<List<Order>> getOrdersForCustomer({required String customerId}) async {
@@ -10,7 +14,17 @@ class OrderService extends BaseService {
           .get();
 
       return ordersDocs.docs
-          .map((orders) => Order.fromJson(orders.data()))
+          .map((orders) => Order(
+              customerId: orders.data()['customerId'],
+              id: orders.id,
+              orderDate: DateTimeConverters.dateTimeFromTimestamp(
+                  orders.data()['orderDate'] as Timestamp),
+              products: (orders.data()['products'] as List<dynamic>?)
+                  ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
+                  .toList(),
+              status: orders.data()['status'],
+              storeId: orders.data()['storeId'],
+              totalPrice: orders.data()['totalPrice']))
           .toList();
     } catch (err) {
       logger.e(err.toString());

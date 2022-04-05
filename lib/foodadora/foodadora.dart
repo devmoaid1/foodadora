@@ -14,9 +14,10 @@ class FoodadoraApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<FoodadoraViewModel>.reactive(
+    return ViewModelBuilder<FoodadoraViewModel>.nonReactive(
       viewModelBuilder: () => FoodadoraViewModel(),
       onModelReady: (model) => model.getCurrentCustomer(),
+      fireOnModelReadyOnce: true,
       builder: (context, model, _) => MaterialApp(
         debugShowCheckedModeBanner: false,
         navigatorKey: StackedService.navigatorKey,

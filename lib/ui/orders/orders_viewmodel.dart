@@ -53,10 +53,9 @@ class OrdersViewModel extends BaseViewModel {
             notifyListeners();
           },
         );
-
-        setBusy(false);
       }
 
+      setBusy(false);
       setLoading(false);
     } catch (err) {
       logger.e(err.toString());
