@@ -1,12 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:foodadora/ui/home_navigation/home_navigation_view.dart';
-import 'package:foodadora/ui/login/login_view.dart';
-import 'package:foodadora/ui/widgets/authentication_wrapper/authintication_wrapper_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
+import 'package:foodadora/ui/widgets/authentication_wrapper/authintication_wrapper_viewmodel.dart';
+
 class AuthenticationWrapper extends StatelessWidget {
-  const AuthenticationWrapper({Key? key}) : super(key: key);
+  final Widget authedWidget;
+  final Widget unAuthedWidget;
+  const AuthenticationWrapper({
+    Key? key,
+    required this.authedWidget,
+    required this.unAuthedWidget,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +21,11 @@ class AuthenticationWrapper extends StatelessWidget {
         builder: (context, model, _) => StreamBuilder(
             stream: model.currentUser,
             builder: (context, AsyncSnapshot<User?> snapShot) {
-              if (snapShot.hasData) {
-                return const HomeNavigationView();
+              if (snapShot.data?.uid != null) {
+                return authedWidget;
               }
 
-              return LoginView();
+              return unAuthedWidget;
             }));
   }
 }
