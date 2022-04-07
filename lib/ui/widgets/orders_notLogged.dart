@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../app/app.router.dart';
@@ -17,7 +18,7 @@ class OrdersNotLoggedIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-          EdgeInsets.symmetric(horizontal: blockSizeHorizontal(context) * 17),
+          EdgeInsets.symmetric(horizontal: blockSizeHorizontal(context) * 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -36,28 +37,10 @@ class OrdersNotLoggedIndicator extends StatelessWidget {
                   color: textColor),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              navigationService.replaceWith(Routes.loginView);
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: blockSizeHorizontal(context) * 6,
-                  vertical: blockSizeVertical(context) * 1.5),
-              decoration: BoxDecoration(
-                  color: lightBlueColor,
-                  borderRadius: BorderRadius.circular(8)),
-              child: Center(
-                child: Text(
-                  'Login/SignUp',
-                  style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: blockSizeHorizontal(context) * 4),
-                ),
-              ),
-            ),
-          )
+          FoodadoraButton(
+              label: "Login / Signup",
+              color: actionColor,
+              onPressed: () => navigationService.navigateTo(Routes.loginView)),
         ],
       ),
     );

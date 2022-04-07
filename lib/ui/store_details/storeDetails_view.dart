@@ -6,13 +6,13 @@ import 'package:foodadora/models/product.dart';
 import 'package:foodadora/models/store.dart';
 import 'package:foodadora/ui/store_details/storeDetails_viewModel.dart';
 
+import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 import 'package:foodadora/ui/widgets/product_card.dart';
 import 'package:foodadora/ui/widgets/store_circle.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../app/utilites/app_colors.dart';
 import '../../app/utilites/expiryWeeks.dart';
 import '../../app/utilites/screen_sizes.dart';
 
@@ -23,26 +23,7 @@ class StoreDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        toolbarHeight: blockSizeVertical(context) * 10,
-        backgroundColor: scaffoldColor,
-        leading: IconButton(
-            icon: Icon(
-              LineIcons.angleLeft,
-              color: Theme.of(context).primaryColor,
-              size: blockSizeHorizontal(context) * 8,
-            ),
-            onPressed: () => Navigator.pop(context)),
-        title: Padding(
-          padding: EdgeInsets.all(blockSizeHorizontal(context)),
-          child: Image.asset(
-            'assets/images/sublogo.png',
-            height: blockSizeVertical(context) * 8.5,
-          ),
-        ),
-        elevation: 0,
-      ),
+      appBar: foodadoraAppBar(context, withBack: true),
       body: ViewModelBuilder<StoreDetailsViewModel>.reactive(
           viewModelBuilder: () => StoreDetailsViewModel(),
           fireOnModelReadyOnce: true,

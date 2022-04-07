@@ -3,11 +3,13 @@
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/order.dart';
+import 'package:injectable/injectable.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../models/customer.dart';
 import '../../models/store.dart';
 
+@singleton
 class OrdersViewModel extends BaseViewModel {
   List<Order> _orders = [];
   bool _isLoading = false;

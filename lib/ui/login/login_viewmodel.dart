@@ -26,8 +26,12 @@ class LoginViewModel extends BaseViewModel {
       profileService.getCurrentCustomer();
       setBusy(false);
       setLoading(false);
+      profileService.setIsLoggedOn(true);
 
-      navigationService.replaceWith(Routes.homeNavigationView);
+      homeNavigationViewModel.notifyListeners();
+      settingsViewModel.notifyListeners();
+
+      navigationService.back();
       // navigationService.navigateTo(Routes.homeScreen);
     } catch (e) {
       setBusy(false);
@@ -41,25 +45,31 @@ class LoginViewModel extends BaseViewModel {
 
   void googleSignin() async {
     setBusy(true);
+    setLoading(true);
     try {
       final result = await authService.signInWithGoogle();
       profileService.getCurrentCustomer();
-      setBusy(false);
 
       if (result.additionalUserInfo!.isNewUser) {
         navigationService.navigateTo(Routes.phoneSignUpScreen,
             arguments: PhoneSignUpScreenArguments(user: result));
       } else {
-        navigationService.replaceWith(Routes.homeNavigationView);
+        profileService.setIsLoggedOn(true);
+
+        navigationService.back();
       }
     } catch (e) {
-      setBusy(false);
-      setLoading(false);
       logger.e(e.toString());
       dialogService.showCustomDialog(
           variant: DialogType.basic,
-          title: "something went wrong",
-          mainButtonTitle: "ok");
+          title: "Something Went Wrong",
+          mainButtonTitle: "Ok");
     }
+    setBusy(false);
+    setLoading(false);
+    settingsViewModel.notifyListeners();
+    homeNavigationViewModel.notifyListeners();
   }
+
+  void facebookSignin() async {}
 }

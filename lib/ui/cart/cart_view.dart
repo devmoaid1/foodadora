@@ -21,7 +21,6 @@ import 'widgets/cart_text_row.dart';
 
 class CartScreen extends StatelessWidget {
   List<Product> orderProducts = [];
-
   double total = 0;
   @override
   Widget build(BuildContext context) {

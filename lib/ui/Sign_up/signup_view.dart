@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/ui/Sign_up/signup_viewModel.dart';
 
+import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:foodadora/ui/widgets/foodadora_textfield.dart';
 import 'package:foodadora/ui/widgets/regex.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:line_icons/line_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:stacked/stacked.dart';
 
@@ -27,26 +29,7 @@ class SignUpView extends StatelessWidget {
           inAsyncCall: model.isLoading,
           progressIndicator: const CircularProgressIndicator(),
           child: Scaffold(
-              appBar: AppBar(
-                centerTitle: true,
-                toolbarHeight: blockSizeVertical(context) * 10,
-                backgroundColor: Colors.white,
-                leading: IconButton(
-                    icon: Icon(
-                      LineIcons.angleLeft,
-                      color: Theme.of(context).primaryColor,
-                      size: blockSizeHorizontal(context) * 8,
-                    ),
-                    onPressed: () => Navigator.pop(context)),
-                title: Padding(
-                  padding: EdgeInsets.all(blockSizeHorizontal(context)),
-                  child: Image.asset(
-                    'assets/images/sublogo.png',
-                    height: blockSizeVertical(context) * 8.5,
-                  ),
-                ),
-                elevation: 0,
-              ),
+              appBar: foodadoraAppBar(context, withBack: true),
               body: SafeArea(
                 child: SingleChildScrollView(
                   child: Padding(
@@ -55,11 +38,12 @@ class SignUpView extends StatelessWidget {
                         horizontal: blockSizeHorizontal(context) * 5),
                     child: Center(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'SIGN UP',
-                            style: TextStyle(
-                                fontFamily: 'Raleway',
+                            'Sign Up',
+                            style: GoogleFonts.raleway(
+                                color: textColor,
                                 fontWeight: FontWeight.w500,
                                 fontSize: blockSizeHorizontal(context) * 6),
                           ),
@@ -71,7 +55,7 @@ class SignUpView extends StatelessWidget {
                                   FoodadoraTextField(
                                     name: 'name',
                                     label: 'Name',
-                                    icon: LineIcons.signature,
+                                    iconPath: Assets.usericon,
                                     inputType: TextInputType.text,
                                     validator: FormBuilderValidators.compose([
                                       FormBuilderValidators.required(context,
@@ -81,7 +65,7 @@ class SignUpView extends StatelessWidget {
                                   FoodadoraTextField(
                                     name: "email",
                                     label: 'Email',
-                                    icon: LineIcons.envelope,
+                                    iconPath: Assets.emailIcon,
                                     inputType: TextInputType.emailAddress,
                                     validator: FormBuilderValidators.compose([
                                       FormBuilderValidators.required(context,
@@ -92,7 +76,7 @@ class SignUpView extends StatelessWidget {
                                   FoodadoraTextField(
                                     name: 'password',
                                     label: 'Password',
-                                    icon: LineIcons.key,
+                                    iconPath: Assets.passwordIcon,
                                     inputType: TextInputType.text,
                                     isObsecure: true,
                                     validator: FormBuilderValidators.compose([
@@ -106,7 +90,7 @@ class SignUpView extends StatelessWidget {
                                   FoodadoraTextField(
                                     name: 'phoneNumber',
                                     label: 'Phone Number',
-                                    icon: LineIcons.mobilePhone,
+                                    iconPath: Assets.phoneIcon,
                                     inputType: TextInputType.phone,
                                     textInputAction: TextInputAction.done,
                                     validator: FormBuilderValidators.compose([
@@ -118,9 +102,9 @@ class SignUpView extends StatelessWidget {
                                   ),
                                 ],
                               )),
-                          SizedBox(height: blockSizeVertical(context) * 2),
+                          verticalSpaceLarge,
                           FoodadoraButton(
-                            label: 'Signup',
+                            label: 'Sign Up',
                             color: activeColor,
                             onPressed: () {
                               _formKey.currentState!.save();
@@ -144,40 +128,6 @@ class SignUpView extends StatelessWidget {
                               }
                             },
                           ),
-                          SizedBox(height: blockSizeVertical(context) * 2),
-                          _buildOrRow(context),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              RawMaterialButton(
-                                onPressed: () {},
-                                elevation: 2.0,
-                                fillColor: const Color(0xff3b5998),
-                                child: Image.asset(
-                                  'assets/icons/facebook.png',
-                                  color: Colors.white,
-                                  width: blockSizeHorizontal(context) * 9,
-                                ),
-                                padding: EdgeInsets.all(
-                                    blockSizeHorizontal(context) * 3),
-                                shape: const CircleBorder(),
-                              ),
-                              RawMaterialButton(
-                                onPressed: () async {
-                                  model.googleSignUp();
-                                },
-                                elevation: 2.0,
-                                fillColor: Colors.white,
-                                child: Image.asset(
-                                  'assets/icons/google.png',
-                                  width: blockSizeHorizontal(context) * 9,
-                                ),
-                                padding: EdgeInsets.all(
-                                    blockSizeHorizontal(context) * 3),
-                                shape: const CircleBorder(),
-                              ),
-                            ],
-                          )
                         ],
                       ),
                     ),
@@ -188,26 +138,4 @@ class SignUpView extends StatelessWidget {
       },
     );
   }
-}
-
-Padding _buildOrRow(BuildContext context) {
-  return Padding(
-    padding: EdgeInsets.symmetric(
-        horizontal: blockSizeHorizontal(context) * 10,
-        vertical: blockSizeVertical(context) * 2),
-    child: Row(children: <Widget>[
-      const Expanded(child: Divider(color: Colors.black)),
-      Text(
-        "  OR  ",
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: blockSizeHorizontal(context) * 4,
-        ),
-      ),
-      const Expanded(
-          child: Divider(
-        color: Colors.black,
-      )),
-    ]),
-  );
 }

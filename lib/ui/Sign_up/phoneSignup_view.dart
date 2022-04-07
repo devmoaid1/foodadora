@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/ui/Sign_up/signup_viewModel.dart';
 
@@ -10,7 +11,6 @@ import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:foodadora/ui/widgets/foodadora_textfield.dart';
 import 'package:foodadora/ui/widgets/regex.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:stacked/stacked.dart';
 
@@ -76,7 +76,7 @@ class PhoneSignUpScreen extends StatelessWidget {
                         child: FoodadoraTextField(
                             name: 'phone',
                             label: 'Phone',
-                            icon: LineIcons.mobilePhone,
+                            iconPath: Assets.phoneIcon,
                             inputType: TextInputType.phone,
                             validator: FormBuilderValidators.compose([
                               FormBuilderValidators.required(context,

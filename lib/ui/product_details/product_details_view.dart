@@ -6,6 +6,7 @@ import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
+import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,26 +30,7 @@ class ProductDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          toolbarHeight: blockSizeVertical(context) * 10,
-          backgroundColor: scaffoldColor,
-          leading: IconButton(
-              icon: Icon(
-                LineIcons.angleLeft,
-                color: Theme.of(context).primaryColor,
-                size: blockSizeHorizontal(context) * 8,
-              ),
-              onPressed: () => Navigator.pop(context)),
-          title: Padding(
-            padding: EdgeInsets.all(blockSizeHorizontal(context)),
-            child: Image.asset(
-              'assets/images/sublogo.png',
-              height: blockSizeVertical(context) * 8.5,
-            ),
-          ),
-          elevation: 0,
-        ),
+        appBar: foodadoraAppBar(context, withBack: true),
         body: ViewModelBuilder<ProductDetailsViewModel>.reactive(
             disposeViewModel: false,
             onModelReady: (model) => model.init(),

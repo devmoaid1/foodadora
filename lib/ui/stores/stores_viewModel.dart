@@ -3,8 +3,10 @@
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/store.dart';
+import 'package:injectable/injectable.dart';
 import 'package:stacked/stacked.dart';
 
+@singleton
 class StoresViewModel extends BaseViewModel {
   List<Store> _stores = [];
   bool _isLoading = false;

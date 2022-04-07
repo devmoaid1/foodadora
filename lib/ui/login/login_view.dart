@@ -1,16 +1,21 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
+import 'package:foodadora/app/utilites/enums.dart';
+import 'package:foodadora/app/utilites/screen_sizes.dart';
 import 'package:foodadora/ui/login/login_viewmodel.dart';
 
+import 'package:foodadora/app/constants/assets.dart';
+import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:foodadora/ui/widgets/foodadora_textfield.dart';
+import 'package:foodadora/ui/widgets/social_button.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:line_icons/line_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:stacked/stacked.dart';
-
-import '../../app/utilites/screen_sizes.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({Key? key}) : super(key: key);
@@ -20,6 +25,7 @@ class LoginView extends StatelessWidget {
     return ViewModelBuilder<LoginViewModel>.reactive(
         viewModelBuilder: () => LoginViewModel(),
         builder: (context, model, child) => Scaffold(
+              appBar: foodadoraAppBar(context, withBack: true),
               body: ModalProgressHUD(
                 inAsyncCall: model.isLoading,
                 progressIndicator: const CircularProgressIndicator(),
@@ -31,18 +37,12 @@ class LoginView extends StatelessWidget {
                           horizontal: (screenWidth(context) / 100) * 5),
                       child: Center(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Image(
-                              image: const AssetImage(
-                                'assets/images/logo.png',
-                              ),
-                              width: (screenWidth(context) / 100) * 50,
-                            ),
-                            SizedBox(height: (screenHeight(context) / 100) * 3),
                             Text(
-                              'SIGN IN',
-                              style: TextStyle(
-                                  fontFamily: 'Raleway',
+                              'Login',
+                              style: GoogleFonts.raleway(
+                                  color: textColor,
                                   fontWeight: FontWeight.w500,
                                   fontSize: (screenWidth(context) / 100) * 6),
                             ),
@@ -55,7 +55,7 @@ class LoginView extends StatelessWidget {
                                       name: "email",
                                       label: 'Email',
                                       inputType: TextInputType.emailAddress,
-                                      icon: LineIcons.envelope,
+                                      iconPath: Assets.emailIcon,
                                       validator: FormBuilderValidators.compose([
                                         FormBuilderValidators.email(context),
                                         FormBuilderValidators.required(context,
@@ -65,7 +65,7 @@ class LoginView extends StatelessWidget {
                                     FoodadoraTextField(
                                       name: "password",
                                       label: 'Password',
-                                      icon: LineIcons.key,
+                                      iconPath: Assets.passwordIcon,
                                       inputType: TextInputType.text,
                                       isObsecure: true,
                                       textInputAction: TextInputAction.done,
@@ -95,7 +95,7 @@ class LoginView extends StatelessWidget {
                             ),
                             SizedBox(height: (screenHeight(context) / 100) * 2),
                             FoodadoraButton(
-                              label: 'Signin',
+                              label: 'Login',
                               color: activeColor,
                               onPressed: () async {
                                 _formKey.currentState!.save();
@@ -112,38 +112,19 @@ class LoginView extends StatelessWidget {
                             ),
                             SizedBox(height: (screenHeight(context) / 100) * 2),
                             _buildOrRow(context),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                RawMaterialButton(
-                                  onPressed: () {},
-                                  elevation: 2.0,
-                                  fillColor: const Color(0xff3b5998),
-                                  child: Image.asset(
-                                    'assets/icons/facebook.png',
-                                    color: Colors.white,
-                                    width: (screenWidth(context) / 100) * 9,
-                                  ),
-                                  padding: EdgeInsets.all(
-                                      (screenWidth(context) / 100) * 3),
-                                  shape: const CircleBorder(),
-                                ),
-                                RawMaterialButton(
-                                  onPressed: () {
-                                    model.googleSignin();
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: Colors.white,
-                                  child: Image.asset(
-                                    'assets/icons/google.png',
-                                    width: (screenWidth(context) / 100) * 9,
-                                  ),
-                                  padding: EdgeInsets.all(
-                                      (screenWidth(context) / 100) * 3),
-                                  shape: const CircleBorder(),
-                                ),
-                              ],
-                            )
+                            verticalSpaceRegular,
+                            if (Platform.isIOS)
+                              SocialButton(
+                                  onPressed: model.googleSignin,
+                                  type: SocialTypes.apple),
+                            verticalSpaceRegular,
+                            SocialButton(
+                                onPressed: model.googleSignin,
+                                type: SocialTypes.google),
+                            verticalSpaceRegular,
+                            SocialButton(
+                                onPressed: model.googleSignin,
+                                type: SocialTypes.facebook),
                           ],
                         ),
                       ),
@@ -161,14 +142,17 @@ Padding _buildOrRow(BuildContext context) {
         horizontal: (screenWidth(context) / 100) * 10,
         vertical: (screenHeight(context) / 100) * 2),
     child: Row(children: <Widget>[
-      const Expanded(
-        child: Divider(color: Colors.black),
+      Expanded(
+        child: Divider(color: textColor),
       ),
-      Text(
-        "  OR  ",
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: (screenWidth(context) / 100) * 4,
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Text(
+          "OR",
+          style: GoogleFonts.raleway(
+            color: textColor,
+            fontSize: (screenWidth(context) / 100) * 4,
+          ),
         ),
       ),
       const Expanded(
