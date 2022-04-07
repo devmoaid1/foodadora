@@ -17,7 +17,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      automaticallyImplyLeading: false,
+      // automaticallyImplyLeading: false,
       title: SvgPicture.asset(
         Assets.appLogo,
         height: Size.fromHeight(appBar!.preferredSize.height).height -

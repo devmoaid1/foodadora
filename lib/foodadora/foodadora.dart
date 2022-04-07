@@ -1,5 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/foodadora/foodadora_viewModel.dart';
 import 'package:foodadora/ui/widgets/style.dart';
@@ -17,18 +19,27 @@ class FoodadoraApp extends StatelessWidget {
     return ViewModelBuilder<FoodadoraViewModel>.nonReactive(
       viewModelBuilder: () => FoodadoraViewModel(),
       onModelReady: (model) => model.getCurrentCustomer(),
-      fireOnModelReadyOnce: true,
-      builder: (context, model, _) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        navigatorKey: StackedService.navigatorKey,
-        title: 'Foodadora',
-        theme: mainTheme,
-        localizationsDelegates: const [
-          FormBuilderLocalizations.delegate,
-        ],
-        builder: DevicePreview.appBuilder,
-        onGenerateRoute: StackedRouter().onGenerateRoute,
-      ),
+      builder: (context, model, _) {
+        LocalizationDelegate localizationDelegate =
+            LocalizedApp.of(context).delegate;
+
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          navigatorKey: StackedService.navigatorKey,
+          title: 'Foodadora',
+          theme: mainTheme,
+          localizationsDelegates: [
+            localizationDelegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            FormBuilderLocalizations.delegate,
+          ],
+          supportedLocales: localizationDelegate.supportedLocales,
+          locale: localizationDelegate.currentLocale,
+          builder: DevicePreview.appBuilder,
+          onGenerateRoute: StackedRouter().onGenerateRoute,
+        );
+      },
     );
   }
 }

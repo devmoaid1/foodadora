@@ -44,8 +44,7 @@ class EmptyIndicator extends StatelessWidget {
                   ),
           ),
           GestureDetector(
-            onTap: () =>
-                navigationService.replaceWith(Routes.homeNavigationView),
+            onTap: () => homeNavigationViewModel.setIndex(0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

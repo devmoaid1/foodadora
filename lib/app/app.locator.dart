@@ -16,6 +16,7 @@ import '../services/orders_services.dart';
 import '../services/product_service.dart';
 import '../services/profile_service.dart';
 import '../services/store_service.dart';
+import '../ui/stores/stores_viewModel.dart';
 
 final locator = StackedLocator.instance;
 
@@ -25,6 +26,7 @@ void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
+  locator.registerSingleton(StoresViewModel());
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => AuthService());

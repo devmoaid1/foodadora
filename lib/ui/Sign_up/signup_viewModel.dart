@@ -42,26 +42,6 @@ class SignUpViewModel extends BaseViewModel {
     }
   }
 
-  void googleSignUp() async {
-    setBusy(true);
-    try {
-      final result = await authService.signInWithGoogle();
-
-      if (result.additionalUserInfo!.isNewUser) {
-        navigationService.navigateTo(Routes.phoneSignUpScreen,
-            arguments: PhoneSignUpScreenArguments(user: result));
-      } else {
-        navigationService.replaceWith(Routes.profileScreen);
-      }
-    } catch (err) {
-      logger.e(err.toString());
-      dialogService.showCustomDialog(
-          variant: DialogType.basic,
-          title: "something went wrong",
-          mainButtonTitle: "ok");
-    }
-  }
-
   void phoneForm(
       {String? id,
       String? name,
@@ -75,7 +55,11 @@ class SignUpViewModel extends BaseViewModel {
           id: id, email: email, name: name, phone: phone, photoUrl: url);
       setBusy(false);
       setLoading(true);
-      navigationService.replaceWith(Routes.homeNavigationView);
+      profileService.setIsLoggedOn(true);
+      homeNavigationViewModel.notifyListeners();
+      settingsViewModel.notifyListeners();
+
+      navigationService.popUntil((route) => route.isFirst);
       dialogService.showCustomDialog(
           variant: DialogType.basic, title: "success !", mainButtonTitle: "ok");
     } catch (err) {

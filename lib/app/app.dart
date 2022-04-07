@@ -9,7 +9,6 @@
   CupertinoRoute(
     page: CartScreen,
   ),
-  CupertinoRoute(page: AuthenticationWrapper),
   CupertinoRoute(page: LoginView),
   CupertinoRoute(
     page: SignUpView,
@@ -21,11 +20,15 @@
     page: ProfileScreen,
   ),
   CupertinoRoute(
+    page: SelectLanguageView,
+  ),
+  CupertinoRoute(
     page: StoresScreen,
   ),
   CupertinoRoute(page: StoreDetailsScreen),
   CupertinoRoute(page: OrderDetailsScreen),
 ], dependencies: [
+  Singleton(classType: StoresViewModel),
   LazySingleton(classType: NavigationService),
   LazySingleton(classType: DialogService),
   LazySingleton(classType: AuthService),
@@ -52,8 +55,9 @@ import 'package:foodadora/ui/order_details/order_details_view.dart';
 import 'package:foodadora/ui/orders/orders_view.dart';
 import 'package:foodadora/ui/product_details/product_details_view.dart';
 import 'package:foodadora/ui/profile/profile_view.dart';
+import 'package:foodadora/ui/select_language/select_language_view.dart';
 import 'package:foodadora/ui/store_details/storeDetails_view.dart';
 import 'package:foodadora/ui/stores/stores_view.dart';
-import 'package:foodadora/ui/widgets/authentication_wrapper/authentication_wrapper.dart';
+import 'package:foodadora/ui/stores/stores_viewModel.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';

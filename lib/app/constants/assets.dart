@@ -31,6 +31,10 @@ class Assets {
   static const arrowRightIcon = "assets/icons/arrow_right.svg";
   static const homeicon = "assets/icons/home.svg";
   static const usericon = "assets/icons/user.svg";
+  static const passwordIcon = "assets/icons/password.svg";
+  static const emailIcon = "assets/icons/email.svg";
+  static const phoneIcon = "assets/icons/phone.svg";
+  static const languageIcon = "assets/icons/globe.svg";
   static const shoppingicon = "assets/icons/shopping.svg";
   static const historyicon = "assets/icons/history.svg";
   static const expiryicon = "assets/icons/expiry_clock.svg";
@@ -41,4 +45,8 @@ class Assets {
   static const emptyOrderIcon = "assets/icons/empty_order.svg";
 
   static const homeGraphic = "assets/images/home_graphic.png";
+
+  static const googleIcon = "assets/icons/google.svg";
+  static const appleIcon = "assets/icons/apple.svg";
+  static const facebookIcon = "assets/icons/facebook.svg";
 }

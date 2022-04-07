@@ -1,18 +1,17 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:foodadora/app/constants/assets.dart';
+import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/ui/cart/cart_view.dart';
 
 import 'package:foodadora/ui/home_navigation/home_navigation_viewmodel.dart';
 
-import 'package:foodadora/ui/home_navigation/home_views/stores_view.dart';
 import 'package:foodadora/ui/home_navigation/widgets/bottom_navigation.dart';
 
 import 'package:foodadora/ui/orders/orders_view.dart';
-import 'package:foodadora/ui/profile/profile_view.dart';
+import 'package:foodadora/ui/settings/settings_view.dart';
 import 'package:foodadora/ui/stores/stores_view.dart';
 
+import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../app/utilites/app_colors.dart';
@@ -23,36 +22,31 @@ class HomeNavigationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeNavigationViewModel>.reactive(
-        viewModelBuilder: () => HomeNavigationViewModel(),
-        builder: (context, model, child) => Scaffold(
-              backgroundColor: scaffoldColor,
-              appBar: AppBar(
-                centerTitle: true,
-                backgroundColor: scaffoldColor,
-                elevation: 0,
-                title: SvgPicture.asset(
-                  Assets.appLogo,
-                ),
+        viewModelBuilder: () => homeNavigationViewModel,
+        disposeViewModel: false,
+        builder: (context, model, child) {
+          return Scaffold(
+            backgroundColor: scaffoldColor,
+            appBar: foodadoraAppBar(context),
+            body: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: PageTransitionSwitcher(
+                reverse: model.reverse,
+                duration: const Duration(milliseconds: 200),
+                transitionBuilder: (Widget child, Animation<double> animation,
+                    Animation<double> secondaryAnimation) {
+                  return SharedAxisTransition(
+                      child: child,
+                      animation: animation,
+                      secondaryAnimation: secondaryAnimation,
+                      transitionType: SharedAxisTransitionType.horizontal);
+                },
+                child: getView(model.currentIndex),
               ),
-              body: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: PageTransitionSwitcher(
-                  reverse: model.reverse,
-                  duration: const Duration(milliseconds: 200),
-                  transitionBuilder: (Widget child, Animation<double> animation,
-                      Animation<double> secondaryAnimation) {
-                    return SharedAxisTransition(
-                        child: child,
-                        animation: animation,
-                        secondaryAnimation: secondaryAnimation,
-                        transitionType: SharedAxisTransitionType.horizontal);
-                  },
-                  child: getView(model.currentIndex),
-                ),
-              ),
-              bottomNavigationBar:
-                  BottomNavigation(model.setIndex, model.currentIndex),
-            ));
+            ),
+            bottomNavigationBar: BottomNavigation(),
+          );
+        });
   }
 
   Widget getView(int index) {
@@ -64,9 +58,9 @@ class HomeNavigationView extends StatelessWidget {
       case 2:
         return const OrdersScreen();
       case 3:
-        return const ProfileScreen();
+        return SettingsView();
       default:
-        return const StoresView();
+        return const StoresScreen();
     }
   }
 }

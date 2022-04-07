@@ -16,6 +16,10 @@ class AuthService {
     return _instance.authStateChanges();
   }
 
+  String get userName => _instance.currentUser?.displayName ?? "";
+
+  bool get isAuthed => _instance.currentUser != null;
+
   Future<UserCredential> emailLogin({String? email, String? password}) async {
     try {
       UserCredential loginResult = await _instance.signInWithEmailAndPassword(

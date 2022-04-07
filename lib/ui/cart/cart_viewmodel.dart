@@ -5,7 +5,6 @@ import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/custom_modals.dart';
 import 'package:foodadora/models/product.dart';
 
-import 'package:rxdart/rxdart.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../models/customer.dart';

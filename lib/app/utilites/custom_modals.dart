@@ -72,6 +72,29 @@ class _AddToCartDialog extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
+                      completer(DialogResponse(confirmed: false));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: blockSizeHorizontal(context) * 6),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8)),
+                      height: screenHeightPercentage(context, percentage: 0.08),
+                      child: Center(
+                        child: Text(
+                          "Cancel",
+                          style: GoogleFonts.poppins(
+                              color: textColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: blockSizeHorizontal(context) * 4),
+                        ),
+                      ),
+                    ),
+                  ),
+                  horizontalSpaceRegular,
+                  GestureDetector(
+                    onTap: () {
                       completer(DialogResponse(confirmed: true));
                     },
                     child: Container(
@@ -86,31 +109,6 @@ class _AddToCartDialog extends StatelessWidget {
                           "Remove",
                           style: GoogleFonts.poppins(
                               color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: blockSizeHorizontal(context) * 4),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: blockSizeHorizontal(context),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      completer(DialogResponse(confirmed: false));
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: blockSizeHorizontal(context) * 6),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8)),
-                      height: screenHeightPercentage(context, percentage: 0.08),
-                      child: Center(
-                        child: Text(
-                          "Cancel",
-                          style: GoogleFonts.poppins(
-                              color: Colors.black,
                               fontWeight: FontWeight.w500,
                               fontSize: blockSizeHorizontal(context) * 4),
                         ),
@@ -171,7 +169,7 @@ class _BasicDialog extends StatelessWidget {
                 height: blockSizeVertical(context) * 4,
               ),
               FoodadoraButton(
-                  label: request.mainButtonTitle,
+                  label: request.mainButtonTitle ?? "",
                   onPressed: () {
                     completer(DialogResponse(confirmed: true));
                   })

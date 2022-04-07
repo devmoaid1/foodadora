@@ -6,16 +6,22 @@ import 'base_service.dart';
 
 class ProfileService extends BaseService {
   Customer _currentCustomer = Customer();
+  String _customerName = "My Account";
+  String _customerAccountType = "email";
   bool _isLoggedOn = false;
 
   Customer get currentCustomer => _currentCustomer;
+  String get customerAccountType => _customerAccountType;
+
+  String get customerName => _customerName;
+
   bool get isLoggedOn => _isLoggedOn;
 
   void setIsLoggedOn(bool value) {
     _isLoggedOn = value;
   }
 
-  void getCurrentCustomer() async {
+  Future getCurrentCustomer() async {
     try {
       if (auth.currentUser != null) {
         await firestore
@@ -24,6 +30,11 @@ class ProfileService extends BaseService {
             .get()
             .then((value) => value.docs.forEach((element) {
                   _currentCustomer = Customer.fromJson(element.data());
+                  _customerName = auth.currentUser?.displayName ??
+                      _currentCustomer.name ??
+                      "My Account";
+                  _customerAccountType =
+                      auth.currentUser?.providerData[0].providerId ?? "";
                   _isLoggedOn = true;
                 }));
       } else {

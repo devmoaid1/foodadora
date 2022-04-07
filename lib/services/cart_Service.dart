@@ -102,8 +102,8 @@ class CartService extends BaseService {
 
       dialogService.showCustomDialog(
           variant: DialogType.basic,
-          title: "item is added to cart",
-          mainButtonTitle: "ok");
+          title: "Your Item has been added to cart",
+          mainButtonTitle: "Ok");
     }
 
     // if cart has items
@@ -112,9 +112,9 @@ class CartService extends BaseService {
       if (product.storeId != cart.storeId) {
         var response = await dialogService.showCustomDialog(
             variant: DialogType.addToCart,
-            title: "Are you sure you want to remove cart?",
+            title: "Are you sure you want to remove your current items?",
             description:
-                "it seems like you want to add an item from different store",
+                "It seems like you want to add an item from different store",
             mainButtonTitle: "Remove");
 
         if (response!.confirmed) {
@@ -147,7 +147,7 @@ class CartService extends BaseService {
             dialogService.showCustomDialog(
                 variant: DialogType.basic,
                 title: "Updated Quantity ",
-                mainButtonTitle: "ok");
+                mainButtonTitle: "Ok");
           } else {
             isAddedQuantity = false;
           }
@@ -162,7 +162,7 @@ class CartService extends BaseService {
           dialogService.showCustomDialog(
               variant: DialogType.basic,
               title: "item is added to cart",
-              mainButtonTitle: "ok");
+              mainButtonTitle: "Ok");
         }
       }
     }
