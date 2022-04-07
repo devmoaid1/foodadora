@@ -1,0 +1,16 @@
+{
+  "select_language": "Dil Seç",
+  "stores": "Mağazalar",
+  "bottom_nav": {
+    "home": "Ev",
+    "cart": "Araba",
+    "orders": "Emirler",
+    "settings": "Ayarlar"
+  },
+  "settings": {
+    "language": "Dil",
+    "view_profile": "Profili Görüntüle",
+    "change": "Değiştirmek",
+    "app_settings": "Uygulama Ayarları"
+  }
+}

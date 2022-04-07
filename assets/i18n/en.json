@@ -1,0 +1,16 @@
+{
+  "select_language": "Select Language",
+  "stores": "Stores",
+  "bottom_nav": {
+    "home": "Home",
+    "cart": "Cart",
+    "orders": "Orders",
+    "settings": "Settings"
+  },
+  "settings": {
+    "language": "Language",
+    "view_profile": "View Profile",
+    "change": "Change",
+    "app_settings": "App Settings"
+  }
+}
