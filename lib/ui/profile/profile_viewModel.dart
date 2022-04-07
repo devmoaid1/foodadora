@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 
-import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/customer.dart';
 import 'package:stacked/stacked.dart';
@@ -36,9 +35,11 @@ class ProfileViewModel extends BaseViewModel {
     try {
       await authService.logout();
       profileService.setIsLoggedOn(false);
-      navigationService.replaceWith(Routes.homeNavigationView);
+      homeNavigationViewModel.notifyListeners();
+      navigationService.back();
     } catch (err) {
       logger.e(err);
     }
+    notifyListeners();
   }
 }

@@ -8,7 +8,9 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 
 import '../models/order.dart';
 import '../models/product.dart';
@@ -22,20 +24,20 @@ import '../ui/order_details/order_details_view.dart';
 import '../ui/orders/orders_view.dart';
 import '../ui/product_details/product_details_view.dart';
 import '../ui/profile/profile_view.dart';
+import '../ui/select_language/select_language_view.dart';
 import '../ui/store_details/storeDetails_view.dart';
 import '../ui/stores/stores_view.dart';
-import '../ui/widgets/authentication_wrapper/authentication_wrapper.dart';
 
 class Routes {
   static const String homeNavigationView = '/';
   static const String productDetailsView = '/product-details-view';
   static const String ordersScreen = '/orders-screen';
   static const String cartScreen = '/cart-screen';
-  static const String authenticationWrapper = '/authentication-wrapper';
   static const String loginView = '/login-view';
   static const String signUpView = '/sign-up-view';
   static const String phoneSignUpScreen = '/phone-sign-up-screen';
   static const String profileScreen = '/profile-screen';
+  static const String selectLanguageView = '/select-language-view';
   static const String storesScreen = '/stores-screen';
   static const String storeDetailsScreen = '/store-details-screen';
   static const String orderDetailsScreen = '/order-details-screen';
@@ -44,11 +46,11 @@ class Routes {
     productDetailsView,
     ordersScreen,
     cartScreen,
-    authenticationWrapper,
     loginView,
     signUpView,
     phoneSignUpScreen,
     profileScreen,
+    selectLanguageView,
     storesScreen,
     storeDetailsScreen,
     orderDetailsScreen,
@@ -63,11 +65,11 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.productDetailsView, page: ProductDetailsView),
     RouteDef(Routes.ordersScreen, page: OrdersScreen),
     RouteDef(Routes.cartScreen, page: CartScreen),
-    RouteDef(Routes.authenticationWrapper, page: AuthenticationWrapper),
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.signUpView, page: SignUpView),
     RouteDef(Routes.phoneSignUpScreen, page: PhoneSignUpScreen),
     RouteDef(Routes.profileScreen, page: ProfileScreen),
+    RouteDef(Routes.selectLanguageView, page: SelectLanguageView),
     RouteDef(Routes.storesScreen, page: StoresScreen),
     RouteDef(Routes.storeDetailsScreen, page: StoreDetailsScreen),
     RouteDef(Routes.orderDetailsScreen, page: OrderDetailsScreen),
@@ -104,12 +106,6 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    AuthenticationWrapper: (data) {
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => const AuthenticationWrapper(),
-        settings: data,
-      );
-    },
     LoginView: (data) {
       var args = data.getArgs<LoginViewArguments>(
         orElse: () => LoginViewArguments(),
@@ -141,8 +137,20 @@ class StackedRouter extends RouterBase {
       );
     },
     ProfileScreen: (data) {
+      var args = data.getArgs<ProfileScreenArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const ProfileScreen(),
+        builder: (context) => ProfileScreen(
+          color: args.color,
+          name: args.name,
+          phone: args.phone,
+          image: args.image,
+        ),
+        settings: data,
+      );
+    },
+    SelectLanguageView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => SelectLanguageView(),
         settings: data,
       );
     },
@@ -206,6 +214,19 @@ class PhoneSignUpScreenArguments {
   final Key? key;
   final UserCredential? user;
   PhoneSignUpScreenArguments({this.key, this.user});
+}
+
+/// ProfileScreen arguments holder class
+class ProfileScreenArguments {
+  final Color? color;
+  final String name;
+  final String phone;
+  final String image;
+  ProfileScreenArguments(
+      {this.color,
+      required this.name,
+      required this.phone,
+      required this.image});
 }
 
 /// StoreDetailsScreen arguments holder class
