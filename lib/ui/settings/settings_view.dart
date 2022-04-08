@@ -17,43 +17,43 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<SettingsViewModel>.reactive(
         viewModelBuilder: () => settingsViewModel,
-        onModelReady: (model) async => await model.getCustomer(),
         disposeViewModel: false,
-        builder: (context, model, child) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                model.isLoggedOn
-                    ? SettingsRow(
-                        iconPath: Assets.usericon,
-                        actionTitle: translate("settings.view_profile"),
-                        title: model.customerName,
-                        onPressed: model.navigateToProfile,
-                      )
-                    : FoodadoraButton(
-                        label: "Login / Signup",
-                        onPressed: model.navigateToAuth,
-                        color: actionColor,
-                      ),
-                verticalSpaceRegular,
-                FittedBox(
-                  child: Text(
-                    translate("settings.app_settings"),
-                    style: GoogleFonts.poppins(
-                        color: textColor,
-                        fontSize: screenWidth(context) * 0.04),
-                  ),
+        builder: (context, model, child) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              model.isLoggedOn
+                  ? SettingsRow(
+                      iconPath: Assets.usericon,
+                      actionTitle: translate("settings.view_profile"),
+                      title: model.customer.name.toString(),
+                      onPressed: model.navigateToProfile,
+                    )
+                  : FoodadoraButton(
+                      label: "Login / Signup",
+                      onPressed: model.navigateToAuth,
+                      color: actionColor,
+                    ),
+              verticalSpaceRegular,
+              FittedBox(
+                child: Text(
+                  translate("settings.app_settings"),
+                  style: GoogleFonts.poppins(
+                      color: textColor, fontSize: screenWidth(context) * 0.04),
                 ),
-                verticalSpaceRegular,
-                SettingsRow(
-                    iconPath: Assets.languageIcon,
-                    onPressed: model.navigateToLanguage,
-                    title: translate("settings.language"),
-                    subTitle: languageCodeNameMap[LocalizedApp.of(context)
-                        .delegate
-                        .currentLocale
-                        .languageCode],
-                    actionTitle: translate("settings.change")),
-              ],
-            ));
+              ),
+              verticalSpaceRegular,
+              SettingsRow(
+                  iconPath: Assets.languageIcon,
+                  onPressed: model.navigateToLanguage,
+                  title: translate("settings.language"),
+                  subTitle: languageCodeNameMap[LocalizedApp.of(context)
+                      .delegate
+                      .currentLocale
+                      .languageCode],
+                  actionTitle: translate("settings.change")),
+            ],
+          );
+        });
   }
 }
