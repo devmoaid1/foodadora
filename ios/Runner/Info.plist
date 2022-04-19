@@ -14,7 +14,18 @@
 				</array>
 			</dict>
 		</array>
+		<!-- Location Permission -->
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>This app needs access to location when open.</string>
+		<key>NSLocationAlwaysUsageDescription</key>
+		<string>This app needs access to location when in the background.</string>
 		<!-- End of the Google Sign-In section -->
+		<!-- URL Launcher -->
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+		<string>https</string>
+		<string>http</string>
+		</array>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
