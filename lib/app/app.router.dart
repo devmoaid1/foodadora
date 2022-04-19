@@ -8,7 +8,9 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 
 import '../models/order.dart';
 import '../models/product.dart';
@@ -164,6 +166,7 @@ class StackedRouter extends RouterBase {
         builder: (context) => StoreDetailsScreen(
           key: args.key,
           store: args.store,
+          distance: args.distance,
         ),
         settings: data,
       );
@@ -231,7 +234,9 @@ class ProfileScreenArguments {
 class StoreDetailsScreenArguments {
   final Key? key;
   final Store store;
-  StoreDetailsScreenArguments({this.key, required this.store});
+  final String distance;
+  StoreDetailsScreenArguments(
+      {this.key, required this.store, required this.distance});
 }
 
 /// OrderDetailsScreen arguments holder class
