@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodadora/ui/cart/widgets/cart_text_row.dart';
 import 'package:foodadora/ui/order_details/widgets/order_product_card.dart';
+import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:line_icons/line_icons.dart';
 
 import '../../app/constants/assets.dart';
 import '../../app/utilites/app_colors.dart';
@@ -24,29 +24,10 @@ class OrderDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          toolbarHeight: blockSizeVertical(context) * 10,
-          backgroundColor: scaffoldColor,
-          leading: IconButton(
-              icon: Icon(
-                LineIcons.angleLeft,
-                color: Theme.of(context).primaryColor,
-                size: blockSizeHorizontal(context) * 8,
-              ),
-              onPressed: () => Navigator.pop(context)),
-          title: Padding(
-            padding: EdgeInsets.all(blockSizeHorizontal(context)),
-            child: Image.asset(
-              'assets/images/sublogo.png',
-              height: blockSizeVertical(context) * 8.5,
-            ),
-          ),
-          elevation: 0,
-        ),
-        body: SingleChildScrollView(
+    return Scaffold(
+      appBar: foodadoraAppBar(context, withBack: true),
+      body: SingleChildScrollView(
+        child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: blockSizeHorizontal(context) * 5,
@@ -132,7 +113,7 @@ class OrderDetailsScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: buildCards(order: order)),
                 Card(
-                  elevation: 2,
+                  elevation: .5,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),
                   color: Colors.white,
