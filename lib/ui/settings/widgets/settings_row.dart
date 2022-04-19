@@ -1,10 +1,8 @@
-import 'dart:io' show Platform;
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
+import 'package:foodadora/ui/widgets/fa_text_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SettingsRow extends StatelessWidget {
@@ -58,48 +56,12 @@ class SettingsRow extends StatelessWidget {
               ],
             ),
           ),
-          _ActionButton(
+          FATextButton(
             title: actionTitle.toUpperCase(),
             onPressed: onPressed,
           )
         ]),
       ),
     );
-  }
-}
-
-class _ActionButton extends StatelessWidget {
-  final Function() onPressed;
-  final String title;
-  const _ActionButton({
-    required this.onPressed,
-    required this.title,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Platform.isIOS
-        ? CupertinoButton(
-            onPressed: onPressed,
-            child: Text(
-              title,
-              style: GoogleFonts.poppins(
-                  color: actionColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12),
-            ))
-        : TextButton(
-            style: ButtonStyle(
-              overlayColor: MaterialStateColor.resolveWith(
-                  (states) => actionColor.withOpacity(.1)),
-            ),
-            onPressed: onPressed,
-            child: Text(
-              title,
-              style: GoogleFonts.poppins(
-                  color: actionColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12),
-            ));
   }
 }
