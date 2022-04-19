@@ -71,7 +71,7 @@ class CartService extends BaseService {
               expiryDate: product.expiryDate,
               isAvailable: product.isAvailable,
               originalPrice: product.originalPrice,
-              productImages: product.productImages,
+              imageUrl: product.imageUrl,
               productName: product.productName,
               productPrice: product.productPrice,
               quantity: item.quantity,

@@ -14,7 +14,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../app/utilites/app_colors.dart';
-import '../../app/utilites/expiryWeeks.dart';
+import '../../app/utilites/get_expiry_weeks.dart';
 import '../../app/utilites/screen_sizes.dart';
 import '../../models/store.dart';
 import 'widgets/Product_image.dart';
@@ -30,170 +30,159 @@ class ProductDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: foodadoraAppBar(context, withBack: true),
-        body: ViewModelBuilder<ProductDetailsViewModel>.reactive(
-            disposeViewModel: false,
-            onModelReady: (model) => model.init(),
-            viewModelBuilder: () => productDetailsViewModel,
-            builder: (context, model, _) {
-              if (model.loading) {
-                return const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                );
-              }
-              return SingleChildScrollView(
-                child: Column(
+      appBar: foodadoraAppBar(context, withBack: true),
+      body: ViewModelBuilder<ProductDetailsViewModel>.reactive(
+          disposeViewModel: false,
+          onModelReady: (model) => model.init(),
+          viewModelBuilder: () => productDetailsViewModel,
+          builder: (context, model, _) {
+            if (model.loading) {
+              return const Center(
+                child: CircularProgressIndicator.adaptive(),
+              );
+            }
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ProductImage(
+                  expiry: getExpiryWeeks(date: product.expiryDate as DateTime),
+                  productimage: product.imageUrl,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: blockSizeHorizontal(context) * 4),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ProductImage(
-                        expiry: getExpiryWeeks(
-                            date: product.expiryDate as DateTime),
-                        productimage: product.productImages![0],
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: blockSizeHorizontal(context) * 4),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              product.productName.toString(),
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: blockSizeHorizontal(context) * 4),
-                            ),
-                            SizedBox(
-                              width: blockSizeHorizontal(context) * 2,
-                            ),
-                            SvgPicture.asset(
-                              Assets.storeicon,
-                              height: 20,
-                            ),
-                            SizedBox(
-                              width: blockSizeHorizontal(context) * 2,
-                            ),
-                            Text(
-                              "${store.storeName} store",
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500,
-                                  color: lightBlueColor,
-                                  fontSize: blockSizeHorizontal(context) * 4),
-                            ),
-                          ],
-                        ),
+                      Text(
+                        product.productName.toString(),
+                        style: GoogleFonts.poppins(
+                            color: textColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: blockSizeHorizontal(context) * 5),
                       ),
                       SizedBox(
-                        height: blockSizeVertical(context) * 2,
+                        width: blockSizeHorizontal(context) * 2,
                       ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: blockSizeHorizontal(context) * 4),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              Assets.priceIcon,
-                              height: 20,
-                            ),
-                            SizedBox(
-                              width: blockSizeHorizontal(context) * 2,
-                            ),
-                            Text(
-                              "${product.productPrice!.toStringAsFixed(2)} RM",
-                              style: GoogleFonts.poppins(
-                                  fontSize: blockSizeHorizontal(context) * 4,
-                                  color: const Color(0xffFF0000)),
-                            ),
-                            SizedBox(
-                              width: blockSizeHorizontal(context),
-                            ),
-                            Text(
-                              "${product.originalPrice!.toStringAsFixed(2)} RM",
-                              style: GoogleFonts.poppins(
-                                  fontSize: blockSizeHorizontal(context) * 4,
-                                  decoration: TextDecoration.lineThrough,
-                                  color: textColor),
-                            ),
-                            SizedBox(
-                              width: blockSizeHorizontal(context) * 12,
-                            ),
-                            SvgPicture.asset(
-                              Assets.pinLocationIcon,
-                              height: 20,
-                            ),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "2.6",
-                                    style: GoogleFonts.poppins(
-                                        fontSize:
-                                            blockSizeHorizontal(context) * 4,
-                                        color: textColor),
-                                  ),
-                                  Text(
-                                    "KM away",
-                                    style: GoogleFonts.poppins(
-                                        fontSize:
-                                            blockSizeHorizontal(context) * 4,
-                                        color: textColor),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                      SvgPicture.asset(
+                        Assets.storeicon,
+                        width: blockSizeHorizontal(context) * 5,
+                        color: darkBlueColor,
+                      ),
+                      horizontalSpaceSmall,
+                      Text(
+                        store.storeName ?? "",
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w500,
+                            color: darkBlueColor,
+                            fontSize: blockSizeHorizontal(context) * 4),
+                      ),
+                    ],
+                  ),
+                ),
+                verticalSpaceRegular,
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: blockSizeHorizontal(context) * 4),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        Assets.priceIcon,
+                        height: 20,
                       ),
                       SizedBox(
-                        height: blockSizeVertical(context) * 4,
+                        width: blockSizeHorizontal(context) * 2,
                       ),
-                      Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: blockSizeHorizontal(context) * 3),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Description",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 18,
-                                      color: textColor,
-                                      fontWeight: FontWeight.w500)),
-                              SizedBox(
-                                height: blockSizeVertical(context),
-                              ),
-                              Container(
-                                constraints: BoxConstraints(
-                                    maxHeight: screenHeightPercentage(context,
-                                        percentage: 0.26)),
-                                alignment: Alignment.topLeft,
-                                child: Text(
+                      Text(
+                        "${product.productPrice!.toStringAsFixed(2)} RM",
+                        style: GoogleFonts.poppins(
+                            fontSize: blockSizeHorizontal(context) * 4,
+                            color: const Color(0xffFF0000)),
+                      ),
+                      SizedBox(
+                        width: blockSizeHorizontal(context),
+                      ),
+                      Text(
+                        "${product.originalPrice!.toStringAsFixed(2)} RM",
+                        style: GoogleFonts.poppins(
+                            fontSize: blockSizeHorizontal(context) * 4,
+                            decoration: TextDecoration.lineThrough,
+                            color: textColor),
+                      ),
+                      SizedBox(
+                        width: blockSizeHorizontal(context) * 12,
+                      ),
+                      SvgPicture.asset(
+                        Assets.pinLocationIcon,
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "2.6",
+                            style: GoogleFonts.poppins(
+                                fontSize: blockSizeHorizontal(context) * 4,
+                                color: textColor),
+                          ),
+                          Text(
+                            "KM away",
+                            style: GoogleFonts.poppins(
+                                fontSize: blockSizeHorizontal(context) * 4,
+                                color: textColor),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                verticalSpaceRegular,
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: blockSizeHorizontal(context) * 3),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Description",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 18,
+                                  color: textColor,
+                                  fontWeight: FontWeight.w500)),
+                          verticalSpaceSmall,
+                          (product.description != null &&
+                                  product.description.toString().isNotEmpty)
+                              ? Text(
                                   product.description.toString(),
                                   style: GoogleFonts.poppins(
                                     fontSize: blockSizeHorizontal(context) * 3,
                                     color: textColor,
                                   ),
                                   textAlign: TextAlign.justify,
-                                ),
-                              ),
-                              SizedBox(
-                                height: blockSizeVertical(context) * 3,
-                              ),
-                              model.isAddToCart
-                                  ?
-
-                                  // quantity container
-                                  UpdateQuantityCard(product: product)
-                                  : FoodadoraButton(
-                                      label: 'Add to Cart',
-                                      onPressed: () =>
-                                          model.setIsAddToCart(true),
-                                      iconPath: Assets.shoppingicon,
-                                    )
-                            ],
-                          ))
-                    ]),
-              );
-            }));
+                                )
+                              : verticalSpaceLarge,
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                model.isAddToCart
+                    ?
+                    // quantity container
+                    UpdateQuantityCard(product: product)
+                    : Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: FoodadoraButton(
+                          label: 'Add to Cart',
+                          onPressed: () => model.setIsAddToCart(true),
+                          iconPath: Assets.shoppingicon,
+                        ),
+                      )
+              ],
+            );
+          }),
+    );
   }
 }
 

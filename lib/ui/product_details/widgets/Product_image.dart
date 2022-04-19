@@ -22,9 +22,13 @@ class ProductImage extends StatelessWidget {
         children: [
           Container(
             width: screenWidth(context),
-            height: screenHeightPercentage(context, percentage: 0.25),
+            height: screenHeightPercentage(context, percentage: 0.20),
             child: Image(
               image: NetworkImage(productimage.toString()),
+              loadingBuilder: (context, child, loadingProgress) =>
+                  loadingProgress == null
+                      ? child
+                      : const CircularProgressIndicator.adaptive(),
               fit: BoxFit.contain,
             ),
           ),

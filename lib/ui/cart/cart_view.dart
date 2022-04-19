@@ -19,6 +19,7 @@ import '../../app/utilites/enums.dart';
 import '../../app/utilites/screen_sizes.dart';
 import 'widgets/cart_text_row.dart';
 
+// ignore: must_be_immutable
 class CartScreen extends StatelessWidget {
   List<Product> orderProducts = [];
   double total = 0;
@@ -174,8 +175,12 @@ class CartItem extends ViewModelWidget<CartViewModel> {
                 width: blockSizeHorizontal(context) * 28,
                 child: Center(
                   child: Image.network(
-                    product.productImages![0],
+                    product.imageUrl!,
                     fit: BoxFit.contain,
+                    loadingBuilder: (context, child, loadingProgress) =>
+                        loadingProgress == null
+                            ? child
+                            : const CircularProgressIndicator.adaptive(),
                   ),
                 ),
               ),

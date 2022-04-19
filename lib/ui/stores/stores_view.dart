@@ -1,11 +1,11 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 import 'package:foodadora/app/app.locator.dart';
-import 'package:foodadora/ui/stores/stores_viewModel.dart';
+import 'package:foodadora/ui/stores/widgets/home_graphic.dart';
+import 'package:foodadora/ui/stores/stores_viewmodel.dart';
+import 'package:foodadora/ui/stores/widgets/store_item.dart';
 
-import 'package:foodadora/ui/widgets/store_circle.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../app/utilites/screen_sizes.dart';
@@ -24,25 +24,16 @@ class StoresScreen extends StatelessWidget {
           model.getStoresList();
         },
         builder: (context, viewModel, _) {
-          if (viewModel.loading) {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(),
-            );
+          if (viewModel.isBusy) {
+            return const Center(child: CircularProgressIndicator.adaptive());
           }
-          return SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: blockSizeHorizontal(context) * 5,
-                  vertical: blockSizeVertical(context) * 2),
+          return RefreshIndicator(
+            onRefresh: () async => viewModel.getStoresList(),
+            child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    translate('stores'),
-                    style:
-                        TextStyle(fontSize: blockSizeHorizontal(context) * 8),
-                  ),
-                  SizedBox(height: blockSizeVertical(context) * 3),
+                  HomeGraphic(),
+                  verticalSpaceRegular,
                   viewModel.stores.isEmpty
                       ? const Center(
                           child: Text('No Stores'),
@@ -58,32 +49,16 @@ class StoresScreen extends StatelessWidget {
   Widget _buildStoresGrid(BuildContext context, StoresViewModel viewmodel) {
     return Container(
       width: screenWidth(context) * 0.9,
-      height: blockSizeVertical(context) * 90,
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 0.8,
-            crossAxisCount: 3,
-            mainAxisSpacing: screenWidth(context) * 0.1),
+      height: viewmodel.stores.length * screenHeight(context) / 3,
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: viewmodel.stores.length,
-        itemBuilder: (context, index) => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: StoreCircle(
-                imageUrl: viewmodel.stores[index].logoUrl.toString(),
-                onPressed: () {
-                  viewmodel.navigateToStoreDetails(
-                      store: viewmodel.stores[index]);
-                },
-              ),
-            ),
-            SizedBox(height: blockSizeVertical(context)),
-            Text(
-              viewmodel.stores[index].storeName.toString(),
-              style: TextStyle(fontSize: blockSizeHorizontal(context) * 5),
-            ),
-          ],
-        ),
+        itemBuilder: (context, index) => viewmodel.stores[index] != null
+            ? StoreItem(
+                store: viewmodel.stores[index]!,
+              )
+            : Container(),
       ),
     );
   }

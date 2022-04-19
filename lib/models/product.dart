@@ -11,7 +11,9 @@ class Product {
   final String? storeId;
   final String? productName;
   final String? description;
+  final String? imageUrl;
   final double? productPrice;
+  final double? originalPrice;
 
   @JsonKey(
       fromJson: DateTimeConverters.dateTimeFromTimestamp,
@@ -20,9 +22,8 @@ class Product {
 
   int? quantity;
 
-  final List<String>? productImages;
   final bool? isAvailable;
-  final double? originalPrice;
+  final bool? isVisible;
 
   Product(
       {this.productId,
@@ -31,8 +32,9 @@ class Product {
       this.originalPrice,
       this.expiryDate,
       this.isAvailable,
+      this.isVisible,
       this.productPrice,
-      this.productImages,
+      this.imageUrl,
       this.quantity,
       this.storeId});
 

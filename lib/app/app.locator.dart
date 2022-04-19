@@ -12,11 +12,12 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../services/auth_Service.dart';
 import '../services/cart_Service.dart';
+import '../services/location_service.dart';
 import '../services/orders_services.dart';
 import '../services/product_service.dart';
 import '../services/profile_service.dart';
 import '../services/store_service.dart';
-import '../ui/stores/stores_viewModel.dart';
+import '../ui/stores/stores_viewmodel.dart';
 
 final locator = StackedLocator.instance;
 
@@ -35,4 +36,5 @@ void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
   locator.registerLazySingleton(() => OrderService());
   locator.registerLazySingleton(() => CartService());
   locator.registerLazySingleton(() => ProductService());
+  locator.registerLazySingleton(() => LocationService());
 }

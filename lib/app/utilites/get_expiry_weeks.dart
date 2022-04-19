@@ -5,7 +5,7 @@ int getExpiryWeeks({required DateTime date}) {
   DateTime now = DateTime.now();
   DateTime currentTime = DateTime(now.year, now.month, now.day);
 
-  int days = (currentTime.difference(date).inHours / 24).round();
+  int days = (date.difference(currentTime).inHours / 24).round();
   int weeks = (days / 7).round();
   return weeks;
 }

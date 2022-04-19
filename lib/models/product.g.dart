@@ -14,10 +14,9 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       expiryDate: DateTimeConverters.dateTimeFromTimestamp(
           json['expiryDate'] as Timestamp),
       isAvailable: json['isAvailable'] as bool?,
+      isVisible: json['isVisible'] as bool?,
       productPrice: (json['productPrice'] as num?)?.toDouble(),
-      productImages: (json['productImages'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
+      imageUrl: json['imageUrl'] as String?,
       quantity: json['quantity'] as int?,
       storeId: json['storeId'] as String?,
     );
@@ -27,10 +26,11 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'storeId': instance.storeId,
       'productName': instance.productName,
       'description': instance.description,
+      'imageUrl': instance.imageUrl,
       'productPrice': instance.productPrice,
+      'originalPrice': instance.originalPrice,
       'expiryDate': DateTimeConverters.dateTimeAsIs(instance.expiryDate),
       'quantity': instance.quantity,
-      'productImages': instance.productImages,
       'isAvailable': instance.isAvailable,
-      'originalPrice': instance.originalPrice,
+      'isVisible': instance.isVisible,
     };

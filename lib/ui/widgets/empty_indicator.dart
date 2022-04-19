@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:foodadora/ui/widgets/pressable.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../app/app.router.dart';
 import '../../app/constants/assets.dart';
 import '../../app/constants/services_instances.dart';
 import '../../app/utilites/app_colors.dart';
@@ -43,8 +43,8 @@ class EmptyIndicator extends StatelessWidget {
                         color: const Color(0xff5C5C5F)),
                   ),
           ),
-          GestureDetector(
-            onTap: () => homeNavigationViewModel.setIndex(0),
+          Pressable(
+            onPressed: () => homeNavigationViewModel.setIndex(0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

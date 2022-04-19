@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_unnecessary_containers
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,7 +28,11 @@ class OrderProductCard extends StatelessWidget {
                   height: screenHeightPercentage(context, percentage: 0.10),
                   width: screenWidthPercentage(context, percentage: 0.25),
                   child: Image(
-                    image: NetworkImage(product.productImages![0]),
+                    image: NetworkImage(product.imageUrl!),
+                    loadingBuilder: (context, child, loadingProgress) =>
+                        loadingProgress == null
+                            ? child
+                            : const CircularProgressIndicator.adaptive(),
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -55,7 +57,7 @@ class OrderProductCard extends StatelessWidget {
                         children: [
                           Expanded(
                             flex: 4,
-                            child: Container(
+                            child: SizedBox(
                               child: Row(
                                 children: [
                                   SvgPicture.asset(

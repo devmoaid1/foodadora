@@ -74,14 +74,14 @@ class SelectLanguageView extends StatelessWidget {
                                       supportedLocales[index].languageCode ==
                                               localizationDelegate
                                                   .currentLocale.languageCode
-                                          ? Icon(
+                                          ? const Icon(
                                               Icons.check,
                                               color: activeColor,
                                             )
                                           : null,
                                 ),
                               )),
-                          separatorBuilder: (context, _) => Divider(
+                          separatorBuilder: (context, _) => const Divider(
                             color: dividerColor,
                             indent: 20,
                             endIndent: 20,

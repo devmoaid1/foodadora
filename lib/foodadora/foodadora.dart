@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:foodadora/app/app.router.dart';
-import 'package:foodadora/foodadora/foodadora_viewModel.dart';
+import 'package:foodadora/foodadora/foodadora_viewmodel.dart';
 import 'package:foodadora/ui/widgets/style.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:stacked/stacked.dart';
