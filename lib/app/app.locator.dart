@@ -17,7 +17,7 @@ import '../services/orders_services.dart';
 import '../services/product_service.dart';
 import '../services/profile_service.dart';
 import '../services/store_service.dart';
-import '../ui/stores/stores_viewModel.dart';
+import '../ui/stores/stores_viewmodel.dart';
 
 final locator = StackedLocator.instance;
 

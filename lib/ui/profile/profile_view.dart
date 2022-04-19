@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
 import 'package:foodadora/app/constants/assets.dart';
-import 'package:foodadora/ui/profile/profile_viewModel.dart';
+import 'package:foodadora/ui/profile/profile_viewmodel.dart';
 import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:foodadora/ui/widgets/foodadora_textfield.dart';
