@@ -174,8 +174,12 @@ class CartItem extends ViewModelWidget<CartViewModel> {
                 width: blockSizeHorizontal(context) * 28,
                 child: Center(
                   child: Image.network(
-                    product.productImages![0],
+                    product.imageUrl!,
                     fit: BoxFit.contain,
+                    loadingBuilder: (context, child, loadingProgress) =>
+                        loadingProgress == null
+                            ? child
+                            : const CircularProgressIndicator.adaptive(),
                   ),
                 ),
               ),
