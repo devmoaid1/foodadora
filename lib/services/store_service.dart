@@ -1,22 +1,40 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/models/store.dart';
 import 'package:foodadora/services/base_service.dart';
+import 'package:geoflutterfire2/geoflutterfire2.dart';
+import 'package:geolocator/geolocator.dart';
 
 class StoreService extends BaseService {
-  Future<List<Store>> getStores() async {
-    try {
-      var fetchedStores = await firestore
-          .collection('stores')
-          .where("isActive", isEqualTo: true)
-          .get();
+  final geo = GeoFlutterFire();
 
-      return fetchedStores.docs
-          .map((store) => Store.fromJson(store.data()))
-          .toList();
+  Future<Stream<List<DocumentSnapshot>>?> getStores() async {
+    try {
+      await locationService.getUserLocation();
+      Position? _userLocation = locationService.userLocation;
+
+      if ((locationService.permission == LocationPermission.always ||
+              locationService.permission == LocationPermission.whileInUse) &&
+          _userLocation != null) {
+        return _getStores(_userLocation);
+      }
     } catch (err) {
       logger.e(err.toString());
-      return [];
     }
+    return null;
+  }
+
+  Stream<List<DocumentSnapshot>> _getStores(Position position) {
+    GeoFirePoint center =
+        geo.point(latitude: position.latitude, longitude: position.longitude);
+    var collectionReference = firestore.collection('stores');
+
+    const double radius = 5; // radius in km
+    const String field = 'pos';
+    return geo
+        .collection(collectionRef: collectionReference)
+        .within(center: center, radius: radius, field: field);
   }
 
   Future<Store?> getStoreById(String id) async {
@@ -40,7 +58,7 @@ class StoreService extends BaseService {
       var fetchedProducts = await firestore
           .collection('products')
           .where("storeId", isEqualTo: storeId)
-          .where("isAvailable", isEqualTo: true)
+          .where("isVisible", isEqualTo: true)
           .get();
 
       return fetchedProducts.docs
