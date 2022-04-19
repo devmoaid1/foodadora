@@ -7,7 +7,7 @@ import 'package:touchable_opacity/touchable_opacity.dart';
 
 class Pressable extends StatelessWidget {
   final Widget child;
-  final Function() onPressed;
+  final Function()? onPressed;
   final BorderRadius? borderRadius;
   const Pressable({
     Key? key,
