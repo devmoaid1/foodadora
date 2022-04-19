@@ -9,15 +9,21 @@ part of 'store.dart';
 Store _$StoreFromJson(Map<String, dynamic> json) => Store(
       id: json['id'] as String?,
       storeName: json['storeName'] as String?,
+      address: json['address'] as String?,
+      imageUrl: json['imageUrl'] as String?,
+      isOpened: json['isOpened'] as bool?,
+      pos: json['pos'] as Map<String, dynamic>?,
+      category: json['category'] as String?,
       isActive: json['isActive'] as bool? ?? true,
-      location: json['location'] as Map<String, dynamic>?,
-      logoUrl: json['logoUrl'] as String?,
     );
 
 Map<String, dynamic> _$StoreToJson(Store instance) => <String, dynamic>{
       'id': instance.id,
       'storeName': instance.storeName,
-      'logoUrl': instance.logoUrl,
+      'address': instance.address,
+      'imageUrl': instance.imageUrl,
+      'category': instance.category,
       'isActive': instance.isActive,
-      'location': instance.location,
+      'isOpened': instance.isOpened,
+      'pos': instance.pos,
     };

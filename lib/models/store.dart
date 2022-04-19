@@ -6,16 +6,23 @@ part 'store.g.dart';
 class Store {
   String? id;
   String? storeName;
-  String? logoUrl;
+  String? address;
+  String? imageUrl;
+  String? category;
   bool isActive;
-  Map<String, dynamic>? location;
+  bool? isOpened;
+  Map<String, dynamic>? pos;
 
-  Store(
-      {this.id,
-      this.storeName,
-      this.isActive = true,
-      this.location,
-      this.logoUrl});
+  Store({
+    this.id,
+    this.storeName,
+    this.address,
+    this.imageUrl,
+    this.isOpened,
+    this.pos,
+    this.category,
+    this.isActive = true,
+  });
 
   factory Store.fromJson(Map<String, dynamic> data) => _$StoreFromJson(data);
   Map<String, dynamic> toJson() => _$StoreToJson(this);
