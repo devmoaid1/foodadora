@@ -19,6 +19,7 @@ import '../../app/utilites/enums.dart';
 import '../../app/utilites/screen_sizes.dart';
 import 'widgets/cart_text_row.dart';
 
+// ignore: must_be_immutable
 class CartScreen extends StatelessWidget {
   List<Product> orderProducts = [];
   double total = 0;

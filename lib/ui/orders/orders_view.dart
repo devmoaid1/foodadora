@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:foodadora/ui/orders/orders_viewmodel.dart';
 
 import 'package:foodadora/ui/widgets/empty_indicator.dart';
-import 'package:foodadora/ui/widgets/orders_notLogged.dart';
+import 'package:foodadora/ui/widgets/orders_notlogged.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:stacked/stacked.dart';

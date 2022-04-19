@@ -12,7 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
 import 'package:foodadora/models/store.dart';
-import 'package:foodadora/ui/store_details/storeDetails_viewModel.dart';
+import 'package:foodadora/ui/store_details/storeDetails_viewmodel.dart';
 import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 import 'package:foodadora/app/utilites/string_extension.dart';
 

@@ -142,7 +142,7 @@ Padding _buildOrRow(BuildContext context) {
         horizontal: (screenWidth(context) / 100) * 10,
         vertical: (screenHeight(context) / 100) * 2),
     child: Row(children: <Widget>[
-      Expanded(
+      const Expanded(
         child: Divider(color: textColor),
       ),
       Padding(

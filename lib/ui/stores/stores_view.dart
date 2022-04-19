@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodadora/app/app.locator.dart';
 import 'package:foodadora/ui/stores/widgets/home_graphic.dart';
-import 'package:foodadora/ui/stores/stores_viewModel.dart';
+import 'package:foodadora/ui/stores/stores_viewmodel.dart';
 import 'package:foodadora/ui/stores/widgets/store_item.dart';
 
 import 'package:stacked/stacked.dart';

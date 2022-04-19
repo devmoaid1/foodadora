@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../app/constants/assets.dart';
@@ -58,7 +57,7 @@ class OrderProductCard extends StatelessWidget {
                         children: [
                           Expanded(
                             flex: 4,
-                            child: Container(
+                            child: SizedBox(
                               child: Row(
                                 children: [
                                   SvgPicture.asset(
