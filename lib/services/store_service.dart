@@ -13,11 +13,11 @@ class StoreService extends BaseService {
     try {
       await locationService.getUserLocation();
       Position? _userLocation = locationService.userLocation;
-
-      if ((locationService.permission == LocationPermission.always ||
-              locationService.permission == LocationPermission.whileInUse) &&
-          _userLocation != null) {
-        return _getStores(_userLocation);
+      if (locationService.serviceEnabled == true &&
+              _userLocation != null &&
+              locationService.permission == LocationPermission.always ||
+          locationService.permission == LocationPermission.whileInUse) {
+        return _getStores(_userLocation!);
       }
     } catch (err) {
       logger.e(err.toString());
