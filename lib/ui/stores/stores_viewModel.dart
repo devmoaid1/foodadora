@@ -5,6 +5,7 @@ import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/store.dart';
 import 'package:foodadora/services/store_service.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked/stacked.dart';
 
@@ -14,6 +15,11 @@ class StoresViewModel extends BaseViewModel {
   late List<Store?> _stores;
 
   List<Store?> get stores => _stores;
+  LocationPermission? _locationPermission;
+  bool? _serviceEnabled;
+
+  LocationPermission? get locationPermission => _locationPermission;
+  bool? get serviceEnabled => _serviceEnabled;
 
   bool _isLoading = false;
 
@@ -24,7 +30,12 @@ class StoresViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-// get device location
+  Future<void> openLocationSettings() async {
+    await locationService.openLocationSettings();
+    _locationPermission = locationService.permission;
+    _serviceEnabled = locationService.serviceEnabled;
+    notifyListeners();
+  }
 
   void navigateToStoreDetails(
       {required Store store, required String distance}) {
@@ -39,6 +50,8 @@ class StoresViewModel extends BaseViewModel {
         await _storeService.getStores();
 
     if (storesStream != null) {
+      _locationPermission = locationService.permission;
+      _serviceEnabled = locationService.serviceEnabled;
       storesStream.listen((snapshots) {
         _stores = snapshots.map((snapshot) {
           if (snapshot.data() != null) {

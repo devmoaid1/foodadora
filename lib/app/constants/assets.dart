@@ -45,6 +45,7 @@ class Assets {
   static const emptyOrderIcon = "assets/icons/empty_order.svg";
 
   static const homeGraphic = "assets/images/home_graphic.png";
+  static const homeErrorGraphic = "assets/images/home_graphic_error.png";
 
   static const googleIcon = "assets/icons/google.svg";
   static const appleIcon = "assets/icons/apple.svg";

@@ -42,4 +42,9 @@ class LocationService {
     // continue accessing the position of the device.
     _userLocation = await Geolocator.getCurrentPosition();
   }
+
+  // open device location settings
+  Future<void> openLocationSettings() async {
+    await Geolocator.openLocationSettings();
+  }
 }
