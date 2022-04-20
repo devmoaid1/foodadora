@@ -45,7 +45,7 @@ class StoresScreen extends StatelessWidget {
               child: Column(
                 children: [
                   HomeGraphic(
-                    isError: !isLocationDenied,
+                    isError: isLocationDenied,
                   ),
                   verticalSpaceRegular,
                   viewModel.stores.isEmpty
