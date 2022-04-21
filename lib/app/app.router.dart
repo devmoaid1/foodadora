@@ -15,6 +15,8 @@ import 'package:stacked/stacked_annotations.dart';
 import '../models/order.dart';
 import '../models/product.dart';
 import '../models/store.dart';
+import '../ui/Sign_up/phoneSignup_view.dart';
+import '../ui/Sign_up/signup_view.dart';
 import '../ui/cart/cart_view.dart';
 import '../ui/home_navigation/home_navigation_view.dart';
 import '../ui/login/login_view.dart';
@@ -23,8 +25,6 @@ import '../ui/orders/orders_view.dart';
 import '../ui/product_details/product_details_view.dart';
 import '../ui/profile/profile_view.dart';
 import '../ui/select_language/select_language_view.dart';
-import '../ui/sign_up/phoneSignup_view.dart';
-import '../ui/sign_up/signup_view.dart';
 import '../ui/store_details/storeDetails_view.dart';
 import '../ui/stores/stores_view.dart';
 

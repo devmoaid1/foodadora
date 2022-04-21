@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:foodadora/app/app.router.dart';
-import 'package:foodadora/foodadora/foodadora_viewmodel.dart';
+
 import 'package:foodadora/ui/widgets/style.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:stacked/stacked.dart';
 
 import 'package:stacked_services/stacked_services.dart';
+
+import 'foodadora_viewModel.dart';
 
 class FoodadoraApp extends StatelessWidget {
   const FoodadoraApp({Key? key}) : super(key: key);
@@ -16,9 +18,10 @@ class FoodadoraApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<FoodadoraViewModel>.nonReactive(
+    return ViewModelBuilder<FoodadoraViewModel>.reactive(
       viewModelBuilder: () => FoodadoraViewModel(),
-      onModelReady: (model) => model.getCurrentCustomer(),
+      onModelReady: (model) => model.init(),
+      disposeViewModel: false,
       builder: (context, model, _) {
         LocalizationDelegate localizationDelegate =
             LocalizedApp.of(context).delegate;

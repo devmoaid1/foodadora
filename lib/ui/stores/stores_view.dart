@@ -1,12 +1,15 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, avoid_print
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:foodadora/app/app.locator.dart';
 import 'package:foodadora/app/constants/assets.dart';
+import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
+import 'package:foodadora/ui/stores/stores_viewModel.dart';
+
 import 'package:foodadora/ui/stores/widgets/home_graphic.dart';
-import 'package:foodadora/ui/stores/stores_viewmodel.dart';
+
 import 'package:foodadora/ui/stores/widgets/store_item.dart';
 import 'package:foodadora/ui/widgets/pressable.dart';
 import 'package:geolocator/geolocator.dart';
@@ -22,7 +25,7 @@ class StoresScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<StoresViewModel>.reactive(
-        viewModelBuilder: () => locator<StoresViewModel>(),
+        viewModelBuilder: () => storesViewModel,
         initialiseSpecialViewModelsOnce: true,
         fireOnModelReadyOnce: true,
         disposeViewModel: false,
@@ -30,6 +33,7 @@ class StoresScreen extends StatelessWidget {
           model.getStoresList();
         },
         builder: (context, viewModel, _) {
+          print("stores screen ${viewModel.connectivityResult}");
           bool isLocationDenied =
               viewModel.locationPermission == LocationPermission.denied ||
                   viewModel.locationPermission ==
@@ -94,16 +98,27 @@ class StoresScreen extends StatelessWidget {
                               ],
                             )
                           : Center(
-                              child: Text(
-                                'No stores found near you',
-                                style: GoogleFonts.poppins(
-                                  color: lightTextColor,
-                                  fontSize: blockSizeVertical(context) * 2.5,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                            )
-                      : _buildStoresGrid(context, viewModel),
+                              child: viewModel.connectivityResult ==
+                                      ConnectivityResult.wifi
+                                  ? Text(
+                                      'No stores found near you',
+                                      style: GoogleFonts.poppins(
+                                        color: lightTextColor,
+                                        fontSize:
+                                            blockSizeVertical(context) * 2.5,
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                    )
+                                  : Text(
+                                      'No connection',
+                                      style: GoogleFonts.poppins(
+                                        color: lightTextColor,
+                                        fontSize:
+                                            blockSizeVertical(context) * 2.5,
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                    ))
+                      : _buildStoresGrid(context, viewModel)
                 ],
               ),
             ),
