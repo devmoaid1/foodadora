@@ -37,6 +37,7 @@ final connectivityService = locator<ConnectivityService>();
 
 final SignUpViewModel signUpViewModel = SignUpViewModel();
 final StoresViewModel storesViewModel = StoresViewModel();
+final OrdersViewModel ordersViewModel = OrdersViewModel();
 final CartViewModel cartViewModel = CartViewModel();
 final ProductDetailsViewModel productDetailsViewModel =
     ProductDetailsViewModel();

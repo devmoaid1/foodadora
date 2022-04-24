@@ -26,6 +26,7 @@ class OrdersScreen extends StatelessWidget {
       body: ViewModelBuilder<OrdersViewModel>.reactive(
           viewModelBuilder: () => ordersViewModel,
           onModelReady: (model) => model.getOrders(),
+          initialiseSpecialViewModelsOnce: true,
           fireOnModelReadyOnce: true,
           disposeViewModel: false,
           builder: (context, model, _) {
