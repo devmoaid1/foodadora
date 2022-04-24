@@ -48,7 +48,7 @@ class OrderDetailsScreen extends StatelessWidget {
                       "${store.storeName} Store",
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w400,
-                          color: const Color(0xffDDA73A),
+                          color: activeColor,
                           fontSize: blockSizeHorizontal(context) * 6),
                     ),
                   ],

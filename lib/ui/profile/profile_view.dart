@@ -120,7 +120,7 @@ class ProfileScreen extends StatelessWidget {
                   SizedBox(height: blockSizeVertical(context) * 15),
                   FoodadoraButton(
                     label: 'Logout',
-                    color: Colors.red,
+                    color: redColor,
                     onPressed: () => model.signOut(),
                   )
                 ],

@@ -40,7 +40,7 @@ class EmptyIndicator extends StatelessWidget {
                     style: GoogleFonts.raleway(
                         fontSize: blockSizeHorizontal(context) * 4,
                         fontWeight: FontWeight.w600,
-                        color: const Color(0xff5C5C5F)),
+                        color: textColor),
                   ),
           ),
           Pressable(
@@ -55,7 +55,7 @@ class EmptyIndicator extends StatelessWidget {
                         style: GoogleFonts.poppins(
                             decoration: TextDecoration.underline,
                             fontSize: blockSizeHorizontal(context) * 4,
-                            color: const Color(0xff0095DA)),
+                            color: actionColor),
                       )
                     : Text(
                         'MAKE YOUR FIRST ORDER',
@@ -63,7 +63,7 @@ class EmptyIndicator extends StatelessWidget {
                         style: GoogleFonts.poppins(
                             decoration: TextDecoration.underline,
                             fontSize: blockSizeHorizontal(context) * 4,
-                            color: const Color(0xff0095DA)),
+                            color: actionColor),
                       ),
                 SizedBox(
                   width: blockSizeHorizontal(context),

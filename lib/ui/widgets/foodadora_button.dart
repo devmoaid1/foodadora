@@ -32,7 +32,7 @@ class FoodadoraButton extends StatelessWidget {
             onTap: onPressed,
             child: Container(
               decoration: BoxDecoration(
-                  color: color ?? lightBlueColor,
+                  color: color ?? actionColor,
                   borderRadius: BorderRadius.circular(8)),
               height: screenHeightPercentage(context, percentage: 0.08),
               child: Row(

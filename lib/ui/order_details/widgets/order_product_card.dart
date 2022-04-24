@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/format_price.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -48,7 +49,7 @@ class OrderProductCard extends StatelessWidget {
                         product.productName.toString(),
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
-                            color: const Color(0xff5C5C5F),
+                            color: textColor,
                             fontSize: blockSizeHorizontal(context) * 4),
                       ),
                       SizedBox(
@@ -74,7 +75,7 @@ class OrderProductCard extends StatelessWidget {
                                     formatPrice(product.productPrice),
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w500,
-                                        color: const Color(0xff5C5C5F),
+                                        color: textColor,
                                         fontSize:
                                             blockSizeHorizontal(context) * 3),
                                   ),
@@ -85,7 +86,7 @@ class OrderProductCard extends StatelessWidget {
                                     "X ${product.quantity}".toString(),
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w500,
-                                        color: const Color(0xff5C5C5F),
+                                        color: textColor,
                                         fontSize:
                                             blockSizeHorizontal(context) * 3),
                                   ),
@@ -99,7 +100,7 @@ class OrderProductCard extends StatelessWidget {
                               formatPrice(totalPrice),
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w500,
-                                  color: const Color(0xffDDA73A),
+                                  color: activeColor,
                                   fontSize: blockSizeHorizontal(context) * 3),
                             ),
                           ),

@@ -58,19 +58,20 @@ class CartScreen extends StatelessWidget {
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: blockSizeHorizontal(context) * 4),
+                            horizontal: blockSizeHorizontal(context) * 2),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Shopping Cart',
                               style: GoogleFonts.poppins(
+                                  color: textColor,
                                   fontSize: blockSizeHorizontal(context) * 7),
                             ),
                             Text(
-                              'Tesco Store',
+                              "Aeon",
                               style: GoogleFonts.poppins(
-                                  color: lightBlueColor,
+                                  color: actionColor,
                                   fontWeight: FontWeight.w500,
                                   fontSize: blockSizeHorizontal(context) * 4),
                             ),
@@ -92,7 +93,7 @@ class CartScreen extends StatelessWidget {
                             }
                             return Container();
                           }),
-                      SizedBox(height: blockSizeVertical(context) * 5),
+                      verticalSpaceRegular,
                       Card(
                         elevation: 2,
                         shape: RoundedRectangleBorder(
@@ -136,7 +137,7 @@ class CartScreen extends StatelessWidget {
                               }),
                         ),
                       ),
-                      SizedBox(height: blockSizeVertical(context) * 2),
+                      verticalSpaceRegular,
                       Center(
                         child: Container(
                           margin: EdgeInsets.only(

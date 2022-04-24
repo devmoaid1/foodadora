@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
+import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/ui/orders/orders_viewmodel.dart';
 
 import 'package:foodadora/ui/widgets/empty_indicator.dart';
@@ -60,7 +61,7 @@ class OrdersScreen extends StatelessWidget {
                       Text(
                         'My Orders',
                         style: GoogleFonts.poppins(
-                            color: const Color(0xff5C5C5F),
+                            color: textColor,
                             fontSize: blockSizeHorizontal(context) * 8),
                       ),
                       SizedBox(height: blockSizeVertical(context) * 3),
