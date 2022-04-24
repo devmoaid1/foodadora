@@ -100,10 +100,15 @@ class CartService extends BaseService {
           key: 'cart',
           data: Cart(storeId: product.storeId, cartItems: items).toJson());
 
-      dialogService.showCustomDialog(
-          variant: DialogType.basic,
-          title: "Your Item has been added to cart",
-          mainButtonTitle: "Ok");
+      dialogService
+          .showCustomDialog(
+            variant: DialogType.basic,
+            title: "Your Item has been added to cart",
+            mainButtonTitle: "Ok",
+          )
+          .then(
+              (value) => navigationService.popUntil((route) => route.isFirst));
+      homeNavigationViewModel.setIndex(1);
     }
 
     // if cart has items
