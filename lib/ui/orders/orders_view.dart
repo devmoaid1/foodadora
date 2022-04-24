@@ -55,21 +55,29 @@ class OrdersScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                   horizontal: blockSizeHorizontal(context) * 1,
                   vertical: blockSizeVertical(context) * 2),
-              child: SingleChildScrollView(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'My Orders',
-                        style: GoogleFonts.poppins(
-                            color: textColor,
-                            fontSize: blockSizeHorizontal(context) * 8),
-                      ),
-                      SizedBox(height: blockSizeVertical(context) * 3),
-                      Column(
-                        children: buildOrdersCards(viewModel: model),
-                      )
-                    ]),
+              child: RefreshIndicator(
+                onRefresh: () async => model.getOrders(),
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Container(
+                    constraints:
+                        BoxConstraints(minHeight: screenHeight(context) / 2),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'My Orders',
+                            style: GoogleFonts.poppins(
+                                color: textColor,
+                                fontSize: blockSizeHorizontal(context) * 8),
+                          ),
+                          SizedBox(height: blockSizeVertical(context) * 3),
+                          Column(
+                            children: buildOrdersCards(viewModel: model),
+                          )
+                        ]),
+                  ),
+                ),
               ),
             );
           }),
