@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodadora/app/utilites/format_price.dart';
 import 'package:foodadora/ui/widgets/pressable.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -70,7 +71,7 @@ class OrderItem extends ViewModelWidget<OrdersViewModel> {
                           width: blockSizeHorizontal(context),
                         ),
                         Text(
-                          "${order.totalPrice} RM ",
+                          formatPrice(order.totalPrice),
                           style: GoogleFonts.poppins(
                               color: const Color(0xff5C5C5F),
                               fontSize: blockSizeHorizontal(context) * 4),

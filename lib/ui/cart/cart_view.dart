@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
+import 'package:foodadora/app/utilites/format_price.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/ui/cart/cart_viewmodel.dart';
 
@@ -204,7 +205,7 @@ class CartItem extends ViewModelWidget<CartViewModel> {
                     ),
                   ),
                   Text(
-                    '${product.productPrice!.toStringAsFixed(2)} RM',
+                    formatPrice(product.productPrice),
                     style: GoogleFonts.poppins(
                       fontSize: blockSizeHorizontal(context) * 5,
                     ),

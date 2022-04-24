@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
+import 'package:foodadora/app/utilites/format_price.dart';
 
 import 'package:line_icons/line_icons.dart';
 
@@ -91,7 +92,7 @@ class ProductCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          'RM ${productPrice!.toStringAsFixed(2)}',
+                          formatPrice(productPrice),
                           style: TextStyle(
                             fontSize: blockSizeHorizontal(context) * 7,
                             color: const Color(0xffFF0000),
@@ -99,7 +100,7 @@ class ProductCard extends StatelessWidget {
                         ),
                         SizedBox(width: blockSizeHorizontal(context) * 5),
                         Text(
-                          'RM ${originalPrice!.toStringAsFixed(2)}',
+                          formatPrice(originalPrice),
                           style: TextStyle(
                             fontSize: blockSizeHorizontal(context) * 4,
                             decoration: TextDecoration.lineThrough,

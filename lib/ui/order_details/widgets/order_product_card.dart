@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:foodadora/app/utilites/format_price.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../app/constants/assets.dart';
@@ -12,6 +13,8 @@ class OrderProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double? totalPrice = product.productPrice! * product.quantity!;
+
     return Card(
         margin: EdgeInsets.symmetric(vertical: blockSizeVertical(context) * 2),
         elevation: 2,
@@ -68,8 +71,7 @@ class OrderProductCard extends StatelessWidget {
                                     width: blockSizeVertical(context),
                                   ),
                                   Text(
-                                    "${product.productPrice!.toStringAsFixed(2)} RM"
-                                        .toString(),
+                                    formatPrice(product.productPrice),
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w500,
                                         color: const Color(0xff5C5C5F),
@@ -94,8 +96,7 @@ class OrderProductCard extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: Text(
-                              "${product.productPrice! * product.quantity!.toInt()}  RM"
-                                  .toString(),
+                              formatPrice(totalPrice),
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w500,
                                   color: const Color(0xffDDA73A),

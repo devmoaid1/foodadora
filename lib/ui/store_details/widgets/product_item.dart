@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
+import 'package:foodadora/app/utilites/format_price.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
 
 import 'package:foodadora/models/product.dart';
@@ -58,7 +59,7 @@ class ProductItem extends StatelessWidget {
                         ),
                         horizontalSpaceSmall,
                         Text(
-                          "RM ${product.productPrice}",
+                          formatPrice(product.productPrice),
                           style: GoogleFonts.poppins(
                               fontSize: blockSizeVertical(context) * 2,
                               color: textColor,
@@ -67,7 +68,7 @@ class ProductItem extends StatelessWidget {
                         horizontalSpaceSmall,
                         if (product.originalPrice != null)
                           Text(
-                            "RM ${product.originalPrice}",
+                            formatPrice(product.originalPrice),
                             style: GoogleFonts.poppins(
                                 fontSize: blockSizeVertical(context) * 1.5,
                                 color: textColor,
