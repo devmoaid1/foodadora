@@ -47,17 +47,17 @@ class OrdersViewModel extends BaseViewModel {
 
         _orders = await ordersService.getOrdersForCustomer(
             customerId: customerId.toString());
-
-        _orders.forEach(
-          (element) async {
-            var store = await storeService
-                .getStoreById(element.products![0].storeId.toString());
-            _stores.add(store as Store);
-            notifyListeners();
-          },
-        );
+        if (_orders.isNotEmpty) {
+          _orders.forEach(
+            (element) async {
+              var store = await storeService
+                  .getStoreById(element.products![0].storeId.toString());
+              _stores.add(store as Store);
+              notifyListeners();
+            },
+          );
+        }
       }
-
       setBusy(false);
       setLoading(false);
     } catch (err) {
