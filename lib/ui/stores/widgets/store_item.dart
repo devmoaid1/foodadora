@@ -10,18 +10,15 @@ import 'package:foodadora/app/utilites/string_extension.dart';
 import 'package:foodadora/ui/stores/stores_viewmodel.dart';
 import 'package:foodadora/ui/widgets/pressable.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stacked/stacked.dart';
 
-class StoreItem extends ViewModelWidget<StoresViewModel> {
+class StoreItem extends StatelessWidget {
   final Store store;
-
-  const StoreItem({
-    Key? key,
-    required this.store,
-  }) : super(key: key);
+  final StoresViewModel viewModel;
+  const StoreItem({Key? key, required this.store, required this.viewModel})
+      : super(key: key);
 
   @override
-  Widget build(BuildContext context, StoresViewModel viewModel) {
+  Widget build(BuildContext context) {
     String distance = store.pos?["geopoint"] != null
         ? " " +
             getDistance((store.pos?["geopoint"] as GeoPoint)).toString() +

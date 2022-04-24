@@ -16,7 +16,7 @@ import 'package:foodadora/ui/settings/settings_viewmodel.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import '../../ui/stores/stores_viewModel.dart';
+import '../../ui/stores/stores_viewmodel.dart';
 
 // here creating one instance for each service across app
 

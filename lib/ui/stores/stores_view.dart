@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
-import 'package:foodadora/ui/stores/stores_viewModel.dart';
+import 'package:foodadora/ui/stores/stores_viewmodel.dart';
 
 import 'package:foodadora/ui/stores/widgets/home_graphic.dart';
 
@@ -125,21 +125,22 @@ class StoresScreen extends StatelessWidget {
           );
         });
   }
+}
 
-  Widget _buildStoresGrid(BuildContext context, StoresViewModel viewmodel) {
-    return Container(
-      width: screenWidth(context) * 0.9,
-      height: viewmodel.stores.length * screenHeight(context) / 3,
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: viewmodel.stores.length,
-        itemBuilder: (context, index) => viewmodel.stores[index] != null
-            ? StoreItem(
-                store: viewmodel.stores[index]!,
-              )
-            : Container(),
-      ),
-    );
-  }
+Widget _buildStoresGrid(BuildContext context, StoresViewModel viewModel) {
+  return Container(
+    width: screenWidth(context) * 0.9,
+    height: viewModel.stores.length * screenHeight(context) / 3,
+    child: ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: viewModel.stores.length,
+      itemBuilder: (context, index) => viewModel.stores[index] != null
+          ? StoreItem(
+              store: viewModel.stores[index]!,
+              viewModel: viewModel as StoresViewModel,
+            )
+          : Container(),
+    ),
+  );
 }

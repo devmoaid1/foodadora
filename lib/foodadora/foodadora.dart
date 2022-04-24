@@ -10,7 +10,7 @@ import 'package:stacked/stacked.dart';
 
 import 'package:stacked_services/stacked_services.dart';
 
-import 'foodadora_viewModel.dart';
+import 'foodadora_viewmodel.dart';
 
 class FoodadoraApp extends StatelessWidget {
   const FoodadoraApp({Key? key}) : super(key: key);

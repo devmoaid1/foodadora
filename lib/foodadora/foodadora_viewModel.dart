@@ -13,7 +13,6 @@ class FoodadoraViewModel extends BaseViewModel {
     profileService.getCurrentCustomer();
     _connectivityController =
         connectivityService.connectivityStream.listen((result) {
-      print("connection is $result");
       connectivityService.handleStatus(result);
       storesViewModel.notifyListeners();
     });

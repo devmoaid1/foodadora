@@ -10,7 +10,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked/stacked.dart';
 
-@singleton
 class StoresViewModel extends BaseViewModel {
   final StoreService _storeService = StoreService();
   late List<Store?> _stores;
