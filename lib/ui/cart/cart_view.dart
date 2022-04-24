@@ -143,7 +143,8 @@ class CartScreen extends StatelessWidget {
                               bottom: blockSizeVertical(context) * 2),
                           width: screenWidth(context),
                           child: FoodadoraButton(
-                            label: 'Confirm',
+                            label: 'Checkout',
+                            color: actionColor,
                             onPressed: () {
                               model.placeOrder(
                                   orderProducts: orderProducts, total: total);
