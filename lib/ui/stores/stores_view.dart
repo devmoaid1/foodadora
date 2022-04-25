@@ -17,6 +17,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../app/utilites/screen_sizes.dart';
+import '../widgets/noconnection_indicator.dart';
 
 class StoresScreen extends StatelessWidget {
   const StoresScreen({Key? key}) : super(key: key);
@@ -43,16 +44,7 @@ class StoresScreen extends StatelessWidget {
           }
 
           if (!viewModel.isConnected) {
-            return Center(
-              child: Text(
-                'No connection',
-                style: GoogleFonts.poppins(
-                  color: lightTextColor,
-                  fontSize: blockSizeVertical(context) * 2.5,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-            );
+            return NoConnection(handleRetry: () => viewModel.getStoresList());
           }
           return RefreshIndicator(
             onRefresh: () async => viewModel.getStoresList(),

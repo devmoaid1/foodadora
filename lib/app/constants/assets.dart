@@ -50,4 +50,6 @@ class Assets {
   static const googleIcon = "assets/icons/google.svg";
   static const appleIcon = "assets/icons/apple.svg";
   static const facebookIcon = "assets/icons/facebook.svg";
+
+  static const noWifi = "assets/icons/no_wifi.svg";
 }
