@@ -7,6 +7,7 @@ import 'package:foodadora/services/orders_services.dart';
 import 'package:foodadora/services/product_service.dart';
 import 'package:foodadora/services/profile_service.dart';
 import 'package:foodadora/services/store_service.dart';
+import 'package:foodadora/ui/orders/orders_viewmodel.dart';
 import 'package:foodadora/ui/sign_up/signup_viewmodel.dart';
 import 'package:foodadora/ui/cart/cart_viewmodel.dart';
 import 'package:foodadora/ui/home_navigation/home_navigation_viewmodel.dart';
@@ -41,6 +42,7 @@ final ProductDetailsViewModel productDetailsViewModel =
     ProductDetailsViewModel();
 final HomeNavigationViewModel homeNavigationViewModel =
     HomeNavigationViewModel();
+final OrdersViewModel ordersViewModel = OrdersViewModel();
 
 final SettingsViewModel settingsViewModel = SettingsViewModel();
 //logger

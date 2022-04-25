@@ -14,7 +14,6 @@ class FoodadoraViewModel extends BaseViewModel {
     _connectivityController =
         connectivityService.connectivityStream.listen((result) {
       connectivityService.handleStatus(result);
-      storesViewModel.notifyListeners();
     });
   }
 
