@@ -1,6 +1,5 @@
 // ignore_for_file: sized_box_for_whitespace, avoid_print
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
@@ -18,6 +17,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../app/utilites/screen_sizes.dart';
+import '../widgets/noconnection_indicator.dart';
 
 class StoresScreen extends StatelessWidget {
   const StoresScreen({Key? key}) : super(key: key);
@@ -33,7 +33,7 @@ class StoresScreen extends StatelessWidget {
           model.getStoresList();
         },
         builder: (context, viewModel, _) {
-          print("stores screen ${viewModel.connectivityResult}");
+          print("stores screen ${viewModel.isConnected}");
           bool isLocationDenied =
               viewModel.locationPermission == LocationPermission.denied ||
                   viewModel.locationPermission ==
@@ -41,6 +41,10 @@ class StoresScreen extends StatelessWidget {
                   viewModel.serviceEnabled != true;
           if (viewModel.isBusy) {
             return const Center(child: CircularProgressIndicator.adaptive());
+          }
+
+          if (!viewModel.isConnected) {
+            return NoConnection(handleRetry: () => viewModel.getStoresList());
           }
           return RefreshIndicator(
             onRefresh: () async => viewModel.getStoresList(),
@@ -98,26 +102,14 @@ class StoresScreen extends StatelessWidget {
                               ],
                             )
                           : Center(
-                              child: viewModel.connectivityResult ==
-                                      ConnectivityResult.wifi
-                                  ? Text(
-                                      'No stores found near you',
-                                      style: GoogleFonts.poppins(
-                                        color: lightTextColor,
-                                        fontSize:
-                                            blockSizeVertical(context) * 2.5,
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                    )
-                                  : Text(
-                                      'No connection',
-                                      style: GoogleFonts.poppins(
-                                        color: lightTextColor,
-                                        fontSize:
-                                            blockSizeVertical(context) * 2.5,
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                    ))
+                              child: Text(
+                              'No stores found near you',
+                              style: GoogleFonts.poppins(
+                                color: lightTextColor,
+                                fontSize: blockSizeVertical(context) * 2.5,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ))
                       : _buildStoresGrid(context, viewModel)
                 ],
               ),
@@ -138,7 +130,7 @@ Widget _buildStoresGrid(BuildContext context, StoresViewModel viewModel) {
       itemBuilder: (context, index) => viewModel.stores[index] != null
           ? StoreItem(
               store: viewModel.stores[index]!,
-              viewModel: viewModel as StoresViewModel,
+              viewModel: viewModel,
             )
           : Container(),
     ),

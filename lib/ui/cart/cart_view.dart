@@ -17,6 +17,7 @@ import 'package:stacked/stacked.dart';
 import '../../app/utilites/app_colors.dart';
 import '../../app/utilites/enums.dart';
 import '../../app/utilites/screen_sizes.dart';
+import '../widgets/noconnection_indicator.dart';
 import 'widgets/cart_text_row.dart';
 
 // ignore: must_be_immutable
@@ -40,6 +41,10 @@ class CartScreen extends StatelessWidget {
 
               if (model.isEmpty) {
                 return const EmptyIndicator(widgetType: WidgetType.cart);
+              }
+
+              if (!model.isConnected) {
+                return const NoConnection();
               }
 
               return SingleChildScrollView(
