@@ -19,6 +19,7 @@ class CartViewModel extends BaseViewModel {
   Stream<double> get subtotalController =>
       cartService.totalController; // subtotal controller
   List<Product> get originalProducts => cartService.originalProducts;
+  bool get isConnected => connectivityService.isConnected;
 
   Customer get customerProfile => profileService.currentCustomer;
   bool get isLoggedOn => profileService.isLoggedOn;

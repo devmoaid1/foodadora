@@ -9,6 +9,7 @@ class SettingsViewModel extends BaseViewModel {
   Customer get customerProfile => profileService.currentCustomer;
 
   bool get isLoggedOn => profileService.isLoggedOn;
+  bool get isConnected => connectivityService.isConnected;
   Customer get customer => profileService.currentCustomer;
   String get customerName => profileService.customerName;
   String get customerAccountType => profileService.customerAccountType;

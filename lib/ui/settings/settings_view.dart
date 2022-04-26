@@ -9,6 +9,7 @@ import 'package:foodadora/ui/select_language/language_code_name_map.dart';
 import 'package:foodadora/ui/settings/settings_viewmodel.dart';
 import 'package:foodadora/ui/settings/widgets/settings_row.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
+import 'package:foodadora/ui/widgets/noconnection_indicator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
@@ -19,6 +20,9 @@ class SettingsView extends StatelessWidget {
         viewModelBuilder: () => settingsViewModel,
         disposeViewModel: false,
         builder: (context, model, child) {
+          if (!model.isConnected) {
+            return const NoConnection();
+          }
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,

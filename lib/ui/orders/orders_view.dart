@@ -1,9 +1,11 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls
 
 import 'package:flutter/material.dart';
+import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/ui/orders/orders_viewmodel.dart';
 
 import 'package:foodadora/ui/widgets/empty_indicator.dart';
+import 'package:foodadora/ui/widgets/noconnection_indicator.dart';
 import 'package:foodadora/ui/widgets/orders_notlogged.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,7 +23,7 @@ class OrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ViewModelBuilder<OrdersViewModel>.reactive(
-          viewModelBuilder: () => OrdersViewModel(),
+          viewModelBuilder: () => ordersViewModel,
           onModelReady: (model) => model.getOrders(),
           fireOnModelReadyOnce: true,
           disposeViewModel: false,
@@ -32,6 +34,14 @@ class OrdersScreen extends StatelessWidget {
             if (model.loading) {
               return const Center(
                 child: CircularProgressIndicator.adaptive(),
+              );
+            }
+
+            if (!model.isConnected) {
+              return NoConnection(
+                handleRetry: () {
+                  model.getOrders();
+                },
               );
             }
 
