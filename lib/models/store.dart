@@ -10,7 +10,7 @@ class Store {
   String? imageUrl;
   String? category;
   bool isActive;
-  bool? isOpened;
+  bool? isOpen;
   Map<String, dynamic>? pos;
 
   Store({
@@ -18,7 +18,7 @@ class Store {
     this.storeName,
     this.address,
     this.imageUrl,
-    this.isOpened,
+    this.isOpen,
     this.pos,
     this.category,
     this.isActive = true,

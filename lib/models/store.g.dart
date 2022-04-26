@@ -11,7 +11,7 @@ Store _$StoreFromJson(Map<String, dynamic> json) => Store(
       storeName: json['storeName'] as String?,
       address: json['address'] as String?,
       imageUrl: json['imageUrl'] as String?,
-      isOpened: json['isOpened'] as bool?,
+      isOpen: json['isOpen'] as bool?,
       pos: json['pos'] as Map<String, dynamic>?,
       category: json['category'] as String?,
       isActive: json['isActive'] as bool? ?? true,
@@ -24,6 +24,6 @@ Map<String, dynamic> _$StoreToJson(Store instance) => <String, dynamic>{
       'imageUrl': instance.imageUrl,
       'category': instance.category,
       'isActive': instance.isActive,
-      'isOpened': instance.isOpened,
+      'isOpen': instance.isOpen,
       'pos': instance.pos,
     };

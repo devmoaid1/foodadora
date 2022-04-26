@@ -24,34 +24,62 @@ class StoreItem extends StatelessWidget {
             getDistance((store.pos?["geopoint"] as GeoPoint)).toString() +
             " Away"
         : "-";
+
+    bool storeClosed = store.isOpen != null && store.isOpen == false;
     return Material(
       elevation: .5,
       color: Colors.white,
       borderRadius: BorderRadius.circular(10),
       child: Pressable(
         borderRadius: BorderRadius.circular(10),
-        onPressed: () =>
-            viewModel.navigateToStoreDetails(store: store, distance: distance),
+        onPressed: storeClosed
+            ? null
+            : () => viewModel.navigateToStoreDetails(
+                store: store, distance: distance),
         child: Padding(
           padding: EdgeInsets.all(blockSizeVertical(context) * 1.5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (store.imageUrl != null)
-                SizedBox(
-                  width: blockSizeHorizontal(context) * 120,
-                  height: blockSizeVertical(context) * 12,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      store.imageUrl!,
-                      loadingBuilder: (context, child, loadingProgress) =>
-                          loadingProgress == null
-                              ? child
-                              : const CircularProgressIndicator.adaptive(),
-                      fit: BoxFit.cover,
+                Stack(
+                  children: [
+                    SizedBox(
+                      width: blockSizeHorizontal(context) * 120,
+                      height: blockSizeVertical(context) * 12,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          store.imageUrl!,
+                          loadingBuilder: (context, child, loadingProgress) =>
+                              loadingProgress == null
+                                  ? child
+                                  : const CircularProgressIndicator.adaptive(),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
-                  ),
+                    if (storeClosed)
+                      // show transparent closed overlay container
+                      Container(
+                        width: blockSizeHorizontal(context) * 120,
+                        height: blockSizeVertical(context) * 12,
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        // child is a text widget saying closed
+                        child: Center(
+                          child: Text(
+                            "Closed",
+                            style: GoogleFonts.poppins(
+                              fontSize: blockSizeVertical(context) * 2,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
               verticalSpaceSmall,
               Row(
