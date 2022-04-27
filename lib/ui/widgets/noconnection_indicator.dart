@@ -34,9 +34,9 @@ class NoConnection extends StatelessWidget {
         Text(
           'You’re offilne. Check yout connection.',
           style: GoogleFonts.poppins(
-            color: lightTextColor,
+            color: textColor,
             fontSize: blockSizeVertical(context) * 2,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w300,
           ),
         ),
         Padding(
