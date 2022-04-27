@@ -40,6 +40,7 @@ class FoodadoraButton extends StatelessWidget {
                 children: [
                   Text(
                     label.toString(),
+                    maxLines: 1,
                     style: GoogleFonts.poppins(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
@@ -68,11 +69,15 @@ class FoodadoraButton extends StatelessWidget {
                 ? CupertinoButton(
                     color: color ?? Theme.of(context).primaryColor,
                     onPressed: onPressed,
-                    child: Text(
-                      label.toString(),
-                      style: GoogleFonts.raleway(
-                          color: labelColor ?? Colors.white,
-                          fontSize: (screenWidth(context) / 100) * 5),
+                    child: FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                        label.toString(),
+                        maxLines: 1,
+                        style: GoogleFonts.raleway(
+                            color: labelColor ?? Colors.white,
+                            fontSize: (screenWidth(context) / 100) * 5),
+                      ),
                     ),
                   )
                 : ElevatedButton(

@@ -52,4 +52,5 @@ class Assets {
   static const facebookIcon = "assets/icons/facebook.svg";
 
   static const noWifi = "assets/icons/no_wifi.svg";
+  static const emptyStores = "assets/images/empty_stores.svg";
 }

@@ -10,6 +10,7 @@ import 'package:foodadora/ui/stores/stores_viewmodel.dart';
 import 'package:foodadora/ui/stores/widgets/home_graphic.dart';
 
 import 'package:foodadora/ui/stores/widgets/store_item.dart';
+import 'package:foodadora/ui/widgets/empty_stores_placeholder.dart';
 import 'package:foodadora/ui/widgets/pressable.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,65 +53,57 @@ class StoresScreen extends StatelessWidget {
               physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
                 children: [
-                  HomeGraphic(
-                    isError: isLocationDenied,
-                  ),
+                  if (viewModel.stores.isNotEmpty)
+                    HomeGraphic(
+                      isError: isLocationDenied,
+                    ),
                   verticalSpaceRegular,
-                  viewModel.stores.isEmpty
-                      ? isLocationDenied
-                          ? Column(
-                              children: [
-                                Center(
-                                  child: Text(
-                                    'Please enable location services to see stores near you',
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.poppins(
-                                      color: lightTextColor,
-                                      fontSize: blockSizeVertical(context) * 2,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                  ),
-                                ),
-                                verticalSpaceSmall,
-                                Center(
-                                  child: Pressable(
-                                    onPressed: () async {
-                                      await viewModel.openLocationSettings();
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SvgPicture.asset(
-                                          Assets.pinLocationIcon,
-                                          color: actionColor,
-                                        ),
-                                        horizontalSpaceSmall,
-                                        Text(
-                                          'Enable Location',
-                                          style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w500,
-                                            color: actionColor,
-                                            fontSize:
-                                                blockSizeVertical(context) * 2,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
-                          : Center(
+                  isLocationDenied
+                      ? Column(
+                          children: [
+                            Center(
                               child: Text(
-                              'No stores found near you',
-                              style: GoogleFonts.poppins(
-                                color: lightTextColor,
-                                fontSize: blockSizeVertical(context) * 2.5,
-                                fontWeight: FontWeight.w300,
+                                'Please enable location services to see stores near you',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                  color: lightTextColor,
+                                  fontSize: blockSizeVertical(context) * 2,
+                                  fontWeight: FontWeight.w300,
+                                ),
                               ),
-                            ))
-                      : _buildStoresGrid(context, viewModel)
+                            ),
+                            verticalSpaceSmall,
+                            Center(
+                              child: Pressable(
+                                onPressed: () async {
+                                  await viewModel.openLocationSettings();
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      Assets.pinLocationIcon,
+                                      color: actionColor,
+                                    ),
+                                    horizontalSpaceSmall,
+                                    Text(
+                                      'Enable Location',
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w500,
+                                        color: actionColor,
+                                        fontSize:
+                                            blockSizeVertical(context) * 2,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : viewModel.stores.isEmpty
+                          ? const EmptyStoresPlaceholder()
+                          : _buildStoresGrid(context, viewModel)
                 ],
               ),
             ),
