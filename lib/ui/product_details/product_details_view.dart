@@ -98,41 +98,19 @@ class ProductDetailsView extends StatelessWidget {
                       Text(
                         formatPrice(product.productPrice),
                         style: GoogleFonts.poppins(
-                            fontSize: blockSizeHorizontal(context) * 4,
-                            color: const Color(0xffFF0000)),
+                          fontSize: blockSizeHorizontal(context) * 4,
+                          fontWeight: FontWeight.w500,
+                          color: textColor,
+                        ),
                       ),
-                      SizedBox(
-                        width: blockSizeHorizontal(context),
-                      ),
+                      horizontalSpaceSmall,
                       Text(
                         formatPrice(product.originalPrice),
                         style: GoogleFonts.poppins(
                             fontSize: blockSizeHorizontal(context) * 4,
+                            fontWeight: FontWeight.w200,
                             decoration: TextDecoration.lineThrough,
                             color: textColor),
-                      ),
-                      SizedBox(
-                        width: blockSizeHorizontal(context) * 12,
-                      ),
-                      SvgPicture.asset(
-                        Assets.pinLocationIcon,
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "2.6",
-                            style: GoogleFonts.poppins(
-                                fontSize: blockSizeHorizontal(context) * 4,
-                                color: textColor),
-                          ),
-                          Text(
-                            "KM away",
-                            style: GoogleFonts.poppins(
-                                fontSize: blockSizeHorizontal(context) * 4,
-                                color: textColor),
-                          ),
-                        ],
                       ),
                     ],
                   ),
@@ -155,7 +133,7 @@ class ProductDetailsView extends StatelessWidget {
                           (product.description != null &&
                                   product.description.toString().isNotEmpty)
                               ? Text(
-                                  product.description.toString(),
+                                  product.description?.toString() ?? "-",
                                   style: GoogleFonts.poppins(
                                     fontSize: blockSizeHorizontal(context) * 3,
                                     color: textColor,
