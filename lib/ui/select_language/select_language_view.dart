@@ -6,6 +6,7 @@ import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
 import 'package:foodadora/ui/select_language/select_language_viewmodel.dart';
 import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
+import 'package:foodadora/ui/widgets/pressable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
@@ -41,44 +42,55 @@ class SelectLanguageView extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: SizedBox(
-                        height: blockSizeVertical(context) *
-                            9 *
-                            supportedLocales.length,
+                      child: Expanded(
                         child: ListView.separated(
+                          padding: EdgeInsets.symmetric(
+                              vertical: blockSizeVertical(context) / 3),
+                          shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: supportedLocales.length,
-                          itemBuilder: ((context, index) => Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: blockSizeVertical(context) / 3),
-                                child: ListTile(
-                                  tileColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  onTap: supportedLocales[index].languageCode ==
+                          itemBuilder: ((context, index) => Pressable(
+                                onPressed:
+                                    supportedLocales[index].languageCode ==
+                                            localizationDelegate
+                                                .currentLocale.languageCode
+                                        ? null
+                                        : () async {
+                                            await changeLocale(
+                                                context,
+                                                supportedLocales[index]
+                                                    .languageCode);
+                                            model.changeLocale();
+                                          },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          blockSizeHorizontal(context) * 5,
+                                      vertical: blockSizeVertical(context) * 2),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        model.getLanguageName(
+                                            supportedLocales[index]
+                                                .languageCode),
+                                        style: GoogleFonts.poppins(
+                                            color: textColor,
+                                            fontSize:
+                                                blockSizeHorizontal(context) *
+                                                    4.5),
+                                      ),
+                                      if (supportedLocales[index]
+                                              .languageCode ==
                                           localizationDelegate
-                                              .currentLocale.languageCode
-                                      ? null
-                                      : () async {
-                                          await changeLocale(
-                                              context,
-                                              supportedLocales[index]
-                                                  .languageCode);
-                                          model.changeLocale();
-                                        },
-                                  title: Text(
-                                      model.getLanguageName(
-                                          supportedLocales[index].languageCode),
-                                      style: GoogleFonts.poppins(
-                                          color: textColor)),
-                                  trailing:
-                                      supportedLocales[index].languageCode ==
-                                              localizationDelegate
-                                                  .currentLocale.languageCode
-                                          ? const Icon(
-                                              Icons.check,
-                                              color: activeColor,
-                                            )
-                                          : null,
+                                              .currentLocale.languageCode)
+                                        const Icon(
+                                          Icons.check,
+                                          color: activeColor,
+                                        )
+                                    ],
+                                  ),
                                 ),
                               )),
                           separatorBuilder: (context, _) => const Divider(
