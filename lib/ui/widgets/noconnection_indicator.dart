@@ -45,7 +45,7 @@ class NoConnection extends StatelessWidget {
               vertical: blockSizeVertical(context) * 5),
           child: FoodadoraButton(
               label: "TAP TO RETRY",
-              color: lightBlueColor,
+              color: actionColor,
               onPressed: handleRetry ?? () {}),
         )
       ],
