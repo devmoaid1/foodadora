@@ -7,21 +7,21 @@ import '../../app/utilites/app_colors.dart';
 import '../../app/utilites/screen_sizes.dart';
 import 'foodadora_button.dart';
 
-class NoConnection extends StatelessWidget {
-  final void Function()? handleRetry;
-  const NoConnection({Key? key, this.handleRetry}) : super(key: key);
+class EmptyStoresPlaceholder extends StatelessWidget {
+  final void Function()? function;
+  const EmptyStoresPlaceholder({Key? key, this.function}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Center(child: SvgPicture.asset(Assets.noWifi)),
-        SizedBox(
-          height: blockSizeHorizontal(context) * 2,
-        ),
+        SvgPicture.asset(Assets.emptyStores),
+        verticalSpaceRegular,
         Text(
-          'connect to the internet',
+          'No stores nearby, please check again later.',
+          textAlign: TextAlign.center,
           style: GoogleFonts.poppins(
             color: textColor,
             fontSize: blockSizeVertical(context) * 2.5,
@@ -32,7 +32,8 @@ class NoConnection extends StatelessWidget {
           height: blockSizeHorizontal(context) * 2,
         ),
         Text(
-          'You’re offilne. Check yout connection.',
+          'Our team is working to list more stores soon. Stay tuned!',
+          textAlign: TextAlign.center,
           style: GoogleFonts.poppins(
             color: textColor,
             fontSize: blockSizeVertical(context) * 2,
@@ -44,9 +45,9 @@ class NoConnection extends StatelessWidget {
               horizontal: blockSizeHorizontal(context) * 15,
               vertical: blockSizeVertical(context) * 5),
           child: FoodadoraButton(
-              label: "TAP TO RETRY",
+              label: "Notify Me".toUpperCase(),
               color: actionColor,
-              onPressed: handleRetry ?? () {}),
+              onPressed: function ?? () {}),
         )
       ],
     );

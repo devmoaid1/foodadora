@@ -12,10 +12,14 @@ class LocalStorageService {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  Future<String> getData({required String key}) async {
+  Future<String?> getData({required String key}) async {
     _sharedPreferences = await SharedPreferences.getInstance();
-    final data = _sharedPreferences!.get(key) as String;
-    return data;
+    try {
+      final data = _sharedPreferences!.get(key) as String?;
+      return data;
+    } catch (e) {
+      return null;
+    }
   }
 
   void setData({required String key, required Map<String, dynamic> data}) {

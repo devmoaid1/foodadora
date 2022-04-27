@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foodadora/app/utilites/format_price.dart';
 import 'package:foodadora/ui/widgets/pressable.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -54,7 +55,7 @@ class OrderItem extends ViewModelWidget<OrdersViewModel> {
                     Text(
                       "${store.storeName} Store",
                       style: GoogleFonts.poppins(
-                          color: const Color(0xffDDA73A),
+                          color: activeColor,
                           fontSize: blockSizeHorizontal(context) * 5),
                     ),
                     Row(
@@ -63,16 +64,16 @@ class OrderItem extends ViewModelWidget<OrdersViewModel> {
                         Text(
                           formattedDate(date: order.orderDate as DateTime),
                           style: GoogleFonts.poppins(
-                              color: const Color(0xff5C5C5F),
+                              color: textColor,
                               fontSize: blockSizeHorizontal(context) * 4),
                         ),
                         SizedBox(
                           width: blockSizeHorizontal(context),
                         ),
                         Text(
-                          "${order.totalPrice} RM ",
+                          formatPrice(order.totalPrice),
                           style: GoogleFonts.poppins(
-                              color: const Color(0xff5C5C5F),
+                              color: textColor,
                               fontSize: blockSizeHorizontal(context) * 4),
                         ),
                       ],
@@ -94,7 +95,7 @@ class OrderItem extends ViewModelWidget<OrdersViewModel> {
                             child: Text(
                               order.status.toString(),
                               style: GoogleFonts.poppins(
-                                  color: const Color(0xff5C5C5F),
+                                  color: textColor,
                                   fontSize: blockSizeHorizontal(context) * 3),
                             ),
                           ),
@@ -117,7 +118,7 @@ class OrderItem extends ViewModelWidget<OrdersViewModel> {
                                   child: Text(
                                     "View Details ",
                                     style: GoogleFonts.poppins(
-                                        color: const Color(0xff0095DA),
+                                        color: actionColor,
                                         fontSize:
                                             blockSizeHorizontal(context) * 3),
                                   ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
+import 'package:foodadora/app/utilites/format_price.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
 import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
@@ -95,43 +96,21 @@ class ProductDetailsView extends StatelessWidget {
                         width: blockSizeHorizontal(context) * 2,
                       ),
                       Text(
-                        "${product.productPrice!.toStringAsFixed(2)} RM",
+                        formatPrice(product.productPrice),
                         style: GoogleFonts.poppins(
-                            fontSize: blockSizeHorizontal(context) * 4,
-                            color: const Color(0xffFF0000)),
+                          fontSize: blockSizeHorizontal(context) * 4,
+                          fontWeight: FontWeight.w500,
+                          color: textColor,
+                        ),
                       ),
-                      SizedBox(
-                        width: blockSizeHorizontal(context),
-                      ),
+                      horizontalSpaceSmall,
                       Text(
-                        "${product.originalPrice!.toStringAsFixed(2)} RM",
+                        formatPrice(product.originalPrice),
                         style: GoogleFonts.poppins(
                             fontSize: blockSizeHorizontal(context) * 4,
+                            fontWeight: FontWeight.w200,
                             decoration: TextDecoration.lineThrough,
                             color: textColor),
-                      ),
-                      SizedBox(
-                        width: blockSizeHorizontal(context) * 12,
-                      ),
-                      SvgPicture.asset(
-                        Assets.pinLocationIcon,
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "2.6",
-                            style: GoogleFonts.poppins(
-                                fontSize: blockSizeHorizontal(context) * 4,
-                                color: textColor),
-                          ),
-                          Text(
-                            "KM away",
-                            style: GoogleFonts.poppins(
-                                fontSize: blockSizeHorizontal(context) * 4,
-                                color: textColor),
-                          ),
-                        ],
                       ),
                     ],
                   ),
@@ -154,7 +133,7 @@ class ProductDetailsView extends StatelessWidget {
                           (product.description != null &&
                                   product.description.toString().isNotEmpty)
                               ? Text(
-                                  product.description.toString(),
+                                  product.description?.toString() ?? "-",
                                   style: GoogleFonts.poppins(
                                     fontSize: blockSizeHorizontal(context) * 3,
                                     color: textColor,

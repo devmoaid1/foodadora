@@ -19,9 +19,9 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../../ui/stores/stores_viewmodel.dart';
 
-// here creating one instance for each service across app
+// Here creating one instance for each service across app
 
-//services
+// Services
 final navigationService = locator<NavigationService>();
 final dialogService = locator<DialogService>();
 final authService = locator<AuthService>();
@@ -33,18 +33,16 @@ final productService = locator<ProductService>();
 final locationService = locator<LocationService>();
 final connectivityService = locator<ConnectivityService>();
 
-//viewModels
-
+// View Models
 final SignUpViewModel signUpViewModel = SignUpViewModel();
 final StoresViewModel storesViewModel = StoresViewModel();
+final OrdersViewModel ordersViewModel = OrdersViewModel();
 final CartViewModel cartViewModel = CartViewModel();
 final ProductDetailsViewModel productDetailsViewModel =
     ProductDetailsViewModel();
 final HomeNavigationViewModel homeNavigationViewModel =
     HomeNavigationViewModel();
-final OrdersViewModel ordersViewModel = OrdersViewModel();
-
 final SettingsViewModel settingsViewModel = SettingsViewModel();
-//logger
 
+//logger
 final Logger logger = Logger();

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
+import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/ui/orders/orders_viewmodel.dart';
 
 import 'package:foodadora/ui/widgets/empty_indicator.dart';
@@ -25,6 +26,7 @@ class OrdersScreen extends StatelessWidget {
       body: ViewModelBuilder<OrdersViewModel>.reactive(
           viewModelBuilder: () => ordersViewModel,
           onModelReady: (model) => model.getOrders(),
+          initialiseSpecialViewModelsOnce: true,
           fireOnModelReadyOnce: true,
           disposeViewModel: false,
           builder: (context, model, _) {
@@ -53,21 +55,29 @@ class OrdersScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                   horizontal: blockSizeHorizontal(context) * 1,
                   vertical: blockSizeVertical(context) * 2),
-              child: SingleChildScrollView(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'My Orders',
-                        style: GoogleFonts.poppins(
-                            color: const Color(0xff5C5C5F),
-                            fontSize: blockSizeHorizontal(context) * 8),
-                      ),
-                      SizedBox(height: blockSizeVertical(context) * 3),
-                      Column(
-                        children: buildOrdersCards(viewModel: model),
-                      )
-                    ]),
+              child: RefreshIndicator(
+                onRefresh: () async => model.getOrders(),
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Container(
+                    constraints:
+                        BoxConstraints(minHeight: screenHeight(context) / 2),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'My Orders',
+                            style: GoogleFonts.poppins(
+                                color: textColor,
+                                fontSize: blockSizeHorizontal(context) * 8),
+                          ),
+                          SizedBox(height: blockSizeVertical(context) * 3),
+                          Column(
+                            children: buildOrdersCards(viewModel: model),
+                          )
+                        ]),
+                  ),
+                ),
               ),
             );
           }),

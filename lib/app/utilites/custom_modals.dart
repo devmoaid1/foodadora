@@ -101,7 +101,7 @@ class _AddToCartDialog extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           horizontal: blockSizeHorizontal(context) * 6),
                       decoration: BoxDecoration(
-                          color: lightBlueColor,
+                          color: actionColor,
                           borderRadius: BorderRadius.circular(8)),
                       height: screenHeightPercentage(context, percentage: 0.08),
                       child: Center(

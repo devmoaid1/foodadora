@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
+import 'package:foodadora/app/utilites/format_price.dart';
 import 'package:foodadora/models/product.dart';
 import 'package:foodadora/ui/cart/cart_viewmodel.dart';
 
@@ -57,19 +58,20 @@ class CartScreen extends StatelessWidget {
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: blockSizeHorizontal(context) * 4),
+                            horizontal: blockSizeHorizontal(context) * 2),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Shopping Cart',
                               style: GoogleFonts.poppins(
+                                  color: textColor,
                                   fontSize: blockSizeHorizontal(context) * 7),
                             ),
                             Text(
-                              'Tesco Store',
+                              "Aeon",
                               style: GoogleFonts.poppins(
-                                  color: lightBlueColor,
+                                  color: actionColor,
                                   fontWeight: FontWeight.w500,
                                   fontSize: blockSizeHorizontal(context) * 4),
                             ),
@@ -91,7 +93,7 @@ class CartScreen extends StatelessWidget {
                             }
                             return Container();
                           }),
-                      SizedBox(height: blockSizeVertical(context) * 5),
+                      verticalSpaceRegular,
                       Card(
                         elevation: 2,
                         shape: RoundedRectangleBorder(
@@ -135,14 +137,15 @@ class CartScreen extends StatelessWidget {
                               }),
                         ),
                       ),
-                      SizedBox(height: blockSizeVertical(context) * 2),
+                      verticalSpaceRegular,
                       Center(
                         child: Container(
                           margin: EdgeInsets.only(
                               bottom: blockSizeVertical(context) * 2),
                           width: screenWidth(context),
                           child: FoodadoraButton(
-                            label: 'Confirm',
+                            label: 'Checkout',
+                            color: actionColor,
                             onPressed: () {
                               model.placeOrder(
                                   orderProducts: orderProducts, total: total);
@@ -204,7 +207,7 @@ class CartItem extends ViewModelWidget<CartViewModel> {
                     ),
                   ),
                   Text(
-                    '${product.productPrice!.toStringAsFixed(2)} RM',
+                    formatPrice(product.productPrice),
                     style: GoogleFonts.poppins(
                       fontSize: blockSizeHorizontal(context) * 5,
                     ),

@@ -18,15 +18,19 @@ class Pressable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Platform.isIOS
-        ? TouchableOpacity(
+    return onPressed != null
+        ? Platform.isIOS
+            ? TouchableOpacity(
+                child: child,
+                onTap: onPressed,
+              )
+            : InkWell(
+                child: child,
+                onTap: onPressed,
+                borderRadius: borderRadius,
+              )
+        : Container(
             child: child,
-            onTap: onPressed,
-          )
-        : InkWell(
-            child: child,
-            onTap: onPressed,
-            borderRadius: borderRadius,
           );
   }
 }
