@@ -54,7 +54,7 @@ class StoresScreen extends StatelessWidget {
               physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
                 children: [
-                  if (viewModel.stores.isNotEmpty)
+                  if (viewModel.stores.isNotEmpty || isLocationDenied)
                     HomeGraphic(
                       isError: isLocationDenied,
                     ),
