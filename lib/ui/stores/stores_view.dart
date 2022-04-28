@@ -1,10 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
-import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/ui/stores/stores_viewmodel.dart';
 
 import 'package:foodadora/ui/stores/widgets/home_graphic.dart';
@@ -12,9 +9,7 @@ import 'package:foodadora/ui/stores/widgets/home_graphic.dart';
 import 'package:foodadora/ui/stores/widgets/store_item.dart';
 import 'package:foodadora/ui/widgets/empty_stores_placeholder.dart';
 import 'package:foodadora/ui/widgets/location_disabled_placeholder.dart';
-import 'package:foodadora/ui/widgets/pressable.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'package:stacked/stacked.dart';
 
