@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:foodadora/app/utilites/app_colors.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
@@ -12,6 +12,7 @@ import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:foodadora/ui/widgets/foodadora_textfield.dart';
 
+import '../../app/utilites/app_colors.dart';
 import '../../app/utilites/screen_sizes.dart';
 
 class ProfileScreen extends StatelessWidget {
