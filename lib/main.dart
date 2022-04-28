@@ -9,9 +9,6 @@ import 'package:foodadora/app/app.locator.dart';
 import 'package:foodadora/translate_preferences.dart';
 
 void main() async {
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
   LocalizationDelegate delegate = await LocalizationDelegate.create(
     fallbackLocale: 'en',
     supportedLocales: ['en', 'tr'],
@@ -20,6 +17,9 @@ void main() async {
   );
 
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   await Firebase.initializeApp();
   setupLocator();
   setupDialogUi();
