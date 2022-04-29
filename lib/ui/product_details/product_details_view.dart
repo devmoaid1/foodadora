@@ -34,7 +34,7 @@ class ProductDetailsView extends StatelessWidget {
       appBar: foodadoraAppBar(context, withBack: true),
       body: ViewModelBuilder<ProductDetailsViewModel>.reactive(
           disposeViewModel: false,
-          onModelReady: (model) => model.init(),
+          onModelReady: (model) => model.init(product),
           viewModelBuilder: () => productDetailsViewModel,
           builder: (context, model, _) {
             if (model.loading) {
@@ -154,7 +154,10 @@ class ProductDetailsView extends StatelessWidget {
                         padding: const EdgeInsets.all(12),
                         child: FoodadoraButton(
                           label: 'Add to Cart',
-                          onPressed: () => model.setIsAddToCart(true),
+                          onPressed: () {
+                            model.addToCart(product: product, quantity: 1);
+                            model.setIsAddToCart(true);
+                          },
                           iconPath: Assets.shoppingicon,
                         ),
                       )
@@ -192,7 +195,7 @@ class UpdateQuantityCard extends ViewModelWidget<ProductDetailsViewModel> {
                     viewModel.quantity == 1
                         ? GestureDetector(
                             onTap: () {
-                              viewModel.setIsAddToCart(false);
+                              viewModel.deleteItem(product: product);
                             },
                             child: SvgPicture.asset(
                               Assets.trashIcon,
@@ -200,7 +203,7 @@ class UpdateQuantityCard extends ViewModelWidget<ProductDetailsViewModel> {
                             ))
                         : GestureDetector(
                             onTap: () {
-                              viewModel.decrementQuantity();
+                              viewModel.decrementQuantity(product: product);
                             },
                             child: SvgPicture.asset(
                               Assets.minusicon,
@@ -219,8 +222,7 @@ class UpdateQuantityCard extends ViewModelWidget<ProductDetailsViewModel> {
                     ),
                     GestureDetector(
                         onTap: () {
-                          viewModel.incrementQunatity(
-                              productQuantity: product.quantity as int);
+                          viewModel.incrementQunatity(product: product);
                         },
                         child: SvgPicture.asset(
                           Assets.plusicon,
@@ -235,8 +237,7 @@ class UpdateQuantityCard extends ViewModelWidget<ProductDetailsViewModel> {
             ),
             FoodadoraButton(
               label: 'Continue Shopping',
-              onPressed: () => viewModel.addToCart(
-                  product: product, quatity: viewModel.quantity),
+              onPressed: () => Navigator.pop(context),
               iconPath: Assets.wareHouseicon,
             )
           ],

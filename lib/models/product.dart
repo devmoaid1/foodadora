@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'utilities/dateTime_converters.dart';
@@ -6,6 +7,7 @@ import 'utilities/dateTime_converters.dart';
 part 'product.g.dart';
 
 @JsonSerializable()
+@CopyWith()
 class Product {
   final String? productId;
   final String? storeId;

@@ -69,7 +69,7 @@ class CartScreen extends StatelessWidget {
                                   fontSize: blockSizeHorizontal(context) * 7),
                             ),
                             Text(
-                              "Aeon",
+                              model.storeName,
                               style: GoogleFonts.poppins(
                                   color: actionColor,
                                   fontWeight: FontWeight.w500,

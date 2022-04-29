@@ -44,7 +44,7 @@ class CartService extends BaseService {
     return Cart(storeId: "", cartItems: []);
   }
 
-  void fetchCartItems() async {
+  Future<Cart> fetchCartItems() async {
     var cart = await getCartFromLocalStorage(); // get cart from local storage
     var cartItems = cart.cartItems;
 
@@ -84,6 +84,8 @@ class CartService extends BaseService {
     // add list of full products to the stream to be reactive
     _cartItems.sink.add(products);
     getOrderTotal(cartItems: cartItems as List<CartItem>);
+
+    return cart;
   }
 
   void addItem({required Product product, required int quantity}) async {
@@ -173,9 +175,10 @@ class CartService extends BaseService {
     }
   }
 
-  void deleteItem({required Product product}) async {
+  Future<bool> deleteItem({required Product product}) async {
     var cart = await getCartFromLocalStorage();
     var cartItems = cart.cartItems;
+
     List<CartItem> list = [];
     if (cartItems != null) {
       list = List.from(cartItems);
@@ -199,6 +202,8 @@ class CartService extends BaseService {
         }
       });
     }
+
+    return response.confirmed;
   }
 
   void incrementQuantity(Product product, int stock) async {
@@ -231,7 +236,7 @@ class CartService extends BaseService {
   void decrementQuantity(Product product) async {
     var cart = await getCartFromLocalStorage();
     var cartItems = cart.cartItems;
-    print('called increment');
+
     for (var item in _products) {
       if (item.productName == product.productName) {
         if (product.quantity! > 1) {
