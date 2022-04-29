@@ -23,86 +23,72 @@ class SelectLanguageView extends StatelessWidget {
         fireOnModelReadyOnce: true,
         viewModelBuilder: () => SelectLanguageViewModel(),
         builder: (context, model, child) {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: blockSizeHorizontal(context) * 5,
-                  vertical: blockSizeVertical(context) * 4),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      translate("select_language"),
-                      style: GoogleFonts.poppins(
-                          fontSize: blockSizeHorizontal(context) * 6,
-                          color: textColor),
-                    ),
-                    verticalSpaceRegular,
-                    Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Expanded(
-                        child: ListView.separated(
+          return Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: blockSizeHorizontal(context) * 5,
+                vertical: blockSizeVertical(context) * 4),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                translate("select_language"),
+                style: GoogleFonts.poppins(
+                    fontSize: blockSizeHorizontal(context) * 6,
+                    color: textColor),
+              ),
+              verticalSpaceRegular,
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ListView.separated(
+                  padding: EdgeInsets.symmetric(
+                      vertical: blockSizeVertical(context) / 3),
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: supportedLocales.length,
+                  itemBuilder: ((context, index) => Pressable(
+                        onPressed: supportedLocales[index].languageCode ==
+                                localizationDelegate.currentLocale.languageCode
+                            ? null
+                            : () async {
+                                await changeLocale(context,
+                                    supportedLocales[index].languageCode);
+                                model.changeLocale();
+                              },
+                        child: Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: blockSizeVertical(context) / 3),
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: supportedLocales.length,
-                          itemBuilder: ((context, index) => Pressable(
-                                onPressed:
-                                    supportedLocales[index].languageCode ==
-                                            localizationDelegate
-                                                .currentLocale.languageCode
-                                        ? null
-                                        : () async {
-                                            await changeLocale(
-                                                context,
-                                                supportedLocales[index]
-                                                    .languageCode);
-                                            model.changeLocale();
-                                          },
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          blockSizeHorizontal(context) * 5,
-                                      vertical: blockSizeVertical(context) * 2),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        model.getLanguageName(
-                                            supportedLocales[index]
-                                                .languageCode),
-                                        style: GoogleFonts.poppins(
-                                            color: textColor,
-                                            fontSize:
-                                                blockSizeHorizontal(context) *
-                                                    4.5),
-                                      ),
-                                      if (supportedLocales[index]
-                                              .languageCode ==
-                                          localizationDelegate
-                                              .currentLocale.languageCode)
-                                        const Icon(
-                                          Icons.check,
-                                          color: activeColor,
-                                        )
-                                    ],
-                                  ),
-                                ),
-                              )),
-                          separatorBuilder: (context, _) => const Divider(
-                            color: dividerColor,
-                            indent: 20,
-                            endIndent: 20,
+                              horizontal: blockSizeHorizontal(context) * 5,
+                              vertical: blockSizeVertical(context) * 2),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                model.getLanguageName(
+                                    supportedLocales[index].languageCode),
+                                style: GoogleFonts.poppins(
+                                    color: textColor,
+                                    fontSize:
+                                        blockSizeHorizontal(context) * 4.5),
+                              ),
+                              if (supportedLocales[index].languageCode ==
+                                  localizationDelegate
+                                      .currentLocale.languageCode)
+                                const Icon(
+                                  Icons.check,
+                                  color: activeColor,
+                                )
+                            ],
                           ),
                         ),
-                      ),
-                    )
-                  ]),
-            ),
+                      )),
+                  separatorBuilder: (context, _) => const Divider(
+                    color: dividerColor,
+                    indent: 20,
+                    endIndent: 20,
+                  ),
+                ),
+              )
+            ]),
           );
         },
       ),
