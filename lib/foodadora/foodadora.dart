@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
+import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/services/connectivity_service.dart';
 
 import 'package:foodadora/ui/widgets/style.dart';
@@ -29,8 +30,13 @@ class FoodadoraApp extends StatelessWidget {
         LocalizationDelegate localizationDelegate =
             LocalizedApp.of(context).delegate;
 
-        return ChangeNotifierProvider<ConnectivityService>(
-          create: (context) => connectivityService,
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider<ConnectivityService>(
+                create: (context) => connectivityService),
+            ChangeNotifierProvider<CartService>(
+                create: (context) => cartService),
+          ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             navigatorKey: StackedService.navigatorKey,

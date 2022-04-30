@@ -3,9 +3,12 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/ui/home_navigation/home_navigation_viewmodel.dart';
 import 'package:foodadora/ui/home_navigation/widgets/nav_icon.dart';
+import 'package:provider/provider.dart';
 
 import '../../../app/utilites/app_colors.dart';
 import 'package:stacked/stacked.dart';
+
+import '../../../services/cart_Service.dart';
 
 const bottomNavigationBorderRadius = BorderRadius.only(
     topLeft: Radius.circular(12), topRight: Radius.circular(12));
@@ -38,8 +41,8 @@ class BottomNavigation extends ViewModelWidget<HomeNavigationViewModel> {
               label: translate("bottom_nav.home").toUpperCase(),
             ),
             BottomNavigationBarItem(
-              icon: NavIcon(
-                iconPath: Assets.cartIcon,
+              icon: CartIcon(
+                itemsCount: context.watch<CartService>().cartLength,
                 itemIndex: 1,
                 activeIndex: viewModel.currentIndex,
               ),
