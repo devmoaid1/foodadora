@@ -6,12 +6,15 @@ import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/format_price.dart';
 import 'package:foodadora/models/product.dart';
+import 'package:foodadora/services/connectivity_service.dart';
 import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
 import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
+import 'package:foodadora/ui/widgets/noconnection_indicator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../app/utilites/app_colors.dart';
@@ -42,6 +45,20 @@ class ProductDetailsView extends StatelessWidget {
                 child: CircularProgressIndicator.adaptive(),
               );
             }
+
+            if (!context.watch<ConnectivityService>().isConnected) {
+              return Column(
+                children: [
+                  ProductImage(
+                    expiry:
+                        getExpiryWeeks(date: product.expiryDate as DateTime),
+                    productimage: product.imageUrl,
+                  ),
+                  const Expanded(child: NoConnection()),
+                ],
+              );
+            }
+
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

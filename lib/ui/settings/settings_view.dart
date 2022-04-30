@@ -11,7 +11,10 @@ import 'package:foodadora/ui/settings/widgets/settings_row.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:foodadora/ui/widgets/noconnection_indicator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
+
+import '../../services/connectivity_service.dart';
 
 class SettingsView extends StatelessWidget {
   @override
@@ -20,7 +23,7 @@ class SettingsView extends StatelessWidget {
         viewModelBuilder: () => settingsViewModel,
         disposeViewModel: false,
         builder: (context, model, child) {
-          if (!model.isConnected) {
+          if (!context.watch<ConnectivityService>().isConnected) {
             return const NoConnection();
           }
           return Column(

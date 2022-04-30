@@ -9,6 +9,7 @@ import 'package:foodadora/app/utilites/launch_map.dart';
 import 'package:foodadora/ui/store_details/widgets/product_item.dart';
 import 'package:foodadora/ui/widgets/pressable.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 import 'package:foodadora/models/store.dart';
@@ -17,6 +18,8 @@ import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 import 'package:foodadora/app/utilites/string_extension.dart';
 
 import '../../app/utilites/screen_sizes.dart';
+import '../../services/connectivity_service.dart';
+import '../widgets/noconnection_indicator.dart';
 
 class StoreDetailsScreen extends StatelessWidget {
   final Store store;
@@ -40,6 +43,13 @@ class StoreDetailsScreen extends StatelessWidget {
             if (model.loading) {
               return const Center(
                 child: CircularProgressIndicator.adaptive(),
+              );
+            }
+
+            if (!context.watch<ConnectivityService>().isConnected) {
+              return NoConnection(
+                handleRetry: () =>
+                    model.getStoreProducts(storeId: store.id.toString()),
               );
             }
             return SingleChildScrollView(
