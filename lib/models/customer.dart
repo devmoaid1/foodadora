@@ -1,3 +1,4 @@
+import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'cart.dart';
@@ -6,6 +7,7 @@ part 'customer.g.dart';
 
 // after each change in the models run this command =>   flutter pub run build_runner build --delete-conflicting-outputs
 @JsonSerializable(explicitToJson: true)
+@CopyWith()
 class Customer {
   final String? name;
   final String? userId;

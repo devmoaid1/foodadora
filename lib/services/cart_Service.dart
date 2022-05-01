@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/models/cart.dart';
 import 'package:foodadora/models/cartItem.dart';
@@ -14,7 +15,7 @@ import 'package:rxdart/rxdart.dart';
 
 import '../app/utilites/custom_modals.dart';
 
-class CartService extends BaseService {
+class CartService extends BaseService with ChangeNotifier {
   LocalStorageService localStorage = LocalStorageService();
 
   BehaviorSubject<List<Product>> _cartItems =
@@ -26,7 +27,11 @@ class CartService extends BaseService {
   List<Product> _products =
       []; // list of cart items products with cart quantity
 
+  List<CartItem> _cartProducts = [];
+  int get cartLength => _cartProducts.length;
+
   List<Product> get originalProducts => _originalProducts;
+  List<Product> get cartProducts => _products;
   Stream<List<Product>> get cartItems => _cartItems.stream;
   Stream<double> get totalController => _totalController.stream;
 
@@ -44,7 +49,7 @@ class CartService extends BaseService {
     return Cart(storeId: "", cartItems: []);
   }
 
-  void fetchCartItems() async {
+  Future<Cart> fetchCartItems() async {
     var cart = await getCartFromLocalStorage(); // get cart from local storage
     var cartItems = cart.cartItems;
 
@@ -52,6 +57,7 @@ class CartService extends BaseService {
     _originalProducts.clear(); //clear each time fetching
 
     if (cartItems != null) {
+      _cartProducts = cartItems;
       // for each cartitem get the full product of it
       for (var item in cartItems) {
         var fetchedDocs = await firestore
@@ -65,17 +71,8 @@ class CartService extends BaseService {
 
           _originalProducts.add(Product.fromJson(doc.data()));
 
-          products.add(Product(
-              productId: doc.id,
-              description: product.description,
-              expiryDate: product.expiryDate,
-              isAvailable: product.isAvailable,
-              originalPrice: product.originalPrice,
-              imageUrl: product.imageUrl,
-              productName: product.productName,
-              productPrice: product.productPrice,
-              quantity: item.quantity,
-              storeId: product.storeId));
+          products.add(
+              product.copyWith(productId: doc.id, quantity: item.quantity));
         }
       }
     }
@@ -84,6 +81,8 @@ class CartService extends BaseService {
     // add list of full products to the stream to be reactive
     _cartItems.sink.add(products);
     getOrderTotal(cartItems: cartItems as List<CartItem>);
+    notifyListeners();
+    return cart;
   }
 
   void addItem({required Product product, required int quantity}) async {
@@ -171,11 +170,15 @@ class CartService extends BaseService {
         }
       }
     }
+
+    _cartProducts = items;
+    notifyListeners();
   }
 
-  void deleteItem({required Product product}) async {
+  Future<bool> deleteItem({required Product product}) async {
     var cart = await getCartFromLocalStorage();
     var cartItems = cart.cartItems;
+
     List<CartItem> list = [];
     if (cartItems != null) {
       list = List.from(cartItems);
@@ -199,6 +202,10 @@ class CartService extends BaseService {
         }
       });
     }
+
+    _cartProducts = list;
+    notifyListeners();
+    return response.confirmed;
   }
 
   void incrementQuantity(Product product, int stock) async {
@@ -231,7 +238,7 @@ class CartService extends BaseService {
   void decrementQuantity(Product product) async {
     var cart = await getCartFromLocalStorage();
     var cartItems = cart.cartItems;
-    print('called increment');
+
     for (var item in _products) {
       if (item.productName == product.productName) {
         if (product.quantity! > 1) {

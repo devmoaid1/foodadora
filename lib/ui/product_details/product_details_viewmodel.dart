@@ -1,7 +1,12 @@
 // ignore_for_file: prefer_final_fields, unused_import
 
+import 'dart:async';
+
 import 'package:foodadora/app/constants/services_instances.dart';
+import 'package:foodadora/app/utilites/custom_modals.dart';
+import 'package:foodadora/models/cartItem.dart';
 import 'package:foodadora/models/product.dart';
+import 'package:foodadora/services/local_storage_service.dart';
 
 import 'package:stacked/stacked.dart';
 
@@ -25,28 +30,71 @@ class ProductDetailsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void init() {
-    _quantity = 1;
-    _isAddToCart = false;
+  void init(Product product) async {
+    List<CartItem> cartItems = [];
+    await cartService
+        .getCartFromLocalStorage()
+        .then((cart) => cartItems = [...cart.cartItems!]); //get cart items
+
+    if (cartItems.isNotEmpty) {
+      for (CartItem item in cartItems) {
+        // if exist update to true and quantity with current
+        if (item.productId == product.productId) {
+          _isAddToCart = true;
+          _quantity = item.quantity!;
+        } else {
+          _quantity = 1;
+          _isAddToCart = false;
+        }
+
+        // else set to default
+
+      }
+    } else {
+      _quantity = 1;
+      _isAddToCart = false;
+    }
+    // notifyListeners();
     notifyListeners();
   }
 
-  void incrementQunatity({required int productQuantity}) {
-    if (_quantity < productQuantity) {
+  void incrementQunatity({required Product product}) {
+    Product? copyProduct;
+    if (_quantity < product.quantity!) {
+      copyProduct = product.copyWith(quantity: _quantity);
+      cartService.incrementQuantity(copyProduct, product.quantity!);
       _quantity++;
       notifyListeners();
+    } else {
+      dialogService.showCustomDialog(
+          variant: DialogType.basic,
+          title: "You cant add more",
+          mainButtonTitle: "Ok");
     }
   }
 
-  void decrementQuantity() {
+  void decrementQuantity({required Product product}) {
+    Product? copyProduct;
     if (_quantity > 1) {
+      copyProduct = product.copyWith(quantity: _quantity);
+      cartService.decrementQuantity(copyProduct);
       _quantity--;
       notifyListeners();
     }
   }
 
-  void addToCart({required Product product, required int quatity}) {
-    cartService.addItem(product: product, quantity: quatity);
+  void addToCart({required Product product, required int quantity}) {
+    cartService.addItem(product: product, quantity: quantity);
+  }
+
+  void deleteItem({required Product product}) async {
+    List<Product> products = [];
+    final isConfirmed = await cartService.deleteItem(product: product);
+    if (isConfirmed) {
+      _isAddToCart = false;
+    }
+
+    notifyListeners();
   }
 
   void setLoading(bool value) {

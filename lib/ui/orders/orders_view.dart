@@ -9,12 +9,14 @@ import 'package:foodadora/ui/widgets/empty_indicator.dart';
 import 'package:foodadora/ui/widgets/noconnection_indicator.dart';
 import 'package:foodadora/ui/widgets/orders_notlogged.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import 'package:stacked/stacked.dart';
 
 import '../../app/utilites/enums.dart';
 import '../../app/utilites/screen_sizes.dart';
 import '../../models/store.dart';
+import '../../services/connectivity_service.dart';
 import 'widgets/order_item.dart';
 
 class OrdersScreen extends StatelessWidget {
@@ -39,12 +41,8 @@ class OrdersScreen extends StatelessWidget {
               );
             }
 
-            if (!model.isConnected) {
-              return NoConnection(
-                handleRetry: () {
-                  model.getOrders();
-                },
-              );
+            if (!context.watch<ConnectivityService>().isConnected) {
+              return NoConnection(handleRetry: () => model.getOrders());
             }
 
             if (model.orders.isEmpty) {

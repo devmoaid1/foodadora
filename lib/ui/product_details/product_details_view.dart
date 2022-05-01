@@ -6,12 +6,15 @@ import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/format_price.dart';
 import 'package:foodadora/models/product.dart';
+import 'package:foodadora/services/connectivity_service.dart';
 import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
 import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
+import 'package:foodadora/ui/widgets/noconnection_indicator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../app/utilites/app_colors.dart';
@@ -34,7 +37,7 @@ class ProductDetailsView extends StatelessWidget {
       appBar: foodadoraAppBar(context, withBack: true),
       body: ViewModelBuilder<ProductDetailsViewModel>.reactive(
           disposeViewModel: false,
-          onModelReady: (model) => model.init(),
+          onModelReady: (model) => model.init(product),
           viewModelBuilder: () => productDetailsViewModel,
           builder: (context, model, _) {
             if (model.loading) {
@@ -42,6 +45,20 @@ class ProductDetailsView extends StatelessWidget {
                 child: CircularProgressIndicator.adaptive(),
               );
             }
+
+            if (!context.watch<ConnectivityService>().isConnected) {
+              return Column(
+                children: [
+                  ProductImage(
+                    expiry:
+                        getExpiryWeeks(date: product.expiryDate as DateTime),
+                    productimage: product.imageUrl,
+                  ),
+                  const Expanded(child: NoConnection()),
+                ],
+              );
+            }
+
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +171,10 @@ class ProductDetailsView extends StatelessWidget {
                         padding: const EdgeInsets.all(12),
                         child: FoodadoraButton(
                           label: 'Add to Cart',
-                          onPressed: () => model.setIsAddToCart(true),
+                          onPressed: () {
+                            model.addToCart(product: product, quantity: 1);
+                            model.setIsAddToCart(true);
+                          },
                           iconPath: Assets.shoppingicon,
                         ),
                       )
@@ -192,7 +212,7 @@ class UpdateQuantityCard extends ViewModelWidget<ProductDetailsViewModel> {
                     viewModel.quantity == 1
                         ? GestureDetector(
                             onTap: () {
-                              viewModel.setIsAddToCart(false);
+                              viewModel.deleteItem(product: product);
                             },
                             child: SvgPicture.asset(
                               Assets.trashIcon,
@@ -200,7 +220,7 @@ class UpdateQuantityCard extends ViewModelWidget<ProductDetailsViewModel> {
                             ))
                         : GestureDetector(
                             onTap: () {
-                              viewModel.decrementQuantity();
+                              viewModel.decrementQuantity(product: product);
                             },
                             child: SvgPicture.asset(
                               Assets.minusicon,
@@ -219,8 +239,7 @@ class UpdateQuantityCard extends ViewModelWidget<ProductDetailsViewModel> {
                     ),
                     GestureDetector(
                         onTap: () {
-                          viewModel.incrementQunatity(
-                              productQuantity: product.quantity as int);
+                          viewModel.incrementQunatity(product: product);
                         },
                         child: SvgPicture.asset(
                           Assets.plusicon,
@@ -235,8 +254,7 @@ class UpdateQuantityCard extends ViewModelWidget<ProductDetailsViewModel> {
             ),
             FoodadoraButton(
               label: 'Continue Shopping',
-              onPressed: () => viewModel.addToCart(
-                  product: product, quatity: viewModel.quantity),
+              onPressed: () => Navigator.pop(context),
               iconPath: Assets.wareHouseicon,
             )
           ],

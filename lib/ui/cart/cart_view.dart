@@ -12,12 +12,14 @@ import 'package:foodadora/ui/cart/cart_viewmodel.dart';
 import 'package:foodadora/ui/widgets/empty_indicator.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import 'package:stacked/stacked.dart';
 
 import '../../app/utilites/app_colors.dart';
 import '../../app/utilites/enums.dart';
 import '../../app/utilites/screen_sizes.dart';
+import '../../services/connectivity_service.dart';
 import '../widgets/noconnection_indicator.dart';
 import 'widgets/cart_text_row.dart';
 
@@ -44,7 +46,7 @@ class CartScreen extends StatelessWidget {
                 return const EmptyIndicator(widgetType: WidgetType.cart);
               }
 
-              if (!model.isConnected) {
+              if (!context.watch<ConnectivityService>().isConnected) {
                 return const NoConnection();
               }
 
@@ -69,7 +71,7 @@ class CartScreen extends StatelessWidget {
                                   fontSize: blockSizeHorizontal(context) * 7),
                             ),
                             Text(
-                              "Aeon",
+                              model.storeName,
                               style: GoogleFonts.poppins(
                                   color: actionColor,
                                   fontWeight: FontWeight.w500,

@@ -3,10 +3,9 @@
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
 
-import '../app/constants/services_instances.dart';
-
-class ConnectivityService {
+class ConnectivityService extends ChangeNotifier {
   ConnectivityResult _connectionStatus = ConnectivityResult.none;
 
   bool _isConnected = false;
@@ -46,10 +45,12 @@ class ConnectivityService {
       }
     }
 
-    storesViewModel.notifyListeners();
-    cartViewModel.notifyListeners();
-    ordersViewModel.notifyListeners();
-    settingsViewModel.notifyListeners();
+    notifyListeners();
+
+    // storesViewModel.notifyListeners();
+    // cartViewModel.notifyListeners();
+    // ordersViewModel.notifyListeners();
+    // settingsViewModel.notifyListeners();
     print(_isConnected);
   }
 }

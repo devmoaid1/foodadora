@@ -4,6 +4,7 @@ import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/custom_modals.dart';
 import 'package:foodadora/models/product.dart';
+import 'package:foodadora/services/local_storage_service.dart';
 
 import 'package:stacked/stacked.dart';
 
@@ -15,10 +16,14 @@ class CartViewModel extends BaseViewModel {
   bool _isEmpty = true;
   double _total = 0;
 
+  String _storeName = "";
+
+  String get storeName => _storeName;
   Stream<List<Product>> get items => cartService.cartItems;
   Stream<double> get subtotalController =>
       cartService.totalController; // subtotal controller
   List<Product> get originalProducts => cartService.originalProducts;
+
   bool get isConnected => connectivityService.isConnected;
 
   Customer get customerProfile => profileService.currentCustomer;
@@ -30,6 +35,8 @@ class CartViewModel extends BaseViewModel {
 
   double get total => _total;
 
+  LocalStorageService _localStorageService = LocalStorageService();
+
   void setLoading(bool value) {
     _isLoading = value;
     notifyListeners();
@@ -39,8 +46,13 @@ class CartViewModel extends BaseViewModel {
     navigationService.replaceWith(Routes.homeNavigationView);
   }
 
-  void fetchCartItems() {
-    cartService.fetchCartItems(); // get cartitems and set it to stream
+  void fetchCartItems() async {
+    final cart = await cartService
+        .fetchCartItems(); // get cartitems and set it to stream
+
+    await storeService
+        .getStoreById(cart.storeId!)
+        .then((store) => _storeName = store!.storeName!);
 
     getTotal(); //get subtotal after fetching all cartitems
   }
@@ -60,6 +72,8 @@ class CartViewModel extends BaseViewModel {
         }
 
         _isEmpty = false;
+      } else {
+        _isEmpty = true;
       }
 
       notifyListeners();

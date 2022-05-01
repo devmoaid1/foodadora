@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
+import 'package:foodadora/services/connectivity_service.dart';
 import 'package:foodadora/ui/stores/stores_viewmodel.dart';
 
 import 'package:foodadora/ui/stores/widgets/home_graphic.dart';
@@ -10,6 +11,7 @@ import 'package:foodadora/ui/stores/widgets/store_item.dart';
 import 'package:foodadora/ui/widgets/empty_stores_placeholder.dart';
 import 'package:foodadora/ui/widgets/location_disabled_placeholder.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
 
 import 'package:stacked/stacked.dart';
 
@@ -40,7 +42,7 @@ class StoresScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator.adaptive());
           }
 
-          if (!viewModel.isConnected) {
+          if (!context.watch<ConnectivityService>().isConnected) {
             return NoConnection(handleRetry: () => viewModel.getStoresList());
           }
           return RefreshIndicator(
