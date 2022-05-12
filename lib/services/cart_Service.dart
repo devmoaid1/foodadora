@@ -90,8 +90,6 @@ class CartService extends BaseService with ChangeNotifier {
     var items = cart.cartItems;
     List<CartItem> list = items as List<CartItem>;
 
-    bool isAddedQuantity = false;
-
     // condition for adding to empty cart
     if (items.isEmpty) {
       items.add(CartItem(productId: product.productId, quantity: quantity));
@@ -123,13 +121,20 @@ class CartService extends BaseService with ChangeNotifier {
 
         if (response!.confirmed) {
           localStorage.setData(
-              key: 'cart', data: Cart(storeId: "", cartItems: []).toJson());
+              key: 'cart',
+              data: Cart(storeId: "", cartItems: [])
+                  .toJson()); // clear local storage
 
           items.clear();
-          items.add(CartItem(productId: product.productId, quantity: quantity));
+          items.add(CartItem(
+              productId: product.productId, quantity: quantity)); // add product
           localStorage.setData(
               key: 'cart',
-              data: Cart(storeId: product.storeId, cartItems: items).toJson());
+              data: Cart(storeId: product.storeId, cartItems: items)
+                  .toJson()); // add product in local storage
+
+          navigationService.popUntil((route) => route.isFirst);
+          homeNavigationViewModel.setIndex(1);
 
           print("added from different store");
         }
@@ -138,36 +143,20 @@ class CartService extends BaseService with ChangeNotifier {
       //condition for adding product for same store
 
       else {
-        // if item is in cart already update quantity
-        items.forEach((item) {
-          if (product.productId == item.productId) {
-            item.quantity = item.quantity! + quantity;
-            localStorage.setData(
-                key: 'cart',
-                data:
-                    Cart(storeId: product.storeId, cartItems: items).toJson());
+        // add item directly
+        list.add(CartItem(productId: product.productId, quantity: quantity));
+        localStorage.setData(
+            key: 'cart',
+            data: Cart(storeId: product.storeId, cartItems: list).toJson());
 
-            isAddedQuantity = true;
-            dialogService.showCustomDialog(
+        dialogService
+            .showCustomDialog(
                 variant: DialogType.basic,
-                title: "Updated Quantity ",
-                mainButtonTitle: "Ok");
-          } else {
-            isAddedQuantity = false;
-          }
-        });
-
-        if (!isAddedQuantity) {
-          list.add(CartItem(productId: product.productId, quantity: quantity));
-          localStorage.setData(
-              key: 'cart',
-              data: Cart(storeId: product.storeId, cartItems: list).toJson());
-
-          dialogService.showCustomDialog(
-              variant: DialogType.basic,
-              title: "item is added to cart",
-              mainButtonTitle: "Ok");
-        }
+                title: "item is added to cart",
+                mainButtonTitle: "Ok")
+            .then((value) =>
+                navigationService.popUntil((route) => route.isFirst));
+        homeNavigationViewModel.setIndex(1);
       }
     }
 
@@ -190,20 +179,21 @@ class CartService extends BaseService with ChangeNotifier {
         mainButtonTitle: "Remove");
 
     if (response!.confirmed) {
-      cartItems!.forEach((element) {
-        if (element.productId == product.productId) {
-          list.remove(element);
-          _products.removeWhere((item) => item.productId == element.productId);
-          _cartItems.sink.add(_products);
+      list.removeWhere(
+        (element) => element.productId == product.productId,
+      );
+      _products.removeWhere((item) => item.productId == product.productId);
 
-          localStorage.setData(
-              key: 'cart',
-              data: Cart(storeId: cart.storeId, cartItems: list).toJson());
-        }
-      });
+      _cartItems.sink.add(_products);
+
+      localStorage.setData(
+          key: 'cart',
+          data: Cart(storeId: cart.storeId, cartItems: list).toJson());
     }
 
     _cartProducts = list;
+    getOrderTotal(cartItems: list); // get total after each item deletion
+    cartViewModel.notifyListeners();
     notifyListeners();
     return response.confirmed;
   }
@@ -211,9 +201,9 @@ class CartService extends BaseService with ChangeNotifier {
   void incrementQuantity(Product product, int stock) async {
     var cart = await getCartFromLocalStorage();
     var cartItems = cart.cartItems;
-    print('called increment');
+
     for (var item in _products) {
-      if (item.productName == product.productName) {
+      if (item.productId == product.productId) {
         if (item.quantity! < stock) {
           // update in ui
           product.quantity = product.quantity! + 1;
@@ -227,6 +217,8 @@ class CartService extends BaseService with ChangeNotifier {
               }
             }
           }
+
+          print('called increment and quantity is ${product.quantity}');
         }
       }
     }
@@ -236,6 +228,7 @@ class CartService extends BaseService with ChangeNotifier {
   }
 
   void decrementQuantity(Product product) async {
+    // get latest local storage value
     var cart = await getCartFromLocalStorage();
     var cartItems = cart.cartItems;
 
