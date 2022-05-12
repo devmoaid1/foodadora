@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:stacked/stacked.dart';
@@ -38,7 +37,6 @@ class LoginViewModel extends BaseViewModel {
       dialogService.showCustomDialog(
           variant: DialogType.basic,
           title: "Invalid Data",
-          barrierColor: const Color(0xFF12343E),
           description: e.toString(),
           mainButtonTitle: "ok");
     }
