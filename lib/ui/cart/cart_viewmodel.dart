@@ -54,30 +54,17 @@ class CartViewModel extends BaseViewModel {
         .getStoreById(cart.storeId!)
         .then((store) => _storeName = store!.storeName!);
 
-    getTotal(); //get subtotal after fetching all cartitems
+    if (cartService.cartProducts.isEmpty) {
+      _isEmpty = true;
+    } else {
+      _isEmpty = false;
+    }
+    notifyListeners();
   }
 
   void setIsEmpty(bool value) {
     _isEmpty = value;
     notifyListeners();
-  }
-
-  void getTotal() {
-    cartService.cartItems.listen((products) {
-      if (products.isNotEmpty) {
-        _total = 0;
-        for (var item in products) {
-          print(item.quantity);
-          _total += (item.quantity!) * item.originalPrice!.toDouble();
-        }
-
-        _isEmpty = false;
-      } else {
-        _isEmpty = true;
-      }
-
-      notifyListeners();
-    });
   }
 
   void incrementQuantity({required Product product, required int stock}) {
@@ -94,11 +81,6 @@ class CartViewModel extends BaseViewModel {
 
   void deleteCartItem({required Product product}) {
     cartService.deleteItem(product: product);
-    cartService.cartItems.listen((items) {
-      if (items.isEmpty) {
-        _isEmpty = true;
-      }
-    });
   }
 
   void placeOrder(
