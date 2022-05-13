@@ -35,97 +35,95 @@ class ProfileScreen extends StatelessWidget {
       body: ViewModelBuilder<ProfileViewModel>.nonReactive(
         viewModelBuilder: () => ProfileViewModel(),
         builder: (context, model, child) {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: blockSizeHorizontal(context) * 5,
-                  vertical: blockSizeVertical(context) * 4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Profile",
-                    style: GoogleFonts.poppins(
-                        fontSize: blockSizeHorizontal(context) * 6,
-                        color: textColor),
+          return Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: blockSizeHorizontal(context) * 5,
+                vertical: blockSizeVertical(context) * 4),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Profile",
+                  style: GoogleFonts.poppins(
+                      fontSize: blockSizeHorizontal(context) * 6,
+                      color: textColor),
+                ),
+                verticalSpaceRegular,
+                Form(
+                  child: Column(
+                    children: [
+                      FoodadoraTextField(
+                        readOnly: true,
+                        intialValue: name,
+                        name: "",
+                        iconPath: Assets.usericon,
+                        label: 'Name',
+                        inputType: TextInputType.text,
+                        textInputAction: TextInputAction.next,
+                        onSaved: null,
+                      ),
+                      FoodadoraTextField(
+                        intialValue: phone,
+                        readOnly: true,
+                        name: "",
+                        iconPath: Assets.phoneIcon,
+                        label: 'Phone Number',
+                        inputType: TextInputType.phone,
+                        textInputAction: TextInputAction.done,
+                        onSaved: null,
+                      ),
+                    ],
                   ),
-                  verticalSpaceRegular,
-                  Form(
-                    child: Column(
-                      children: [
-                        FoodadoraTextField(
-                          readOnly: true,
-                          intialValue: name,
-                          name: "",
-                          iconPath: Assets.usericon,
-                          label: 'Name',
-                          inputType: TextInputType.text,
-                          textInputAction: TextInputAction.next,
-                          onSaved: null,
-                        ),
-                        FoodadoraTextField(
-                          intialValue: phone,
-                          readOnly: true,
-                          name: "",
-                          iconPath: Assets.phoneIcon,
-                          label: 'Phone Number',
-                          inputType: TextInputType.phone,
-                          textInputAction: TextInputAction.done,
-                          onSaved: null,
-                        ),
-                      ],
-                    ),
-                  ),
-                  verticalSpaceRegular,
-                  Center(
-                    child: Column(
-                      children: [
-                        Container(
-                          width: screenWidth(context) * 0.8,
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'You are registered with',
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.poppins(
-                                    fontSize: blockSizeHorizontal(context) * 5,
-                                    color: textColor,
-                                  ),
+                ),
+                verticalSpaceRegular,
+                Center(
+                  child: Column(
+                    children: [
+                      Container(
+                        width: screenWidth(context) * 0.8,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'You are registered with',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                  fontSize: blockSizeHorizontal(context) * 5,
+                                  color: textColor,
                                 ),
-                                horizontalSpaceSmall,
-                                SvgPicture.asset(
-                                  image,
-                                  color: color,
-                                  width: blockSizeHorizontal(context) * 6,
-                                ),
-                              ],
-                            ),
+                              ),
+                              horizontalSpaceSmall,
+                              SvgPicture.asset(
+                                image,
+                                color: color,
+                                width: blockSizeHorizontal(context) * 6,
+                              ),
+                            ],
                           ),
                         ),
-                        verticalSpaceSmall,
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: blockSizeHorizontal(context) * 6),
-                          child: Divider(
-                            color: dividerColor,
-                            thickness: blockSizeVertical(context) / 4,
-                          ),
-                        )
-                      ],
-                    ),
+                      ),
+                      verticalSpaceSmall,
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: blockSizeHorizontal(context) * 6),
+                        child: Divider(
+                          color: dividerColor,
+                          thickness: blockSizeVertical(context) / 4,
+                        ),
+                      )
+                    ],
                   ),
-                  SizedBox(height: blockSizeVertical(context) * 15),
-                  FoodadoraButton(
-                    label: 'Logout',
-                    color: redColor,
-                    onPressed: () => model.signOut(),
-                  )
-                ],
-              ),
+                ),
+                const Spacer(),
+                FoodadoraButton(
+                  label: 'Logout',
+                  color: redColor,
+                  onPressed: () => model.signOut(),
+                )
+              ],
             ),
           );
         },

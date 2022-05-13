@@ -47,19 +47,30 @@ class CartViewModel extends BaseViewModel {
   }
 
   void fetchCartItems() async {
+    setBusy(true);
+    _isLoading = true;
     final cart = await cartService
         .fetchCartItems(); // get cartitems and set it to stream
 
-    await storeService
-        .getStoreById(cart.storeId!)
-        .then((store) => _storeName = store!.storeName!);
+    try {
+      await storeService.getStoreById(cart.storeId!).then(
+          (store) => _storeName = store!.storeName!); // get store name for cart
 
-    if (cartService.cartProducts.isEmpty) {
-      _isEmpty = true;
-    } else {
-      _isEmpty = false;
+      // handle if cart is empty or not
+      if (cartService.cartProducts.isEmpty) {
+        _isEmpty = true;
+      } else {
+        _isEmpty = false;
+      }
+
+      setBusy(false);
+      _isLoading = false;
+      notifyListeners();
+    } catch (err) {
+      setBusy(false);
+      _isLoading = false;
+      logger.e(err.toString());
     }
-    notifyListeners();
   }
 
   void setIsEmpty(bool value) {
