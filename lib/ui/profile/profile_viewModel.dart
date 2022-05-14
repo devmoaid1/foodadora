@@ -34,7 +34,7 @@ class ProfileViewModel extends BaseViewModel {
     setBusy(true);
     try {
       await authService.logout();
-      profileService.setIsLoggedOn(false);
+      // profileService.setIsLoggedOn(false);
       homeNavigationViewModel.notifyListeners();
       navigationService.back();
     } catch (err) {

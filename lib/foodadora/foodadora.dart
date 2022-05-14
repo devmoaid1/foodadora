@@ -6,6 +6,7 @@ import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/services/connectivity_service.dart';
+import 'package:foodadora/services/profile_service.dart';
 
 import 'package:foodadora/ui/widgets/style.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -36,6 +37,8 @@ class FoodadoraApp extends StatelessWidget {
                 create: (context) => connectivityService),
             ChangeNotifierProvider<CartService>(
                 create: (context) => cartService),
+            ChangeNotifierProvider<ProfileService>(
+                create: (context) => profileService),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

@@ -1,28 +1,25 @@
 // ignore_for_file: file_names
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:foodadora/models/customer.dart';
+import 'package:foodadora/services/base_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:logger/logger.dart';
 
-class AuthService {
-  final Logger logger = Logger();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _instance = FirebaseAuth.instance;
+class AuthService extends BaseService {
+  Stream<User?> get authState => auth.authStateChanges();
 
   Stream<User?> getUserStream() {
-    return _instance.authStateChanges();
+    return auth.authStateChanges();
   }
 
-  String get userName => _instance.currentUser?.displayName ?? "";
+  String get userName => auth.currentUser?.displayName ?? "";
 
-  bool get isAuthed => _instance.currentUser != null;
+  bool get isAuthed => auth.currentUser != null;
 
   Future<UserCredential> emailLogin({String? email, String? password}) async {
     try {
-      UserCredential loginResult = await _instance.signInWithEmailAndPassword(
+      UserCredential loginResult = await auth.signInWithEmailAndPassword(
           email: email.toString(), password: password.toString());
 
       return loginResult;
@@ -47,7 +44,7 @@ class AuthService {
         idToken: googleAuth?.idToken,
       );
 
-      final userCrediential = await _instance.signInWithCredential(credential);
+      final userCrediential = await auth.signInWithCredential(credential);
 
       // Once signed in, return the UserCredential
       return userCrediential;
@@ -63,7 +60,7 @@ class AuthService {
   Future<UserCredential> signUp(
       {String? email, String? password, String? name, String? phone}) async {
     try {
-      final newUser = await _instance.createUserWithEmailAndPassword(
+      final newUser = await auth.createUserWithEmailAndPassword(
           email: email.toString(), password: password.toString());
 
       addCustomerToFirebase(
@@ -93,25 +90,16 @@ class AuthService {
         photoUrl: photoUrl);
 
     try {
-      await _firestore.collection('customers').add(newCustomer.toJson());
+      await firestore.collection('customers').add(newCustomer.toJson());
     } on FirebaseException catch (err) {
       logger.e(err.message.toString());
       throw err.message.toString();
     }
   }
 
-  // Future<void> saveCustomerToFirebase(
-  //     String id, String name, String email, String phone) async {
-  //   var options = SetOptions(merge: true);
-  //   await _firestore
-  //       .collection('customers')
-  //       .doc(id)
-  //       .set({'name': name, 'email': email, 'phone': phone}, options);
-  // }
-
   Future<void> logout() async {
     try {
-      await _instance.signOut();
+      await auth.signOut();
     } on FirebaseAuthException catch (e) {
       logger.e("error", e.message, e.stackTrace);
       throw e.message.toString();

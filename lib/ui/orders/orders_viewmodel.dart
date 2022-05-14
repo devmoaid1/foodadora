@@ -17,8 +17,6 @@ class OrdersViewModel extends BaseViewModel {
   List<Store> _stores = [];
 
   Customer get customerProfile => profileService.currentCustomer;
-  bool get isLoggedOn => profileService.isLoggedOn;
-  bool get isConnected => connectivityService.isConnected;
 
   bool get loading => _isLoading;
   List<Store> get stores => _stores;
