@@ -5,6 +5,7 @@ import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/constants/version.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
+import 'package:foodadora/services/profile_service.dart';
 import 'package:foodadora/ui/select_language/language_code_name_map.dart';
 import 'package:foodadora/ui/settings/settings_viewmodel.dart';
 import 'package:foodadora/ui/settings/widgets/settings_row.dart';
@@ -33,11 +34,11 @@ class SettingsView extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  model.isLoggedOn
+                  context.watch<ProfileService>().isLoggedOn
                       ? SettingsRow(
                           iconPath: Assets.usericon,
                           actionTitle: translate("settings.view_profile"),
-                          title: model.customer.name.toString(),
+                          title: model.customerProfile.name.toString(),
                           onPressed: model.navigateToProfile,
                         )
                       : FoodadoraButton(
