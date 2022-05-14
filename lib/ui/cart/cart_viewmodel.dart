@@ -4,11 +4,9 @@ import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/custom_modals.dart';
 import 'package:foodadora/models/product.dart';
-import 'package:foodadora/services/local_storage_service.dart';
 
 import 'package:stacked/stacked.dart';
 
-import '../../models/customer.dart';
 import '../../models/order.dart';
 
 class CartViewModel extends BaseViewModel {
@@ -22,25 +20,12 @@ class CartViewModel extends BaseViewModel {
   Stream<List<Product>> get items => cartService.cartItems;
   Stream<double> get subtotalController =>
       cartService.totalController; // subtotal controller
-  List<Product> get originalProducts => cartService.originalProducts;
-
-  bool get isConnected => connectivityService.isConnected;
-
-  Customer get customerProfile => profileService.currentCustomer;
-  bool get isLoggedOn => profileService.isLoggedOn;
+  List<Product> get originalProducts =>
+      cartService.originalProducts; // products with stock
 
   bool get loading => _isLoading;
 
   bool get isEmpty => _isEmpty;
-
-  double get total => _total;
-
-  LocalStorageService _localStorageService = LocalStorageService();
-
-  void setLoading(bool value) {
-    _isLoading = value;
-    notifyListeners();
-  }
 
   void navigateToHome() {
     navigationService.replaceWith(Routes.homeNavigationView);
@@ -65,16 +50,12 @@ class CartViewModel extends BaseViewModel {
 
       setBusy(false);
       _isLoading = false;
-      notifyListeners();
     } catch (err) {
       setBusy(false);
       _isLoading = false;
       logger.e(err.toString());
     }
-  }
 
-  void setIsEmpty(bool value) {
-    _isEmpty = value;
     notifyListeners();
   }
 
