@@ -87,76 +87,27 @@ class CartService extends BaseService with ChangeNotifier {
 
   void addItem({required Product product, required int quantity}) async {
     var cart = await getCartFromLocalStorage();
-    var items = cart.cartItems;
-    List<CartItem> list = items as List<CartItem>;
+    var items = cart.cartItems!;
+
+    List<CartItem> list = items;
 
     // condition for adding to empty cart
     if (items.isEmpty) {
-      items.add(CartItem(productId: product.productId, quantity: quantity));
-      localStorage.setData(
-          key: 'cart',
-          data: Cart(storeId: product.storeId, cartItems: items).toJson());
-
-      dialogService
-          .showCustomDialog(
-            variant: DialogType.basic,
-            title: "Your Item has been added to cart",
-            mainButtonTitle: "Ok",
-          )
-          .then(
-              (value) => navigationService.popUntil((route) => route.isFirst));
-      homeNavigationViewModel.setIndex(1);
+      _addToEmptyCart(items, product, quantity);
     }
 
     // if cart has items
-    else if (items.isNotEmpty) {
+    else {
       // condition for adding from different store
       if (product.storeId != cart.storeId) {
-        var response = await dialogService.showCustomDialog(
-            variant: DialogType.addToCart,
-            title: "Are you sure you want to remove your current items?",
-            description:
-                "It seems like you want to add an item from different store",
-            mainButtonTitle: "Remove");
-
-        if (response!.confirmed) {
-          localStorage.setData(
-              key: 'cart',
-              data: Cart(storeId: "", cartItems: [])
-                  .toJson()); // clear local storage
-
-          items.clear();
-          items.add(CartItem(
-              productId: product.productId, quantity: quantity)); // add product
-          localStorage.setData(
-              key: 'cart',
-              data: Cart(storeId: product.storeId, cartItems: items)
-                  .toJson()); // add product in local storage
-
-          navigationService.popUntil((route) => route.isFirst);
-          homeNavigationViewModel.setIndex(1);
-
-          print("added from different store");
-        }
+        _addFromDifferentStore(items, product, quantity);
       }
 
       //condition for adding product for same store
 
       else {
         // add item directly
-        list.add(CartItem(productId: product.productId, quantity: quantity));
-        localStorage.setData(
-            key: 'cart',
-            data: Cart(storeId: product.storeId, cartItems: list).toJson());
-
-        dialogService
-            .showCustomDialog(
-                variant: DialogType.basic,
-                title: "item is added to cart",
-                mainButtonTitle: "Ok")
-            .then((value) =>
-                navigationService.popUntil((route) => route.isFirst));
-        homeNavigationViewModel.setIndex(1);
+        _addToSameStore(list, product, quantity);
       }
     }
 
@@ -164,14 +115,68 @@ class CartService extends BaseService with ChangeNotifier {
     notifyListeners();
   }
 
+  void _addToSameStore(List<CartItem> list, Product product, int quantity) {
+    list.add(CartItem(
+        productId: product.productId, quantity: quantity)); // add to cart list
+    localStorage.setData(
+        key: 'cart',
+        data: Cart(storeId: product.storeId, cartItems: list)
+            .toJson()); // update to local storage
+
+    productDetailsViewModel.setIsAddToCart(true);
+    navigationService.popUntil((route) => route.isFirst);
+    homeNavigationViewModel.setIndex(1);
+  }
+
+  void _addFromDifferentStore(
+      List<CartItem> items, Product product, int quantity) async {
+    var response = await dialogService.showCustomDialog(
+        variant: DialogType.addToCart,
+        title: "Are you sure you want to remove your current items?",
+        description:
+            "It seems like you want to add an item from different store",
+        mainButtonTitle: "Remove");
+
+    if (response!.confirmed) {
+      localStorage.setData(
+          key: 'cart',
+          data:
+              Cart(storeId: "", cartItems: []).toJson()); // clear local storage
+
+      items.clear();
+      items.add(CartItem(
+          productId: product.productId, quantity: quantity)); // add product
+      localStorage.setData(
+          key: 'cart',
+          data: Cart(storeId: product.storeId, cartItems: items)
+              .toJson()); // add product in local storage
+      productDetailsViewModel.setIsAddToCart(true);
+      navigationService.popUntil((route) => route.isFirst);
+      homeNavigationViewModel.setIndex(1);
+
+      print("added from different store");
+    } else {
+      productDetailsViewModel.setIsAddToCart(false);
+    }
+  }
+
+  void _addToEmptyCart(
+      List<CartItem> items, Product product, int quantity) async {
+    items.add(CartItem(productId: product.productId, quantity: quantity));
+    localStorage.setData(
+        key: 'cart',
+        data: Cart(storeId: product.storeId, cartItems: items).toJson());
+
+    productDetailsViewModel.setIsAddToCart(true);
+    navigationService.popUntil((route) => route.isFirst);
+    homeNavigationViewModel.setIndex(1);
+  }
+
   Future<bool> deleteItem({required Product product}) async {
     var cart = await getCartFromLocalStorage();
-    var cartItems = cart.cartItems;
+    var cartItems = cart.cartItems!;
 
-    List<CartItem> list = [];
-    if (cartItems != null) {
-      list = List.from(cartItems);
-    }
+    List<CartItem> list = List.from(cartItems);
 
     var response = await dialogService.showCustomDialog(
         variant: DialogType.addToCart,
@@ -181,17 +186,19 @@ class CartService extends BaseService with ChangeNotifier {
     if (response!.confirmed) {
       list.removeWhere(
         (element) => element.productId == product.productId,
-      );
-      _products.removeWhere((item) => item.productId == product.productId);
+      ); // remove from cart list
+      _products.removeWhere((item) =>
+          item.productId == product.productId); // remove from cart screen list
 
-      _cartItems.sink.add(_products);
+      _cartItems.sink.add(_products); // sync new list to ui
 
       localStorage.setData(
           key: 'cart',
-          data: Cart(storeId: cart.storeId, cartItems: list).toJson());
+          data: Cart(storeId: cart.storeId, cartItems: list)
+              .toJson()); // update local storage with updated cart items
     }
 
-    _cartProducts = list;
+    _cartProducts = list; // cartproducts sync with new list
     getOrderTotal(cartItems: list); // get total after each item deletion
     cartViewModel.notifyListeners();
     notifyListeners();
@@ -200,7 +207,7 @@ class CartService extends BaseService with ChangeNotifier {
 
   void incrementQuantity(Product product, int stock) async {
     var cart = await getCartFromLocalStorage();
-    var cartItems = cart.cartItems;
+    var cartItems = cart.cartItems!;
 
     for (var item in _products) {
       if (item.productId == product.productId) {
@@ -224,7 +231,7 @@ class CartService extends BaseService with ChangeNotifier {
     }
     _cartItems.sink.add(_products);
 
-    getOrderTotal(cartItems: cartItems as List<CartItem>);
+    getOrderTotal(cartItems: cartItems);
   }
 
   void decrementQuantity(Product product) async {
