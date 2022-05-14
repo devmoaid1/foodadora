@@ -23,10 +23,10 @@ class LoginViewModel extends BaseViewModel {
     setLoading(true);
     try {
       await authService.emailLogin(email: email, password: password);
-      profileService.getCurrentCustomer();
+      // profileService.getCurrentCustomer();
       setBusy(false);
       setLoading(false);
-      profileService.setIsLoggedOn(true);
+      // profileService.setIsLoggedOn(true);
 
       homeNavigationViewModel.notifyListeners();
       settingsViewModel.notifyListeners();

@@ -1,10 +1,11 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls, avoid_print, unnecessary_null_comparison
 
+import 'package:flutter/cupertino.dart';
 import 'package:foodadora/models/customer.dart';
 
 import 'base_service.dart';
 
-class ProfileService extends BaseService {
+class ProfileService extends BaseService with ChangeNotifier {
   Customer _currentCustomer = Customer();
   String _customerName = "My Account";
   String _customerAccountType = "email";
@@ -19,6 +20,7 @@ class ProfileService extends BaseService {
 
   void setIsLoggedOn(bool value) {
     _isLoggedOn = value;
+    notifyListeners();
   }
 
   Future getCurrentCustomer() async {
@@ -40,6 +42,7 @@ class ProfileService extends BaseService {
       } else {
         _isLoggedOn = false;
       }
+      notifyListeners();
     } catch (err) {
       logger.e(err.toString());
     }
