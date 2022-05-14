@@ -174,7 +174,6 @@ class ProductDetailsView extends StatelessWidget {
                           label: 'Add to Cart',
                           onPressed: () {
                             model.addToCart(product: product, quantity: 1);
-                            model.setIsAddToCart(true);
                           },
                           iconPath: Assets.shoppingicon,
                         ),

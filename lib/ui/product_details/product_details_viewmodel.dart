@@ -90,7 +90,7 @@ class ProductDetailsViewModel extends BaseViewModel {
 
   void addToCart({required Product product, required int quantity}) {
     cartService.addItem(product: product, quantity: quantity);
-    notifyListeners();
+    // notifyListeners();
   }
 
   void deleteItem({required Product product}) async {
