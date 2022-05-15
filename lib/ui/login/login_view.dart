@@ -1,21 +1,22 @@
-import 'dart:io' show Platform;
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
-import 'package:foodadora/app/utilites/enums.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
 import 'package:foodadora/ui/login/login_viewmodel.dart';
 
 import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
-import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:foodadora/ui/widgets/foodadora_textfield.dart';
-import 'package:foodadora/ui/widgets/social_button.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:stacked/stacked.dart';
+
+import '../../app/utilites/enums.dart';
+import '../widgets/foodadora_button.dart';
+import '../widgets/social_button.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class LoginView extends StatelessWidget {
               appBar: foodadoraAppBar(context, withBack: true),
               body: ModalProgressHUD(
                 inAsyncCall: model.isLoading,
-                progressIndicator: const CircularProgressIndicator(),
+                progressIndicator: const CircularProgressIndicator.adaptive(),
                 child: SafeArea(
                   child: SingleChildScrollView(
                     child: Padding(
