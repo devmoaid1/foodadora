@@ -7,6 +7,7 @@ import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/format_price.dart';
 import 'package:foodadora/models/product.dart';
+import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/ui/cart/cart_viewmodel.dart';
 
 import 'package:foodadora/ui/widgets/empty_indicator.dart';
@@ -42,7 +43,8 @@ class CartScreen extends StatelessWidget {
                 );
               }
 
-              if (model.isEmpty) {
+              if (model.isEmpty ||
+                  context.watch<CartService>().cartLength == 0) {
                 return const EmptyIndicator(widgetType: WidgetType.cart);
               }
 
@@ -236,7 +238,6 @@ class CartItem extends ViewModelWidget<CartViewModel> {
                                     onTap: () {
                                       viewModel.decrementQuantity(
                                           product: product);
-                                      viewModel.getTotal();
                                     },
                                     child: SvgPicture.asset(Assets.minusicon)),
                             Text(
@@ -248,7 +249,6 @@ class CartItem extends ViewModelWidget<CartViewModel> {
                                 onTap: () {
                                   viewModel.incrementQuantity(
                                       product: product, stock: productStock);
-                                  viewModel.getTotal();
                                 },
                                 child: SvgPicture.asset(Assets.plusicon)),
                           ],

@@ -6,6 +6,7 @@ import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/format_price.dart';
 import 'package:foodadora/models/product.dart';
+import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/services/connectivity_service.dart';
 import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
 import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
@@ -173,7 +174,6 @@ class ProductDetailsView extends StatelessWidget {
                           label: 'Add to Cart',
                           onPressed: () {
                             model.addToCart(product: product, quantity: 1);
-                            model.setIsAddToCart(true);
                           },
                           iconPath: Assets.shoppingicon,
                         ),

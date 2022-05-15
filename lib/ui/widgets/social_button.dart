@@ -51,7 +51,7 @@ class SocialButton extends StatelessWidget {
         labelType = "Facebook";
         iconPath = Assets.facebookIcon;
         labelStyle = GoogleFonts.montserrat(
-            color: Colors.white, fontSize: (screenWidth(context) / 100) * 5);
+            color: Colors.white, fontSize: (screenWidth(context) / 100) * 4.8);
         break;
 
       default:
@@ -72,7 +72,7 @@ class SocialButton extends StatelessWidget {
         ),
         horizontalSpaceRegular,
         FittedBox(
-          fit: BoxFit.scaleDown,
+          fit: BoxFit.fitWidth,
           child: Text(
             label,
             style: labelStyle,
@@ -87,25 +87,23 @@ class SocialButton extends StatelessWidget {
         ),
         height: (screenHeight(context) / 100) * 8,
         width: screenWidth(context),
-        child: Expanded(
-          child: Platform.isIOS
-              ? Material(
-                  elevation: .2,
-                  child: CupertinoButton(
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.all(16),
-                      color: color,
-                      onPressed: onPressed,
-                      child: buttonChild),
-                )
-              : ElevatedButton(
-                  style: ButtonStyle(
-                      alignment: Alignment.centerLeft,
-                      elevation: MaterialStateProperty.all<double>(.2),
-                      backgroundColor: MaterialStateProperty.all(color)),
-                  onPressed: onPressed,
-                  child: buttonChild,
-                ),
-        ));
+        child: Platform.isIOS
+            ? Material(
+                elevation: .2,
+                child: CupertinoButton(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.all(16),
+                    color: color,
+                    onPressed: onPressed,
+                    child: buttonChild),
+              )
+            : ElevatedButton(
+                style: ButtonStyle(
+                    alignment: Alignment.centerLeft,
+                    elevation: MaterialStateProperty.all<double>(.2),
+                    backgroundColor: MaterialStateProperty.all(color)),
+                onPressed: onPressed,
+                child: buttonChild,
+              ));
   }
 }

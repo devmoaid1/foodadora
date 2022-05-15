@@ -148,7 +148,7 @@ class _BasicDialog extends StatelessWidget {
               Text(
                 request.title.toString(),
                 style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                     color: textColor,
                     fontSize: blockSizeHorizontal(context) * 4),
               ),

@@ -4,11 +4,9 @@ import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/custom_modals.dart';
 import 'package:foodadora/models/product.dart';
-import 'package:foodadora/services/local_storage_service.dart';
 
 import 'package:stacked/stacked.dart';
 
-import '../../models/customer.dart';
 import '../../models/order.dart';
 
 class CartViewModel extends BaseViewModel {
@@ -22,62 +20,43 @@ class CartViewModel extends BaseViewModel {
   Stream<List<Product>> get items => cartService.cartItems;
   Stream<double> get subtotalController =>
       cartService.totalController; // subtotal controller
-  List<Product> get originalProducts => cartService.originalProducts;
-
-  bool get isConnected => connectivityService.isConnected;
-
-  Customer get customerProfile => profileService.currentCustomer;
-  bool get isLoggedOn => profileService.isLoggedOn;
+  List<Product> get originalProducts =>
+      cartService.originalProducts; // products with stock
 
   bool get loading => _isLoading;
 
   bool get isEmpty => _isEmpty;
-
-  double get total => _total;
-
-  LocalStorageService _localStorageService = LocalStorageService();
-
-  void setLoading(bool value) {
-    _isLoading = value;
-    notifyListeners();
-  }
 
   void navigateToHome() {
     navigationService.replaceWith(Routes.homeNavigationView);
   }
 
   void fetchCartItems() async {
+    setBusy(true);
+    _isLoading = true;
     final cart = await cartService
         .fetchCartItems(); // get cartitems and set it to stream
 
-    await storeService
-        .getStoreById(cart.storeId!)
-        .then((store) => _storeName = store!.storeName!);
+    try {
+      await storeService.getStoreById(cart.storeId!).then(
+          (store) => _storeName = store!.storeName!); // get store name for cart
 
-    getTotal(); //get subtotal after fetching all cartitems
-  }
-
-  void setIsEmpty(bool value) {
-    _isEmpty = value;
-    notifyListeners();
-  }
-
-  void getTotal() {
-    cartService.cartItems.listen((products) {
-      if (products.isNotEmpty) {
-        _total = 0;
-        for (var item in products) {
-          print(item.quantity);
-          _total += (item.quantity!) * item.originalPrice!.toDouble();
-        }
-
-        _isEmpty = false;
-      } else {
+      // handle if cart is empty or not
+      if (cartService.cartProducts.isEmpty) {
         _isEmpty = true;
+      } else {
+        _isEmpty = false;
       }
 
-      notifyListeners();
-    });
+      setBusy(false);
+      _isLoading = false;
+    } catch (err) {
+      setBusy(false);
+      _isLoading = false;
+      logger.e(err.toString());
+    }
+
+    notifyListeners();
   }
 
   void incrementQuantity({required Product product, required int stock}) {
@@ -94,11 +73,6 @@ class CartViewModel extends BaseViewModel {
 
   void deleteCartItem({required Product product}) {
     cartService.deleteItem(product: product);
-    cartService.cartItems.listen((items) {
-      if (items.isEmpty) {
-        _isEmpty = true;
-      }
-    });
   }
 
   void placeOrder(

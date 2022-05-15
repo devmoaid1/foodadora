@@ -2,10 +2,12 @@
 
 import 'dart:async';
 
+import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/custom_modals.dart';
 import 'package:foodadora/models/cartItem.dart';
 import 'package:foodadora/models/product.dart';
+import 'package:foodadora/models/store.dart';
 import 'package:foodadora/services/local_storage_service.dart';
 
 import 'package:stacked/stacked.dart';
@@ -42,9 +44,10 @@ class ProductDetailsViewModel extends BaseViewModel {
         if (item.productId == product.productId) {
           _isAddToCart = true;
           _quantity = item.quantity!;
+          break;
         } else {
-          _quantity = 1;
           _isAddToCart = false;
+          _quantity = 1;
         }
 
         // else set to default
@@ -62,15 +65,17 @@ class ProductDetailsViewModel extends BaseViewModel {
     Product? copyProduct;
     if (_quantity < product.quantity!) {
       copyProduct = product.copyWith(quantity: _quantity);
-      cartService.incrementQuantity(copyProduct, product.quantity!);
       _quantity++;
-      notifyListeners();
     } else {
       dialogService.showCustomDialog(
           variant: DialogType.basic,
           title: "You cant add more",
           mainButtonTitle: "Ok");
     }
+    cartViewModel.incrementQuantity(
+        product: copyProduct!, stock: product.quantity!);
+
+    notifyListeners();
   }
 
   void decrementQuantity({required Product product}) {
@@ -85,6 +90,7 @@ class ProductDetailsViewModel extends BaseViewModel {
 
   void addToCart({required Product product, required int quantity}) {
     cartService.addItem(product: product, quantity: quantity);
+    // notifyListeners();
   }
 
   void deleteItem({required Product product}) async {
