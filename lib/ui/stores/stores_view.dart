@@ -76,7 +76,7 @@ Widget _buildStoresGrid(BuildContext context, StoresViewModel viewModel) {
   return Container(
     width: screenWidth(context) * 0.9,
     height: viewModel.stores.length * screenHeight(context) / 3,
-    child: ListView.builder(
+    child: ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: viewModel.stores.length,
@@ -86,6 +86,7 @@ Widget _buildStoresGrid(BuildContext context, StoresViewModel viewModel) {
               viewModel: viewModel,
             )
           : Container(),
+      separatorBuilder: (context, index) => verticalSpaceRegular,
     ),
   );
 }
