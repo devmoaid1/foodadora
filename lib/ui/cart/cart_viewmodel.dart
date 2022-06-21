@@ -38,8 +38,11 @@ class CartViewModel extends BaseViewModel {
         .fetchCartItems(); // get cartitems and set it to stream
 
     try {
+      if(cart.storeId!.isNotEmpty){
+
       await storeService.getStoreById(cart.storeId!).then(
           (store) => _storeName = store!.storeName!); // get store name for cart
+      }
 
       // handle if cart is empty or not
       if (cartService.cartProducts.isEmpty) {
