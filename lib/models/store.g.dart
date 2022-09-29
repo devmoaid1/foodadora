@@ -127,7 +127,8 @@ class _$StoreCWProxyImpl implements _$StoreCWProxy {
 }
 
 extension $StoreCopyWith on Store {
-  /// Returns a callable class that can be used as follows: `instanceOfclass Store.name.copyWith(...)` or like so:`instanceOfclass Store.name.copyWith.fieldName(...)`.
+  /// Returns a callable class that can be used as follows: `instanceOfStore.copyWith(...)` or like so:`instanceOfStore.copyWith.fieldName(...)`.
+  // ignore: library_private_types_in_public_api
   _$StoreCWProxy get copyWith => _$StoreCWProxyImpl(this);
 }
 

@@ -162,7 +162,8 @@ class _$ProductCWProxyImpl implements _$ProductCWProxy {
 }
 
 extension $ProductCopyWith on Product {
-  /// Returns a callable class that can be used as follows: `instanceOfclass Product.name.copyWith(...)` or like so:`instanceOfclass Product.name.copyWith.fieldName(...)`.
+  /// Returns a callable class that can be used as follows: `instanceOfProduct.copyWith(...)` or like so:`instanceOfProduct.copyWith.fieldName(...)`.
+  // ignore: library_private_types_in_public_api
   _$ProductCWProxy get copyWith => _$ProductCWProxyImpl(this);
 }
 

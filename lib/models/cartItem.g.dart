@@ -61,7 +61,8 @@ class _$CartItemCWProxyImpl implements _$CartItemCWProxy {
 }
 
 extension $CartItemCopyWith on CartItem {
-  /// Returns a callable class that can be used as follows: `instanceOfclass CartItem.name.copyWith(...)` or like so:`instanceOfclass CartItem.name.copyWith.fieldName(...)`.
+  /// Returns a callable class that can be used as follows: `instanceOfCartItem.copyWith(...)` or like so:`instanceOfCartItem.copyWith.fieldName(...)`.
+  // ignore: library_private_types_in_public_api
   _$CartItemCWProxy get copyWith => _$CartItemCWProxyImpl(this);
 }
 

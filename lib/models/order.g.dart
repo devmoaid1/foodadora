@@ -116,7 +116,8 @@ class _$OrderCWProxyImpl implements _$OrderCWProxy {
 }
 
 extension $OrderCopyWith on Order {
-  /// Returns a callable class that can be used as follows: `instanceOfclass Order.name.copyWith(...)` or like so:`instanceOfclass Order.name.copyWith.fieldName(...)`.
+  /// Returns a callable class that can be used as follows: `instanceOfOrder.copyWith(...)` or like so:`instanceOfOrder.copyWith.fieldName(...)`.
+  // ignore: library_private_types_in_public_api
   _$OrderCWProxy get copyWith => _$OrderCWProxyImpl(this);
 }
 

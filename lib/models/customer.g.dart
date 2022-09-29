@@ -127,7 +127,8 @@ class _$CustomerCWProxyImpl implements _$CustomerCWProxy {
 }
 
 extension $CustomerCopyWith on Customer {
-  /// Returns a callable class that can be used as follows: `instanceOfclass Customer.name.copyWith(...)` or like so:`instanceOfclass Customer.name.copyWith.fieldName(...)`.
+  /// Returns a callable class that can be used as follows: `instanceOfCustomer.copyWith(...)` or like so:`instanceOfCustomer.copyWith.fieldName(...)`.
+  // ignore: library_private_types_in_public_api
   _$CustomerCWProxy get copyWith => _$CustomerCWProxyImpl(this);
 }
 

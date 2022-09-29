@@ -4,43 +4,54 @@
 // StackedRouterGenerator
 // **************************************************************************
 
-// ignore_for_file: public_member_api_docs
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-
-import 'package:stacked/stacked.dart';
-
-
-import '../models/order.dart';
-import '../models/product.dart';
-import '../models/store.dart';
-import '../ui/cart/cart_view.dart';
-import '../ui/home_navigation/home_navigation_view.dart';
-import '../ui/login/login_view.dart';
-import '../ui/order_details/order_details_view.dart';
-import '../ui/orders/orders_view.dart';
-import '../ui/product_details/product_details_view.dart';
-import '../ui/profile/profile_view.dart';
-import '../ui/select_language/select_language_view.dart';
-import '../ui/sign_up/phone_signup_view.dart';
-import '../ui/sign_up/signup_view.dart';
-import '../ui/store_details/store_details_view.dart';
-import '../ui/stores/stores_view.dart';
+// ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:firebase_auth/firebase_auth.dart' as _i17;
+import 'package:flutter/cupertino.dart' as _i14;
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' as _i18;
+import 'package:foodadora/models/order.dart' as _i19;
+import 'package:foodadora/models/product.dart' as _i15;
+import 'package:foodadora/models/store.dart' as _i16;
+import 'package:foodadora/ui/cart/cart_view.dart' as _i5;
+import 'package:foodadora/ui/home_navigation/home_navigation_view.dart' as _i2;
+import 'package:foodadora/ui/login/login_view.dart' as _i6;
+import 'package:foodadora/ui/order_details/order_details_view.dart' as _i13;
+import 'package:foodadora/ui/orders/orders_view.dart' as _i4;
+import 'package:foodadora/ui/product_details/product_details_view.dart' as _i3;
+import 'package:foodadora/ui/profile/profile_view.dart' as _i9;
+import 'package:foodadora/ui/select_language/select_language_view.dart' as _i10;
+import 'package:foodadora/ui/sign_up/phone_signup_view.dart' as _i8;
+import 'package:foodadora/ui/sign_up/signup_view.dart' as _i7;
+import 'package:foodadora/ui/store_details/store_details_view.dart' as _i12;
+import 'package:foodadora/ui/stores/stores_view.dart' as _i11;
+import 'package:stacked/stacked.dart' as _i1;
+import 'package:stacked_services/stacked_services.dart' as _i20;
 
 class Routes {
-  static const String homeNavigationView = '/';
-  static const String productDetailsView = '/product-details-view';
-  static const String ordersScreen = '/orders-screen';
-  static const String cartScreen = '/cart-screen';
-  static const String loginView = '/login-view';
-  static const String signUpView = '/sign-up-view';
-  static const String phoneSignUpScreen = '/phone-sign-up-screen';
-  static const String profileScreen = '/profile-screen';
-  static const String selectLanguageView = '/select-language-view';
-  static const String storesScreen = '/stores-screen';
-  static const String storeDetailsScreen = '/store-details-screen';
-  static const String orderDetailsScreen = '/order-details-screen';
+  static const homeNavigationView = '/';
+
+  static const productDetailsView = '/product-details-view';
+
+  static const ordersScreen = '/orders-screen';
+
+  static const cartScreen = '/cart-screen';
+
+  static const loginView = '/login-view';
+
+  static const signUpView = '/sign-up-view';
+
+  static const phoneSignUpScreen = '/phone-sign-up-screen';
+
+  static const profileScreen = '/profile-screen';
+
+  static const selectLanguageView = '/select-language-view';
+
+  static const storesScreen = '/stores-screen';
+
+  static const storeDetailsScreen = '/store-details-screen';
+
+  static const orderDetailsScreen = '/order-details-screen';
+
   static const all = <String>{
     homeNavigationView,
     productDetailsView,
@@ -57,193 +68,436 @@ class Routes {
   };
 }
 
-class StackedRouter extends RouterBase {
-  @override
-  List<RouteDef> get routes => _routes;
-  final _routes = <RouteDef>[
-    RouteDef(Routes.homeNavigationView, page: HomeNavigationView),
-    RouteDef(Routes.productDetailsView, page: ProductDetailsView),
-    RouteDef(Routes.ordersScreen, page: OrdersScreen),
-    RouteDef(Routes.cartScreen, page: CartScreen),
-    RouteDef(Routes.loginView, page: LoginView),
-    RouteDef(Routes.signUpView, page: SignUpView),
-    RouteDef(Routes.phoneSignUpScreen, page: PhoneSignUpScreen),
-    RouteDef(Routes.profileScreen, page: ProfileScreen),
-    RouteDef(Routes.selectLanguageView, page: SelectLanguageView),
-    RouteDef(Routes.storesScreen, page: StoresScreen),
-    RouteDef(Routes.storeDetailsScreen, page: StoreDetailsScreen),
-    RouteDef(Routes.orderDetailsScreen, page: OrderDetailsScreen),
+class StackedRouter extends _i1.RouterBase {
+  final _routes = <_i1.RouteDef>[
+    _i1.RouteDef(
+      Routes.homeNavigationView,
+      page: _i2.HomeNavigationView,
+    ),
+    _i1.RouteDef(
+      Routes.productDetailsView,
+      page: _i3.ProductDetailsView,
+    ),
+    _i1.RouteDef(
+      Routes.ordersScreen,
+      page: _i4.OrdersScreen,
+    ),
+    _i1.RouteDef(
+      Routes.cartScreen,
+      page: _i5.CartScreen,
+    ),
+    _i1.RouteDef(
+      Routes.loginView,
+      page: _i6.LoginView,
+    ),
+    _i1.RouteDef(
+      Routes.signUpView,
+      page: _i7.SignUpView,
+    ),
+    _i1.RouteDef(
+      Routes.phoneSignUpScreen,
+      page: _i8.PhoneSignUpScreen,
+    ),
+    _i1.RouteDef(
+      Routes.profileScreen,
+      page: _i9.ProfileScreen,
+    ),
+    _i1.RouteDef(
+      Routes.selectLanguageView,
+      page: _i10.SelectLanguageView,
+    ),
+    _i1.RouteDef(
+      Routes.storesScreen,
+      page: _i11.StoresScreen,
+    ),
+    _i1.RouteDef(
+      Routes.storeDetailsScreen,
+      page: _i12.StoreDetailsScreen,
+    ),
+    _i1.RouteDef(
+      Routes.orderDetailsScreen,
+      page: _i13.OrderDetailsScreen,
+    ),
   ];
-  @override
-  Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
-  final _pagesMap = <Type, StackedRouteFactory>{
-    HomeNavigationView: (data) {
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => const HomeNavigationView(),
+
+  final _pagesMap = <Type, _i1.StackedRouteFactory>{
+    _i2.HomeNavigationView: (data) {
+      return _i14.CupertinoPageRoute<dynamic>(
+        builder: (context) => const _i2.HomeNavigationView(),
         settings: data,
       );
     },
-    ProductDetailsView: (data) {
-      var args = data.getArgs<ProductDetailsViewArguments>(nullOk: false);
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => ProductDetailsView(
-          key: args.key,
-          product: args.product,
-          store: args.store,
-        ),
+    _i3.ProductDetailsView: (data) {
+      final args = data.getArgs<ProductDetailsViewArguments>(nullOk: false);
+      return _i14.CupertinoPageRoute<dynamic>(
+        builder: (context) => _i3.ProductDetailsView(
+            key: args.key, product: args.product, store: args.store),
         settings: data,
       );
     },
-    OrdersScreen: (data) {
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => const OrdersScreen(),
+    _i4.OrdersScreen: (data) {
+      return _i14.CupertinoPageRoute<dynamic>(
+        builder: (context) => const _i4.OrdersScreen(),
         settings: data,
       );
     },
-    CartScreen: (data) {
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => CartScreen(),
+    _i5.CartScreen: (data) {
+      return _i14.CupertinoPageRoute<dynamic>(
+        builder: (context) => _i5.CartScreen(),
         settings: data,
       );
     },
-    LoginView: (data) {
-      var args = data.getArgs<LoginViewArguments>(
-        orElse: () => LoginViewArguments(),
+    _i6.LoginView: (data) {
+      final args = data.getArgs<LoginViewArguments>(
+        orElse: () => const LoginViewArguments(),
       );
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => LoginView(key: args.key),
+      return _i14.CupertinoPageRoute<dynamic>(
+        builder: (context) => _i6.LoginView(key: args.key),
         settings: data,
       );
     },
-    SignUpView: (data) {
-      var args = data.getArgs<SignUpViewArguments>(
-        orElse: () => SignUpViewArguments(),
+    _i7.SignUpView: (data) {
+      final args = data.getArgs<SignUpViewArguments>(
+        orElse: () => const SignUpViewArguments(),
       );
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => SignUpView(key: args.key),
+      return _i14.CupertinoPageRoute<dynamic>(
+        builder: (context) => _i7.SignUpView(key: args.key),
         settings: data,
       );
     },
-    PhoneSignUpScreen: (data) {
-      var args = data.getArgs<PhoneSignUpScreenArguments>(
-        orElse: () => PhoneSignUpScreenArguments(),
+    _i8.PhoneSignUpScreen: (data) {
+      final args = data.getArgs<PhoneSignUpScreenArguments>(
+        orElse: () => const PhoneSignUpScreenArguments(),
       );
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => PhoneSignUpScreen(
-          key: args.key,
-          user: args.user,
-        ),
+      return _i14.CupertinoPageRoute<dynamic>(
+        builder: (context) =>
+            _i8.PhoneSignUpScreen(key: args.key, user: args.user),
         settings: data,
       );
     },
-    ProfileScreen: (data) {
-      var args = data.getArgs<ProfileScreenArguments>(nullOk: false);
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => ProfileScreen(
-          color: args.color,
-          name: args.name,
-          phone: args.phone,
-          image: args.image,
-        ),
+    _i9.ProfileScreen: (data) {
+      final args = data.getArgs<ProfileScreenArguments>(nullOk: false);
+      return _i14.CupertinoPageRoute<dynamic>(
+        builder: (context) => _i9.ProfileScreen(
+            color: args.color,
+            name: args.name,
+            phone: args.phone,
+            image: args.image),
         settings: data,
       );
     },
-    SelectLanguageView: (data) {
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => SelectLanguageView(),
+    _i10.SelectLanguageView: (data) {
+      return _i14.CupertinoPageRoute<dynamic>(
+        builder: (context) => _i10.SelectLanguageView(),
         settings: data,
       );
     },
-    StoresScreen: (data) {
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => const StoresScreen(),
+    _i11.StoresScreen: (data) {
+      return _i14.CupertinoPageRoute<dynamic>(
+        builder: (context) => const _i11.StoresScreen(),
         settings: data,
       );
     },
-    StoreDetailsScreen: (data) {
-      var args = data.getArgs<StoreDetailsScreenArguments>(nullOk: false);
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => StoreDetailsScreen(
-          key: args.key,
-          store: args.store,
-          distance: args.distance,
-        ),
+    _i12.StoreDetailsScreen: (data) {
+      final args = data.getArgs<StoreDetailsScreenArguments>(nullOk: false);
+      return _i14.CupertinoPageRoute<dynamic>(
+        builder: (context) => _i12.StoreDetailsScreen(
+            key: args.key, store: args.store, distance: args.distance),
         settings: data,
       );
     },
-    OrderDetailsScreen: (data) {
-      var args = data.getArgs<OrderDetailsScreenArguments>(nullOk: false);
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => OrderDetailsScreen(
-          key: args.key,
-          order: args.order,
-          store: args.store,
-        ),
+    _i13.OrderDetailsScreen: (data) {
+      final args = data.getArgs<OrderDetailsScreenArguments>(nullOk: false);
+      return _i14.CupertinoPageRoute<dynamic>(
+        builder: (context) => _i13.OrderDetailsScreen(
+            key: args.key, order: args.order, store: args.store),
         settings: data,
       );
     },
   };
+
+  @override
+  List<_i1.RouteDef> get routes => _routes;
+  @override
+  Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-/// ************************************************************************
-/// Arguments holder classes
-/// *************************************************************************
-
-/// ProductDetailsView arguments holder class
 class ProductDetailsViewArguments {
-  final Key? key;
-  final Product product;
-  final Store store;
-  ProductDetailsViewArguments(
-      {this.key, required this.product, required this.store});
+  const ProductDetailsViewArguments({
+    this.key,
+    required this.product,
+    required this.store,
+  });
+
+  final _i14.Key? key;
+
+  final _i15.Product product;
+
+  final _i16.Store store;
 }
 
-/// LoginView arguments holder class
 class LoginViewArguments {
-  final Key? key;
-  LoginViewArguments({this.key});
+  const LoginViewArguments({this.key});
+
+  final _i14.Key? key;
 }
 
-/// SignUpView arguments holder class
 class SignUpViewArguments {
-  final Key? key;
-  SignUpViewArguments({this.key});
+  const SignUpViewArguments({this.key});
+
+  final _i14.Key? key;
 }
 
-/// PhoneSignUpScreen arguments holder class
 class PhoneSignUpScreenArguments {
-  final Key? key;
-  final UserCredential? user;
-  PhoneSignUpScreenArguments({this.key, this.user});
+  const PhoneSignUpScreenArguments({
+    this.key,
+    this.user,
+  });
+
+  final _i14.Key? key;
+
+  final _i17.UserCredential? user;
 }
 
-/// ProfileScreen arguments holder class
 class ProfileScreenArguments {
-  final Color? color;
+  const ProfileScreenArguments({
+    this.color,
+    required this.name,
+    required this.phone,
+    required this.image,
+  });
+
+  final _i18.Color? color;
+
   final String name;
+
   final String phone;
+
   final String image;
-  ProfileScreenArguments(
-      {this.color,
-      required this.name,
-      required this.phone,
-      required this.image});
 }
 
-/// StoreDetailsScreen arguments holder class
 class StoreDetailsScreenArguments {
-  final Key? key;
-  final Store store;
+  const StoreDetailsScreenArguments({
+    this.key,
+    required this.store,
+    required this.distance,
+  });
+
+  final _i14.Key? key;
+
+  final _i16.Store store;
+
   final String distance;
-  StoreDetailsScreenArguments(
-      {this.key, required this.store, required this.distance});
 }
 
-/// OrderDetailsScreen arguments holder class
 class OrderDetailsScreenArguments {
-  final Key? key;
-  final Order order;
-  final Store store;
-  OrderDetailsScreenArguments(
-      {this.key, required this.order, required this.store});
+  const OrderDetailsScreenArguments({
+    this.key,
+    required this.order,
+    required this.store,
+  });
+
+  final _i14.Key? key;
+
+  final _i19.Order order;
+
+  final _i16.Store store;
+}
+
+extension NavigatorStateExtension on _i20.NavigationService {
+  Future<dynamic> navigateToHomeNavigationView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.homeNavigationView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToProductDetailsView({
+    _i14.Key? key,
+    required _i15.Product product,
+    required _i16.Store store,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.productDetailsView,
+        arguments: ProductDetailsViewArguments(
+            key: key, product: product, store: store),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToOrdersScreen([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.ordersScreen,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToCartScreen([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.cartScreen,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToLoginView({
+    _i14.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.loginView,
+        arguments: LoginViewArguments(key: key),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToSignUpView({
+    _i14.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.signUpView,
+        arguments: SignUpViewArguments(key: key),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToPhoneSignUpScreen({
+    _i14.Key? key,
+    _i17.UserCredential? user,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.phoneSignUpScreen,
+        arguments: PhoneSignUpScreenArguments(key: key, user: user),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToProfileScreen({
+    _i18.Color? color,
+    required String name,
+    required String phone,
+    required String image,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.profileScreen,
+        arguments: ProfileScreenArguments(
+            color: color, name: name, phone: phone, image: image),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToSelectLanguageView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.selectLanguageView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToStoresScreen([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.storesScreen,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToStoreDetailsScreen({
+    _i14.Key? key,
+    required _i16.Store store,
+    required String distance,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.storeDetailsScreen,
+        arguments: StoreDetailsScreenArguments(
+            key: key, store: store, distance: distance),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToOrderDetailsScreen({
+    _i14.Key? key,
+    required _i19.Order order,
+    required _i16.Store store,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.orderDetailsScreen,
+        arguments:
+            OrderDetailsScreenArguments(key: key, order: order, store: store),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
 }
