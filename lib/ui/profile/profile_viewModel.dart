@@ -1,11 +1,13 @@
 // ignore_for_file: file_names
 
 import 'package:foodadora/app/constants/services_instances.dart';
-import 'package:foodadora/models/customer.dart';
+
 import 'package:stacked/stacked.dart';
 
+import '../../features/auth/domain/entities/customer.dart';
+
 class ProfileViewModel extends BaseViewModel {
-  Customer get customerProfile => profileService.currentCustomer;
+  Customer? get customerProfile => profileService.currentCustomer;
 
   bool get isLoggedOn => profileService.isLoggedOn;
 
@@ -24,7 +26,7 @@ class ProfileViewModel extends BaseViewModel {
       setBusy(false);
       setLoading(false);
       notifyListeners();
-      logger.i(profileService.currentCustomer.phoneNumber);
+      logger.i(profileService.currentCustomer!.phoneNumber);
     } catch (err) {
       logger.e(err);
     }

@@ -6,7 +6,7 @@ import 'package:foodadora/models/order.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../models/customer.dart';
+import '../../features/auth/domain/entities/customer.dart';
 import '../../models/store.dart';
 
 @singleton
@@ -16,7 +16,7 @@ class OrdersViewModel extends BaseViewModel {
 
   List<Store> _stores = [];
 
-  Customer get customerProfile => profileService.currentCustomer;
+  Customer? get customerProfile => profileService.currentCustomer;
 
   bool get loading => _isLoading;
   List<Store> get stores => _stores;
@@ -38,7 +38,7 @@ class OrdersViewModel extends BaseViewModel {
 
     try {
       final customerId =
-          profileService.currentCustomer.userId; // get customer id
+          profileService.currentCustomer?.userId; // get customer id
 
       if (customerId != null) {
         print(customerId);

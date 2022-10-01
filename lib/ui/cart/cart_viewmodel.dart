@@ -38,10 +38,9 @@ class CartViewModel extends BaseViewModel {
         .fetchCartItems(); // get cartitems and set it to stream
 
     try {
-      if(cart.storeId!.isNotEmpty){
-
-      await storeService.getStoreById(cart.storeId!).then(
-          (store) => _storeName = store!.storeName!); // get store name for cart
+      if (cart.storeId!.isNotEmpty) {
+        await storeService.getStoreById(cart.storeId!).then((store) =>
+            _storeName = store!.storeName!); // get store name for cart
       }
 
       // handle if cart is empty or not
@@ -108,7 +107,7 @@ class CartViewModel extends BaseViewModel {
         }
 
         Order order = Order(
-          customerId: profileService.currentCustomer.userId,
+          customerId: profileService.currentCustomer!.userId,
           orderDate: DateTime.now(),
           products: orderItems,
           status: 'Pending',

@@ -38,7 +38,7 @@ class SettingsView extends StatelessWidget {
                       ? SettingsRow(
                           iconPath: Assets.usericon,
                           actionTitle: translate("settings.view_profile"),
-                          title: model.customerProfile.name.toString(),
+                          title: model.customerProfile!.name.toString(),
                           onPressed: model.navigateToProfile,
                         )
                       : FoodadoraButton(

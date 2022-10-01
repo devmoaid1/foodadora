@@ -2,7 +2,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:foodadora/models/customer.dart';
+import 'package:foodadora/features/auth/data/models/customer_model.dart';
+
 import 'package:foodadora/services/base_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -82,7 +83,7 @@ class AuthService extends BaseService {
       String? name,
       String? phone,
       String? photoUrl}) async {
-    Customer newCustomer = Customer(
+    CustomerModel newCustomer = CustomerModel(
         userId: id,
         email: email,
         name: name,
