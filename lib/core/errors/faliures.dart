@@ -7,4 +7,6 @@ abstract class Failure extends Equatable {
 
 class ServerFailure extends Failure {} // for remote data
 
+class AuthenticationFailure extends Failure {}
+
 class CacheFailure extends Failure {} // for local data 
