@@ -5,13 +5,13 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:firebase_auth/firebase_auth.dart' as _i17;
+import 'package:firebase_auth/firebase_auth.dart' as _i18;
 import 'package:flutter/cupertino.dart' as _i14;
+import 'package:flutter/material.dart' as _i15;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' as _i18;
 import 'package:foodadora/models/order.dart' as _i19;
-import 'package:foodadora/models/product.dart' as _i15;
-import 'package:foodadora/models/store.dart' as _i16;
+import 'package:foodadora/models/product.dart' as _i16;
+import 'package:foodadora/models/store.dart' as _i17;
 import 'package:foodadora/ui/cart/cart_view.dart' as _i5;
 import 'package:foodadora/ui/home_navigation/home_navigation_view.dart' as _i2;
 import 'package:foodadora/ui/login/login_view.dart' as _i6;
@@ -229,23 +229,23 @@ class ProductDetailsViewArguments {
     required this.store,
   });
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
-  final _i15.Product product;
+  final _i16.Product product;
 
-  final _i16.Store store;
+  final _i17.Store store;
 }
 
 class LoginViewArguments {
   const LoginViewArguments({this.key});
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 }
 
 class SignUpViewArguments {
   const SignUpViewArguments({this.key});
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 }
 
 class PhoneSignUpScreenArguments {
@@ -254,9 +254,9 @@ class PhoneSignUpScreenArguments {
     this.user,
   });
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
-  final _i17.UserCredential? user;
+  final _i18.UserCredential? user;
 }
 
 class ProfileScreenArguments {
@@ -267,7 +267,7 @@ class ProfileScreenArguments {
     required this.image,
   });
 
-  final _i18.Color? color;
+  final _i15.Color? color;
 
   final String name;
 
@@ -283,9 +283,9 @@ class StoreDetailsScreenArguments {
     required this.distance,
   });
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
-  final _i16.Store store;
+  final _i17.Store store;
 
   final String distance;
 }
@@ -297,11 +297,11 @@ class OrderDetailsScreenArguments {
     required this.store,
   });
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
   final _i19.Order order;
 
-  final _i16.Store store;
+  final _i17.Store store;
 }
 
 extension NavigatorStateExtension on _i20.NavigationService {
@@ -320,9 +320,9 @@ extension NavigatorStateExtension on _i20.NavigationService {
   }
 
   Future<dynamic> navigateToProductDetailsView({
-    _i14.Key? key,
-    required _i15.Product product,
-    required _i16.Store store,
+    _i15.Key? key,
+    required _i16.Product product,
+    required _i17.Store store,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -367,7 +367,7 @@ extension NavigatorStateExtension on _i20.NavigationService {
   }
 
   Future<dynamic> navigateToLoginView({
-    _i14.Key? key,
+    _i15.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -383,7 +383,7 @@ extension NavigatorStateExtension on _i20.NavigationService {
   }
 
   Future<dynamic> navigateToSignUpView({
-    _i14.Key? key,
+    _i15.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -399,8 +399,8 @@ extension NavigatorStateExtension on _i20.NavigationService {
   }
 
   Future<dynamic> navigateToPhoneSignUpScreen({
-    _i14.Key? key,
-    _i17.UserCredential? user,
+    _i15.Key? key,
+    _i18.UserCredential? user,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -416,7 +416,7 @@ extension NavigatorStateExtension on _i20.NavigationService {
   }
 
   Future<dynamic> navigateToProfileScreen({
-    _i18.Color? color,
+    _i15.Color? color,
     required String name,
     required String phone,
     required String image,
@@ -464,8 +464,8 @@ extension NavigatorStateExtension on _i20.NavigationService {
   }
 
   Future<dynamic> navigateToStoreDetailsScreen({
-    _i14.Key? key,
-    required _i16.Store store,
+    _i15.Key? key,
+    required _i17.Store store,
     required String distance,
     int? routerId,
     bool preventDuplicates = true,
@@ -483,9 +483,9 @@ extension NavigatorStateExtension on _i20.NavigationService {
   }
 
   Future<dynamic> navigateToOrderDetailsScreen({
-    _i14.Key? key,
+    _i15.Key? key,
     required _i19.Order order,
-    required _i16.Store store,
+    required _i17.Store store,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
