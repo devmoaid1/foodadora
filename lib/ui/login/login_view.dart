@@ -10,6 +10,7 @@ import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 import 'package:foodadora/ui/widgets/foodadora_textfield.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:stacked/stacked.dart';
@@ -24,7 +25,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LoginViewModel>.reactive(
-        viewModelBuilder: () => LoginViewModel(),
+        viewModelBuilder: () => Get.find<LoginViewModel>(),
         builder: (context, model, child) => Scaffold(
               appBar: foodadoraAppBar(context, withBack: true),
               body: ModalProgressHUD(

@@ -4,18 +4,20 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
+
 import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/services/connectivity_service.dart';
 import 'package:foodadora/services/profile_service.dart';
 
 import 'package:foodadora/ui/widgets/style.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 import 'package:stacked_services/stacked_services.dart';
 
-import 'foodadora_viewmodel.dart';
+import 'foodadora_viewModel.dart';
 
 class FoodadoraApp extends StatelessWidget {
   const FoodadoraApp({Key? key}) : super(key: key);
@@ -24,7 +26,7 @@ class FoodadoraApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<FoodadoraViewModel>.reactive(
-      viewModelBuilder: () => FoodadoraViewModel(),
+      viewModelBuilder: () => Get.find<FoodadoraViewModel>(),
       onModelReady: (model) => model.init(),
       disposeViewModel: false,
       builder: (context, model, _) {

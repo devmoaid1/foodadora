@@ -12,6 +12,8 @@ import 'package:stacked_services/src/navigation/navigation_service.dart';
 
 import '../core/api/firebase_api_consumer.dart';
 import '../core/api/firebase_api_provider.dart';
+import '../core/localstorage/local_storage_provider.dart';
+import '../core/localstorage/shared_prefrences_consumer.dart';
 import '../services/auth_Service.dart';
 import '../services/cart_Service.dart';
 import '../services/connectivity_service.dart';
@@ -32,6 +34,8 @@ Future<void> setupLocator(
 // Register dependencies
   locator
       .registerLazySingleton<FirebaseApiProvider>(() => FirebaseApiConsumer());
+  locator.registerLazySingleton<LocalStorageProvider>(
+      () => SharedPrefrencesConsumer(sharedPreferences: locator.get()));
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => AuthService());

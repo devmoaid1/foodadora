@@ -1,16 +1,10 @@
+import 'package:foodadora/core/localstorage/local_storage_provider.dart';
+import 'package:foodadora/core/localstorage/shared_prefrences_consumer.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../core/api/firebase_api_consumer.dart';
 import '../core/api/firebase_api_provider.dart';
-import '../services/auth_Service.dart';
-import '../services/cart_Service.dart';
-import '../services/connectivity_service.dart';
-import '../services/location_service.dart';
-import '../services/orders_services.dart';
-import '../services/product_service.dart';
-import '../services/profile_service.dart';
-import '../services/store_service.dart';
 import '../ui/cart/cart_view.dart';
 import '../ui/home_navigation/home_navigation_view.dart';
 import '../ui/login/login_view.dart';
@@ -54,17 +48,15 @@ import '../ui/stores/stores_view.dart';
   CupertinoRoute(page: StoreDetailsScreen),
   CupertinoRoute(page: OrderDetailsScreen),
 ], dependencies: [
+  // core
   LazySingleton(asType: FirebaseApiProvider, classType: FirebaseApiConsumer),
+  LazySingleton(
+    asType: LocalStorageProvider,
+    classType: SharedPrefrencesConsumer,
+  ),
+  // services
   LazySingleton(classType: NavigationService),
   LazySingleton(classType: DialogService),
-  LazySingleton(classType: AuthService),
-  LazySingleton(classType: ProfileService),
-  LazySingleton(classType: StoreService),
-  LazySingleton(classType: OrderService),
-  LazySingleton(classType: CartService),
-  LazySingleton(classType: ProductService),
-  LazySingleton(classType: LocationService),
-  LazySingleton(classType: ConnectivityService)
 ], logger: StackedLogger())
 // flutter pub run build_runner build --delete-conflicting-outputs   this command for generator
 class AppService {}

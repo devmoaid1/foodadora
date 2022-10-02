@@ -512,7 +512,7 @@ packages:
     source: hosted
     version: "0.1.1"
   get:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: get
       url: "https://pub.dartlang.org"
