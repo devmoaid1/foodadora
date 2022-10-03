@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:foodadora/app/app.locator.dart';
 import 'package:foodadora/app/constants/localization_constants.dart';
 import 'package:foodadora/app/dependencies.dart';
 import 'package:foodadora/foodadora/foodadora.dart';
@@ -23,6 +24,7 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
   await Firebase.initializeApp();
+  setupLocator();
   setUpDedpendencies();
   setupDialogUi();
 

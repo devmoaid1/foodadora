@@ -14,9 +14,9 @@ class ServerException extends Equatable implements Exception {
   }
 }
 
-class FirebaseAuthException extends ServerException {
-  const FirebaseAuthException([message]) : super("Authentication error");
-}
+// class FirebaseAuthException extends ServerException {
+//   const FirebaseAuthException([message]) : super("Authentication error");
+// }
 
 class PlatformDataException extends ServerException {
   const PlatformDataException([message])

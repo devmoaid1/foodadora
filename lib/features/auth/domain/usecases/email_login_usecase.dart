@@ -5,10 +5,10 @@ import 'package:foodadora/core/errors/faliures.dart';
 import 'package:foodadora/core/usecases/use_cases.dart';
 import 'package:foodadora/features/auth/domain/repositories/basic_auth_repository.dart';
 
-class EmailLogin implements UseCase<UserCredential, EmailLoginParams> {
+class EmailLoginUseCase implements UseCase<UserCredential, EmailLoginParams> {
   final BasicAuthRepo basicAuthRepo;
 
-  EmailLogin({required this.basicAuthRepo});
+  EmailLoginUseCase({required this.basicAuthRepo});
   @override
   Future<Either<Failure, UserCredential>> call(params) =>
       basicAuthRepo.emailLogin(email: params.email, password: params.password);

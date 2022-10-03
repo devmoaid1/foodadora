@@ -11,4 +11,11 @@ abstract class BasicAuthRepo {
       required String password,
       required String name,
       required String phone});
+
+  Future<Either<Failure, void>> addCustomerToDatabase(
+      {String? id,
+      String? email,
+      String? name,
+      String? phone,
+      String? photoUrl});
 }

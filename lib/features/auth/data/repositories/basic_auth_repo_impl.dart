@@ -24,9 +24,9 @@ class BasicAuthRepoImpl implements BasicAuthRepo {
       final userCredentials =
           await authRemoteDataSource.login(email: email, password: password);
       return Right(userCredentials);
-    } on ServerException catch (err) {
+    } on FirebaseAuthException catch (err) {
       logger.e("error in Login: ${err.message}");
-      return Left(AuthenticationFailure());
+      return Left(AuthenticationFailure(message: err.message.toString()));
     }
   }
 
@@ -40,7 +40,7 @@ class BasicAuthRepoImpl implements BasicAuthRepo {
       final response =
           await authRemoteDataSource.signUp(email: email, password: password);
 
-      _addCustomerToDatabase(
+      addCustomerToDatabase(
           email: email,
           id: response.user!.uid,
           name: name,
@@ -48,13 +48,13 @@ class BasicAuthRepoImpl implements BasicAuthRepo {
           photoUrl: response.user!.photoURL);
 
       return Right(response);
-    } on ServerException catch (err) {
+    } on FirebaseAuthException catch (err) {
       logger.e("error in Sign Up: ${err.message}");
-      return Left(AuthenticationFailure());
+      return Left(AuthenticationFailure(message: err.message.toString()));
     }
   }
 
-  Future<void> _addCustomerToDatabase(
+  Future<Either<Failure, void>> addCustomerToDatabase(
       {String? id,
       String? email,
       String? name,
@@ -66,7 +66,12 @@ class BasicAuthRepoImpl implements BasicAuthRepo {
         name: name,
         phoneNumber: phone,
         photoUrl: photoUrl);
-
-    await firebaseApiProvider.addData(customerCollection, newCustomer.toJson());
+    try {
+      final response = await firebaseApiProvider.addData(
+          customerCollection, newCustomer.toJson());
+      return Right(response);
+    } on ServerException catch (err) {
+      return Left(ServerFailure(message: err.message.toString()));
+    }
   }
 }

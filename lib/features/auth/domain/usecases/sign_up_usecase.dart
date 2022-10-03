@@ -6,10 +6,10 @@ import '../../../../core/errors/faliures.dart';
 import '../../../../core/usecases/use_cases.dart';
 import '../repositories/basic_auth_repository.dart';
 
-class SignUp implements UseCase<UserCredential, SignUpParams> {
+class SignUpUseCase implements UseCase<UserCredential, SignUpParams> {
   final BasicAuthRepo basicAuthRepo;
 
-  SignUp({required this.basicAuthRepo});
+  SignUpUseCase({required this.basicAuthRepo});
   @override
   Future<Either<Failure, UserCredential>> call(params) => basicAuthRepo.signUp(
       email: params.email,

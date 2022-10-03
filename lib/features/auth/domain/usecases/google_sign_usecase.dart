@@ -5,10 +5,10 @@ import '../../../../core/errors/faliures.dart';
 import '../../../../core/usecases/use_cases.dart';
 import '../repositories/social_auth_repository.dart';
 
-class GoogleSignIn implements UseCase<UserCredential, NoParams> {
+class GoogleSignInUseCase implements UseCase<UserCredential, NoParams> {
   final SocialAuthRepo socialAuthRepo;
 
-  GoogleSignIn({required this.socialAuthRepo});
+  GoogleSignInUseCase({required this.socialAuthRepo});
   @override
   Future<Either<Failure, UserCredential>> call(params) =>
       socialAuthRepo.googleSignIn();

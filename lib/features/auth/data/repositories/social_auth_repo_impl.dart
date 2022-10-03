@@ -1,5 +1,5 @@
+import 'package:flutter/services.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
-import 'package:foodadora/core/errors/exceptions.dart';
 import 'package:foodadora/core/errors/faliures.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
@@ -16,9 +16,9 @@ class SocialAuthRepoImpl implements SocialAuthRepo {
     try {
       final response = await authRemoteDataSource.googleSignIn();
       return Right(response);
-    } on ServerException catch (err) {
+    } on PlatformException catch (err) {
       logger.e(err.message);
-      return Left(AuthenticationFailure());
+      return Left(AuthenticationFailure(message: err.message.toString()));
     }
   }
 }

@@ -7,10 +7,11 @@ import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../constants/services_instances.dart';
+
 enum DialogType { addToCart, basic }
 
 void setupDialogUi() {
-  final dialogService = DialogService();
   final builders = {
     DialogType.addToCart: (context, sheetRequest, completer) =>
         _AddToCartDialog(request: sheetRequest, completer: completer),

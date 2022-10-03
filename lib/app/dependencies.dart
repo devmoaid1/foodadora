@@ -7,6 +7,9 @@ import 'package:foodadora/features/auth/data/repositories/basic_auth_repo_impl.d
 import 'package:foodadora/features/auth/data/repositories/social_auth_repo_impl.dart';
 import 'package:foodadora/features/auth/domain/repositories/basic_auth_repository.dart';
 import 'package:foodadora/features/auth/domain/repositories/social_auth_repository.dart';
+import 'package:foodadora/features/auth/domain/usecases/email_login_usecase.dart';
+import 'package:foodadora/features/auth/domain/usecases/google_sign_usecase.dart';
+import 'package:foodadora/features/auth/domain/usecases/sign_up_usecase.dart';
 import 'package:foodadora/foodadora/foodadora_viewModel.dart';
 import 'package:foodadora/services/base_service.dart';
 import 'package:foodadora/services/cart_Service.dart';
@@ -14,20 +17,21 @@ import 'package:foodadora/services/connectivity_service.dart';
 import 'package:foodadora/services/profile_service.dart';
 import 'package:foodadora/ui/cart/cart_viewmodel.dart';
 import 'package:foodadora/ui/home_navigation/home_navigation_viewmodel.dart';
-import 'package:foodadora/ui/login/login_viewmodel.dart';
+
 import 'package:foodadora/ui/order_details/order_details_viewModel.dart';
 import 'package:foodadora/ui/orders/orders_viewmodel.dart';
 import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
 import 'package:foodadora/ui/profile/profile_viewModel.dart';
 import 'package:foodadora/ui/select_language/select_language_viewmodel.dart';
 import 'package:foodadora/ui/settings/settings_viewmodel.dart';
-import 'package:foodadora/ui/sign_up/signup_viewModel.dart';
 import 'package:foodadora/ui/store_details/store_details_viewmodel.dart';
 import 'package:foodadora/ui/stores/stores_viewModel.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../features/auth/presentation/viewmodels/login_viewmodel.dart';
+import '../features/auth/presentation/viewmodels/signup_viewModel.dart';
 import '../services/auth_Service.dart';
 import '../services/location_service.dart';
 import '../services/orders_services.dart';
@@ -52,11 +56,22 @@ Future<void> setUpDedpendencies() async {
   Get.lazyPut<SocialAuthRepo>(
       () => SocialAuthRepoImpl(authRemoteDataSource: Get.find()));
 
+  // use cases
+
+  Get.lazyPut(() => EmailLoginUseCase(basicAuthRepo: Get.find()));
+  Get.lazyPut(() => GoogleSignInUseCase(socialAuthRepo: Get.find()));
+  Get.lazyPut(() => SignUpUseCase(basicAuthRepo: Get.find()));
+
   // viewModels
 
   Get.lazyPut(() => HomeNavigationViewModel(), fenix: true);
   Get.lazyPut(() => FoodadoraViewModel(), fenix: true);
-  Get.lazyPut(() => LoginViewModel(), fenix: true);
+  Get.lazyPut(
+      () => LoginViewModel(
+            emailLoginUseCase: Get.find(),
+            googleSignInUseCase: Get.find(),
+          ),
+      fenix: true);
   Get.lazyPut(() => SignUpViewModel(), fenix: true);
   Get.lazyPut(() => CartViewModel(), fenix: true);
   Get.lazyPut(() => OrdersViewModel(), fenix: true);
@@ -72,7 +87,7 @@ Future<void> setUpDedpendencies() async {
   // services
 
   Get.lazyPut(() => NavigationService());
-  Get.put(DialogService());
+  // Get.put(DialogService());
   Get.lazyPut(() => AuthService());
 
   Get.lazyPut(() => StoreService());
