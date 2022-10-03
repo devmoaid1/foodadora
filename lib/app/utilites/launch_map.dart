@@ -10,14 +10,14 @@ Future launchMap(GeoPoint location) async {
   final String wazeUrl =
       'https://waze.com/ul?ll=${location.latitude},${location.longitude}';
 
-  if (await canLaunch("comgooglemaps://")) {
-    await launch(googleUrl);
-  } else if (await canLaunch("http://maps.apple.com")) {
-    await launch(appleUrl);
-  } else if (await canLaunch("waze://")) {
-    await launch(wazeUrl);
-  } else if (await canLaunch("https://www.google.com/maps")) {
-    await launch(googleUrl);
+  if (await canLaunchUrl(Uri.parse("comgooglemaps://"))) {
+    await launchUrl(Uri.parse(googleUrl));
+  } else if (await canLaunchUrl(Uri.parse("http://maps.apple.com"))) {
+    await launchUrl(Uri.parse(appleUrl));
+  } else if (await canLaunchUrl(Uri.parse("waze://"))) {
+    await launchUrl(Uri.parse(wazeUrl));
+  } else if (await canLaunchUrl(Uri.parse("https://www.google.com/maps"))) {
+    await launchUrl(Uri.parse(googleUrl));
   } else {
     dialogService.showDialog(
       title: 'Error',
