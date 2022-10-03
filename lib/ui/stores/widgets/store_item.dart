@@ -7,9 +7,11 @@ import 'package:foodadora/app/utilites/get_distance.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
 import 'package:foodadora/models/store.dart';
 import 'package:foodadora/app/utilites/string_extension.dart';
-import 'package:foodadora/ui/stores/stores_viewmodel.dart';
+
 import 'package:foodadora/ui/widgets/pressable.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../stores_viewModel.dart';
 
 class StoreItem extends StatelessWidget {
   final Store store;

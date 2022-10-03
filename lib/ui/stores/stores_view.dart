@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/services/connectivity_service.dart';
-import 'package:foodadora/ui/stores/stores_viewmodel.dart';
+import 'package:foodadora/ui/stores/stores_viewModel.dart';
 
 import 'package:foodadora/ui/stores/widgets/home_graphic.dart';
 

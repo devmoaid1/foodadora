@@ -72,7 +72,7 @@ Future<void> setUpDedpendencies() async {
   // services
 
   Get.lazyPut(() => NavigationService());
-  Get.lazyPut(() => DialogService());
+  Get.put(DialogService());
   Get.lazyPut(() => AuthService());
 
   Get.lazyPut(() => StoreService());

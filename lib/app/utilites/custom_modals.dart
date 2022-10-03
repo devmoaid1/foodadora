@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodadora/app/app.locator.dart';
+
 import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
@@ -8,9 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 enum DialogType { addToCart, basic }
-void setupDialogUi() {
-  final dialogService = locator<DialogService>();
 
+void setupDialogUi() {
+  final dialogService = DialogService();
   final builders = {
     DialogType.addToCart: (context, sheetRequest, completer) =>
         _AddToCartDialog(request: sheetRequest, completer: completer),

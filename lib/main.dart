@@ -4,9 +4,10 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:foodadora/app/constants/localization_constants.dart';
+import 'package:foodadora/app/dependencies.dart';
 import 'package:foodadora/foodadora/foodadora.dart';
 import 'app/utilites/custom_modals.dart';
-import 'package:foodadora/app/app.locator.dart';
+
 import 'package:foodadora/translate_preferences.dart';
 
 void main() async {
@@ -22,7 +23,7 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
   await Firebase.initializeApp();
-  setupLocator();
+  setUpDedpendencies();
   setupDialogUi();
 
   runApp(
