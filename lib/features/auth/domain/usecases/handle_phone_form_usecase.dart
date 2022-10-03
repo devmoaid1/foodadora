@@ -5,10 +5,10 @@ import '../../../../core/errors/faliures.dart';
 import '../../../../core/usecases/use_cases.dart';
 import '../repositories/basic_auth_repository.dart';
 
-class HandlePhoneForm implements UseCase<void, HandlePhoneFormParams> {
+class HandlePhoneFormUseCase implements UseCase<void, HandlePhoneFormParams> {
   final BasicAuthRepo basicAuthRepo;
 
-  HandlePhoneForm({required this.basicAuthRepo});
+  HandlePhoneFormUseCase({required this.basicAuthRepo});
   @override
   Future<Either<Failure, void>> call(params) =>
       basicAuthRepo.addCustomerToDatabase(

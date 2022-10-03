@@ -26,7 +26,7 @@ class SignUpView extends StatelessWidget {
       disposeViewModel: false,
       builder: (context, model, child) {
         return ModalProgressHUD(
-          inAsyncCall: model.isLoading,
+          inAsyncCall: model.loadingState,
           progressIndicator: const CircularProgressIndicator(),
           child: Scaffold(
               appBar: foodadoraAppBar(context, withBack: true),

@@ -9,6 +9,7 @@ import 'package:foodadora/features/auth/domain/repositories/basic_auth_repositor
 import 'package:foodadora/features/auth/domain/repositories/social_auth_repository.dart';
 import 'package:foodadora/features/auth/domain/usecases/email_login_usecase.dart';
 import 'package:foodadora/features/auth/domain/usecases/google_sign_usecase.dart';
+import 'package:foodadora/features/auth/domain/usecases/handle_phone_form_usecase.dart';
 import 'package:foodadora/features/auth/domain/usecases/sign_up_usecase.dart';
 import 'package:foodadora/foodadora/foodadora_viewModel.dart';
 import 'package:foodadora/services/base_service.dart';
@@ -61,6 +62,7 @@ Future<void> setUpDedpendencies() async {
   Get.lazyPut(() => EmailLoginUseCase(basicAuthRepo: Get.find()));
   Get.lazyPut(() => GoogleSignInUseCase(socialAuthRepo: Get.find()));
   Get.lazyPut(() => SignUpUseCase(basicAuthRepo: Get.find()));
+  Get.lazyPut(() => HandlePhoneFormUseCase(basicAuthRepo: Get.find()));
 
   // viewModels
 
@@ -72,7 +74,10 @@ Future<void> setUpDedpendencies() async {
             googleSignInUseCase: Get.find(),
           ),
       fenix: true);
-  Get.lazyPut(() => SignUpViewModel(), fenix: true);
+  Get.lazyPut(
+      () => SignUpViewModel(
+          handlePhoneFormUseCase: Get.find(), signUpUseCase: Get.find()),
+      fenix: true);
   Get.lazyPut(() => CartViewModel(), fenix: true);
   Get.lazyPut(() => OrdersViewModel(), fenix: true);
   Get.lazyPut(() => OrdersViewModel(), fenix: true);

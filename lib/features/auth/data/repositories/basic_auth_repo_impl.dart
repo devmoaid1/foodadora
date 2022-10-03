@@ -54,6 +54,7 @@ class BasicAuthRepoImpl implements BasicAuthRepo {
     }
   }
 
+  @override
   Future<Either<Failure, void>> addCustomerToDatabase(
       {String? id,
       String? email,

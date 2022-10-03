@@ -26,7 +26,7 @@ class PhoneSignUpScreen extends StatelessWidget {
       viewModelBuilder: () => signUpViewModel,
       builder: (context, model, child) {
         return ModalProgressHUD(
-          inAsyncCall: model.isLoading,
+          inAsyncCall: model.loadingState,
           progressIndicator: const CircularProgressIndicator(),
           child: Scaffold(
             appBar: AppBar(

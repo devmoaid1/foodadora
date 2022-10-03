@@ -12,7 +12,7 @@ class AppViewModel extends BaseViewModel {
   }
 
   bool get loadingState => _isLoading!;
-  bool? get isErrorState => _isErrorState;
+  bool get isErrorState => _isErrorState!;
   String get errorMessage => _errorMessage!;
 
   void setLoading(bool value) {
