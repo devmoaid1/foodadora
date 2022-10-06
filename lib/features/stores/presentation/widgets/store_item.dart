@@ -6,15 +6,15 @@ import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/get_distance.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
 import 'package:foodadora/app/utilites/string_extension.dart';
-import 'package:foodadora/features/stores/data/models/storemodel.dart';
 
 import 'package:foodadora/ui/widgets/pressable.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../domain/entites/store.dart';
 import '../viewmodels/stores_viewModel.dart';
 
 class StoreItem extends StatelessWidget {
-  final StoreModel store;
+  final Store store;
   final StoresViewModel viewModel;
   const StoreItem({Key? key, required this.store, required this.viewModel})
       : super(key: key);

@@ -9,7 +9,7 @@ import 'package:stacked/stacked.dart';
 import '../../features/stores/domain/entites/store.dart';
 
 class StoreDetailsViewModel extends BaseViewModel {
-  List<Product> _storeProducts = [];
+  final List<Product> _storeProducts = [];
   bool _isLoading = false;
 
   bool get loading => _isLoading;
@@ -24,7 +24,7 @@ class StoreDetailsViewModel extends BaseViewModel {
     setBusy(true);
     setLoading(true);
     try {
-      _storeProducts = await storeService.getStoreProducts(storeId);
+      // _storeProducts = await storeService.getStoreProducts(storeId);
       setBusy(false);
       setLoading(false);
     } catch (err) {

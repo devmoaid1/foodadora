@@ -12,8 +12,8 @@ import '../../../app/constants/assets.dart';
 import '../../../app/utilites/app_colors.dart';
 import '../../../app/utilites/date_formmater.dart';
 import '../../../app/utilites/screen_sizes.dart';
+import '../../../features/stores/domain/entites/store.dart';
 import '../../../models/order.dart';
-import '../../../models/store.dart';
 
 import '../orders_viewmodel.dart';
 

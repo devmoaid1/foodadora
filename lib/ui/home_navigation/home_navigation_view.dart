@@ -9,12 +9,12 @@ import 'package:foodadora/ui/home_navigation/widgets/bottom_navigation.dart';
 
 import 'package:foodadora/ui/orders/orders_view.dart';
 import 'package:foodadora/ui/settings/settings_view.dart';
-import 'package:foodadora/ui/stores/stores_view.dart';
 
 import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../app/utilites/app_colors.dart';
+import '../../features/stores/presentation/views/stores_view.dart';
 
 class HomeNavigationView extends StatelessWidget {
   const HomeNavigationView({Key? key}) : super(key: key);

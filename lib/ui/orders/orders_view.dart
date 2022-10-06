@@ -16,7 +16,8 @@ import 'package:stacked/stacked.dart';
 
 import '../../app/utilites/enums.dart';
 import '../../app/utilites/screen_sizes.dart';
-import '../../models/store.dart';
+
+import '../../features/stores/domain/entites/store.dart';
 import '../../services/connectivity_service.dart';
 import 'widgets/order_item.dart';
 

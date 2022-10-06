@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../features/auth/domain/entities/customer.dart';
-import '../../models/store.dart';
+import '../../features/stores/domain/entites/store.dart';
 
 @singleton
 class OrdersViewModel extends BaseViewModel {
@@ -33,35 +33,36 @@ class OrdersViewModel extends BaseViewModel {
   }
 
   void getOrders() async {
-    setBusy(true);
-    setLoading(true);
+    //   setBusy(true);
+    //   setLoading(true);
 
-    try {
-      final customerId =
-          profileService.currentCustomer?.userId; // get customer id
+    //   try {
+    //     final customerId =
+    //         profileService.currentCustomer?.userId; // get customer id
 
-      if (customerId != null) {
-        print(customerId);
+    //     if (customerId != null) {
+    //       print(customerId);
 
-        _orders = await ordersService.getOrdersForCustomer(
-            customerId: customerId.toString());
-        if (_orders.isNotEmpty) {
-          _orders.forEach(
-            (element) async {
-              var store = await storeService
-                  .getStoreById(element.products![0].storeId.toString());
-              _stores.add(store as Store);
-              notifyListeners();
-            },
-          );
-        }
-      }
-      setBusy(false);
-      setLoading(false);
-    } catch (err) {
-      logger.e(err.toString());
-      setBusy(false);
-      setLoading(false);
-    }
+    //       _orders = await ordersService.getOrdersForCustomer(
+    //           customerId: customerId.toString());
+    //       if (_orders.isNotEmpty) {
+    //         _orders.forEach(
+    //           (element) async {
+    //             var store = await storeService
+    //                 .getStoreById(element.products![0].storeId.toString());
+    //             _stores.add(store as Store);
+    //             notifyListeners();
+    //           },
+    //         );
+    //       }
+    //     }
+    //     setBusy(false);
+    //     setLoading(false);
+    //   } catch (err) {
+    //     logger.e(err.toString());
+    //     setBusy(false);
+    //     setLoading(false);
+    //   }
+    // }
   }
 }

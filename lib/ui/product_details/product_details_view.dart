@@ -21,7 +21,8 @@ import 'package:stacked/stacked.dart';
 import '../../app/utilites/app_colors.dart';
 import '../../app/utilites/get_expiry_weeks.dart';
 import '../../app/utilites/screen_sizes.dart';
-import '../../models/store.dart';
+
+import '../../features/stores/domain/entites/store.dart';
 import 'widgets/Product_image.dart';
 
 class ProductDetailsView extends StatelessWidget {

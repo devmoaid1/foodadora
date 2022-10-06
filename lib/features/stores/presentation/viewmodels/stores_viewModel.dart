@@ -1,5 +1,8 @@
 // ignore_for_file: file_names
 
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/custom_modals.dart';
@@ -28,6 +31,8 @@ class StoresViewModel extends AppViewModel {
   List<Store?> get stores => _stores;
   LocationPermission? _locationPermission;
   bool? _serviceEnabled;
+
+  StreamSubscription<List<DocumentSnapshot>>? _storesSubscribtion;
 
   LocationPermission? get locationPermission => _locationPermission;
   bool? get serviceEnabled => _serviceEnabled;
@@ -63,6 +68,7 @@ class StoresViewModel extends AppViewModel {
     final response = await getStoresUseCase(NoParams());
 
     response.fold((failure) {
+      setBusy(false);
       setIsErrorState(true);
       setError(failure.message);
       dialogService.showCustomDialog(
@@ -71,46 +77,35 @@ class StoresViewModel extends AppViewModel {
         description: failure.message,
       );
     }, (storesStream) async {
-      if (await storesStream.isEmpty != true) {
-        _locationPermission = LocationPermission.always;
-        _serviceEnabled = true;
+      _locationPermission = LocationPermission.always;
+      _serviceEnabled = true;
 
-        storesStream.listen((snapshots) {
+      _storesSubscribtion = storesStream.listen((snapshots) {});
+
+      _storesSubscribtion!.onData((snapshots) {
+        if (snapshots.isNotEmpty) {
+          logger.i("stream first : ${snapshots.first}");
           _stores = snapshots.map((snapshot) {
             if (snapshot.data() != null) {
               return StoreModel.fromJson(
                   snapshot.data() as Map<String, dynamic>);
             }
           }).toList();
-          setBusy(false);
-          notifyListeners();
-        });
-      } else {
-        _stores = [];
+        } else {
+          _stores = [];
+        }
+
         setBusy(false);
+
         notifyListeners();
-      }
+      });
     });
+  }
 
-    // Stream<List<DocumentSnapshot>>? storesStream =
-    //     await _storeService.getStores();
-
-    // if (storesStream != null) {
-    //   _locationPermission = locationService.permission;
-    //   _serviceEnabled = locationService.serviceEnabled;
-    //   storesStream.listen((snapshots) {
-    //     _stores = snapshots.map((snapshot) {
-    //       if (snapshot.data() != null) {
-    //         return StoreModel.fromJson(snapshot.data() as Map<String, dynamic>);
-    //       }
-    //     }).toList();
-    //     setBusy(false);
-    //     notifyListeners();
-    //   });
-    // } else {
-    //   _stores = [];
-    //   setBusy(false);
-    //   notifyListeners();
-    // }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _storesSubscribtion!.cancel();
   }
 }

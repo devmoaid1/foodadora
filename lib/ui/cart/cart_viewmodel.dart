@@ -39,8 +39,8 @@ class CartViewModel extends BaseViewModel {
 
     try {
       if (cart.storeId!.isNotEmpty) {
-        await storeService.getStoreById(cart.storeId!).then((store) =>
-            _storeName = store!.storeName!); // get store name for cart
+        // await storeService.getStoreById(cart.storeId!).then((store) =>
+        //     _storeName = store!.storeName!); // get store name for cart
       }
 
       // handle if cart is empty or not
