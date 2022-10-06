@@ -26,13 +26,14 @@ import 'package:foodadora/ui/profile/profile_viewModel.dart';
 import 'package:foodadora/ui/select_language/select_language_viewmodel.dart';
 import 'package:foodadora/ui/settings/settings_viewmodel.dart';
 import 'package:foodadora/ui/store_details/store_details_viewmodel.dart';
-import 'package:foodadora/ui/stores/stores_viewModel.dart';
+
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../features/auth/presentation/viewmodels/login_viewmodel.dart';
 import '../features/auth/presentation/viewmodels/signup_viewModel.dart';
+import '../features/stores/presentation/viewmodels/stores_viewModel.dart';
 import '../services/auth_Service.dart';
 import '../services/location_service.dart';
 import '../services/orders_services.dart';
@@ -87,7 +88,11 @@ Future<void> setUpDedpendencies() async {
   Get.lazyPut(() => ProductDetailsViewModel(), fenix: true);
   Get.lazyPut(() => SelectLanguageViewModel(), fenix: true);
   Get.lazyPut(() => StoreDetailsViewModel(), fenix: true);
-  Get.lazyPut(() => StoresViewModel(), fenix: true);
+  Get.lazyPut(
+      () => StoresViewModel(
+          getStoresUseCase: Get.find(),
+          openLocationSettingsUseCase: Get.find()),
+      fenix: true);
 
   // services
 

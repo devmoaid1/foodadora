@@ -13,11 +13,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
-import 'package:foodadora/models/store.dart';
 import 'package:foodadora/ui/store_details/store_details_viewmodel.dart';
 import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 
 import '../../app/utilites/screen_sizes.dart';
+import '../../features/stores/domain/entites/store.dart';
 import '../../services/connectivity_service.dart';
 import '../widgets/noconnection_indicator.dart';
 

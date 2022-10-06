@@ -3,11 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/services/connectivity_service.dart';
-import 'package:foodadora/ui/stores/stores_viewModel.dart';
 
-import 'package:foodadora/ui/stores/widgets/home_graphic.dart';
-
-import 'package:foodadora/ui/stores/widgets/store_item.dart';
 import 'package:foodadora/ui/widgets/empty_stores_placeholder.dart';
 import 'package:foodadora/ui/widgets/location_disabled_placeholder.dart';
 import 'package:geolocator/geolocator.dart';
@@ -15,8 +11,11 @@ import 'package:provider/provider.dart';
 
 import 'package:stacked/stacked.dart';
 
-import '../../app/utilites/screen_sizes.dart';
-import '../widgets/noconnection_indicator.dart';
+import '../../../../app/utilites/screen_sizes.dart';
+import '../../../../ui/widgets/noconnection_indicator.dart';
+import '../viewmodels/stores_viewModel.dart';
+import '../widgets/home_graphic.dart';
+import '../widgets/store_item.dart';
 
 class StoresScreen extends StatelessWidget {
   const StoresScreen({Key? key}) : super(key: key);
@@ -32,7 +31,6 @@ class StoresScreen extends StatelessWidget {
           model.getStoresList();
         },
         builder: (context, viewModel, _) {
-          print("stores screen ${viewModel.isConnected}");
           bool isLocationDenied =
               viewModel.locationPermission == LocationPermission.denied ||
                   viewModel.locationPermission ==

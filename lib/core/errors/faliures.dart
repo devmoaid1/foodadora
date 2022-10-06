@@ -19,4 +19,8 @@ class AuthenticationFailure extends Failure {
 
 class CacheFailure extends Failure {
   const CacheFailure({required String message}) : super(message: message);
-} // for local data 
+} // for local data
+
+class LocationFailure extends Failure {
+  const LocationFailure({required String message}) : super(message: message);
+} // for local data

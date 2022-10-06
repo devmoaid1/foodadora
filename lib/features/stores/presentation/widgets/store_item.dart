@@ -5,16 +5,16 @@ import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/get_distance.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
-import 'package:foodadora/models/store.dart';
 import 'package:foodadora/app/utilites/string_extension.dart';
+import 'package:foodadora/features/stores/data/models/storemodel.dart';
 
 import 'package:foodadora/ui/widgets/pressable.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../stores_viewModel.dart';
+import '../viewmodels/stores_viewModel.dart';
 
 class StoreItem extends StatelessWidget {
-  final Store store;
+  final StoreModel store;
   final StoresViewModel viewModel;
   const StoreItem({Key? key, required this.store, required this.viewModel})
       : super(key: key);
@@ -136,7 +136,7 @@ class StoreItem extends StatelessWidget {
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(
-                          store.category?.capitalize() ?? "",
+                          store.category!.capitalize.toString(),
                           style: GoogleFonts.poppins(
                               color: textColor,
                               fontSize: blockSizeHorizontal(context) * 3),

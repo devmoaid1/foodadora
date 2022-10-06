@@ -7,6 +7,7 @@ import 'package:logger/logger.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../features/auth/presentation/viewmodels/signup_viewModel.dart';
+import '../../features/stores/presentation/viewmodels/stores_viewModel.dart';
 import '../../services/auth_Service.dart';
 import '../../services/cart_Service.dart';
 import '../../services/connectivity_service.dart';
@@ -20,8 +21,6 @@ import '../../ui/home_navigation/home_navigation_viewmodel.dart';
 import '../../ui/orders/orders_viewmodel.dart';
 import '../../ui/product_details/product_details_viewmodel.dart';
 import '../../ui/settings/settings_viewmodel.dart';
-
-import '../../ui/stores/stores_viewModel.dart';
 
 final navigationService = Get.find<NavigationService>();
 final dialogService = locator<DialogService>();

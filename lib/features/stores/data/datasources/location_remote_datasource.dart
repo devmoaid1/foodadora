@@ -3,7 +3,7 @@ import 'package:geolocator/geolocator.dart';
 
 abstract class LocationRemoteDataSource {
   Future<LocationModel> getUserLocation();
-  Future<void> openLocationSettings();
+  Future<bool> openLocationSettings();
 }
 
 class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
@@ -49,7 +49,8 @@ class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
   }
 
   @override
-  Future<void> openLocationSettings() async {
-    await Geolocator.openLocationSettings();
+  Future<bool> openLocationSettings() async {
+    final response = await Geolocator.openLocationSettings();
+    return response;
   }
 }
