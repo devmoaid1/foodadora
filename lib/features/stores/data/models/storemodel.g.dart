@@ -1,35 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'store.dart';
+part of 'storemodel.dart';
 
 // **************************************************************************
 // CopyWithGenerator
 // **************************************************************************
 
-abstract class _$StoreCWProxy {
-  Store address(String? address);
+abstract class _$StoreModelCWProxy {
+  StoreModel address(String? address);
 
-  Store category(String? category);
+  StoreModel category(String? category);
 
-  Store id(String? id);
+  StoreModel id(String? id);
 
-  Store imageUrl(String? imageUrl);
+  StoreModel imageUrl(String? imageUrl);
 
-  Store isActive(bool isActive);
+  StoreModel isActive(bool isActive);
 
-  Store isOpen(bool? isOpen);
+  StoreModel isOpen(bool? isOpen);
 
-  Store pos(Map<String, dynamic>? pos);
+  StoreModel pos(Map<String, dynamic>? pos);
 
-  Store storeName(String? storeName);
+  StoreModel storeName(String? storeName);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Store(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `StoreModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
   /// ```dart
-  /// Store(...).copyWith(id: 12, name: "My name")
+  /// StoreModel(...).copyWith(id: 12, name: "My name")
   /// ````
-  Store call({
+  StoreModel call({
     String? address,
     String? category,
     String? id,
@@ -41,45 +41,45 @@ abstract class _$StoreCWProxy {
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfStore.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfStore.copyWith.fieldName(...)`
-class _$StoreCWProxyImpl implements _$StoreCWProxy {
-  final Store _value;
+/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfStoreModel.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfStoreModel.copyWith.fieldName(...)`
+class _$StoreModelCWProxyImpl implements _$StoreModelCWProxy {
+  final StoreModel _value;
 
-  const _$StoreCWProxyImpl(this._value);
-
-  @override
-  Store address(String? address) => this(address: address);
+  const _$StoreModelCWProxyImpl(this._value);
 
   @override
-  Store category(String? category) => this(category: category);
+  StoreModel address(String? address) => this(address: address);
 
   @override
-  Store id(String? id) => this(id: id);
+  StoreModel category(String? category) => this(category: category);
 
   @override
-  Store imageUrl(String? imageUrl) => this(imageUrl: imageUrl);
+  StoreModel id(String? id) => this(id: id);
 
   @override
-  Store isActive(bool isActive) => this(isActive: isActive);
+  StoreModel imageUrl(String? imageUrl) => this(imageUrl: imageUrl);
 
   @override
-  Store isOpen(bool? isOpen) => this(isOpen: isOpen);
+  StoreModel isActive(bool isActive) => this(isActive: isActive);
 
   @override
-  Store pos(Map<String, dynamic>? pos) => this(pos: pos);
+  StoreModel isOpen(bool? isOpen) => this(isOpen: isOpen);
 
   @override
-  Store storeName(String? storeName) => this(storeName: storeName);
+  StoreModel pos(Map<String, dynamic>? pos) => this(pos: pos);
+
+  @override
+  StoreModel storeName(String? storeName) => this(storeName: storeName);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Store(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `StoreModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
   /// ```dart
-  /// Store(...).copyWith(id: 12, name: "My name")
+  /// StoreModel(...).copyWith(id: 12, name: "My name")
   /// ````
-  Store call({
+  StoreModel call({
     Object? address = const $CopyWithPlaceholder(),
     Object? category = const $CopyWithPlaceholder(),
     Object? id = const $CopyWithPlaceholder(),
@@ -89,7 +89,7 @@ class _$StoreCWProxyImpl implements _$StoreCWProxy {
     Object? pos = const $CopyWithPlaceholder(),
     Object? storeName = const $CopyWithPlaceholder(),
   }) {
-    return Store(
+    return StoreModel(
       address: address == const $CopyWithPlaceholder()
           ? _value.address
           // ignore: cast_nullable_to_non_nullable
@@ -126,17 +126,17 @@ class _$StoreCWProxyImpl implements _$StoreCWProxy {
   }
 }
 
-extension $StoreCopyWith on Store {
-  /// Returns a callable class that can be used as follows: `instanceOfStore.copyWith(...)` or like so:`instanceOfStore.copyWith.fieldName(...)`.
+extension $StoreModelCopyWith on StoreModel {
+  /// Returns a callable class that can be used as follows: `instanceOfStoreModel.copyWith(...)` or like so:`instanceOfStoreModel.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
-  _$StoreCWProxy get copyWith => _$StoreCWProxyImpl(this);
+  _$StoreModelCWProxy get copyWith => _$StoreModelCWProxyImpl(this);
 }
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Store _$StoreFromJson(Map<String, dynamic> json) => Store(
+StoreModel _$StoreModelFromJson(Map<String, dynamic> json) => StoreModel(
       id: json['id'] as String?,
       storeName: json['storeName'] as String?,
       address: json['address'] as String?,
@@ -147,7 +147,8 @@ Store _$StoreFromJson(Map<String, dynamic> json) => Store(
       isActive: json['isActive'] as bool? ?? true,
     );
 
-Map<String, dynamic> _$StoreToJson(Store instance) => <String, dynamic>{
+Map<String, dynamic> _$StoreModelToJson(StoreModel instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'storeName': instance.storeName,
       'address': instance.address,

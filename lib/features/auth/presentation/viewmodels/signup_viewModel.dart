@@ -29,7 +29,7 @@ class SignUpViewModel extends AppViewModel {
       logger.e(failure.message.toString());
       dialogService.showCustomDialog(
           variant: DialogType.basic,
-          title: "something went wrong",
+          title: failure.message,
           mainButtonTitle: "ok");
     }, (credential) {
       logger.i("sign up success for user : ${credential.user}");
