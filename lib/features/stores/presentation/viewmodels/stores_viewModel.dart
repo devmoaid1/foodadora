@@ -104,7 +104,6 @@ class StoresViewModel extends AppViewModel {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _storesSubscribtion!.cancel();
   }

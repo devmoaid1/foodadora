@@ -17,9 +17,6 @@ class Product {
   final double? productPrice;
   final double? originalPrice;
 
-  @JsonKey(
-      fromJson: DateTimeConverters.dateTimeFromTimestamp,
-      toJson: DateTimeConverters.dateTimeAsIs)
   final DateTime? expiryDate;
 
   int? quantity;
