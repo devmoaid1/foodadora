@@ -6,11 +6,13 @@ import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/custom_modals.dart';
 import 'package:foodadora/models/cartItem.dart';
-import 'package:foodadora/models/product.dart';
 
 import 'package:foodadora/services/local_storage_service.dart';
 
 import 'package:stacked/stacked.dart';
+
+import '../../features/store_details/data/models/product_model.dart';
+import '../../features/store_details/domain/entities/product.dart';
 
 class ProductDetailsViewModel extends BaseViewModel {
   Stream<List<Product>> get cart => cartService.cartItems;
@@ -63,6 +65,7 @@ class ProductDetailsViewModel extends BaseViewModel {
 
   void incrementQunatity({required Product product}) {
     Product? copyProduct;
+
     if (_quantity < product.quantity!) {
       copyProduct = product.copyWith(quantity: _quantity);
       _quantity++;

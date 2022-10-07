@@ -1,5 +1,8 @@
+import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
+part "product.g.dart";
 
+@CopyWith()
 class Product extends Equatable {
   final String? productId;
   final String? storeId;

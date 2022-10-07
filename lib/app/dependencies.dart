@@ -13,13 +13,14 @@ import 'package:foodadora/features/auth/domain/usecases/email_login_usecase.dart
 import 'package:foodadora/features/auth/domain/usecases/google_sign_usecase.dart';
 import 'package:foodadora/features/auth/domain/usecases/handle_phone_form_usecase.dart';
 import 'package:foodadora/features/auth/domain/usecases/sign_up_usecase.dart';
+import 'package:foodadora/features/store_details/domain/repositories/store_details_repository.dart';
 import 'package:foodadora/features/stores/data/datasources/location_remote_datasource.dart';
 import 'package:foodadora/features/stores/data/datasources/stores_remote_datasource.dart';
 import 'package:foodadora/features/stores/data/repositories/location_repository_impl.dart';
 import 'package:foodadora/features/stores/data/repositories/stores_repository_impl.dart';
 import 'package:foodadora/features/stores/domain/repositories/location_repository.dart';
 import 'package:foodadora/features/stores/domain/repositories/stores_repository.dart';
-import 'package:foodadora/features/stores/domain/usecases/get_store_products_usecase.dart';
+
 import 'package:foodadora/features/stores/domain/usecases/get_stores_usecase.dart';
 import 'package:foodadora/features/stores/domain/usecases/open_location_settings_usecase.dart';
 import 'package:foodadora/foodadora/foodadora_viewModel.dart';
@@ -45,6 +46,9 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../features/auth/presentation/viewmodels/login_viewmodel.dart';
 import '../features/auth/presentation/viewmodels/signup_viewModel.dart';
+import '../features/store_details/data/datasources/store_details_remote_datasource.dart';
+import '../features/store_details/data/repositories/store_details_repository_impl.dart';
+import '../features/store_details/domain/usecases/get_store_products_usecase.dart';
 import '../features/stores/domain/usecases/get_store_usecase.dart';
 import '../features/stores/presentation/viewmodels/stores_viewModel.dart';
 import '../services/auth_Service.dart';
@@ -74,6 +78,11 @@ Future<void> setUpDedpendencies() async {
   Get.lazyPut<StoreRemoteDataSource>(() => StoreRemoteDataSourceImpl(
       fireStore: Get.find(), geo: Get.find(), locationService: Get.find()));
 
+  Get.lazyPut<StoreDetailsRemoteDataSource>(
+      () => StoreDetailsRemoteDataSourceImpl(
+            fireStore: Get.find(),
+          ));
+
   // repositories
 
   // auth
@@ -89,6 +98,9 @@ Future<void> setUpDedpendencies() async {
   Get.lazyPut<LocationRepository>(
       () => LocationRepositoryImpl(locationRemoteDataSource: Get.find()));
 
+  Get.lazyPut<StoreDetailsRepository>(() =>
+      StoreDetailsRepositoryImpl(storeDetailsRemoteDataSource: Get.find()));
+
   // use cases
   //Auth
   Get.lazyPut(() => EmailLoginUseCase(basicAuthRepo: Get.find()));
@@ -98,8 +110,9 @@ Future<void> setUpDedpendencies() async {
 
   // stores
   Get.lazyPut(() => GetStoresUseCase(storesRepository: Get.find()));
-  Get.lazyPut(() => GetStoreUseCase(storesRepository: Get.find()));
-  Get.lazyPut(() => GetStoreProductsUseCase(storesRepository: Get.find()));
+  Get.lazyPut(() => GetStoreByIdUseCase(storesRepository: Get.find()));
+  Get.lazyPut(
+      () => GetStoreProductsUseCase(storeDetailsRepository: Get.find()));
   Get.lazyPut(
       () => OpenLocationSettingsUseCase(locationRepository: Get.find()));
 

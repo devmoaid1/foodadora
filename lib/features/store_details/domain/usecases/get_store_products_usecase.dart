@@ -2,18 +2,19 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:foodadora/core/errors/faliures.dart';
 import 'package:foodadora/core/usecases/use_cases.dart';
-import 'package:foodadora/features/stores/domain/repositories/stores_repository.dart';
-import 'package:foodadora/models/product.dart';
+
+import '../../../store_details/domain/entities/product.dart';
+import '../repositories/store_details_repository.dart';
 
 class GetStoreProductsUseCase
     implements UseCase<List<Product>, GetStoreProductsParams> {
-  final StoresRepository storesRepository;
+  final StoreDetailsRepository storeDetailsRepository;
 
-  GetStoreProductsUseCase({required this.storesRepository});
+  GetStoreProductsUseCase({required this.storeDetailsRepository});
 
   @override
   Future<Either<Failure, List<Product>>> call(GetStoreProductsParams params) =>
-      storesRepository.getStoreProducts(id: params.id);
+      storeDetailsRepository.getStoreProducts(id: params.id);
 }
 
 class GetStoreProductsParams extends Equatable {

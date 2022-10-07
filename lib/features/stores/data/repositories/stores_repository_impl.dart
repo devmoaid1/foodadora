@@ -6,10 +6,11 @@ import 'package:foodadora/core/errors/faliures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:foodadora/features/stores/domain/repositories/stores_repository.dart';
-import 'package:foodadora/models/product.dart';
+
 import 'package:geolocator/geolocator.dart';
 
 import '../../../../app/constants/services_instances.dart';
+import '../../../store_details/domain/entities/product.dart';
 
 class StoresRepositoryImpl implements StoresRepository {
   final StoreRemoteDataSource storesRemoteDataSource;

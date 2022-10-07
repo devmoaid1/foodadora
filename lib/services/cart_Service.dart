@@ -4,16 +4,17 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
+import 'package:foodadora/features/store_details/data/models/product_model.dart';
 import 'package:foodadora/models/cart.dart';
 import 'package:foodadora/models/cartItem.dart';
 
-import 'package:foodadora/models/product.dart';
 import 'package:foodadora/services/base_service.dart';
 import 'package:foodadora/services/local_storage_service.dart';
 
 import 'package:rxdart/rxdart.dart';
 
 import '../app/utilites/custom_modals.dart';
+import '../features/store_details/domain/entities/product.dart';
 
 class CartService extends BaseService with ChangeNotifier {
   LocalStorageService localStorage = LocalStorageService();
@@ -67,9 +68,9 @@ class CartService extends BaseService with ChangeNotifier {
             .get();
 
         for (var doc in fetchedDocs.docs) {
-          var product = Product.fromJson(doc.data());
+          var product = ProductModel.fromJson(doc.data());
 
-          _originalProducts.add(Product.fromJson(doc.data()));
+          _originalProducts.add(ProductModel.fromJson(doc.data()));
 
           products.add(
               product.copyWith(productId: doc.id, quantity: item.quantity));

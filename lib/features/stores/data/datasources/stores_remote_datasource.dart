@@ -2,13 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:foodadora/core/api/endpoints.dart';
 import 'package:foodadora/core/api/firebase_api_provider.dart';
 import 'package:foodadora/core/api/geo_api_provider.dart';
+import 'package:foodadora/features/store_details/data/models/product_model.dart';
 import 'package:foodadora/features/stores/data/datasources/location_remote_datasource.dart';
 import 'package:foodadora/features/stores/data/models/storemodel.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:geolocator/geolocator.dart';
 
-import '../../../../models/product.dart';
 import '../../../../services/base_service.dart';
+import '../../../store_details/domain/entities/product.dart';
 import '../../domain/entites/store.dart';
 
 abstract class StoreRemoteDataSource {
@@ -51,7 +52,7 @@ class StoreRemoteDataSourceImpl extends BaseService
         .get();
 
     return fetchedProducts.docs
-        .map((product) => Product.fromJson(product.data()))
+        .map((product) => ProductModel.fromJson(product.data()))
         .toList();
   }
 

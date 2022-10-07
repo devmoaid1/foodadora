@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/format_price.dart';
-import 'package:foodadora/models/product.dart';
+
 import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/services/connectivity_service.dart';
 import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
@@ -22,6 +22,7 @@ import '../../app/utilites/app_colors.dart';
 import '../../app/utilites/get_expiry_weeks.dart';
 import '../../app/utilites/screen_sizes.dart';
 
+import '../../features/store_details/domain/entities/product.dart';
 import '../../features/stores/domain/entites/store.dart';
 import 'widgets/Product_image.dart';
 

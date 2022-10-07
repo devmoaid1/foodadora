@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:foodadora/models/product.dart';
+import 'package:foodadora/features/store_details/data/models/product_model.dart';
+
 import 'package:foodadora/models/utilities/dateTime_converters.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../features/store_details/domain/entities/product.dart';
 part 'order.g.dart';
 
 @JsonSerializable(explicitToJson: true)

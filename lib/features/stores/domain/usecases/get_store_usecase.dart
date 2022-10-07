@@ -6,10 +6,10 @@ import 'package:foodadora/features/stores/domain/repositories/stores_repository.
 
 import '../entites/store.dart';
 
-class GetStoreUseCase implements UseCase<Store, GetStoreParams> {
+class GetStoreByIdUseCase implements UseCase<Store, GetStoreParams> {
   final StoresRepository storesRepository;
 
-  GetStoreUseCase({required this.storesRepository});
+  GetStoreByIdUseCase({required this.storesRepository});
 
   @override
   Future<Either<Failure, Store>> call(GetStoreParams params) =>

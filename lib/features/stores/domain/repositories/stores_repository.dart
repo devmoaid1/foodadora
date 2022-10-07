@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:foodadora/core/errors/faliures.dart';
-import 'package:foodadora/models/product.dart';
 
+import '../../../store_details/domain/entities/product.dart';
 import '../entites/store.dart';
 
 abstract class StoresRepository {

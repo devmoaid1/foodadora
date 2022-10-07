@@ -8,7 +8,6 @@ import '../../../../models/utilities/dateTime_converters.dart';
 part 'product_model.g.dart';
 
 @JsonSerializable()
-@CopyWith()
 class ProductModel extends Product {
   const ProductModel(
       {String? productId,

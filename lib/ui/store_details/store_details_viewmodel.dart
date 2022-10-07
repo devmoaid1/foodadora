@@ -2,10 +2,10 @@
 
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
-import 'package:foodadora/models/product.dart';
 
 import 'package:stacked/stacked.dart';
 
+import '../../features/store_details/domain/entities/product.dart';
 import '../../features/stores/domain/entites/store.dart';
 
 class StoreDetailsViewModel extends BaseViewModel {

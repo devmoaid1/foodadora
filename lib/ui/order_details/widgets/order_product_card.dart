@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../app/constants/assets.dart';
 import '../../../app/utilites/screen_sizes.dart';
-import '../../../models/product.dart';
+import '../../../features/store_details/domain/entities/product.dart';
 
 class OrderProductCard extends StatelessWidget {
   final Product product;

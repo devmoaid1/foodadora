@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/format_price.dart';
-import 'package:foodadora/models/product.dart';
+
 import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/ui/cart/cart_viewmodel.dart';
 
@@ -20,6 +20,7 @@ import 'package:stacked/stacked.dart';
 import '../../app/utilites/app_colors.dart';
 import '../../app/utilites/enums.dart';
 import '../../app/utilites/screen_sizes.dart';
+import '../../features/store_details/domain/entities/product.dart';
 import '../../services/connectivity_service.dart';
 import '../widgets/noconnection_indicator.dart';
 import 'widgets/cart_text_row.dart';
