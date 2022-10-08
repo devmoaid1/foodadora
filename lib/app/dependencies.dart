@@ -31,8 +31,6 @@ import 'package:foodadora/services/profile_service.dart';
 import 'package:foodadora/ui/cart/cart_viewmodel.dart';
 import 'package:foodadora/ui/home_navigation/home_navigation_viewmodel.dart';
 
-import 'package:foodadora/ui/order_details/order_details_viewModel.dart';
-import 'package:foodadora/ui/orders/orders_viewmodel.dart';
 import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
 import 'package:foodadora/ui/profile/profile_viewModel.dart';
 import 'package:foodadora/ui/select_language/select_language_viewmodel.dart';
@@ -46,6 +44,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../features/auth/presentation/viewmodels/login_viewmodel.dart';
 import '../features/auth/presentation/viewmodels/signup_viewModel.dart';
+import '../features/orders/presentation/viewmodels/orders_viewmodel.dart';
 import '../features/store_details/data/datasources/store_details_remote_datasource.dart';
 import '../features/store_details/data/repositories/store_details_repository_impl.dart';
 import '../features/store_details/domain/usecases/get_store_products_usecase.dart';
@@ -132,8 +131,7 @@ Future<void> setUpDedpendencies() async {
       fenix: true);
   Get.lazyPut(() => CartViewModel(), fenix: true);
   Get.lazyPut(() => OrdersViewModel(), fenix: true);
-  Get.lazyPut(() => OrdersViewModel(), fenix: true);
-  Get.lazyPut(() => OrderDetailsViewModel(), fenix: true);
+
   Get.lazyPut(() => SettingsViewModel(), fenix: true);
   Get.lazyPut(() => ProfileViewModel(), fenix: true);
   Get.lazyPut(() => ProductDetailsViewModel(), fenix: true);

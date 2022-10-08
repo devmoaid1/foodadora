@@ -2,12 +2,13 @@
 
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
-import 'package:foodadora/models/order.dart';
+
 import 'package:injectable/injectable.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../features/auth/domain/entities/customer.dart';
-import '../../features/stores/domain/entites/store.dart';
+import '../../../auth/domain/entities/customer.dart';
+import '../../../stores/domain/entites/store.dart';
+import '../../domain/entities/order.dart';
 
 @singleton
 class OrdersViewModel extends BaseViewModel {

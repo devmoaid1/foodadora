@@ -5,7 +5,7 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:firebase_auth/firebase_auth.dart' as _i17;
+import 'package:firebase_auth/firebase_auth.dart' as _i18;
 import 'package:flutter/cupertino.dart' as _i14;
 import 'package:flutter/material.dart' as _i15;
 import 'package:flutter/material.dart';
@@ -15,14 +15,17 @@ import 'package:foodadora/features/auth/presentation/views/phone_signup_view.dar
     as _i8;
 import 'package:foodadora/features/auth/presentation/views/signup_view.dart'
     as _i7;
-import 'package:foodadora/features/stores/domain/entites/store.dart' as _i16;
+import 'package:foodadora/features/orders/presentation/views/order_details_view.dart'
+    as _i13;
+import 'package:foodadora/features/orders/presentation/views/orders_view.dart'
+    as _i4;
+import 'package:foodadora/features/store_details/domain/entities/product.dart'
+    as _i16;
+import 'package:foodadora/features/stores/domain/entites/store.dart' as _i17;
 import 'package:foodadora/features/stores/presentation/views/stores_view.dart'
     as _i11;
-import 'package:foodadora/models/order.dart' as _i18;
 import 'package:foodadora/ui/cart/cart_view.dart' as _i5;
 import 'package:foodadora/ui/home_navigation/home_navigation_view.dart' as _i2;
-import 'package:foodadora/ui/order_details/order_details_view.dart' as _i13;
-import 'package:foodadora/ui/orders/orders_view.dart' as _i4;
 import 'package:foodadora/ui/product_details/product_details_view.dart' as _i3;
 import 'package:foodadora/ui/profile/profile_view.dart' as _i9;
 import 'package:foodadora/ui/select_language/select_language_view.dart' as _i10;
@@ -234,9 +237,9 @@ class ProductDetailsViewArguments {
 
   final _i15.Key? key;
 
-  final dynamic product;
+  final _i16.Product product;
 
-  final _i16.Store store;
+  final _i17.Store store;
 }
 
 class LoginViewArguments {
@@ -259,7 +262,7 @@ class PhoneSignUpScreenArguments {
 
   final _i15.Key? key;
 
-  final _i17.UserCredential? user;
+  final _i18.UserCredential? user;
 }
 
 class ProfileScreenArguments {
@@ -288,7 +291,7 @@ class StoreDetailsScreenArguments {
 
   final _i15.Key? key;
 
-  final _i16.Store store;
+  final _i17.Store store;
 
   final String distance;
 }
@@ -302,9 +305,9 @@ class OrderDetailsScreenArguments {
 
   final _i15.Key? key;
 
-  final _i18.Order order;
+  final dynamic order;
 
-  final _i16.Store store;
+  final _i17.Store store;
 }
 
 extension NavigatorStateExtension on _i19.NavigationService {
@@ -324,8 +327,8 @@ extension NavigatorStateExtension on _i19.NavigationService {
 
   Future<dynamic> navigateToProductDetailsView({
     _i15.Key? key,
-    required dynamic product,
-    required _i16.Store store,
+    required _i16.Product product,
+    required _i17.Store store,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -403,7 +406,7 @@ extension NavigatorStateExtension on _i19.NavigationService {
 
   Future<dynamic> navigateToPhoneSignUpScreen({
     _i15.Key? key,
-    _i17.UserCredential? user,
+    _i18.UserCredential? user,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -468,7 +471,7 @@ extension NavigatorStateExtension on _i19.NavigationService {
 
   Future<dynamic> navigateToStoreDetailsScreen({
     _i15.Key? key,
-    required _i16.Store store,
+    required _i17.Store store,
     required String distance,
     int? routerId,
     bool preventDuplicates = true,
@@ -487,8 +490,8 @@ extension NavigatorStateExtension on _i19.NavigationService {
 
   Future<dynamic> navigateToOrderDetailsScreen({
     _i15.Key? key,
-    required _i18.Order order,
-    required _i16.Store store,
+    required dynamic order,
+    required _i17.Store store,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,

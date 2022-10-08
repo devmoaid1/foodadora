@@ -3,11 +3,12 @@
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/custom_modals.dart';
+import 'package:foodadora/features/store_details/data/models/product_model.dart';
 
 import 'package:stacked/stacked.dart';
 
+import '../../features/orders/domain/entities/order.dart';
 import '../../features/store_details/domain/entities/product.dart';
-import '../../models/order.dart';
 
 class CartViewModel extends BaseViewModel {
   bool _isLoading = false;
@@ -109,7 +110,7 @@ class CartViewModel extends BaseViewModel {
         Order order = Order(
           customerId: profileService.currentCustomer!.userId,
           orderDate: DateTime.now(),
-          products: orderItems,
+          products: orderItems as List<ProductModel>,
           status: 'Pending',
           storeId: storeId,
           totalPrice: total,

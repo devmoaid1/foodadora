@@ -6,7 +6,11 @@ import 'package:foodadora/services/base_service.dart';
 class FirebaseApiConsumer extends BaseService implements FirebaseApiProvider {
   @override
   Future<void> addData(String collection, Map<String, dynamic> data) async {
-    await firestore.collection(collection).add(data);
+    try {
+      await firestore.collection(collection).add(data);
+    } on FirebaseException catch (err) {
+      _handleFirebaseException(err);
+    }
   }
 
   @override

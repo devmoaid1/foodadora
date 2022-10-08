@@ -8,14 +8,14 @@ import 'package:foodadora/ui/widgets/pressable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../app/constants/assets.dart';
-import '../../../app/utilites/app_colors.dart';
-import '../../../app/utilites/date_formmater.dart';
-import '../../../app/utilites/screen_sizes.dart';
-import '../../../features/stores/domain/entites/store.dart';
-import '../../../models/order.dart';
+import '../../../../app/constants/assets.dart';
+import '../../../../app/utilites/app_colors.dart';
+import '../../../../app/utilites/date_formmater.dart';
+import '../../../../app/utilites/screen_sizes.dart';
 
-import '../orders_viewmodel.dart';
+import '../../../stores/domain/entites/store.dart';
+import '../../domain/entities/order.dart';
+import '../viewmodels/orders_viewmodel.dart';
 
 class OrderItem extends ViewModelWidget<OrdersViewModel> {
   final Store store;

@@ -14,12 +14,12 @@ class Product extends Equatable {
 
   final DateTime? expiryDate;
 
-  final int? quantity;
+  int? quantity;
 
   final bool? isAvailable;
   final bool? isVisible;
 
-  const Product(
+  Product(
       {this.productId,
       this.storeId,
       this.productName,

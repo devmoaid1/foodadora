@@ -1,15 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:foodadora/features/store_details/domain/entities/product.dart';
-import 'package:json_annotation/json_annotation.dart';
+// ignore_for_file: must_be_immutable
 
-import '../../../../models/utilities/dateTime_converters.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:foodadora/features/store_details/domain/entities/product.dart';
+import 'package:foodadora/models/utilities/dateTime_converters.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'product_model.g.dart';
 
 @JsonSerializable()
 class ProductModel extends Product {
-  const ProductModel(
+  ProductModel(
       {String? productId,
       String? productName,
       String? description,

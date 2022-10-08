@@ -4,12 +4,12 @@ import 'package:stacked_services/stacked_services.dart';
 import '../features/auth/presentation/views/login_view.dart';
 import '../features/auth/presentation/views/phone_signup_view.dart';
 import '../features/auth/presentation/views/signup_view.dart';
+import '../features/orders/presentation/views/order_details_view.dart';
+import '../features/orders/presentation/views/orders_view.dart';
 import '../features/stores/presentation/views/stores_view.dart';
 import '../ui/cart/cart_view.dart';
 import '../ui/home_navigation/home_navigation_view.dart';
 
-import '../ui/order_details/order_details_view.dart';
-import '../ui/orders/orders_view.dart';
 import '../ui/product_details/product_details_view.dart';
 import '../ui/profile/profile_view.dart';
 import '../ui/select_language/select_language_view.dart';

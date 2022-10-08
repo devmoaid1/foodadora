@@ -13,7 +13,7 @@ abstract class _$OrderCWProxy {
 
   Order orderDate(DateTime? orderDate);
 
-  Order products(List<Product>? products);
+  Order products(List<ProductModel>? products);
 
   Order status(String? status);
 
@@ -31,7 +31,7 @@ abstract class _$OrderCWProxy {
     String? customerId,
     String? id,
     DateTime? orderDate,
-    List<Product>? products,
+    List<ProductModel>? products,
     String? status,
     String? storeId,
     double? totalPrice,
@@ -54,7 +54,7 @@ class _$OrderCWProxyImpl implements _$OrderCWProxy {
   Order orderDate(DateTime? orderDate) => this(orderDate: orderDate);
 
   @override
-  Order products(List<Product>? products) => this(products: products);
+  Order products(List<ProductModel>? products) => this(products: products);
 
   @override
   Order status(String? status) => this(status: status);
@@ -98,7 +98,7 @@ class _$OrderCWProxyImpl implements _$OrderCWProxy {
       products: products == const $CopyWithPlaceholder()
           ? _value.products
           // ignore: cast_nullable_to_non_nullable
-          : products as List<Product>?,
+          : products as List<ProductModel>?,
       status: status == const $CopyWithPlaceholder()
           ? _value.status
           // ignore: cast_nullable_to_non_nullable

@@ -7,6 +7,7 @@ import 'package:logger/logger.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../features/auth/presentation/viewmodels/signup_viewModel.dart';
+import '../../features/orders/presentation/viewmodels/orders_viewmodel.dart';
 import '../../features/stores/presentation/viewmodels/stores_viewModel.dart';
 import '../../services/auth_Service.dart';
 import '../../services/cart_Service.dart';
@@ -17,7 +18,7 @@ import '../../services/product_service.dart';
 import '../../services/profile_service.dart';
 import '../../ui/cart/cart_viewmodel.dart';
 import '../../ui/home_navigation/home_navigation_viewmodel.dart';
-import '../../ui/orders/orders_viewmodel.dart';
+
 import '../../ui/product_details/product_details_viewmodel.dart';
 import '../../ui/settings/settings_viewmodel.dart';
 

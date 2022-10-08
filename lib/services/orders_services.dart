@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:foodadora/features/store_details/data/models/product_model.dart';
-import 'package:foodadora/models/order.dart';
 
 import 'package:foodadora/services/base_service.dart';
 
+import '../features/orders/data/models/order_model.dart';
+import '../features/orders/domain/entities/order.dart';
 import '../models/utilities/dateTime_converters.dart';
 
 class OrderService extends BaseService {
@@ -34,6 +35,7 @@ class OrderService extends BaseService {
   }
 
   void createOrder({required Order order}) {
-    firestore.collection('orders').add(order.toJson());
+    final orderModel = order as OrderModel;
+    firestore.collection('orders').add(orderModel.toJson());
   }
 }
