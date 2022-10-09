@@ -36,7 +36,7 @@ class StoreRemoteDataSourceImpl extends BaseService
     Store? store;
     var fetchedStore = await fireStore.getDataByID(storeCollection, 'id', id);
 
-    for (var element in fetchedStore.docs) {
+    for (var element in fetchedStore) {
       store = StoreModel.fromJson(element.data());
     }
 

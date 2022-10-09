@@ -13,6 +13,11 @@ import 'package:foodadora/features/auth/domain/usecases/email_login_usecase.dart
 import 'package:foodadora/features/auth/domain/usecases/google_sign_usecase.dart';
 import 'package:foodadora/features/auth/domain/usecases/handle_phone_form_usecase.dart';
 import 'package:foodadora/features/auth/domain/usecases/sign_up_usecase.dart';
+import 'package:foodadora/features/orders/data/datasources/orders_remote_datasource.dart';
+import 'package:foodadora/features/orders/data/repositories/orders_repository_impl.dart';
+import 'package:foodadora/features/orders/domain/repositories/orders_repository.dart';
+import 'package:foodadora/features/orders/domain/usecases/create_order_usecase.dart';
+import 'package:foodadora/features/orders/domain/usecases/get_customer_orders_usecase.dart';
 import 'package:foodadora/features/store_details/domain/repositories/store_details_repository.dart';
 import 'package:foodadora/features/stores/data/datasources/location_remote_datasource.dart';
 import 'package:foodadora/features/stores/data/datasources/stores_remote_datasource.dart';
@@ -82,6 +87,11 @@ Future<void> setUpDedpendencies() async {
             fireStore: Get.find(),
           ));
 
+  // orders
+  Get.lazyPut<OrdersRemoteDataSource>(() => OrdersRemoteDataSourceImpl(
+        firebaseApiProvider: Get.find(),
+      ));
+
   // repositories
 
   // auth
@@ -100,6 +110,11 @@ Future<void> setUpDedpendencies() async {
   Get.lazyPut<StoreDetailsRepository>(() =>
       StoreDetailsRepositoryImpl(storeDetailsRemoteDataSource: Get.find()));
 
+  // orders
+
+  Get.lazyPut<OrdersRepository>(
+      () => OrdersRepositoryImpl(ordersRemoteDataSource: Get.find()));
+
   // use cases
   //Auth
   Get.lazyPut(() => EmailLoginUseCase(basicAuthRepo: Get.find()));
@@ -114,6 +129,11 @@ Future<void> setUpDedpendencies() async {
       () => GetStoreProductsUseCase(storeDetailsRepository: Get.find()));
   Get.lazyPut(
       () => OpenLocationSettingsUseCase(locationRepository: Get.find()));
+
+  // orders
+
+  Get.lazyPut(() => CreateOrderUseCase(ordersRepository: Get.find()));
+  Get.lazyPut(() => GetCustomerOrdersUsecase(ordersRepository: Get.find()));
 
   // viewModels
 
@@ -130,7 +150,11 @@ Future<void> setUpDedpendencies() async {
           handlePhoneFormUseCase: Get.find(), signUpUseCase: Get.find()),
       fenix: true);
   Get.lazyPut(() => CartViewModel(), fenix: true);
-  Get.lazyPut(() => OrdersViewModel(), fenix: true);
+  Get.lazyPut(
+      () => OrdersViewModel(
+          getCustomerOrdersUsecase: Get.find(),
+          getStoreByIdUseCase: Get.find()),
+      fenix: true);
 
   Get.lazyPut(() => SettingsViewModel(), fenix: true);
   Get.lazyPut(() => ProfileViewModel(), fenix: true);

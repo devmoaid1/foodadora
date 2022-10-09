@@ -36,7 +36,7 @@ class OrdersScreen extends StatelessWidget {
             if (!context.watch<ProfileService>().isLoggedOn) {
               return const OrdersNotLoggedIndicator();
             }
-            if (model.loading) {
+            if (model.isBusy) {
               return const Center(
                 child: CircularProgressIndicator.adaptive(),
               );
