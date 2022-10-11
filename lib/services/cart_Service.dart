@@ -1,15 +1,14 @@
 // ignore_for_file: file_names, prefer_final_fields, avoid_function_literals_in_foreach_calls, avoid_print, unnecessary_null_comparison
 
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
+import 'package:foodadora/core/api/endpoints.dart';
+import 'package:foodadora/core/localstorage/local_storage_provider.dart';
 import 'package:foodadora/features/store_details/data/models/product_model.dart';
 import 'package:foodadora/models/cart.dart';
 import 'package:foodadora/models/cartItem.dart';
 
 import 'package:foodadora/services/base_service.dart';
-import 'package:foodadora/services/local_storage_service.dart';
 
 import 'package:rxdart/rxdart.dart';
 
@@ -17,12 +16,16 @@ import '../app/utilites/custom_modals.dart';
 import '../features/store_details/domain/entities/product.dart';
 
 class CartService extends BaseService with ChangeNotifier {
-  LocalStorageService localStorage = LocalStorageService();
+  final LocalStorageProvider localStorageProvider;
+
+  // LocalStorageService localStorage = LocalStorageService();
 
   BehaviorSubject<List<Product>> _cartItems =
       BehaviorSubject(); //cartItems stream
 
-  BehaviorSubject<double> _totalController = BehaviorSubject.seeded(0);
+  // BehaviorSubject<double> _totalController = BehaviorSubject.seeded(0);
+
+  double _subTotal = 0;
 
   List<Product> _originalProducts = []; // list of original products with stock
   List<Product> _products =
@@ -33,18 +36,17 @@ class CartService extends BaseService with ChangeNotifier {
 
   List<Product> get originalProducts => _originalProducts;
   List<Product> get cartProducts => _products;
+  double get subTotal => _subTotal;
   Stream<List<Product>> get cartItems => _cartItems.stream;
-  Stream<double> get totalController => _totalController.stream;
+  // Stream<double> get totalController => _totalController.stream;
 
-  CartService() {
-    _cartItems.sink.add(_products);
-  }
+  CartService({required this.localStorageProvider});
 
   Future<Cart> getCartFromLocalStorage() async {
-    final cartLocalStorage = await localStorage.getData(key: 'cart');
+    final cartLocalStorage = localStorageProvider.getData(key: 'cart');
     // return if there is data in local storage otherwise empty cart
     if (cartLocalStorage != null) {
-      return Cart.fromJson(jsonDecode(cartLocalStorage.toString()));
+      return Cart.fromJson(cartLocalStorage as Map<String, dynamic>);
     }
 
     return Cart(storeId: "", cartItems: []);
@@ -62,7 +64,7 @@ class CartService extends BaseService with ChangeNotifier {
       // for each cartitem get the full product of it
       for (var item in cartItems) {
         var fetchedDocs = await firestore
-            .collection('products')
+            .collection(productCollection)
             .where('productId', isEqualTo: item.productId)
             .where('isAvailable', isEqualTo: true)
             .get();
@@ -119,7 +121,7 @@ class CartService extends BaseService with ChangeNotifier {
   void _addToSameStore(List<CartItem> list, Product product, int quantity) {
     list.add(CartItem(
         productId: product.productId, quantity: quantity)); // add to cart list
-    localStorage.setData(
+    localStorageProvider.setData(
         key: 'cart',
         data: Cart(storeId: product.storeId, cartItems: list)
             .toJson()); // update to local storage
@@ -139,7 +141,7 @@ class CartService extends BaseService with ChangeNotifier {
         mainButtonTitle: "Remove");
 
     if (response!.confirmed) {
-      localStorage.setData(
+      localStorageProvider.setData(
           key: 'cart',
           data:
               Cart(storeId: "", cartItems: []).toJson()); // clear local storage
@@ -147,7 +149,7 @@ class CartService extends BaseService with ChangeNotifier {
       items.clear();
       items.add(CartItem(
           productId: product.productId, quantity: quantity)); // add product
-      localStorage.setData(
+      localStorageProvider.setData(
           key: 'cart',
           data: Cart(storeId: product.storeId, cartItems: items)
               .toJson()); // add product in local storage
@@ -164,7 +166,7 @@ class CartService extends BaseService with ChangeNotifier {
   void _addToEmptyCart(
       List<CartItem> items, Product product, int quantity) async {
     items.add(CartItem(productId: product.productId, quantity: quantity));
-    localStorage.setData(
+    localStorageProvider.setData(
         key: 'cart',
         data: Cart(storeId: product.storeId, cartItems: items).toJson());
 
@@ -193,7 +195,7 @@ class CartService extends BaseService with ChangeNotifier {
 
       _cartItems.sink.add(_products); // sync new list to ui
 
-      localStorage.setData(
+      localStorageProvider.setData(
           key: 'cart',
           data: Cart(storeId: cart.storeId, cartItems: list)
               .toJson()); // update local storage with updated cart items
@@ -221,7 +223,7 @@ class CartService extends BaseService with ChangeNotifier {
             for (var cartItem in cartItems) {
               if (cartItem.productId == product.productId) {
                 cartItem.quantity = product.quantity;
-                localStorage.setData(key: 'cart', data: cart.toJson());
+                localStorageProvider.setData(key: 'cart', data: cart.toJson());
               }
             }
           }
@@ -251,7 +253,7 @@ class CartService extends BaseService with ChangeNotifier {
             for (var cartItem in cartItems) {
               if (cartItem.productId == product.productId) {
                 cartItem.quantity = product.quantity;
-                localStorage.setData(key: 'cart', data: cart.toJson());
+                localStorageProvider.setData(key: 'cart', data: cart.toJson());
               }
             }
           }
@@ -264,20 +266,21 @@ class CartService extends BaseService with ChangeNotifier {
   }
 
   void getOrderTotal({required List<CartItem> cartItems}) async {
-    double total = 0;
+    _subTotal = 0;
 
     if (cartItems != null) {
       for (var cartItem in cartItems) {
         for (var product in _originalProducts) {
           if (cartItem.productId == product.productId) {
-            total += cartItem.quantity! * product.productPrice!.toDouble();
+            _subTotal += cartItem.quantity! * product.productPrice!.toDouble();
           }
         }
       }
     }
 
-    _totalController.sink.add(total);
+    // _totalController.sink.add(total);
 
-    logger.i(total);
+    logger.i("total cart is :$_subTotal");
+    notifyListeners();
   }
 }

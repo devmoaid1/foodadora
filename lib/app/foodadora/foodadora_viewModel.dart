@@ -9,7 +9,7 @@ import '../constants/services_instances.dart';
 class FoodadoraViewModel extends BaseViewModel {
   StreamSubscription? _connectivityController;
   StreamSubscription? _authStateSubscription;
-  void init() {
+  void init() async {
     _connectivityController =
         connectivityService.connectivityStream.listen((result) {
       connectivityService.handleStatus(result);
@@ -26,6 +26,8 @@ class FoodadoraViewModel extends BaseViewModel {
         print("user logged out");
       }
     });
+
+    await cartService.fetchCartItems();
   }
 
   void onDispose() {

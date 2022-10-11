@@ -38,7 +38,7 @@ class CartScreen extends StatelessWidget {
             onModelReady: (model) => model.fetchCartItems(),
             viewModelBuilder: () => cartViewModel,
             builder: (context, model, _) {
-              if (model.loading) {
+              if (model.isBusy) {
                 return const Center(
                   child: CircularProgressIndicator.adaptive(),
                 );
@@ -105,42 +105,30 @@ class CartScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8)),
                         color: Colors.white,
                         child: Padding(
-                          padding:
-                              EdgeInsets.all(blockSizeHorizontal(context) * 4),
-                          child: StreamBuilder<double>(
-                              stream: model.subtotalController,
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  total = snapshot.data!.toDouble();
-                                  return Column(
-                                    children: [
-                                      CartTextRow(
-                                        title: 'Subtotal:',
-                                        price: snapshot.data!.toDouble(),
-                                      ),
-                                      SizedBox(
-                                          height:
-                                              blockSizeVertical(context) * 2),
-                                      const CartTextRow(
-                                        title: 'Taxes:',
-                                      ),
-                                      SizedBox(
-                                          height: blockSizeVertical(context)),
-                                      const DottedLine(
-                                        dashColor: Color(0xffCFCFCF),
-                                      ),
-                                      SizedBox(
-                                          height: blockSizeVertical(context)),
-                                      CartTextRow(
-                                        title: 'Total:',
-                                        price: snapshot.data!.toDouble(),
-                                      ),
-                                    ],
-                                  );
-                                }
-                                return Container();
-                              }),
-                        ),
+                            padding: EdgeInsets.all(
+                                blockSizeHorizontal(context) * 4),
+                            child: Column(
+                              children: [
+                                CartTextRow(
+                                  title: 'Subtotal:',
+                                  price: context.watch<CartService>().subTotal,
+                                ),
+                                SizedBox(
+                                    height: blockSizeVertical(context) * 2),
+                                const CartTextRow(
+                                  title: 'Taxes:',
+                                ),
+                                SizedBox(height: blockSizeVertical(context)),
+                                const DottedLine(
+                                  dashColor: Color(0xffCFCFCF),
+                                ),
+                                SizedBox(height: blockSizeVertical(context)),
+                                CartTextRow(
+                                  title: 'Total:',
+                                  price: context.watch<CartService>().subTotal,
+                                ),
+                              ],
+                            )),
                       ),
                       verticalSpaceRegular,
                       Center(

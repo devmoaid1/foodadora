@@ -19,8 +19,8 @@ class CartViewModel extends BaseViewModel {
 
   String get storeName => _storeName;
   Stream<List<Product>> get items => cartService.cartItems;
-  Stream<double> get subtotalController =>
-      cartService.totalController; // subtotal controller
+  // Stream<double> get subtotalController =>
+  //     cartService.totalController; // subtotal controller
   List<Product> get originalProducts =>
       cartService.originalProducts; // products with stock
 

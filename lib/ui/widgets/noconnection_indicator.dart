@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../app/constants/assets.dart';
@@ -46,7 +47,14 @@ class NoConnection extends StatelessWidget {
           child: FoodadoraButton(
               label: "TAP TO RETRY",
               color: actionColor,
-              onPressed: handleRetry ?? () {}),
+              onPressed: () async {
+                final connectionStatus =
+                    await connectivityService.checkConnection();
+                if (connectionStatus) {
+                  connectivityService.setConnectionStatus(true);
+                  handleRetry;
+                }
+              }),
         )
       ],
     );

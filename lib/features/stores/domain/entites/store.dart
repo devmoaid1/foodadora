@@ -21,7 +21,6 @@ class Store extends Equatable {
       this.pos});
 
   @override
-  // TODO: implement props
   List<Object?> get props =>
       [id, storeName, address, imageUrl, category, isActive, isOpen, pos];
 }

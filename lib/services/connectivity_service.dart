@@ -15,6 +15,11 @@ class ConnectivityService extends ChangeNotifier {
   ConnectivityResult get connectionStatus => _connectionStatus;
   Stream get connectivityStream => Connectivity().onConnectivityChanged;
 
+  void setConnectionStatus(bool status) {
+    _isConnected = true;
+    notifyListeners();
+  }
+
   void handleStatus(ConnectivityResult result) async {
     _connectionStatus = result;
 

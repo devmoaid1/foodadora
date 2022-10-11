@@ -77,6 +77,7 @@ Future<void> setUpDedpendencies() async {
       () => SharedPrefrencesConsumer(sharedPreferences: Get.find()));
   Get.lazyPut(() => BaseService());
   Get.lazyPut<FirebaseApiProvider>(() => FirebaseApiConsumer());
+
   Get.lazyPut<GeoApiProvider>(() => GeoApiConsumer(geo: Get.find()));
 
   // remote data sources
@@ -210,5 +211,5 @@ Future<void> setUpDedpendencies() async {
   // providers
   Get.lazyPut(() => ProfileService());
   Get.lazyPut(() => ConnectivityService());
-  Get.lazyPut(() => CartService());
+  Get.lazyPut(() => CartService(localStorageProvider: Get.find()));
 }
