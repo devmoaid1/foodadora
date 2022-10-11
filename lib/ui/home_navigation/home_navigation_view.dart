@@ -7,13 +7,12 @@ import 'package:foodadora/ui/home_navigation/home_navigation_viewmodel.dart';
 
 import 'package:foodadora/ui/home_navigation/widgets/bottom_navigation.dart';
 
-import 'package:foodadora/ui/settings/settings_view.dart';
-
 import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../app/utilites/app_colors.dart';
 import '../../features/orders/presentation/views/orders_view.dart';
+import '../../features/settings/presentation/views/settings_view.dart';
 import '../../features/stores/presentation/views/stores_view.dart';
 
 class HomeNavigationView extends StatelessWidget {

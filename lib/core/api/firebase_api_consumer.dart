@@ -49,7 +49,6 @@ class FirebaseApiConsumer extends BaseService implements FirebaseApiProvider {
       return data;
     } on FirebaseException catch (err) {
       _handleFirebaseException(err);
-      return [];
     }
   }
 

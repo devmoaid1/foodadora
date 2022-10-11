@@ -6,20 +6,21 @@ import 'package:flutter_svg/svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/launch_map.dart';
-import 'package:foodadora/ui/store_details/widgets/product_item.dart';
+
 import 'package:foodadora/ui/widgets/pressable.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
-import 'package:foodadora/ui/store_details/store_details_viewmodel.dart';
 import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 
 import '../../../../app/utilites/screen_sizes.dart';
 import '../../../../services/connectivity_service.dart';
 import '../../../../ui/widgets/noconnection_indicator.dart';
 import '../../../stores/domain/entites/store.dart';
+import '../viewmodels/store_details_viewmodel.dart';
+import '../widgets/product_item.dart';
 
 class StoreDetailsScreen extends StatelessWidget {
   final Store store;

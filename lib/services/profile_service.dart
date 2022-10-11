@@ -24,6 +24,16 @@ class ProfileService extends BaseService with ChangeNotifier {
     notifyListeners();
   }
 
+  void setCurrentCustomer(Customer? customer) {
+    _currentCustomer = customer;
+    notifyListeners();
+  }
+
+  void setCustomerName(String name) {
+    _customerName = customerName;
+    notifyListeners();
+  }
+
   Future getCurrentCustomer() async {
     try {
       if (auth.currentUser != null) {

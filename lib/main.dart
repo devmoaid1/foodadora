@@ -6,7 +6,8 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:foodadora/app/app.locator.dart';
 import 'package:foodadora/app/constants/localization_constants.dart';
 import 'package:foodadora/app/dependencies.dart';
-import 'package:foodadora/foodadora/foodadora.dart';
+
+import 'app/foodadora/foodadora.dart';
 import 'app/utilites/custom_modals.dart';
 
 import 'package:foodadora/translate_preferences.dart';

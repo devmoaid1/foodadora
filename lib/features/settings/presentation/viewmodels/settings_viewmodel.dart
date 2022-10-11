@@ -5,7 +5,7 @@ import 'package:foodadora/app/utilites/app_colors.dart';
 
 import 'package:stacked/stacked.dart';
 
-import '../../features/auth/domain/entities/customer.dart';
+import '../../../auth/domain/entities/customer.dart';
 
 class SettingsViewModel extends BaseViewModel {
   Customer? get customerProfile => profileService.currentCustomer;

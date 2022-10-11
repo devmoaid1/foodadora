@@ -18,6 +18,11 @@ import 'package:foodadora/features/orders/data/repositories/orders_repository_im
 import 'package:foodadora/features/orders/domain/repositories/orders_repository.dart';
 import 'package:foodadora/features/orders/domain/usecases/create_order_usecase.dart';
 import 'package:foodadora/features/orders/domain/usecases/get_customer_orders_usecase.dart';
+import 'package:foodadora/features/profile/data/datasources/profile_remote_datasource.dart';
+import 'package:foodadora/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:foodadora/features/profile/domain/repositories/profile_repository.dart';
+import 'package:foodadora/features/profile/domain/usecases/get_current_customer_usecase.dart';
+import 'package:foodadora/features/profile/domain/usecases/logout_usecase.dart';
 import 'package:foodadora/features/store_details/domain/repositories/store_details_repository.dart';
 import 'package:foodadora/features/stores/data/datasources/location_remote_datasource.dart';
 import 'package:foodadora/features/stores/data/datasources/stores_remote_datasource.dart';
@@ -28,7 +33,6 @@ import 'package:foodadora/features/stores/domain/repositories/stores_repository.
 
 import 'package:foodadora/features/stores/domain/usecases/get_stores_usecase.dart';
 import 'package:foodadora/features/stores/domain/usecases/open_location_settings_usecase.dart';
-import 'package:foodadora/foodadora/foodadora_viewModel.dart';
 import 'package:foodadora/services/base_service.dart';
 import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/services/connectivity_service.dart';
@@ -37,10 +41,9 @@ import 'package:foodadora/ui/cart/cart_viewmodel.dart';
 import 'package:foodadora/ui/home_navigation/home_navigation_viewmodel.dart';
 
 import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
-import 'package:foodadora/ui/profile/profile_viewModel.dart';
+
 import 'package:foodadora/ui/select_language/select_language_viewmodel.dart';
-import 'package:foodadora/ui/settings/settings_viewmodel.dart';
-import 'package:foodadora/ui/store_details/store_details_viewmodel.dart';
+
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 
 import 'package:get/get.dart';
@@ -50,15 +53,19 @@ import 'package:stacked_services/stacked_services.dart';
 import '../features/auth/presentation/viewmodels/login_viewmodel.dart';
 import '../features/auth/presentation/viewmodels/signup_viewModel.dart';
 import '../features/orders/presentation/viewmodels/orders_viewmodel.dart';
+import '../features/profile/presentation/viewmodels/profile_viewModel.dart';
+import '../features/settings/presentation/viewmodels/settings_viewmodel.dart';
 import '../features/store_details/data/datasources/store_details_remote_datasource.dart';
 import '../features/store_details/data/repositories/store_details_repository_impl.dart';
 import '../features/store_details/domain/usecases/get_store_products_usecase.dart';
+import '../features/store_details/presentation/viewmodels/store_details_viewmodel.dart';
 import '../features/stores/domain/usecases/get_store_usecase.dart';
 import '../features/stores/presentation/viewmodels/stores_viewModel.dart';
 import '../services/auth_Service.dart';
 import '../services/location_service.dart';
 import '../services/orders_services.dart';
 import '../services/product_service.dart';
+import 'foodadora/foodadora_viewModel.dart';
 
 Future<void> setUpDedpendencies() async {
   final sharedPrefrences = await SharedPreferences.getInstance();
@@ -92,6 +99,12 @@ Future<void> setUpDedpendencies() async {
         firebaseApiProvider: Get.find(),
       ));
 
+  //profile
+
+  Get.lazyPut<ProfileRemoteDataSource>(() => ProfileRemoteDataSourceImpl(
+        firebaseApiProvider: Get.find(),
+      ));
+
   // repositories
 
   // auth
@@ -115,6 +128,11 @@ Future<void> setUpDedpendencies() async {
   Get.lazyPut<OrdersRepository>(
       () => OrdersRepositoryImpl(ordersRemoteDataSource: Get.find()));
 
+  // profile
+
+  Get.lazyPut<ProfileRepository>(
+      () => ProfileRepositoryImpl(profileRemoteDataSource: Get.find()));
+
   // use cases
   //Auth
   Get.lazyPut(() => EmailLoginUseCase(basicAuthRepo: Get.find()));
@@ -134,6 +152,11 @@ Future<void> setUpDedpendencies() async {
 
   Get.lazyPut(() => CreateOrderUseCase(ordersRepository: Get.find()));
   Get.lazyPut(() => GetCustomerOrdersUsecase(ordersRepository: Get.find()));
+
+  // profile
+
+  Get.lazyPut(() => GetCurrentCustomerUseCase(profileRepository: Get.find()));
+  Get.lazyPut(() => LogoutUseCase(profileRepository: Get.find()));
 
   // viewModels
 
@@ -157,10 +180,14 @@ Future<void> setUpDedpendencies() async {
       fenix: true);
 
   Get.lazyPut(() => SettingsViewModel(), fenix: true);
-  Get.lazyPut(() => ProfileViewModel(), fenix: true);
+  Get.lazyPut(
+      () => ProfileViewModel(
+          getCurrentCustomerUseCase: Get.find(), logoutUseCase: Get.find()),
+      fenix: true);
   Get.lazyPut(() => ProductDetailsViewModel(), fenix: true);
   Get.lazyPut(() => SelectLanguageViewModel(), fenix: true);
-  Get.lazyPut(() => StoreDetailsViewModel(), fenix: true);
+  Get.lazyPut(() => StoreDetailsViewModel(getStoreProductsUseCase: Get.find()),
+      fenix: true);
   Get.lazyPut(
       () => StoresViewModel(
           getStoresUseCase: Get.find(),

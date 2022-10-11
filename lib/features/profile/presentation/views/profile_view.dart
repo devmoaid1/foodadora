@@ -12,8 +12,8 @@ import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:foodadora/ui/widgets/foodadora_textfield.dart';
 
-import '../../app/utilites/app_colors.dart';
-import '../../app/utilites/screen_sizes.dart';
+import '../../../../app/utilites/app_colors.dart';
+import '../../../../app/utilites/screen_sizes.dart';
 
 class ProfileScreen extends StatelessWidget {
   final String name;

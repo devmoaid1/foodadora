@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:stacked/stacked.dart';
 
-import '../app/constants/services_instances.dart';
+import '../constants/services_instances.dart';
 
 class FoodadoraViewModel extends BaseViewModel {
   StreamSubscription? _connectivityController;

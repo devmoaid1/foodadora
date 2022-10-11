@@ -27,9 +27,11 @@ import 'package:foodadora/features/stores/presentation/views/stores_view.dart'
 import 'package:foodadora/ui/cart/cart_view.dart' as _i5;
 import 'package:foodadora/ui/home_navigation/home_navigation_view.dart' as _i2;
 import 'package:foodadora/ui/product_details/product_details_view.dart' as _i3;
-import 'package:foodadora/ui/profile/profile_view.dart' as _i9;
+import 'package:foodadora/features/profile/presentation/views/profile_view.dart'
+    as _i9;
 import 'package:foodadora/ui/select_language/select_language_view.dart' as _i10;
-import 'package:foodadora/ui/store_details/store_details_view.dart' as _i12;
+import 'package:foodadora/features/store_details/presentation/views/store_details_view.dart'
+    as _i12;
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i19;
 
