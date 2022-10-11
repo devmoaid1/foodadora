@@ -5,7 +5,6 @@ import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/get_distance.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
-import 'package:foodadora/app/utilites/string_extension.dart';
 
 import 'package:foodadora/ui/widgets/pressable.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -136,7 +135,7 @@ class StoreItem extends StatelessWidget {
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(
-                          store.category!.capitalize.toString(),
+                          store.category!.toString(),
                           style: GoogleFonts.poppins(
                               color: textColor,
                               fontSize: blockSizeHorizontal(context) * 3),

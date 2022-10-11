@@ -170,7 +170,7 @@ class _BasicDialog extends StatelessWidget {
                 height: blockSizeVertical(context) * 4,
               ),
               FoodadoraButton(
-                  label: request.mainButtonTitle ?? "",
+                  label: request.mainButtonTitle ?? "Ok",
                   onPressed: () {
                     completer(DialogResponse(confirmed: true));
                   })

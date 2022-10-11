@@ -1,6 +1,7 @@
 import 'package:geolocator/geolocator.dart';
+import 'package:stacked/stacked.dart';
 
-class LocationService {
+class LocationService extends BaseViewModel {
   Position? _userLocation;
   bool? _serviceEnabled;
   LocationPermission? _permission;
@@ -8,6 +9,11 @@ class LocationService {
   Position? get userLocation => _userLocation;
   bool? get serviceEnabled => _serviceEnabled;
   LocationPermission? get permission => _permission;
+
+  void setUserLocation(Position? position) {
+    _userLocation = position;
+    notifyListeners();
+  }
 
   Future getUserLocation() async {
     // Test if location services are enabled.
@@ -41,6 +47,7 @@ class LocationService {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     _userLocation = await Geolocator.getCurrentPosition();
+    notifyListeners();
   }
 
   // open device location settings

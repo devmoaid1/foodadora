@@ -58,9 +58,9 @@ class StoresRepositoryImpl implements StoresRepository {
         return Right(stores);
       }
       return const Right(Stream.empty());
-    } on ServerException catch (err) {
-      logger.e("error in fetching stores : ${err.message}");
-      return Left(ServerFailure(message: err.message!));
+    } catch (err) {
+      logger.e("error in fetching stores : $err");
+      return Left(ServerFailure(message: err.toString()));
     }
   }
 }

@@ -1,6 +1,8 @@
 import 'package:foodadora/features/stores/data/models/location_model.dart';
 import 'package:geolocator/geolocator.dart';
 
+import '../../../../app/constants/services_instances.dart';
+
 abstract class LocationRemoteDataSource {
   Future<LocationModel> getUserLocation();
   Future<bool> openLocationSettings();
@@ -40,7 +42,11 @@ class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
 
-    final position = await Geolocator.getCurrentPosition();
+    final position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.best,
+    );
+
+    locationService.setUserLocation(position);
 
     return LocationModel(
         permission: permission,

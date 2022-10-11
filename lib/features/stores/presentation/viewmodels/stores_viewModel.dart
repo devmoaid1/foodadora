@@ -22,12 +22,11 @@ class StoresViewModel extends AppViewModel {
   final OpenLocationSettingsUseCase openLocationSettingsUseCase;
   final GetStoresUseCase getStoresUseCase;
 
-  late List<Store?> _stores;
-
   StoresViewModel(
       {required this.openLocationSettingsUseCase,
       required this.getStoresUseCase});
 
+  List<Store?> _stores = [];
   List<Store?> get stores => _stores;
   LocationPermission? _locationPermission;
   bool? _serviceEnabled;
@@ -40,13 +39,16 @@ class StoresViewModel extends AppViewModel {
   Future<void> openLocationSettings() async {
     final response = await openLocationSettingsUseCase(NoParams());
     response.fold((failure) {
+      _stores = [];
       _locationPermission = LocationPermission.denied;
       _serviceEnabled = false;
       dialogService.showCustomDialog(
-        variant: DialogType.basic,
-        title: "error",
-        description: failure.message,
-      );
+          variant: DialogType.basic,
+          title: "Invalid Data",
+          // barrierColor: const Color(0xFF12343E),
+          description: failure.message.toString(),
+          mainButtonTitle: "ok");
+      setBusy(false);
     }, (permession) {
       _locationPermission = LocationPermission.always;
       _serviceEnabled = true;
@@ -84,7 +86,6 @@ class StoresViewModel extends AppViewModel {
 
       _storesSubscribtion!.onData((snapshots) {
         if (snapshots.isNotEmpty) {
-          logger.i("stream first : ${snapshots.first}");
           _stores = snapshots.map((snapshot) {
             if (snapshot.data() != null) {
               return StoreModel.fromJson(
