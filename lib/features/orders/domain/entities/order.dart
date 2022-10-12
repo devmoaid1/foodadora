@@ -6,7 +6,7 @@ import '../../../store_details/data/models/product_model.dart';
 part 'order.g.dart';
 
 @CopyWith()
-class Order extends Equatable {
+class OrderEntity extends Equatable {
   final String? id;
   final String? customerId;
   final String? storeId;
@@ -18,7 +18,7 @@ class Order extends Equatable {
 
   final String? status;
 
-  const Order(
+  const OrderEntity(
       {this.id,
       this.customerId,
       this.storeId,

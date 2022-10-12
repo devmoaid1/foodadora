@@ -5,12 +5,12 @@ import 'dart:async';
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/custom_modals.dart';
-import 'package:foodadora/models/cartItem.dart';
 
 import 'package:foodadora/services/local_storage_service.dart';
 
 import 'package:stacked/stacked.dart';
 
+import '../../features/cart/data/models/cartItem.dart';
 import '../../features/store_details/data/models/product_model.dart';
 import '../../features/store_details/domain/entities/product.dart';
 
@@ -97,7 +97,6 @@ class ProductDetailsViewModel extends BaseViewModel {
   }
 
   void deleteItem({required Product product}) async {
-    List<Product> products = [];
     final isConfirmed = await cartService.deleteItem(product: product);
     if (isConfirmed) {
       _isAddToCart = false;

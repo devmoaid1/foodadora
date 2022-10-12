@@ -10,7 +10,7 @@ abstract class OrdersRemoteDataSource {
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getCustomerOrders(
       {required String id});
 
-  Future<void> createOrder({required Order order});
+  Future<void> createOrder({required OrderEntity order});
 }
 
 class OrdersRemoteDataSourceImpl extends BaseService
@@ -28,7 +28,7 @@ class OrdersRemoteDataSourceImpl extends BaseService
   }
 
   @override
-  Future<void> createOrder({required Order order}) async {
+  Future<void> createOrder({required OrderEntity order}) async {
     final orderModel = order as OrderModel;
     await firebaseApiProvider.addData(orderCollection, orderModel.toJson());
   }

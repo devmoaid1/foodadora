@@ -17,7 +17,7 @@ class OrdersViewModel extends AppViewModel {
   final GetCustomerOrdersUsecase getCustomerOrdersUsecase;
   final GetStoreByIdUseCase getStoreByIdUseCase;
 
-  List<Order> _orders = [];
+  List<OrderEntity> _orders = [];
 
   List<Store> _stores = [];
 
@@ -28,9 +28,10 @@ class OrdersViewModel extends AppViewModel {
   Customer? get customerProfile => profileService.currentCustomer;
 
   List<Store> get stores => _stores;
-  List<Order> get orders => _orders;
+  List<OrderEntity> get orders => _orders;
 
-  void navigateToOrderDetails({required Store store, required Order order}) {
+  void navigateToOrderDetails(
+      {required Store store, required OrderEntity order}) {
     navigationService.navigateTo(Routes.orderDetailsScreen,
         arguments: OrderDetailsScreenArguments(order: order, store: store));
   }

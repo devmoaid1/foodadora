@@ -6,28 +6,28 @@ part of 'order.dart';
 // CopyWithGenerator
 // **************************************************************************
 
-abstract class _$OrderCWProxy {
-  Order customerId(String? customerId);
+abstract class _$OrderEntityCWProxy {
+  OrderEntity customerId(String? customerId);
 
-  Order id(String? id);
+  OrderEntity id(String? id);
 
-  Order orderDate(DateTime? orderDate);
+  OrderEntity orderDate(DateTime? orderDate);
 
-  Order products(List<ProductModel>? products);
+  OrderEntity products(List<ProductModel>? products);
 
-  Order status(String? status);
+  OrderEntity status(String? status);
 
-  Order storeId(String? storeId);
+  OrderEntity storeId(String? storeId);
 
-  Order totalPrice(double? totalPrice);
+  OrderEntity totalPrice(double? totalPrice);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Order(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `OrderEntity(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
   /// ```dart
-  /// Order(...).copyWith(id: 12, name: "My name")
+  /// OrderEntity(...).copyWith(id: 12, name: "My name")
   /// ````
-  Order call({
+  OrderEntity call({
     String? customerId,
     String? id,
     DateTime? orderDate,
@@ -39,41 +39,42 @@ abstract class _$OrderCWProxy {
 }
 
 /// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfOrder.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfOrder.copyWith.fieldName(...)`
-class _$OrderCWProxyImpl implements _$OrderCWProxy {
-  final Order _value;
+class _$OrderEntityCWProxyImpl implements _$OrderEntityCWProxy {
+  final OrderEntity _value;
 
-  const _$OrderCWProxyImpl(this._value);
-
-  @override
-  Order customerId(String? customerId) => this(customerId: customerId);
+  const _$OrderEntityCWProxyImpl(this._value);
 
   @override
-  Order id(String? id) => this(id: id);
+  OrderEntity customerId(String? customerId) => this(customerId: customerId);
 
   @override
-  Order orderDate(DateTime? orderDate) => this(orderDate: orderDate);
+  OrderEntity id(String? id) => this(id: id);
 
   @override
-  Order products(List<ProductModel>? products) => this(products: products);
+  OrderEntity orderDate(DateTime? orderDate) => this(orderDate: orderDate);
 
   @override
-  Order status(String? status) => this(status: status);
+  OrderEntity products(List<ProductModel>? products) =>
+      this(products: products);
 
   @override
-  Order storeId(String? storeId) => this(storeId: storeId);
+  OrderEntity status(String? status) => this(status: status);
 
   @override
-  Order totalPrice(double? totalPrice) => this(totalPrice: totalPrice);
+  OrderEntity storeId(String? storeId) => this(storeId: storeId);
+
+  @override
+  OrderEntity totalPrice(double? totalPrice) => this(totalPrice: totalPrice);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Order(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `OrderEntity(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
   /// ```dart
-  /// Order(...).copyWith(id: 12, name: "My name")
+  /// OrderEntity(...).copyWith(id: 12, name: "My name")
   /// ````
-  Order call({
+  OrderEntity call({
     Object? customerId = const $CopyWithPlaceholder(),
     Object? id = const $CopyWithPlaceholder(),
     Object? orderDate = const $CopyWithPlaceholder(),
@@ -82,7 +83,7 @@ class _$OrderCWProxyImpl implements _$OrderCWProxy {
     Object? storeId = const $CopyWithPlaceholder(),
     Object? totalPrice = const $CopyWithPlaceholder(),
   }) {
-    return Order(
+    return OrderEntity(
       customerId: customerId == const $CopyWithPlaceholder()
           ? _value.customerId
           // ignore: cast_nullable_to_non_nullable
@@ -115,8 +116,8 @@ class _$OrderCWProxyImpl implements _$OrderCWProxy {
   }
 }
 
-extension $OrderCopyWith on Order {
+extension $OrderEntityCopyWith on OrderEntity {
   /// Returns a callable class that can be used as follows: `instanceOfOrder.copyWith(...)` or like so:`instanceOfOrder.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
-  _$OrderCWProxy get copyWith => _$OrderCWProxyImpl(this);
+  _$OrderEntityCWProxy get copyWith => _$OrderEntityCWProxyImpl(this);
 }

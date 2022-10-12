@@ -19,7 +19,7 @@ import '../viewmodels/orders_viewmodel.dart';
 
 class OrderItem extends ViewModelWidget<OrdersViewModel> {
   final Store store;
-  final Order order;
+  final OrderEntity order;
 
   const OrderItem({
     required this.store,
@@ -27,113 +27,116 @@ class OrderItem extends ViewModelWidget<OrdersViewModel> {
   });
   @override
   Widget build(BuildContext context, OrdersViewModel viewModel) {
-    return Material(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      color: Colors.white,
-      elevation: .5,
-      child: Pressable(
-        onPressed: () {
-          viewModel.navigateToOrderDetails(store: store, order: order);
-        },
-        borderRadius: BorderRadius.circular(10),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: blockSizeHorizontal(context) * 4,
-              vertical: blockSizeVertical(context) * 2),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SvgPicture.asset(Assets.orderIcon),
-              SizedBox(
-                width: blockSizeHorizontal(context) * 3,
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${store.storeName} Store",
-                      style: GoogleFonts.poppins(
-                          color: activeColor,
-                          fontSize: blockSizeHorizontal(context) * 5),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          formattedDate(date: order.orderDate as DateTime),
-                          style: GoogleFonts.poppins(
-                              color: textColor,
-                              fontSize: blockSizeHorizontal(context) * 4),
-                        ),
-                        SizedBox(
-                          width: blockSizeHorizontal(context),
-                        ),
-                        Text(
-                          formatPrice(order.totalPrice),
-                          style: GoogleFonts.poppins(
-                              color: textColor,
-                              fontSize: blockSizeHorizontal(context) * 4),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: blockSizeVertical(context) * 2,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: blockSizeHorizontal(context) * 6,
-                              vertical: blockSizeVertical(context) * 1),
-                          decoration: BoxDecoration(
-                              color: scaffoldColor,
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Center(
-                            child: Text(
-                              order.status.toString(),
-                              style: GoogleFonts.poppins(
-                                  color: textColor,
-                                  fontSize: blockSizeHorizontal(context) * 3),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      child: Material(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        color: Colors.white,
+        elevation: .5,
+        child: Pressable(
+          onPressed: () {
+            viewModel.navigateToOrderDetails(store: store, order: order);
+          },
+          borderRadius: BorderRadius.circular(10),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: blockSizeHorizontal(context) * 4,
+                vertical: blockSizeVertical(context) * 2),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SvgPicture.asset(Assets.orderIcon),
+                SizedBox(
+                  width: blockSizeHorizontal(context) * 3,
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${store.storeName} Store",
+                        style: GoogleFonts.poppins(
+                            color: activeColor,
+                            fontSize: blockSizeHorizontal(context) * 5),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            formattedDate(date: order.orderDate as DateTime),
+                            style: GoogleFonts.poppins(
+                                color: textColor,
+                                fontSize: blockSizeHorizontal(context) * 4),
+                          ),
+                          SizedBox(
+                            width: blockSizeHorizontal(context),
+                          ),
+                          Text(
+                            formatPrice(order.totalPrice),
+                            style: GoogleFonts.poppins(
+                                color: textColor,
+                                fontSize: blockSizeHorizontal(context) * 4),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: blockSizeVertical(context) * 2,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: blockSizeHorizontal(context) * 6,
+                                vertical: blockSizeVertical(context) * 1),
+                            decoration: BoxDecoration(
+                                color: scaffoldColor,
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Center(
+                              child: Text(
+                                order.status.toString(),
+                                style: GoogleFonts.poppins(
+                                    color: textColor,
+                                    fontSize: blockSizeHorizontal(context) * 3),
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: blockSizeHorizontal(context),
-                        ),
-                        Pressable(
-                          onPressed: () {
-                            viewModel.navigateToOrderDetails(
-                                store: store, order: order);
-                          },
-                          child: Row(
-                            children: [
-                              Container(
-                                width: screenWidthPercentage(context,
-                                    percentage: 0.18),
-                                child: FittedBox(
-                                  fit: BoxFit.fitWidth,
-                                  child: Text(
-                                    "View Details ",
-                                    style: GoogleFonts.poppins(
-                                        color: actionColor,
-                                        fontSize:
-                                            blockSizeHorizontal(context) * 3),
+                          SizedBox(
+                            width: blockSizeHorizontal(context),
+                          ),
+                          Pressable(
+                            onPressed: () {
+                              viewModel.navigateToOrderDetails(
+                                  store: store, order: order);
+                            },
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: screenWidthPercentage(context,
+                                      percentage: 0.18),
+                                  child: FittedBox(
+                                    fit: BoxFit.fitWidth,
+                                    child: Text(
+                                      "View Details ",
+                                      style: GoogleFonts.poppins(
+                                          color: actionColor,
+                                          fontSize:
+                                              blockSizeHorizontal(context) * 3),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SvgPicture.asset(Assets.arrowRightIcon)
-                            ],
+                                SvgPicture.asset(Assets.arrowRightIcon)
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              )
-            ],
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

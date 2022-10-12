@@ -8,7 +8,6 @@ import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/format_price.dart';
 
 import 'package:foodadora/services/cart_Service.dart';
-import 'package:foodadora/ui/cart/cart_viewmodel.dart';
 
 import 'package:foodadora/ui/widgets/empty_indicator.dart';
 import 'package:foodadora/ui/widgets/foodadora_button.dart';
@@ -17,13 +16,14 @@ import 'package:provider/provider.dart';
 
 import 'package:stacked/stacked.dart';
 
-import '../../app/utilites/app_colors.dart';
-import '../../app/utilites/enums.dart';
-import '../../app/utilites/screen_sizes.dart';
-import '../../features/store_details/domain/entities/product.dart';
-import '../../services/connectivity_service.dart';
-import '../widgets/noconnection_indicator.dart';
-import 'widgets/cart_text_row.dart';
+import '../../../../app/utilites/app_colors.dart';
+import '../../../../app/utilites/enums.dart';
+import '../../../../app/utilites/screen_sizes.dart';
+import '../../../../services/connectivity_service.dart';
+import '../../../../ui/widgets/noconnection_indicator.dart';
+import '../../../store_details/domain/entities/product.dart';
+import '../viewmodels/cart_viewmodel.dart';
+import '../widgets/cart_text_row.dart';
 
 // ignore: must_be_immutable
 class CartScreen extends StatelessWidget {

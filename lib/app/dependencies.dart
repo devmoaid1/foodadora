@@ -13,6 +13,10 @@ import 'package:foodadora/features/auth/domain/usecases/email_login_usecase.dart
 import 'package:foodadora/features/auth/domain/usecases/google_sign_usecase.dart';
 import 'package:foodadora/features/auth/domain/usecases/handle_phone_form_usecase.dart';
 import 'package:foodadora/features/auth/domain/usecases/sign_up_usecase.dart';
+import 'package:foodadora/features/cart/data/datasources/cart_remote_datasource.dart';
+import 'package:foodadora/features/cart/data/repositories/cart_repository_impl.dart';
+import 'package:foodadora/features/cart/domain/repositories/cart_repository.dart';
+import 'package:foodadora/features/cart/domain/usecases/delete_item_usecase.dart';
 import 'package:foodadora/features/orders/data/datasources/orders_remote_datasource.dart';
 import 'package:foodadora/features/orders/data/repositories/orders_repository_impl.dart';
 import 'package:foodadora/features/orders/domain/repositories/orders_repository.dart';
@@ -37,7 +41,7 @@ import 'package:foodadora/services/base_service.dart';
 import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/services/connectivity_service.dart';
 import 'package:foodadora/services/profile_service.dart';
-import 'package:foodadora/ui/cart/cart_viewmodel.dart';
+
 import 'package:foodadora/ui/home_navigation/home_navigation_viewmodel.dart';
 
 import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
@@ -52,6 +56,11 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../features/auth/presentation/viewmodels/login_viewmodel.dart';
 import '../features/auth/presentation/viewmodels/signup_viewModel.dart';
+import '../features/cart/domain/usecases/decrement_quantity_usecase.dart';
+import '../features/cart/domain/usecases/fetch_cart_Items_usecase.dart';
+import '../features/cart/domain/usecases/incrementQuantity_usecase.dart';
+import '../features/cart/domain/usecases/set_product_availability_usecase.dart';
+import '../features/cart/presentation/viewmodels/cart_viewmodel.dart';
 import '../features/orders/presentation/viewmodels/orders_viewmodel.dart';
 import '../features/profile/presentation/viewmodels/profile_viewModel.dart';
 import '../features/settings/presentation/viewmodels/settings_viewmodel.dart';
@@ -63,7 +72,6 @@ import '../features/stores/domain/usecases/get_store_usecase.dart';
 import '../features/stores/presentation/viewmodels/stores_viewModel.dart';
 import '../services/auth_Service.dart';
 import '../services/location_service.dart';
-import '../services/orders_services.dart';
 import '../services/product_service.dart';
 import 'foodadora/foodadora_viewModel.dart';
 
@@ -106,6 +114,11 @@ Future<void> setUpDedpendencies() async {
         firebaseApiProvider: Get.find(),
       ));
 
+  // cart
+  Get.lazyPut<CartRemoteDataSource>(() => CartRemoteDataSourceImpl(
+        firebaseApiProvider: Get.find(),
+      ));
+
   // repositories
 
   // auth
@@ -134,6 +147,11 @@ Future<void> setUpDedpendencies() async {
   Get.lazyPut<ProfileRepository>(
       () => ProfileRepositoryImpl(profileRemoteDataSource: Get.find()));
 
+  // cart
+
+  Get.lazyPut<CartRepository>(() => CartRepositoryImpl(
+      cartService: Get.find(), cartRemoteDataSource: Get.find()));
+
   // use cases
   //Auth
   Get.lazyPut(() => EmailLoginUseCase(basicAuthRepo: Get.find()));
@@ -159,6 +177,14 @@ Future<void> setUpDedpendencies() async {
   Get.lazyPut(() => GetCurrentCustomerUseCase(profileRepository: Get.find()));
   Get.lazyPut(() => LogoutUseCase(profileRepository: Get.find()));
 
+  // cart
+
+  Get.lazyPut(() => DeleteCartItemUseCase(cartRepository: Get.find()));
+  Get.lazyPut(() => DecrementQuantityUseCase(cartRepository: Get.find()));
+  Get.lazyPut(() => IncrementQuantityUseCase(cartRepository: Get.find()));
+  Get.lazyPut(() => FetchCartItemsUseCase(cartRepository: Get.find()));
+  Get.lazyPut(() => SetProductAvailabilityUseCase(cartRepository: Get.find()));
+
   // viewModels
 
   Get.lazyPut(() => HomeNavigationViewModel(), fenix: true);
@@ -173,7 +199,15 @@ Future<void> setUpDedpendencies() async {
       () => SignUpViewModel(
           handlePhoneFormUseCase: Get.find(), signUpUseCase: Get.find()),
       fenix: true);
-  Get.lazyPut(() => CartViewModel(), fenix: true);
+  Get.lazyPut(
+      () => CartViewModel(
+          createOrderUseCase: Get.find(),
+          decrementQuantityUseCase: Get.find(),
+          deleteCartItemUseCase: Get.find(),
+          fetchCartItemsUseCase: Get.find(),
+          incrementQuantityUseCase: Get.find(),
+          setProductAvailabilityUseCase: Get.find()),
+      fenix: true);
   Get.lazyPut(
       () => OrdersViewModel(
           getCustomerOrdersUsecase: Get.find(),
@@ -202,7 +236,7 @@ Future<void> setUpDedpendencies() async {
   Get.lazyPut(() => AuthService());
 
   // Get.lazyPut(() => StoreService());
-  Get.lazyPut(() => OrderService());
+  // Get.lazyPut(() => OrderService());
 
   Get.lazyPut(() => ProductService());
   Get.lazyPut(() => LocationService());

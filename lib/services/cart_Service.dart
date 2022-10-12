@@ -5,14 +5,14 @@ import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/core/api/endpoints.dart';
 import 'package:foodadora/core/localstorage/local_storage_provider.dart';
 import 'package:foodadora/features/store_details/data/models/product_model.dart';
-import 'package:foodadora/models/cart.dart';
-import 'package:foodadora/models/cartItem.dart';
 
 import 'package:foodadora/services/base_service.dart';
 
 import 'package:rxdart/rxdart.dart';
 
 import '../app/utilites/custom_modals.dart';
+import '../features/cart/data/models/cart.dart';
+import '../features/cart/data/models/cartItem.dart';
 import '../features/store_details/domain/entities/product.dart';
 
 class CartService extends BaseService with ChangeNotifier {
