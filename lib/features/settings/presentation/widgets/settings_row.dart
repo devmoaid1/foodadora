@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
-import 'package:foodadora/ui/widgets/fa_text_button.dart';
+
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../core/widgets/fa_text_button.dart';
 
 class SettingsRow extends StatelessWidget {
   final String iconPath;

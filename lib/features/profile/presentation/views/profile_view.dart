@@ -9,12 +9,11 @@ import 'package:stacked/stacked.dart';
 
 import 'package:foodadora/app/constants/assets.dart';
 
-import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
-import 'package:foodadora/ui/widgets/foodadora_button.dart';
-import 'package:foodadora/ui/widgets/foodadora_textfield.dart';
-
 import '../../../../app/utilites/app_colors.dart';
 import '../../../../app/utilites/screen_sizes.dart';
+import '../../../../core/widgets/foodadora_app_bar.dart';
+import '../../../../core/widgets/foodadora_button.dart';
+import '../../../../core/widgets/foodadora_textfield.dart';
 import '../viewmodels/profile_viewModel.dart';
 
 class ProfileScreen extends StatelessWidget {

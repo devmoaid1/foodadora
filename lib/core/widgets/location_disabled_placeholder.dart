@@ -3,8 +3,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
-import 'package:foodadora/ui/widgets/pressable.dart';
+
 import 'package:google_fonts/google_fonts.dart';
+
+import 'pressable.dart';
 
 class LocationDisabledPlaceholder extends StatelessWidget {
   final Function()? openLocationSettings;

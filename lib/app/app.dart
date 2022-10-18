@@ -8,12 +8,11 @@ import '../features/cart/presentation/views/cart_view.dart';
 import '../features/home_navigation/home_navigation_view.dart';
 import '../features/orders/presentation/views/order_details_view.dart';
 import '../features/orders/presentation/views/orders_view.dart';
+import '../features/product_details/presentation/views/product_details_view.dart';
 import '../features/profile/presentation/views/profile_view.dart';
 import '../features/select_language/select_language_view.dart';
 import '../features/store_details/presentation/views/store_details_view.dart';
 import '../features/stores/presentation/views/stores_view.dart';
-
-import '../ui/product_details/product_details_view.dart';
 
 @StackedApp(routes: <StackedRoute<dynamic>>[
   CupertinoRoute(page: HomeNavigationView, initial: true),

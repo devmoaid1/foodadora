@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, unnecessary_null_comparison
 
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/custom_modals.dart';
@@ -24,7 +24,7 @@ class ProfileViewModel extends BaseViewModel {
   void getCurrentCustomer() async {
     setBusy(true);
 
-    final userId = authService.auth.currentUser!.uid;
+    final userId = authService.auth.currentUser?.uid;
 
     if (userId != null) {
       final response =
@@ -67,14 +67,5 @@ class ProfileViewModel extends BaseViewModel {
       homeNavigationViewModel.notifyListeners();
       navigationService.back();
     });
-    // try {
-    //   await authService.logout();
-    //   // profileService.setIsLoggedOn(false);
-    //   homeNavigationViewModel.notifyListeners();
-    //   navigationService.back();
-    // } catch (err) {
-    //   logger.e(err);
-    // }
-    // notifyListeners();
   }
 }

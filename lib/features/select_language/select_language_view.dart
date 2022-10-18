@@ -5,11 +5,11 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
 
-import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
-import 'package:foodadora/ui/widgets/pressable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../core/widgets/foodadora_app_bar.dart';
+import '../../core/widgets/pressable.dart';
 import 'select_language_viewmodel.dart';
 
 class SelectLanguageView extends StatelessWidget {

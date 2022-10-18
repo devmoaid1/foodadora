@@ -9,8 +9,6 @@ import 'package:foodadora/app/utilites/format_price.dart';
 
 import 'package:foodadora/services/cart_Service.dart';
 
-import 'package:foodadora/ui/widgets/empty_indicator.dart';
-import 'package:foodadora/ui/widgets/foodadora_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -19,8 +17,11 @@ import 'package:stacked/stacked.dart';
 import '../../../../app/utilites/app_colors.dart';
 import '../../../../app/utilites/enums.dart';
 import '../../../../app/utilites/screen_sizes.dart';
+import '../../../../core/widgets/empty_indicator.dart';
+import '../../../../core/widgets/foodadora_button.dart';
+import '../../../../core/widgets/noconnection_indicator.dart';
 import '../../../../services/connectivity_service.dart';
-import '../../../../ui/widgets/noconnection_indicator.dart';
+
 import '../../../store_details/domain/entities/product.dart';
 import '../viewmodels/cart_viewmodel.dart';
 import '../widgets/cart_text_row.dart';

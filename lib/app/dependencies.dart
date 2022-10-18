@@ -42,8 +42,6 @@ import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/services/connectivity_service.dart';
 import 'package:foodadora/services/profile_service.dart';
 
-import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
-
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 
 import 'package:get/get.dart';
@@ -59,6 +57,7 @@ import '../features/cart/domain/usecases/set_product_availability_usecase.dart';
 import '../features/cart/presentation/viewmodels/cart_viewmodel.dart';
 import '../features/home_navigation/home_navigation_viewmodel.dart';
 import '../features/orders/presentation/viewmodels/orders_viewmodel.dart';
+import '../features/product_details/presentation/viewmodels/product_details_viewmodel.dart';
 import '../features/profile/presentation/viewmodels/profile_viewModel.dart';
 import '../features/select_language/select_language_viewmodel.dart';
 import '../features/settings/presentation/viewmodels/settings_viewmodel.dart';

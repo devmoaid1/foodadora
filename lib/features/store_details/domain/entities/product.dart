@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
 part "product.g.dart";

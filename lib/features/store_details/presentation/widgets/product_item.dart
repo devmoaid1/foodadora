@@ -5,9 +5,9 @@ import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/format_price.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
 
-import 'package:foodadora/ui/widgets/pressable.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/widgets/pressable.dart';
 import '../../domain/entities/product.dart';
 
 class ProductItem extends StatelessWidget {

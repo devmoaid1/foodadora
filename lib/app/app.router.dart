@@ -26,7 +26,8 @@ import 'package:foodadora/features/stores/presentation/views/stores_view.dart'
     as _i11;
 import '/features/cart/presentation/views/cart_view.dart' as _i5;
 import '/features/home_navigation/home_navigation_view.dart' as _i2;
-import 'package:foodadora/ui/product_details/product_details_view.dart' as _i3;
+import '/features/product_details/presentation/views/product_details_view.dart'
+    as _i3;
 import 'package:foodadora/features/profile/presentation/views/profile_view.dart'
     as _i9;
 import '/features/select_language/select_language_view.dart' as _i10;

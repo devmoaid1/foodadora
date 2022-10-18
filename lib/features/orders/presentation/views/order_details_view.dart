@@ -4,8 +4,6 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../app/constants/assets.dart';
@@ -13,6 +11,7 @@ import '../../../../app/utilites/app_colors.dart';
 import '../../../../app/utilites/date_formmater.dart';
 import '../../../../app/utilites/screen_sizes.dart';
 
+import '../../../../core/widgets/foodadora_app_bar.dart';
 import '../../../cart/presentation/widgets/cart_text_row.dart';
 import '../../../stores/domain/entites/store.dart';
 import '../../domain/entities/order.dart';

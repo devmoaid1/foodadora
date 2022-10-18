@@ -9,7 +9,6 @@ import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/services/connectivity_service.dart';
 import 'package:foodadora/services/profile_service.dart';
 
-import 'package:foodadora/ui/widgets/style.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +16,7 @@ import 'package:stacked/stacked.dart';
 
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../core/widgets/style.dart';
 import 'foodadora_viewModel.dart';
 
 class FoodadoraApp extends StatelessWidget {

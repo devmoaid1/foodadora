@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:foodadora/ui/widgets/foodadora_button.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../app/app.router.dart';
@@ -10,6 +10,7 @@ import '../../app/constants/assets.dart';
 import '../../app/constants/services_instances.dart';
 import '../../app/utilites/app_colors.dart';
 import '../../app/utilites/screen_sizes.dart';
+import 'foodadora_button.dart';
 
 class OrdersNotLoggedIndicator extends StatelessWidget {
   const OrdersNotLoggedIndicator({Key? key}) : super(key: key);

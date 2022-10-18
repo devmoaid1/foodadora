@@ -2,10 +2,10 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 
-import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../app/utilites/app_colors.dart';
+import '../../core/widgets/foodadora_app_bar.dart';
 import '../../features/cart/presentation/views/cart_view.dart';
 import '../../features/orders/presentation/views/orders_view.dart';
 import '../../features/settings/presentation/views/settings_view.dart';

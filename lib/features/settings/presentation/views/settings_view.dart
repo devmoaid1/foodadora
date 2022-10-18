@@ -7,12 +7,12 @@ import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
 import 'package:foodadora/services/profile_service.dart';
 
-import 'package:foodadora/ui/widgets/foodadora_button.dart';
-import 'package:foodadora/ui/widgets/noconnection_indicator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../../core/widgets/foodadora_button.dart';
+import '../../../../core/widgets/noconnection_indicator.dart';
 import '../../../../services/connectivity_service.dart';
 import '../../../select_language/language_code_name_map.dart';
 import '../viewmodels/settings_viewmodel.dart';

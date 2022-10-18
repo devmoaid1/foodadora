@@ -10,6 +10,7 @@ import '../../features/auth/presentation/viewmodels/signup_viewModel.dart';
 import '../../features/cart/presentation/viewmodels/cart_viewmodel.dart';
 import '../../features/home_navigation/home_navigation_viewmodel.dart';
 import '../../features/orders/presentation/viewmodels/orders_viewmodel.dart';
+import '../../features/product_details/presentation/viewmodels/product_details_viewmodel.dart';
 import '../../features/settings/presentation/viewmodels/settings_viewmodel.dart';
 import '../../features/stores/presentation/viewmodels/stores_viewModel.dart';
 import '../../services/auth_Service.dart';
@@ -18,8 +19,6 @@ import '../../services/connectivity_service.dart';
 import '../../services/location_service.dart';
 import '../../services/product_service.dart';
 import '../../services/profile_service.dart';
-
-import '../../ui/product_details/product_details_viewmodel.dart';
 
 final navigationService = Get.find<NavigationService>();
 final dialogService = locator<DialogService>();

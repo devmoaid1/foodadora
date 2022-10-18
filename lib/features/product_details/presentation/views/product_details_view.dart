@@ -8,23 +8,22 @@ import 'package:foodadora/app/utilites/format_price.dart';
 
 import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/services/connectivity_service.dart';
-import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
-import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
 
-import 'package:foodadora/ui/widgets/foodadora_button.dart';
-import 'package:foodadora/ui/widgets/noconnection_indicator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../app/utilites/app_colors.dart';
-import '../../app/utilites/get_expiry_weeks.dart';
-import '../../app/utilites/screen_sizes.dart';
-
-import '../../features/store_details/domain/entities/product.dart';
-import '../../features/stores/domain/entites/store.dart';
-import 'widgets/Product_image.dart';
+import '../../../../app/utilites/app_colors.dart';
+import '../../../../app/utilites/get_expiry_weeks.dart';
+import '../../../../app/utilites/screen_sizes.dart';
+import '../../../../core/widgets/foodadora_app_bar.dart';
+import '../../../../core/widgets/foodadora_button.dart';
+import '../../../../core/widgets/noconnection_indicator.dart';
+import '../../../store_details/domain/entities/product.dart';
+import '../../../stores/domain/entites/store.dart';
+import '../viewmodels/product_details_viewmodel.dart';
+import '../widgets/Product_image.dart';
 
 class ProductDetailsView extends StatelessWidget {
   final Product product;
@@ -43,7 +42,7 @@ class ProductDetailsView extends StatelessWidget {
           onModelReady: (model) => model.init(product),
           viewModelBuilder: () => productDetailsViewModel,
           builder: (context, model, _) {
-            if (model.loading) {
+            if (model.isBusy) {
               return const Center(
                 child: CircularProgressIndicator.adaptive(),
               );

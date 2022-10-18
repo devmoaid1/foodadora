@@ -6,8 +6,7 @@ import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
 
 import 'package:foodadora/app/constants/assets.dart';
-import 'package:foodadora/ui/widgets/foodadora_app_bar.dart';
-import 'package:foodadora/ui/widgets/foodadora_textfield.dart';
+
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,8 +14,11 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../../app/utilites/enums.dart';
-import '../../../../ui/widgets/foodadora_button.dart';
-import '../../../../ui/widgets/social_button.dart';
+
+import '../../../../core/widgets/foodadora_app_bar.dart';
+import '../../../../core/widgets/foodadora_button.dart';
+import '../../../../core/widgets/foodadora_textfield.dart';
+import '../../../../core/widgets/social_button.dart';
 import '../viewmodels/login_viewmodel.dart';
 
 class LoginView extends StatelessWidget {
