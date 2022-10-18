@@ -8,6 +8,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../../features/auth/presentation/viewmodels/signup_viewModel.dart';
 import '../../features/cart/presentation/viewmodels/cart_viewmodel.dart';
+import '../../features/home_navigation/home_navigation_viewmodel.dart';
 import '../../features/orders/presentation/viewmodels/orders_viewmodel.dart';
 import '../../features/settings/presentation/viewmodels/settings_viewmodel.dart';
 import '../../features/stores/presentation/viewmodels/stores_viewModel.dart';
@@ -18,16 +19,13 @@ import '../../services/location_service.dart';
 import '../../services/product_service.dart';
 import '../../services/profile_service.dart';
 
-import '../../ui/home_navigation/home_navigation_viewmodel.dart';
-
 import '../../ui/product_details/product_details_viewmodel.dart';
 
 final navigationService = Get.find<NavigationService>();
 final dialogService = locator<DialogService>();
 final authService = Get.find<AuthService>();
 final profileService = Get.find<ProfileService>();
-// final storeService = Get.find<StoreService>();
-// final ordersService = Get.find<OrderService>();
+
 final cartService = Get.find<CartService>();
 final productService = Get.find<ProductService>();
 final locationService = Get.find<LocationService>();

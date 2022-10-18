@@ -42,11 +42,7 @@ import 'package:foodadora/services/cart_Service.dart';
 import 'package:foodadora/services/connectivity_service.dart';
 import 'package:foodadora/services/profile_service.dart';
 
-import 'package:foodadora/ui/home_navigation/home_navigation_viewmodel.dart';
-
 import 'package:foodadora/ui/product_details/product_details_viewmodel.dart';
-
-import 'package:foodadora/ui/select_language/select_language_viewmodel.dart';
 
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 
@@ -61,8 +57,10 @@ import '../features/cart/domain/usecases/fetch_cart_Items_usecase.dart';
 import '../features/cart/domain/usecases/incrementQuantity_usecase.dart';
 import '../features/cart/domain/usecases/set_product_availability_usecase.dart';
 import '../features/cart/presentation/viewmodels/cart_viewmodel.dart';
+import '../features/home_navigation/home_navigation_viewmodel.dart';
 import '../features/orders/presentation/viewmodels/orders_viewmodel.dart';
 import '../features/profile/presentation/viewmodels/profile_viewModel.dart';
+import '../features/select_language/select_language_viewmodel.dart';
 import '../features/settings/presentation/viewmodels/settings_viewmodel.dart';
 import '../features/store_details/data/datasources/store_details_remote_datasource.dart';
 import '../features/store_details/data/repositories/store_details_repository_impl.dart';
@@ -234,9 +232,6 @@ Future<void> setUpDedpendencies() async {
   Get.lazyPut(() => NavigationService());
   // Get.put(DialogService());
   Get.lazyPut(() => AuthService());
-
-  // Get.lazyPut(() => StoreService());
-  // Get.lazyPut(() => OrderService());
 
   Get.lazyPut(() => ProductService());
   Get.lazyPut(() => LocationService());
