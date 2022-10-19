@@ -20,8 +20,14 @@ class SharedPrefrencesConsumer implements LocalStorageProvider {
 
   @override
   dynamic getData({required key, dynamic type}) {
-    final data = sharedPreferences.get(key) as String;
-    return jsonDecode(data) as Map<String, dynamic>;
+    Map<String, dynamic>? result;
+    try {
+      final data = sharedPreferences.get(key) as String;
+      result = jsonDecode(data) as Map<String, dynamic>;
+      return result;
+    } catch (err) {
+      return result;
+    }
   }
 
   @override

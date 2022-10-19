@@ -29,6 +29,7 @@ class FoodadoraApp extends StatelessWidget {
       viewModelBuilder: () => Get.find<FoodadoraViewModel>(),
       onModelReady: (model) => model.init(),
       disposeViewModel: false,
+      fireOnModelReadyOnce: true,
       builder: (context, model, _) {
         LocalizationDelegate localizationDelegate =
             LocalizedApp.of(context).delegate;

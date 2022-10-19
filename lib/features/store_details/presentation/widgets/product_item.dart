@@ -4,6 +4,7 @@ import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/format_price.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
+import 'package:foodadora/core/widgets/foodadora_network_Image.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
@@ -41,14 +42,19 @@ class ProductItem extends StatelessWidget {
                       height: blockSizeVertical(context) * 12,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          product.imageUrl!,
+                        child: FoodadoraNetworkImage(
+                          key: UniqueKey(),
+                          imagePath: product.imageUrl!,
                           fit: BoxFit.contain,
-                          loadingBuilder: (context, child, loadingProgress) =>
-                              loadingProgress == null
-                                  ? child
-                                  : const CircularProgressIndicator.adaptive(),
                         ),
+                        // child: Image.network(
+                        //   product.imageUrl!,
+                        //   fit: BoxFit.contain,
+                        //   loadingBuilder: (context, child, loadingProgress) =>
+                        //       loadingProgress == null
+                        //           ? child
+                        //           : const CircularProgressIndicator.adaptive(),
+                        // ),
                       ),
                     ),
                     verticalSpaceRegular,

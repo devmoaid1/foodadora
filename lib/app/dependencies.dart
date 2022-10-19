@@ -22,6 +22,11 @@ import 'package:foodadora/features/orders/data/repositories/orders_repository_im
 import 'package:foodadora/features/orders/domain/repositories/orders_repository.dart';
 import 'package:foodadora/features/orders/domain/usecases/create_order_usecase.dart';
 import 'package:foodadora/features/orders/domain/usecases/get_customer_orders_usecase.dart';
+import 'package:foodadora/features/product_details/data/datasources/product_details_localdatasource.dart';
+import 'package:foodadora/features/product_details/data/repositories/product_details_repository_impl.dart';
+import 'package:foodadora/features/product_details/domain/repositories/product_details_repository.dart';
+import 'package:foodadora/features/product_details/domain/usecases/add_item_to_cart_usecase.dart';
+import 'package:foodadora/features/product_details/domain/usecases/get_cart_usecase.dart';
 import 'package:foodadora/features/profile/data/datasources/profile_remote_datasource.dart';
 import 'package:foodadora/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:foodadora/features/profile/domain/repositories/profile_repository.dart';
@@ -116,6 +121,11 @@ Future<void> setUpDedpendencies() async {
         firebaseApiProvider: Get.find(),
       ));
 
+  // product details
+
+  Get.lazyPut<ProductDetailsLocalDataSource>(
+      () => ProductDetailsLocalDataSourceImpl(cartService: Get.find()));
+
   // repositories
 
   // auth
@@ -149,6 +159,11 @@ Future<void> setUpDedpendencies() async {
   Get.lazyPut<CartRepository>(() => CartRepositoryImpl(
       cartService: Get.find(), cartRemoteDataSource: Get.find()));
 
+  // product details
+
+  Get.lazyPut<ProductDetailsRepository>(() => ProductDetailsRepositoryImpl(
+      productDetailsLocalDataSource: Get.find(), cartService: Get.find()));
+
   // use cases
   //Auth
   Get.lazyPut(() => EmailLoginUseCase(basicAuthRepo: Get.find()));
@@ -181,6 +196,11 @@ Future<void> setUpDedpendencies() async {
   Get.lazyPut(() => IncrementQuantityUseCase(cartRepository: Get.find()));
   Get.lazyPut(() => FetchCartItemsUseCase(cartRepository: Get.find()));
   Get.lazyPut(() => SetProductAvailabilityUseCase(cartRepository: Get.find()));
+
+  // product details
+
+  Get.lazyPut(() => GetCartUseCase(productDetailsRepository: Get.find()));
+  Get.lazyPut(() => AddItemToCartUseCase(productDetailsRepository: Get.find()));
 
   // viewModels
 
@@ -216,7 +236,14 @@ Future<void> setUpDedpendencies() async {
       () => ProfileViewModel(
           getCurrentCustomerUseCase: Get.find(), logoutUseCase: Get.find()),
       fenix: true);
-  Get.lazyPut(() => ProductDetailsViewModel(), fenix: true);
+  Get.lazyPut(
+      () => ProductDetailsViewModel(
+          addItemToCartUseCase: Get.find(),
+          decrementQuantityUseCase: Get.find(),
+          deleteCartItemUseCase: Get.find(),
+          getCartUseCase: Get.find(),
+          cartViewModel: Get.find()),
+      fenix: true);
   Get.lazyPut(() => SelectLanguageViewModel(), fenix: true);
   Get.lazyPut(() => StoreDetailsViewModel(getStoreProductsUseCase: Get.find()),
       fenix: true);

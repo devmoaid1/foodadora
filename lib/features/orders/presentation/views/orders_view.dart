@@ -5,7 +5,6 @@ import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/services/profile_service.dart';
 
-import 'package:foodadora/ui/widgets/orders_notlogged.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +14,7 @@ import '../../../../app/utilites/enums.dart';
 import '../../../../app/utilites/screen_sizes.dart';
 import '../../../../core/widgets/empty_indicator.dart';
 import '../../../../core/widgets/noconnection_indicator.dart';
+import '../../../../core/widgets/orders_notLogged.dart';
 import '../../../../services/connectivity_service.dart';
 import '../../../stores/domain/entites/store.dart';
 import '../viewmodels/orders_viewmodel.dart';

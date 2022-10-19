@@ -53,4 +53,6 @@ class Assets {
 
   static const noWifi = "assets/icons/no_wifi.svg";
   static const emptyStores = "assets/images/empty_stores.svg";
+
+  static const foodadoraPlaceHolder = "assets/images/foodadora_logo.png";
 }

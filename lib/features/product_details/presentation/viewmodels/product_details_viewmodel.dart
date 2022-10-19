@@ -26,14 +26,14 @@ class ProductDetailsViewModel extends BaseViewModel {
   final AddItemToCartUseCase addItemToCartUseCase;
   final DeleteCartItemUseCase deleteCartItemUseCase;
   final DecrementQuantityUseCase decrementQuantityUseCase;
-  final IncrementQuantityUseCase incrementQuantityUseCase;
+  final CartViewModel cartViewModel;
 
   ProductDetailsViewModel(
       {required this.getCartUseCase,
       required this.addItemToCartUseCase,
       required this.deleteCartItemUseCase,
       required this.decrementQuantityUseCase,
-      required this.incrementQuantityUseCase});
+      required this.cartViewModel});
 
   Stream<List<Product>> get cart => cartService.cartItems;
 
@@ -43,6 +43,11 @@ class ProductDetailsViewModel extends BaseViewModel {
 
   bool get isAddToCart => _isAddToCart;
   int get quantity => _quantity;
+
+  void setIsAddToCart(bool value) {
+    _isAddToCart = value;
+    notifyListeners();
+  }
 
   void init(Product product) async {
     setBusy(true);
@@ -106,6 +111,7 @@ class ProductDetailsViewModel extends BaseViewModel {
     Product? copyProduct;
 
     if (_quantity < product.quantity!) {
+      // increment while quantity is less than product stock
       copyProduct = product.copyWith(quantity: _quantity);
       _quantity++;
     } else {
@@ -114,6 +120,7 @@ class ProductDetailsViewModel extends BaseViewModel {
           title: "You cant add more",
           mainButtonTitle: "Ok");
     }
+
     cartViewModel.incrementQuantity(
         product: copyProduct!, stock: product.quantity!);
 
@@ -124,23 +131,44 @@ class ProductDetailsViewModel extends BaseViewModel {
     Product? copyProduct;
     if (_quantity > 1) {
       copyProduct = product.copyWith(quantity: _quantity);
-      cartService.decrementQuantity(copyProduct);
-      _quantity--;
-      notifyListeners();
+      final response = decrementQuantityUseCase(
+          DecerementQuantityParams(product: copyProduct));
+
+      response.fold((failure) => logger.e(failure.message), (success) {
+        _quantity--;
+        notifyListeners();
+      });
     }
   }
 
   void addToCart({required Product product, required int quantity}) {
-    cartService.addItem(product: product, quantity: quantity);
+    final response = addItemToCartUseCase(
+        AddToCartParams(product: product, quantity: quantity));
+
+    response.fold((failure) => logger.e(failure.message),
+        (success) => logger.i("added product ${product.productName} to cart"));
+    // cartService.addItem(product: product, quantity: quantity);
     // notifyListeners();
   }
 
   void deleteItem({required Product product}) async {
-    final isConfirmed = await cartService.deleteItem(product: product);
-    if (isConfirmed) {
-      _isAddToCart = false;
-    }
+    final response =
+        await deleteCartItemUseCase(DeleteCartItemParams(product: product));
 
-    notifyListeners();
+    response.fold((failure) {
+      logger.e(failure.message);
+    }, (isConfirmed) {
+      if (isConfirmed) {
+        _isAddToCart = true;
+      }
+      notifyListeners();
+    });
+
+    // final isConfirmed = await cartService.deleteItem(product: product);
+    // if (isConfirmed) {
+    //   _isAddToCart = false;
+    // }
+
+    // notifyListeners();
   }
 }

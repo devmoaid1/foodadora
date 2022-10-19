@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodadora/app/constants/assets.dart';
+import 'package:foodadora/core/widgets/foodadora_network_Image.dart';
 
 import '../../../../app/utilites/screen_sizes.dart';
 
@@ -21,17 +22,13 @@ class ProductImage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: screenWidth(context),
-            height: screenHeightPercentage(context, percentage: 0.20),
-            child: Image(
-              image: NetworkImage(productimage.toString()),
-              loadingBuilder: (context, child, loadingProgress) =>
-                  loadingProgress == null
-                      ? child
-                      : const CircularProgressIndicator.adaptive(),
-              fit: BoxFit.contain,
-            ),
-          ),
+              width: screenWidth(context),
+              height: screenHeightPercentage(context, percentage: 0.20),
+              child: FoodadoraNetworkImage(
+                imagePath: productimage!,
+                fit: BoxFit.contain,
+                key: UniqueKey(),
+              )),
           SizedBox(
             height: blockSizeVertical(context) * 2,
           ),
