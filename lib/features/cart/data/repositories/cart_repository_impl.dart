@@ -4,7 +4,7 @@ import 'package:foodadora/core/errors/faliures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:foodadora/features/cart/domain/repositories/cart_repository.dart';
 import 'package:foodadora/features/store_details/domain/entities/product.dart';
-import 'package:foodadora/services/cart_Service.dart';
+import 'package:foodadora/core/providers/cart/cart_Service.dart';
 
 import '../../../../app/constants/services_instances.dart';
 

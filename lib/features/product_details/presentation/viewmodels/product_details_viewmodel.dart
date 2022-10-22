@@ -13,7 +13,6 @@ import 'package:foodadora/features/cart/presentation/viewmodels/cart_viewmodel.d
 import 'package:foodadora/features/product_details/domain/usecases/add_item_to_cart_usecase.dart';
 import 'package:foodadora/features/product_details/domain/usecases/get_cart_usecase.dart';
 
-import 'package:foodadora/services/local_storage_service.dart';
 import 'package:get/get.dart';
 
 import 'package:stacked/stacked.dart';
@@ -80,29 +79,7 @@ class ProductDetailsViewModel extends BaseViewModel {
         _isAddToCart = false;
       }
     });
-    // await cartService
-    //     .getCartFromLocalStorage()
-    //     .then((cart) => cartItems = [...cart.cartItems!]); //get cart items
 
-    // if (cartItems.isNotEmpty) {
-    //   for (CartItem item in cartItems) {
-    //     // if exist update to true and quantity with current
-    //     if (item.productId == product.productId) {
-    //       _isAddToCart = true;
-    //       _quantity = item.quantity!;
-    //       break;
-    //     } else {
-    //       _isAddToCart = false;
-    //       _quantity = 1;
-    //     }
-
-    //     // else set to default
-
-    //   }
-    // } else {
-    //   _quantity = 1;
-    //   _isAddToCart = false;
-    // }
     setBusy(false);
     notifyListeners();
   }
@@ -147,8 +124,6 @@ class ProductDetailsViewModel extends BaseViewModel {
 
     response.fold((failure) => logger.e(failure.message),
         (success) => logger.i("added product ${product.productName} to cart"));
-    // cartService.addItem(product: product, quantity: quantity);
-    // notifyListeners();
   }
 
   void deleteItem({required Product product}) async {
@@ -163,12 +138,5 @@ class ProductDetailsViewModel extends BaseViewModel {
       }
       notifyListeners();
     });
-
-    // final isConfirmed = await cartService.deleteItem(product: product);
-    // if (isConfirmed) {
-    //   _isAddToCart = false;
-    // }
-
-    // notifyListeners();
   }
 }

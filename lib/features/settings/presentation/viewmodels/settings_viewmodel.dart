@@ -8,10 +8,10 @@ import 'package:stacked/stacked.dart';
 import '../../../auth/domain/entities/customer.dart';
 
 class SettingsViewModel extends BaseViewModel {
-  Customer? get customerProfile => profileService.currentCustomer;
+  Customer? get customerProfile => userService.currentCustomer;
 
-  String get customerName => profileService.customerName;
-  String get customerAccountType => profileService.customerAccountType;
+  String get customerName => userService.customerName;
+  String get customerAccountType => userService.customerAccountType;
 
   void navigateToAuth() => navigationService.navigateTo(Routes.loginView);
 

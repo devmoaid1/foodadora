@@ -6,8 +6,8 @@ import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/format_price.dart';
 
-import 'package:foodadora/services/cart_Service.dart';
-import 'package:foodadora/services/connectivity_service.dart';
+import 'package:foodadora/core/providers/cart/cart_Service.dart';
+import 'package:foodadora/core/providers/connectivity/connectivity_service.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';

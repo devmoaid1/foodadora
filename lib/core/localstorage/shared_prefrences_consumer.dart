@@ -9,7 +9,7 @@ class SharedPrefrencesConsumer implements LocalStorageProvider {
 
   SharedPrefrencesConsumer({required this.sharedPreferences});
   @override
-  Future<void> deleteData({required key, required id}) async {
+  Future<void> deleteData({required key, id}) async {
     final deltedData = await sharedPreferences.remove(key);
     if (deltedData) {
       logger.i("data is deleted from local storage");

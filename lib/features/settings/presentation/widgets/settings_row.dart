@@ -41,10 +41,15 @@ class SettingsRow extends StatelessWidget {
                   color: textColor,
                 ),
                 horizontalSpaceRegular,
-                Text(
-                  title,
-                  style: GoogleFonts.poppins(
-                    color: textColor,
+                ConstrainedBox(
+                  constraints:
+                      BoxConstraints(maxWidth: screenWidth(context) * 0.45),
+                  child: Text(
+                    title,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.poppins(
+                      color: textColor,
+                    ),
                   ),
                 ),
                 if (subTitle != null) horizontalSpaceLarge,

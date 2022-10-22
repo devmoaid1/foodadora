@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
-import 'package:foodadora/services/profile_service.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -12,10 +11,9 @@ import 'package:stacked/stacked.dart';
 
 import '../../../../app/utilites/enums.dart';
 import '../../../../app/utilites/screen_sizes.dart';
+import '../../../../core/providers/user/user_service_provider.dart';
 import '../../../../core/widgets/empty_indicator.dart';
-import '../../../../core/widgets/noconnection_indicator.dart';
 import '../../../../core/widgets/orders_notLogged.dart';
-import '../../../../services/connectivity_service.dart';
 import '../../../stores/domain/entites/store.dart';
 import '../viewmodels/orders_viewmodel.dart';
 import '../widgets/order_item.dart';
@@ -33,17 +31,13 @@ class OrdersScreen extends StatelessWidget {
           fireOnModelReadyOnce: true,
           disposeViewModel: false,
           builder: (context, model, _) {
-            if (!context.watch<ProfileService>().isLoggedOn) {
+            if (!context.watch<UserServiceProvider>().isLoggedOn) {
               return const OrdersNotLoggedIndicator();
             }
             if (model.isBusy) {
               return const Center(
                 child: CircularProgressIndicator.adaptive(),
               );
-            }
-
-            if (!context.watch<ConnectivityService>().isConnected) {
-              return NoConnection(handleRetry: () => model.getOrders());
             }
 
             if (model.orders.isEmpty) {

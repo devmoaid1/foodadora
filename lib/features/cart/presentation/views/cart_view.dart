@@ -7,7 +7,7 @@ import 'package:foodadora/app/constants/assets.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/utilites/format_price.dart';
 
-import 'package:foodadora/services/cart_Service.dart';
+import 'package:foodadora/core/providers/cart/cart_Service.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -19,8 +19,6 @@ import '../../../../app/utilites/enums.dart';
 import '../../../../app/utilites/screen_sizes.dart';
 import '../../../../core/widgets/empty_indicator.dart';
 import '../../../../core/widgets/foodadora_button.dart';
-import '../../../../core/widgets/noconnection_indicator.dart';
-import '../../../../services/connectivity_service.dart';
 
 import '../../../store_details/domain/entities/product.dart';
 import '../viewmodels/cart_viewmodel.dart';
@@ -48,10 +46,6 @@ class CartScreen extends StatelessWidget {
               if (model.isEmpty ||
                   context.watch<CartService>().cartLength == 0) {
                 return const EmptyIndicator(widgetType: WidgetType.cart);
-              }
-
-              if (!context.watch<ConnectivityService>().isConnected) {
-                return const NoConnection();
               }
 
               return SingleChildScrollView(

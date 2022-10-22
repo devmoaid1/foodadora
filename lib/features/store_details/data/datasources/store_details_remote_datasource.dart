@@ -1,7 +1,7 @@
 import 'package:foodadora/core/api/endpoints.dart';
 
 import '../../../../core/api/firebase_api_provider.dart';
-import '../../../../services/base_service.dart';
+import '../../../../core/providers/base_service.dart';
 import '../../domain/entities/product.dart';
 import '../models/product_model.dart';
 

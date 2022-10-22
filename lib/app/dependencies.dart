@@ -4,6 +4,7 @@ import 'package:foodadora/core/api/geo_api_consumer.dart';
 import 'package:foodadora/core/api/geo_api_provider.dart';
 import 'package:foodadora/core/localstorage/local_storage_provider.dart';
 import 'package:foodadora/core/localstorage/shared_prefrences_consumer.dart';
+import 'package:foodadora/core/providers/cart/cart_local_data_service.dart';
 import 'package:foodadora/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:foodadora/features/auth/data/repositories/basic_auth_repo_impl.dart';
 import 'package:foodadora/features/auth/data/repositories/social_auth_repo_impl.dart';
@@ -42,10 +43,10 @@ import 'package:foodadora/features/stores/domain/repositories/stores_repository.
 
 import 'package:foodadora/features/stores/domain/usecases/get_stores_usecase.dart';
 import 'package:foodadora/features/stores/domain/usecases/open_location_settings_usecase.dart';
-import 'package:foodadora/services/base_service.dart';
-import 'package:foodadora/services/cart_Service.dart';
-import 'package:foodadora/services/connectivity_service.dart';
-import 'package:foodadora/services/profile_service.dart';
+import 'package:foodadora/core/providers/base_service.dart';
+import 'package:foodadora/core/providers/cart/cart_Service.dart';
+import 'package:foodadora/core/providers/connectivity/connectivity_service.dart';
+import 'package:foodadora/core/providers/user/user_service_provider.dart';
 
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 
@@ -72,9 +73,9 @@ import '../features/store_details/domain/usecases/get_store_products_usecase.dar
 import '../features/store_details/presentation/viewmodels/store_details_viewmodel.dart';
 import '../features/stores/domain/usecases/get_store_usecase.dart';
 import '../features/stores/presentation/viewmodels/stores_viewModel.dart';
-import '../services/auth_Service.dart';
-import '../services/location_service.dart';
-import '../services/product_service.dart';
+
+import '../core/providers/location_service.dart';
+
 import 'foodadora/foodadora_viewModel.dart';
 
 Future<void> setUpDedpendencies() async {
@@ -232,10 +233,7 @@ Future<void> setUpDedpendencies() async {
       fenix: true);
 
   Get.lazyPut(() => SettingsViewModel(), fenix: true);
-  Get.lazyPut(
-      () => ProfileViewModel(
-          getCurrentCustomerUseCase: Get.find(), logoutUseCase: Get.find()),
-      fenix: true);
+  Get.lazyPut(() => ProfileViewModel(logoutUseCase: Get.find()), fenix: true);
   Get.lazyPut(
       () => ProductDetailsViewModel(
           addItemToCartUseCase: Get.find(),
@@ -255,16 +253,15 @@ Future<void> setUpDedpendencies() async {
 
   // services
 
+  Get.lazyPut<CartLocalDataService>(
+      () => CartLocalDataServiceImpl(localStorageProvider: Get.find()));
   Get.lazyPut(() => NavigationService());
-  // Get.put(DialogService());
-  Get.lazyPut(() => AuthService());
 
-  Get.lazyPut(() => ProductService());
   Get.lazyPut(() => LocationService());
   Get.lazyPut(() => ConnectivityService());
 
   // providers
-  Get.lazyPut(() => ProfileService());
+  Get.lazyPut(() => UserServiceProvider(firebaseApiProvider: Get.find()));
   Get.lazyPut(() => ConnectivityService());
-  Get.lazyPut(() => CartService(localStorageProvider: Get.find()));
+  Get.lazyPut(() => CartService(cartLocalDataService: Get.find()));
 }

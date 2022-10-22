@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/core/api/firebase_api_provider.dart';
-import 'package:foodadora/services/base_service.dart';
+import 'package:foodadora/core/providers/base_service.dart';
 
 class FirebaseApiConsumer extends BaseService implements FirebaseApiProvider {
   @override

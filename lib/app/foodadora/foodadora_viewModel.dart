@@ -15,13 +15,13 @@ class FoodadoraViewModel extends BaseViewModel {
       connectivityService.handleStatus(result);
     });
 
-    _authStateSubscription = authService.authState.listen((user) {
+    _authStateSubscription = userService.authState.listen((user) {
       // user logged in
       if (user != null) {
         print("user exist or logged in ");
-        profileService.getCurrentCustomer(); // get customer if there is user
+        userService.getCurrentCustomer(); // get customer if there is user
       } else {
-        profileService.setIsLoggedOn(
+        userService.setIsLoggedOn(
             false); // set is logged to false if there isn`t any user
         print("user logged out");
       }

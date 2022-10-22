@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:foodadora/features/product_details/data/datasources/product_details_localdatasource.dart';
 import 'package:foodadora/features/product_details/domain/repositories/product_details_repository.dart';
 import 'package:foodadora/features/store_details/domain/entities/product.dart';
-import 'package:foodadora/services/cart_Service.dart';
+import 'package:foodadora/core/providers/cart/cart_Service.dart';
 
 class ProductDetailsRepositoryImpl implements ProductDetailsRepository {
   final ProductDetailsLocalDataSource productDetailsLocalDataSource;

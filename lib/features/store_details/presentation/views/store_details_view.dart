@@ -16,7 +16,7 @@ import '../../../../app/utilites/screen_sizes.dart';
 import '../../../../core/widgets/foodadora_app_bar.dart';
 import '../../../../core/widgets/noconnection_indicator.dart';
 import '../../../../core/widgets/pressable.dart';
-import '../../../../services/connectivity_service.dart';
+import '../../../../core/providers/connectivity/connectivity_service.dart';
 
 import '../../../stores/domain/entites/store.dart';
 import '../viewmodels/store_details_viewmodel.dart';

@@ -1,6 +1,6 @@
 import 'package:foodadora/core/api/endpoints.dart';
 import 'package:foodadora/core/api/firebase_api_provider.dart';
-import 'package:foodadora/services/base_service.dart';
+import 'package:foodadora/core/providers/base_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../auth/data/models/customer_model.dart';

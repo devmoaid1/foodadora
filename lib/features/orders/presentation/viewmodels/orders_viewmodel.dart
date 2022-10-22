@@ -25,7 +25,7 @@ class OrdersViewModel extends AppViewModel {
       {required this.getCustomerOrdersUsecase,
       required this.getStoreByIdUseCase});
 
-  Customer? get customerProfile => profileService.currentCustomer;
+  Customer? get customerProfile => userService.currentCustomer;
 
   List<Store> get stores => _stores;
   List<OrderEntity> get orders => _orders;
@@ -39,8 +39,7 @@ class OrdersViewModel extends AppViewModel {
   void getOrders() async {
     setBusy(true);
 
-    final customerId =
-        profileService.currentCustomer?.userId; // get customer id
+    final customerId = userService.currentCustomer?.userId; // get customer id
 
     if (customerId != null) {
       final response = await getCustomerOrdersUsecase(
@@ -76,28 +75,5 @@ class OrdersViewModel extends AppViewModel {
     }
 
     setBusy(false);
-    // if (customerId != null) {
-    //   print(customerId);
-
-    //   _orders = await ordersService.getOrdersForCustomer(
-    //       customerId: customerId.toString());
-    //   if (_orders.isNotEmpty) {
-    //     _orders.forEach(
-    //       (element) async {
-    //         var store = await storeService
-    //             .getStoreById(element.products![0].storeId.toString());
-    //         _stores.add(store as Store);
-    //         notifyListeners();
-    //       },
-    //     );
-    //   }
-    // }
-    // setBusy(false);
-    // setLoading(false);
-    // } catch (err) {
-    //   logger.e(err.toString());
-    //   setBusy(false);
-    //   setLoading(false);
-    // }
   }
 }

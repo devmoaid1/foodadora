@@ -13,20 +13,20 @@ import '../../features/orders/presentation/viewmodels/orders_viewmodel.dart';
 import '../../features/product_details/presentation/viewmodels/product_details_viewmodel.dart';
 import '../../features/settings/presentation/viewmodels/settings_viewmodel.dart';
 import '../../features/stores/presentation/viewmodels/stores_viewModel.dart';
-import '../../services/auth_Service.dart';
-import '../../services/cart_Service.dart';
-import '../../services/connectivity_service.dart';
-import '../../services/location_service.dart';
-import '../../services/product_service.dart';
-import '../../services/profile_service.dart';
+
+import '../../core/providers/cart/cart_Service.dart';
+import '../../core/providers/connectivity/connectivity_service.dart';
+import '../../core/providers/location_service.dart';
+
+import '../../core/providers/user/user_service_provider.dart';
 
 final navigationService = Get.find<NavigationService>();
 final dialogService = locator<DialogService>();
-final authService = Get.find<AuthService>();
-final profileService = Get.find<ProfileService>();
+
+final userService = Get.find<UserServiceProvider>();
 
 final cartService = Get.find<CartService>();
-final productService = Get.find<ProductService>();
+
 final locationService = Get.find<LocationService>();
 final connectivityService = Get.find<ConnectivityService>();
 

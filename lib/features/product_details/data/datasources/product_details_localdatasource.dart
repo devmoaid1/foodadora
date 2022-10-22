@@ -1,4 +1,4 @@
-import 'package:foodadora/services/cart_Service.dart';
+import 'package:foodadora/core/providers/cart/cart_local_data_service.dart';
 
 import '../../../cart/data/models/cart.dart';
 
@@ -8,12 +8,12 @@ abstract class ProductDetailsLocalDataSource {
 
 class ProductDetailsLocalDataSourceImpl
     implements ProductDetailsLocalDataSource {
-  final CartService cartService;
+  final CartLocalDataService cartService;
 
   ProductDetailsLocalDataSourceImpl({required this.cartService});
 
   @override
   Future<Cart> getCartFromLocalStorage() async {
-    return await cartService.getCartFromLocalStorage();
+    return await cartService.getCartFromLocal();
   }
 }

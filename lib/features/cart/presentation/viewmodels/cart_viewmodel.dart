@@ -142,7 +142,7 @@ class CartViewModel extends BaseViewModel {
     String storeId = '';
 
     // if user is not logged in
-    if (!profileService.isLoggedOn) {
+    if (!userService.isLoggedOn) {
       final response = await dialogService.showCustomDialog(
           variant: DialogType.basic,
           title: "You are not Logged on",
@@ -195,7 +195,7 @@ class CartViewModel extends BaseViewModel {
       // create order
 
       OrderModel order = OrderModel(
-        customerId: profileService.currentCustomer!.userId,
+        customerId: userService.currentCustomer!.userId,
         orderDate: DateTime.now(),
         products: orderItems,
         status: 'Pending',
@@ -217,50 +217,6 @@ class CartViewModel extends BaseViewModel {
             mainButtonTitle: "Ok");
       });
     }
-
-    // try {
-    //   if (!profileService.isLoggedOn) {
-    //     final response = await dialogService.showCustomDialog(
-    //         variant: DialogType.basic,
-    //         title: "You are not Logged on",
-    //         mainButtonTitle: "login/SignUp");
-
-    //     if (response!.confirmed) {
-    //       navigationService.replaceWith(Routes.loginView);
-    //     }
-    //   } else {
-    //     // add items in cart to order list products
-    //     for (var product in cartService.originalProducts) {
-    //       for (var orderProduct in orderProducts) {
-    //         storeId = product.storeId.toString();
-    //         orderItems.add(orderProduct); // add item
-    //         if (orderProduct.quantity == product.quantity) {
-    //           // set product availability to false
-    //           productService.setProductAvalability(
-    //               isAvailiable: false, productId: product.productId.toString());
-    //         }
-    //       }
-    //     }
-
-    //     Order order = Order(
-    //       customerId: profileService.currentCustomer!.userId,
-    //       orderDate: DateTime.now(),
-    //       products: orderItems as List<ProductModel>,
-    //       status: 'Pending',
-    //       storeId: storeId,
-    //       totalPrice: total,
-    //     );
-
-    //     ordersService.createOrder(order: order);
-
-    //     dialogService.showCustomDialog(
-    //         variant: DialogType.basic,
-    //         title: "Order created successfully",
-    //         mainButtonTitle: "Ok");
-    //   }
-    // } catch (err) {
-    //   logger.e(err);
-    // }
   }
 
   void _mapErrorToDialog(String err) {

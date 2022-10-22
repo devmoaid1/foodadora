@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../../../app/utilites/app_colors.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../services/cart_Service.dart';
+import '../../../core/providers/cart/cart_Service.dart';
 import '../home_navigation_viewmodel.dart';
 import 'nav_icon.dart';
 

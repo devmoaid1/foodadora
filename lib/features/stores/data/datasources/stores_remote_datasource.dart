@@ -8,7 +8,7 @@ import 'package:foodadora/features/stores/data/models/storemodel.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:geolocator/geolocator.dart';
 
-import '../../../../services/base_service.dart';
+import '../../../../core/providers/base_service.dart';
 import '../../../store_details/domain/entities/product.dart';
 import '../../domain/entites/store.dart';
 

@@ -78,7 +78,7 @@ class SignUpViewModel extends AppViewModel {
     }, (result) {
       setBusy(false);
       setLoading(true);
-      profileService.setIsLoggedOn(true);
+      userService.setIsLoggedOn(true);
       homeNavigationViewModel.notifyListeners();
       settingsViewModel.notifyListeners();
 
@@ -86,26 +86,5 @@ class SignUpViewModel extends AppViewModel {
       dialogService.showCustomDialog(
           variant: DialogType.basic, title: "success !", mainButtonTitle: "ok");
     });
-
-    // try {
-    //   await authService.addCustomerToFirebase(
-    //       id: id, email: email, name: name, phone: phone, photoUrl: url);
-    //   setBusy(false);
-    //   setLoading(true);
-    //   profileService.setIsLoggedOn(true);
-    //   homeNavigationViewModel.notifyListeners();
-    //   settingsViewModel.notifyListeners();
-
-    //   navigationService.popUntil((route) => route.isFirst);
-    //   dialogService.showCustomDialog(
-    //       variant: DialogType.basic, title: "success !", mainButtonTitle: "ok");
-    // } catch (err) {
-    //   setLoading(false);
-    //   logger.e(err.toString());
-    //   dialogService.showCustomDialog(
-    //       variant: DialogType.basic,
-    //       title: "something went wrong",
-    //       mainButtonTitle: "ok");
-    // }
   }
 }

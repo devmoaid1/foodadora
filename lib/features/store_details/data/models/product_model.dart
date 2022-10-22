@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:foodadora/features/store_details/domain/entities/product.dart';
-import 'package:foodadora/models/utilities/dateTime_converters.dart';
+import 'package:foodadora/core/utilities/dateTime_converters.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'product_model.g.dart';

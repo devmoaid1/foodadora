@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
+import 'package:foodadora/core/widgets/internet_connection_wrapper.dart';
 
 import 'package:stacked/stacked.dart';
 
@@ -49,15 +50,15 @@ class HomeNavigationView extends StatelessWidget {
   Widget getView(int index) {
     switch (index) {
       case 0:
-        return const StoresScreen();
+        return const InternetConnectionWrapper(screen: StoresScreen());
       case 1:
-        return CartScreen();
+        return InternetConnectionWrapper(screen: CartScreen());
       case 2:
-        return const OrdersScreen();
+        return const InternetConnectionWrapper(screen: OrdersScreen());
       case 3:
-        return SettingsView();
+        return InternetConnectionWrapper(screen: SettingsView());
       default:
-        return const StoresScreen();
+        return const InternetConnectionWrapper(screen: StoresScreen());
     }
   }
 }

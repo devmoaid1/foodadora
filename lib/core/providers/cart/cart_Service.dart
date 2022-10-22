@@ -1,29 +1,24 @@
 // ignore_for_file: file_names, prefer_final_fields, avoid_function_literals_in_foreach_calls, avoid_print, unnecessary_null_comparison
 
-import 'package:flutter/cupertino.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/core/api/endpoints.dart';
-import 'package:foodadora/core/localstorage/local_storage_provider.dart';
+import 'package:foodadora/core/providers/cart/cart_local_data_service.dart';
 import 'package:foodadora/features/store_details/data/models/product_model.dart';
 
-import 'package:foodadora/services/base_service.dart';
+import 'package:foodadora/core/providers/base_service.dart';
 
 import 'package:rxdart/rxdart.dart';
 
-import '../app/utilites/custom_modals.dart';
-import '../features/cart/data/models/cart.dart';
-import '../features/cart/data/models/cartItem.dart';
-import '../features/store_details/domain/entities/product.dart';
+import '../../../app/utilites/custom_modals.dart';
+import '../../../features/cart/data/models/cart.dart';
+import '../../../features/cart/data/models/cartItem.dart';
+import '../../../features/store_details/domain/entities/product.dart';
 
-class CartService extends BaseService with ChangeNotifier {
-  final LocalStorageProvider localStorageProvider;
-
-  // LocalStorageService localStorage = LocalStorageService();
+class CartService extends BaseService {
+  final CartLocalDataService cartLocalDataService;
 
   BehaviorSubject<List<Product>> _cartItems =
       BehaviorSubject(); //cartItems stream
-
-  // BehaviorSubject<double> _totalController = BehaviorSubject.seeded(0);
 
   double _subTotal = 0;
 
@@ -40,20 +35,11 @@ class CartService extends BaseService with ChangeNotifier {
   Stream<List<Product>> get cartItems => _cartItems.stream;
   // Stream<double> get totalController => _totalController.stream;
 
-  CartService({required this.localStorageProvider});
-
-  Future<Cart> getCartFromLocalStorage() async {
-    final cartLocalStorage = localStorageProvider.getData(key: 'cart');
-    // return if there is data in local storage otherwise empty cart
-    if (cartLocalStorage != null) {
-      return Cart.fromJson(cartLocalStorage as Map<String, dynamic>);
-    }
-
-    return Cart(storeId: "", cartItems: []);
-  }
+  CartService({required this.cartLocalDataService});
 
   Future<Cart> fetchCartItems() async {
-    var cart = await getCartFromLocalStorage(); // get cart from local storage
+    var cart = await cartLocalDataService
+        .getCartFromLocal(); // get cart from local storage
     var cartItems = cart.cartItems;
 
     List<Product> products = [];
@@ -89,7 +75,7 @@ class CartService extends BaseService with ChangeNotifier {
   }
 
   void addItem({required Product product, required int quantity}) async {
-    var cart = await getCartFromLocalStorage();
+    var cart = await cartLocalDataService.getCartFromLocal();
     var items = cart.cartItems!;
 
     List<CartItem> list = items;
@@ -121,10 +107,10 @@ class CartService extends BaseService with ChangeNotifier {
   void _addToSameStore(List<CartItem> list, Product product, int quantity) {
     list.add(CartItem(
         productId: product.productId, quantity: quantity)); // add to cart list
-    localStorageProvider.setData(
-        key: 'cart',
-        data: Cart(storeId: product.storeId, cartItems: list)
-            .toJson()); // update to local storage
+
+    cartLocalDataService.updateCartFromLocal(
+        data: Cart(storeId: product.storeId, cartItems: list).toJson());
+    // update to local storage
 
     productDetailsViewModel.setIsAddToCart(true);
     navigationService.popUntil((route) => route.isFirst);
@@ -141,18 +127,15 @@ class CartService extends BaseService with ChangeNotifier {
         mainButtonTitle: "Remove");
 
     if (response!.confirmed) {
-      localStorageProvider.setData(
-          key: 'cart',
-          data:
-              Cart(storeId: "", cartItems: []).toJson()); // clear local storage
+      cartLocalDataService.clearCartFromLocal();
+      // clear local storage
 
       items.clear();
       items.add(CartItem(
           productId: product.productId, quantity: quantity)); // add product
-      localStorageProvider.setData(
-          key: 'cart',
-          data: Cart(storeId: product.storeId, cartItems: items)
-              .toJson()); // add product in local storage
+      cartLocalDataService.updateCartFromLocal(
+          data: Cart(storeId: product.storeId, cartItems: items).toJson());
+      // add product in local storage
       productDetailsViewModel.setIsAddToCart(true);
       navigationService.popUntil((route) => route.isFirst);
       homeNavigationViewModel.setIndex(1);
@@ -166,8 +149,7 @@ class CartService extends BaseService with ChangeNotifier {
   void _addToEmptyCart(
       List<CartItem> items, Product product, int quantity) async {
     items.add(CartItem(productId: product.productId, quantity: quantity));
-    localStorageProvider.setData(
-        key: 'cart',
+    cartLocalDataService.updateCartFromLocal(
         data: Cart(storeId: product.storeId, cartItems: items).toJson());
 
     productDetailsViewModel.setIsAddToCart(true);
@@ -176,7 +158,7 @@ class CartService extends BaseService with ChangeNotifier {
   }
 
   Future<bool> deleteItem({required Product product}) async {
-    var cart = await getCartFromLocalStorage();
+    var cart = await cartLocalDataService.getCartFromLocal();
     var cartItems = cart.cartItems!;
 
     List<CartItem> list = List.from(cartItems);
@@ -195,9 +177,8 @@ class CartService extends BaseService with ChangeNotifier {
 
       _cartItems.sink.add(_products); // sync new list to ui
 
-      localStorageProvider.setData(
-          key: 'cart',
-          data: Cart(storeId: cart.storeId, cartItems: list)
+      cartLocalDataService.updateCartFromLocal(
+          data: Cart(storeId: product.storeId, cartItems: list)
               .toJson()); // update local storage with updated cart items
     }
 
@@ -209,7 +190,7 @@ class CartService extends BaseService with ChangeNotifier {
   }
 
   void incrementQuantity(Product product, int stock) async {
-    var cart = await getCartFromLocalStorage();
+    var cart = await cartLocalDataService.getCartFromLocal();
     var cartItems = cart.cartItems!;
 
     for (var item in _products) {
@@ -223,7 +204,7 @@ class CartService extends BaseService with ChangeNotifier {
             for (var cartItem in cartItems) {
               if (cartItem.productId == product.productId) {
                 cartItem.quantity = product.quantity;
-                localStorageProvider.setData(key: 'cart', data: cart.toJson());
+                cartLocalDataService.updateCartFromLocal(data: cart.toJson());
               }
             }
           }
@@ -239,7 +220,7 @@ class CartService extends BaseService with ChangeNotifier {
 
   void decrementQuantity(Product product) async {
     // get latest local storage value
-    var cart = await getCartFromLocalStorage();
+    var cart = await cartLocalDataService.getCartFromLocal();
     var cartItems = cart.cartItems;
 
     for (var item in _products) {
@@ -253,7 +234,7 @@ class CartService extends BaseService with ChangeNotifier {
             for (var cartItem in cartItems) {
               if (cartItem.productId == product.productId) {
                 cartItem.quantity = product.quantity;
-                localStorageProvider.setData(key: 'cart', data: cart.toJson());
+                cartLocalDataService.updateCartFromLocal(data: cart.toJson());
               }
             }
           }

@@ -5,9 +5,9 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:foodadora/app/app.router.dart';
 import 'package:foodadora/app/constants/services_instances.dart';
 
-import 'package:foodadora/services/cart_Service.dart';
-import 'package:foodadora/services/connectivity_service.dart';
-import 'package:foodadora/services/profile_service.dart';
+import 'package:foodadora/core/providers/cart/cart_Service.dart';
+import 'package:foodadora/core/providers/connectivity/connectivity_service.dart';
+import 'package:foodadora/core/providers/user/user_service_provider.dart';
 
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
@@ -40,8 +40,8 @@ class FoodadoraApp extends StatelessWidget {
                 create: (context) => connectivityService),
             ChangeNotifierProvider<CartService>(
                 create: (context) => cartService),
-            ChangeNotifierProvider<ProfileService>(
-                create: (context) => profileService),
+            ChangeNotifierProvider<UserServiceProvider>(
+                create: (context) => userService),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

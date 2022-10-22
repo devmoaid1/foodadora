@@ -5,7 +5,7 @@ import 'package:foodadora/features/store_details/data/models/product_model.dart'
 
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../../models/utilities/dateTime_converters.dart';
+import '../../../../core/utilities/dateTime_converters.dart';
 import '../../domain/entities/order.dart';
 
 part 'order_model.g.dart';

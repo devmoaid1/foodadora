@@ -8,7 +8,7 @@ import 'package:foodadora/features/orders/data/models/order_model.dart';
 import 'package:foodadora/features/orders/domain/repositories/orders_repository.dart';
 
 import '../../../../app/constants/services_instances.dart';
-import '../../../../models/utilities/dateTime_converters.dart';
+import '../../../../core/utilities/dateTime_converters.dart';
 import '../../../store_details/data/models/product_model.dart';
 
 class OrdersRepositoryImpl implements OrdersRepository {

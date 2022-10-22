@@ -5,15 +5,13 @@ import 'package:foodadora/app/constants/services_instances.dart';
 import 'package:foodadora/app/constants/version.dart';
 import 'package:foodadora/app/utilites/app_colors.dart';
 import 'package:foodadora/app/utilites/screen_sizes.dart';
-import 'package:foodadora/services/profile_service.dart';
+import 'package:foodadora/core/providers/user/user_service_provider.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../../core/widgets/foodadora_button.dart';
-import '../../../../core/widgets/noconnection_indicator.dart';
-import '../../../../services/connectivity_service.dart';
 import '../../../select_language/language_code_name_map.dart';
 import '../viewmodels/settings_viewmodel.dart';
 import '../widgets/settings_row.dart';
@@ -25,9 +23,6 @@ class SettingsView extends StatelessWidget {
         viewModelBuilder: () => settingsViewModel,
         disposeViewModel: false,
         builder: (context, model, child) {
-          if (!context.watch<ConnectivityService>().isConnected) {
-            return const NoConnection();
-          }
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,7 +30,7 @@ class SettingsView extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  context.watch<ProfileService>().isLoggedOn
+                  context.watch<UserServiceProvider>().isLoggedOn
                       ? SettingsRow(
                           iconPath: Assets.usericon,
                           actionTitle: translate("settings.view_profile"),
