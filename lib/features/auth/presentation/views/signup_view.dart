@@ -31,7 +31,7 @@ class SignUpView extends StatelessWidget {
             inAsyncCall: model.loadingState,
             progressIndicator: const CircularProgressIndicator(),
             child: Scaffold(
-                appBar: foodadoraAppBar(context, withBack: true),
+                appBar: const FoodadoraAppBar(isWithBack: true),
                 body: SafeArea(
                   child: SingleChildScrollView(
                     child: Padding(

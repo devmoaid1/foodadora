@@ -34,7 +34,7 @@ class StoreDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: foodadoraAppBar(context, withBack: true),
+      appBar: const FoodadoraAppBar(isWithBack: true),
       body: ViewModelBuilder<StoreDetailsViewModel>.reactive(
           viewModelBuilder: () => Get.find<StoreDetailsViewModel>(),
           fireOnModelReadyOnce: true,

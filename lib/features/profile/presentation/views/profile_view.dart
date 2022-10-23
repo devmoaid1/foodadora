@@ -32,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: foodadoraAppBar(context, withBack: true),
+      appBar: const FoodadoraAppBar(isWithBack: true),
       body: ViewModelBuilder<ProfileViewModel>.nonReactive(
         viewModelBuilder: () => Get.find<ProfileViewModel>(),
         builder: (context, model, child) {

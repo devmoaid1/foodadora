@@ -20,7 +20,7 @@ class SelectLanguageView extends StatelessWidget {
 
     List<Locale> supportedLocales = localizationDelegate.supportedLocales;
     return Scaffold(
-      appBar: foodadoraAppBar(context, withBack: true),
+      appBar: const FoodadoraAppBar(isWithBack: true),
       body: ViewModelBuilder<SelectLanguageViewModel>.nonReactive(
         fireOnModelReadyOnce: true,
         viewModelBuilder: () => SelectLanguageViewModel(),

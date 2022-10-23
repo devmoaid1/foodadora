@@ -25,7 +25,7 @@ class HomeNavigationView extends StatelessWidget {
         builder: (context, model, child) {
           return Scaffold(
             backgroundColor: scaffoldColor,
-            appBar: foodadoraAppBar(context),
+            appBar: const FoodadoraAppBar(),
             body: Padding(
               padding: const EdgeInsets.all(12.0),
               child: PageTransitionSwitcher(

@@ -20,7 +20,7 @@ class LoginView extends StatelessWidget {
           viewModelBuilder: () => Get.find<LoginViewModel>(),
           disposeViewModel: false,
           builder: (context, model, child) => Scaffold(
-                appBar: foodadoraAppBar(context, withBack: true),
+                appBar: const FoodadoraAppBar(isWithBack: true),
                 body: LoginViewBody(formKey: _formKey),
               )),
     );

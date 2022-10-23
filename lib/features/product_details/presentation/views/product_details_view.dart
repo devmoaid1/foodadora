@@ -36,7 +36,7 @@ class ProductDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: foodadoraAppBar(context, withBack: true),
+      appBar: const FoodadoraAppBar(isWithBack: true),
       body: ViewModelBuilder<ProductDetailsViewModel>.reactive(
           disposeViewModel: false,
           onModelReady: (model) => model.init(product),

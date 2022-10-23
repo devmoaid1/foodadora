@@ -26,7 +26,7 @@ class OrderDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: foodadoraAppBar(context, withBack: true),
+      appBar: const FoodadoraAppBar(isWithBack: true),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
