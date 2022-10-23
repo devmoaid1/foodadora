@@ -134,9 +134,10 @@ class ProductDetailsViewModel extends BaseViewModel {
       logger.e(failure.message);
     }, (isConfirmed) {
       if (isConfirmed) {
-        _isAddToCart = true;
+        _isAddToCart = false;
       }
-      notifyListeners();
     });
+
+    notifyListeners();
   }
 }
